@@ -23,6 +23,9 @@ build:
     # Convert the 'solution' table to JSON
     - sqlite3 -json album_catalog_index.db "SELECT name, title, description FROM solution;" > data/solutions.json
 
+    # Download and set up the ananke theme
+    - git clone https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
+
     # Run Hugo to build the static site
     - hugo
   artifacts:
