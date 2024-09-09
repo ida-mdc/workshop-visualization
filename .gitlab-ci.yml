@@ -20,8 +20,8 @@ build:
     # Download the SQLite database
     - wget https://gitlab.com/album-app/catalogs/default/-/raw/main/album_catalog_index.db?ref_type=heads -O album_catalog_index.db
 
-    # Convert the solutions table to JSON (replace 'solutions' with your actual table name)
-    - sqlite3 -json album_catalog_index.db "SELECT * FROM solutions;" > data/solutions.json
+    # Convert the 'solution' table to JSON
+    - sqlite3 -json album_catalog_index.db "SELECT name, title, description FROM solution;" > data/solutions.json
 
     # Run Hugo to build the static site
     - hugo
