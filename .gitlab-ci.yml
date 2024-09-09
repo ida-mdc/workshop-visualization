@@ -14,6 +14,9 @@ before_script:
 build:
   stage: build
   script:
+    # Create the data directory
+    - mkdir -p data
+
     # Download the SQLite database
     - wget https://gitlab.com/album-app/catalogs/default/-/raw/main/album_catalog_index.db?ref_type=heads -O album_catalog_index.db
 
