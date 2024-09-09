@@ -1,4 +1,3 @@
 baseURL = "https://ida-mdc.gitlab.io/workshops/3d-data-visualization"
 languageCode = "en-us"
 title = "3D Data Visualization Workshop"
-theme = "ananke"

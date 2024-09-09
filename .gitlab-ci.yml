@@ -19,7 +19,6 @@ build:
   artifacts:
     paths:
       - public
-      - themes/ananke
 
 pages:
   stage: deploy
