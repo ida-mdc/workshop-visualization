@@ -1,3 +1,20 @@
 {{ define "main" }}
-<p>Here we will list workshop content.</p>
+  <!-- Scroll Content (default) -->
+  <div id="scroll-content">
+    <a href="?view=slides" class="toggle-view">View as Slides</a>
+    {{ partial "scroll.html" . }}
+    <!-- Button to switch to slides view -->
+  </div>
+
+  <!-- Slides Content (hidden by default) -->
+  <div class="reveal" id="slides-content" style="display: none;">
+    <div class="reveal-header">
+      <a href="?view=scroll" class="toggle-view">Exit slides</a>
+      <img src="img/icon.png"/>
+    </div>
+    {{ partial "slides.html" . }}
+    <div class="reveal-footer">
+      <span>2024</span> | <span><b>HELMHOLTZ IMAGING</b></span> |
+    </div>
+  </div>
 {{ end }}

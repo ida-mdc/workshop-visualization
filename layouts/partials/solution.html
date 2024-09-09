@@ -1,0 +1,71 @@
+<div class="solution-box">
+  <!-- Display the name and description -->
+  <strong>{{ .name }}</strong>
+  <p>{{ .description }}</p>
+
+  <!-- Show/Hide button -->
+  <div class="toggle-button" onclick="toggleMetadata('{{ .name | urlize }}')">
+    Show More
+  </div>
+
+  <!-- Metadata (Initially Hidden) -->
+  <div id="metadata-{{ .name | urlize }}" class="solution-metadata" style="display: none;">
+    <ul>
+      <li><strong>Group:</strong> {{ .group }}</li>
+      <li><strong>Version:</strong> {{ .version }}</li>
+      <li><strong>DOI:</strong> {{ .doi }}</li>
+      <li><strong>License:</strong> {{ .license }}</li>
+      <li><strong>Album Version:</strong> {{ .album_version }}</li>
+      <li><strong>Album API Version:</strong> {{ .album_api_version }}</li>
+      <li><strong>Changelog:</strong> {{ .changelog }}</li>
+      <li><strong>Acknowledgement:</strong> {{ .acknowledgement }}</li>
+
+      <!-- Authors -->
+      {{ if .authors }}
+        <li><strong>Authors:</strong> {{ delimit .authors ", " }}</li>
+      {{ else }}
+        <li><strong>Authors:</strong> None</li>
+      {{ end }}
+
+      <!-- Arguments -->
+      {{ if .arguments }}
+        <li><strong>Arguments:</strong>
+          <ul>
+            {{ range .arguments }}
+              <li>{{ .name }} ({{ .type }}): {{ .description }} [Default: {{ .default_value }}] [Required: {{ if .required }}Yes{{ else }}No{{ end }}]</li>
+            {{ end }}
+          </ul>
+        </li>
+      {{ else }}
+        <li><strong>Arguments:</strong> None</li>
+      {{ end }}
+
+      <!-- Citations -->
+      {{ if .citations }}
+        <li><strong>Citations:</strong>
+          <ul>
+            {{ range .citations }}
+              <li>{{ .text }} (DOI: {{ .doi }}, URL: <a href="{{ .url }}">{{ .url }}</a>)</li>
+            {{ end }}
+          </ul>
+        </li>
+      {{ else }}
+        <li><strong>Citations:</strong> None</li>
+      {{ end }}
+
+      <!-- Documentation -->
+      {{ if .documentation }}
+        <li><strong>Documentation:</strong> {{ delimit .documentation "<br>" }}</li>
+      {{ else }}
+        <li><strong>Documentation:</strong> None</li>
+      {{ end }}
+
+      <!-- Tags -->
+      {{ if .tags }}
+        <li><strong>Tags:</strong> {{ delimit .tags ", " }}</li>
+      {{ else }}
+        <li><strong>Tags:</strong> None</li>
+      {{ end }}
+    </ul>
+  </div>
+</div>

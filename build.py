@@ -2,6 +2,7 @@ import os
 import json
 import subprocess
 import sqlite3
+from packaging.version import Version
 
 # Directories
 TEMP_DIR = "temp_repos"
@@ -139,6 +140,9 @@ def process_catalog(repo_url):
             "acknowledgement": acknowledgement,
             **related_data
         })
+
+    # Sort solutions by version using SemVer
+    solutions.sort(key=lambda s: Version(s["version"]), reverse=True)
 
     solutions_file = os.path.join(DATA_DIR, f"solutions_{catalog_name}.json")
     with open(solutions_file, "w") as f:
