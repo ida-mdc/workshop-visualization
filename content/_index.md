@@ -2,7 +2,8 @@
 title: "Home"
 date: 2024-09-09
 draft: false
-layout: "list"
+layout: workshop
 ---
 
-Welcome to the list of solutions!
+Welcome! This is the workshop. 
+

@@ -5,8 +5,8 @@ stages:
   - deploy
 
 before_script:
-  # Install sqlite3, git, and Hugo
-  - apt-get update && apt-get install -y sqlite3 wget git
+  # Install necessary dependencies
+  - apt-get update && apt-get install -y sqlite3 wget git python3
   - wget https://github.com/gohugoio/hugo/releases/download/v0.111.3/hugo_0.111.3_Linux-64bit.tar.gz -O hugo.tar.gz
   - tar -xvf hugo.tar.gz
   - mv hugo /usr/local/bin/hugo
@@ -14,32 +14,16 @@ before_script:
 build:
   stage: build
   script:
-    # Create the data directory
-    - mkdir -p data
-
-    # Download the SQLite database
-    - wget https://gitlab.com/album-app/catalogs/default/-/raw/main/album_catalog_index.db?ref_type=heads -O album_catalog_index.db
-
-    # Convert the 'solution' table to JSON
-    - sqlite3 -json album_catalog_index.db "SELECT name, title, description FROM solution;" > data/solutions.json
-
-    # Download and set up the ananke theme
-    - git clone https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
-
-    # Print the JSON content to confirm it is correct
-    - cat data/solutions.json
-
-    # Run Hugo to build the static site
-    - hugo
+    # Run the build script
+    - python3 ./build.py
   artifacts:
     paths:
       - public
-      - themes/ananke  # Include the theme as an artifact
+      - themes/ananke
 
 pages:
   stage: deploy
   script:
-    # Run Hugo to deploy the static site (theme will be available via artifacts)
     - hugo
   artifacts:
     paths:

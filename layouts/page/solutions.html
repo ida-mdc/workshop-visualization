@@ -1,0 +1,82 @@
+{{ define "main" }}
+<h1>List of Solutions from All Catalogs</h1>
+
+{{ if .Site.Data }}
+  <p>Data Loaded Successfully</p>
+  {{ $catalogs := .Site.Data.catalogs }}
+  <ul>
+    {{ range $catalogs }}
+      <li><strong>Catalog: {{ . }}</strong>
+        <ul>
+          {{ $solutions := index $.Site.Data . }}
+          {{ if $solutions }}
+            {{ range $solutions }}
+              <li>
+                <strong>{{ .group }}:{{ .name }}:{{ .version }}</strong> - {{ .title }}<br>{{ .description }}
+                <ul>
+                  <!-- Authors -->
+                  {{ if .authors }}
+                    <li><strong>Authors:</strong>
+                      {{ delimit .authors ", " }}
+                    </li>
+                  {{ else }}
+                    <li><strong>Authors:</strong> None</li>
+                  {{ end }}
+
+                  <!-- Arguments -->
+                  {{ if .arguments }}
+                    <li><strong>Arguments:</strong>
+                      <ul>
+                        {{ range .arguments }}
+                          <li>{{ .name }} ({{ .type }}): {{ .description }} [Default: {{ .default_value }}] [Required: {{ if .required }}Yes{{ else }}No{{ end }}]</li>
+                        {{ end }}
+                      </ul>
+                    </li>
+                  {{ else }}
+                    <li><strong>Arguments:</strong> None</li>
+                  {{ end }}
+
+                  <!-- Citations -->
+                  {{ if .citations }}
+                    <li><strong>Citations:</strong>
+                      <ul>
+                        {{ range .citations }}
+                          <li>{{ .text }} (DOI: {{ .doi }}, URL: <a href="{{ .url }}">{{ .url }}</a>)</li>
+                        {{ end }}
+                      </ul>
+                    </li>
+                  {{ else }}
+                    <li><strong>Citations:</strong> None</li>
+                  {{ end }}
+
+                  <!-- Documentation -->
+                  {{ if .documentation }}
+                    <li><strong>Documentation:</strong>
+                      {{ delimit .documentation "<br>" }}
+                    </li>
+                  {{ else }}
+                    <li><strong>Documentation:</strong> None</li>
+                  {{ end }}
+
+                  <!-- Tags -->
+                  {{ if .tags }}
+                    <li><strong>Tags:</strong>
+                      {{ delimit .tags ", " }}
+                    </li>
+                  {{ else }}
+                    <li><strong>Tags:</strong> None</li>
+                  {{ end }}
+                </ul>
+              </li>
+            {{ end }}
+          {{ else }}
+            <li>No solutions found for this catalog.</li>
+          {{ end }}
+        </ul>
+      </li>
+    {{ end }}
+  </ul>
+{{ else }}
+  <p>No data found in .Site.Data</p>
+{{ end }}
+{{ end }}

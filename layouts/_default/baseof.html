@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" href="/css/main.css"> <!-- Example stylesheet -->
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="{{ "/" | relURL }}">Workshop</a>
+        <a href="{{ "/solutions" | relURL }}">Solutions</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Main content will be injected here -->
+      {{ block "main" . }}{{ end }}
+    </main>
+
+    <footer>
+      <p>&copy; {{ now.Year }} Helmholtz Imaging Support Unit, Max Delbrück Center Berlin</p>
+    </footer>
+  </body>
+</html>

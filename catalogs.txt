@@ -1,0 +1,2 @@
+https://gitlab.com/album-app/catalogs/default.git
+https://gitlab.com/album-app/catalogs/image-challenges.git
