@@ -26,6 +26,9 @@ build:
     # Download and set up the ananke theme
     - git clone https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
 
+    # Print the JSON content to confirm it is correct
+    - cat data/solutions.json
+
     # Run Hugo to build the static site
     - hugo
   artifacts:
