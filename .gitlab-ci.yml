@@ -1,4 +1,4 @@
-image: ubuntu:latest
+image: python:3.8
 
 stages:
   - build
@@ -6,7 +6,6 @@ stages:
 
 before_script:
   # Install necessary dependencies
-  - apt-get update && apt-get install -y sqlite3 wget git python3
   - pip install packaging
   - wget https://github.com/gohugoio/hugo/releases/download/v0.111.3/hugo_0.111.3_Linux-64bit.tar.gz -O hugo.tar.gz
   - tar -xvf hugo.tar.gz
