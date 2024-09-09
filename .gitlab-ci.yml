@@ -5,7 +5,7 @@ stages:
   - deploy
 
 before_script:
-  # Install sqlite3 and Hugo
+  # Install sqlite3, git, and Hugo
   - apt-get update && apt-get install -y sqlite3 wget git
   - wget https://github.com/gohugoio/hugo/releases/download/v0.111.3/hugo_0.111.3_Linux-64bit.tar.gz -O hugo.tar.gz
   - tar -xvf hugo.tar.gz
@@ -31,10 +31,12 @@ build:
   artifacts:
     paths:
       - public
+      - themes/ananke  # Include the theme as an artifact
 
 pages:
   stage: deploy
   script:
+    # Run Hugo to deploy the static site (theme will be available via artifacts)
     - hugo
   artifacts:
     paths:
