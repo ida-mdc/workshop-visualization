@@ -1,0 +1,37 @@
+image: ubuntu:latest
+
+stages:
+  - build
+  - deploy
+
+before_script:
+  # Install sqlite3 and Hugo
+  - apt-get update && apt-get install -y sqlite3 wget
+  - wget https://github.com/gohugoio/hugo/releases/download/v0.111.3/hugo_0.111.3_Linux-64bit.tar.gz -O hugo.tar.gz
+  - tar -xvf hugo.tar.gz
+  - mv hugo /usr/local/bin/hugo
+
+build:
+  stage: build
+  script:
+    # Download the SQLite database
+    - wget https://gitlab.com/album-app/catalogs/default/-/raw/main/album_catalog_index.db?ref_type=heads -O album_catalog_index.db
+
+    # Convert the solutions table to JSON (replace 'solutions' with your actual table name)
+    - sqlite3 -json album_catalog_index.db "SELECT * FROM solutions;" > data/solutions.json
+
+    # Run Hugo to build the static site
+    - hugo
+  artifacts:
+    paths:
+      - public
+
+pages:
+  stage: deploy
+  script:
+    - hugo
+  artifacts:
+    paths:
+      - public
+  only:
+    - main

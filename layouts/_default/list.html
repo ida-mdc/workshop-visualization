@@ -1,0 +1,6 @@
+<h1>List of Solutions</h1>
+<ul>
+  {{ range .Site.Data.solutions }}
+    <li>{{ .name }} - {{ .description }}</li>
+  {{ end }}
+</ul>
