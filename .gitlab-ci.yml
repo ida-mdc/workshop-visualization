@@ -6,6 +6,7 @@ stages:
 
 before_script:
   # Install necessary dependencies
+  - pip install --upgrade pip
   - pip install packaging
   - wget https://github.com/gohugoio/hugo/releases/download/v0.111.3/hugo_0.111.3_Linux-64bit.tar.gz -O hugo.tar.gz
   - tar -xvf hugo.tar.gz

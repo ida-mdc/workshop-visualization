@@ -144,14 +144,17 @@ def process_catalog(repo_url):
     # Sort solutions by version using SemVer
     solutions.sort(key=lambda s: Version(s["version"]), reverse=True)
 
-    solutions_file = os.path.join(DATA_DIR, f"solutions_{catalog_name}.json")
+    solutions_file = os.path.join(DATA_DIR, f"{catalog_name}.json")
     with open(solutions_file, "w") as f:
         json.dump(solutions, f, indent=2)
 
     print(f"Solutions for {catalog_name} saved in {solutions_file}")
 
-    # Add the catalog name to the catalog list
-    catalogs.append(f"solutions_{catalog_name}")
+    # Add the catalog name and URL to the catalog list
+    catalogs.append({
+        "name": catalog_name,
+        "url": repo_url
+    })
 
     # Close the database connection
     conn.close()
@@ -166,7 +169,7 @@ os.makedirs(TEMP_DIR, exist_ok=True)
 for repo_url in repo_urls:
     process_catalog(repo_url)
 
-# Write the catalogs.json file
+# Write the catalogs.json file (store name and URL for each catalog)
 with open(CATALOGS_FILE, "w") as f:
     json.dump(catalogs, f, indent=2)
 

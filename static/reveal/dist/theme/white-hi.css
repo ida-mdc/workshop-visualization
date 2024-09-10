@@ -88,7 +88,7 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   padding-top: 20px;
 }
 
-.reveal .slides section:first-child {
+.reveal .slides > section:first-child {
     background: black;
     color: white;
     flex: 1;
@@ -112,6 +112,31 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
     align-items: flex-start;
 }
 
+.reveal .slide-background.subsection  {
+    background: #0059a0;
+}
+
+.reveal section.subsection  {
+    color: white;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.reveal .slides section > pre {
+}
+
+.reveal .slides pre code {
+    padding: 10px 20px;
+}
+
+section.subsection h1, section.subsection h2 {
+    color: white;
+    text-align: center;
+    font-size: var(--r-heading1-size);
+    margin-bottom: 150px;
+}
+
 .reveal .hidden-in-page {
     display: block;
 }
@@ -119,6 +144,28 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
 .reveal .slides section:first-child h1 {
     color: white;
 }
+
+
+.reveal:not(.has-vertical-slides) .controls .navigate-left,.reveal[data-navigation-mode=linear].has-horizontal-slides .navigate-left {
+    right: 6.4em;
+    bottom: 3.2em;
+}
+
+.reveal:not(.has-vertical-slides) .controls .navigate-right,.reveal[data-navigation-mode=linear].has-horizontal-slides .navigate-right {
+    right: 0;
+    bottom: 3.2em;
+}
+
+.reveal:not(.has-horizontal-slides) .controls .navigate-up {
+    right: 3.2em;
+    bottom: 6.4em;
+}
+
+.reveal:not(.has-horizontal-slides) .controls .navigate-down {
+    right: 3.2em;
+    bottom: -1.4em;
+}
+
 
 /*********************************************
  * HEADERS
@@ -350,8 +397,8 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
 .reveal .slide-number {
     position: absolute;
     display: block;
-    right: 45px;
-    bottom: 20px;
+    right: 0.5em;
+    bottom: 1.5em;
     z-index: 31;
     font-family: var(--r-main-font);
     font-size: 25px;
@@ -359,6 +406,12 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
     color: var(--r-main-color);
     background: transparent;
     padding: 5px;
+    width: 80px;
+    text-align: center;
+}
+
+.reveal .slide-number-delimiter {
+    margin: 0;
 }
 
 /*********************************************

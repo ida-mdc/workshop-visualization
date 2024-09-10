@@ -10,6 +10,7 @@
 
   <!-- Load the main CSS -->
   <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
+  <link rel="stylesheet" href="{{ "reveal/plugin/highlight/monokai.css" | relURL }}">
   <script>
     function toggleMetadata(id) {
       const metadata = document.getElementById('metadata-' + id);
@@ -17,11 +18,9 @@
 
       // Toggle the visibility of the metadata
       if (metadata.style.display === 'none' || metadata.style.display === '') {
-        metadata.style.display = 'block';
-        button.innerHTML = 'Show Less';
+        metadata.style.display = 'flex';
       } else {
         metadata.style.display = 'none';
-        button.innerHTML = 'Show More';
       }
     }
   </script>

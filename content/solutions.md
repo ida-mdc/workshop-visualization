@@ -5,4 +5,4 @@ draft: false
 layout: solutions
 ---
 
-Welcome to the list of solutions!
+{{< all_solutions_all_catalogs >}}

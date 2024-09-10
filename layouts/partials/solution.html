@@ -1,71 +1,53 @@
 <div class="solution-box">
-  <!-- Display the name and description -->
-  <strong>{{ .name }}</strong>
-  <p>{{ .description }}</p>
-
-  <!-- Show/Hide button -->
-  <div class="toggle-button" onclick="toggleMetadata('{{ .name | urlize }}')">
-    Show More
+  <div class="preview" onclick="toggleMetadata('{{ .name | urlize }}')">
+    <h3>{{.title}}</h3>
+    <div class="subtitle"><code>{{ .group }}:{{ .name }}:{{ .version }}</code></div>
+    <p class="description">{{ .description }}<br/>
+        <!-- Tags -->
+        {{ if .tags }}
+          <span>Tags: {{ delimit .tags ", " }}</span>
+        {{ end }}</p>
   </div>
-
   <!-- Metadata (Initially Hidden) -->
-  <div id="metadata-{{ .name | urlize }}" class="solution-metadata" style="display: none;">
-    <ul>
-      <li><strong>Group:</strong> {{ .group }}</li>
-      <li><strong>Version:</strong> {{ .version }}</li>
-      <li><strong>DOI:</strong> {{ .doi }}</li>
-      <li><strong>License:</strong> {{ .license }}</li>
-      <li><strong>Album Version:</strong> {{ .album_version }}</li>
-      <li><strong>Album API Version:</strong> {{ .album_api_version }}</li>
-      <li><strong>Changelog:</strong> {{ .changelog }}</li>
-      <li><strong>Acknowledgement:</strong> {{ .acknowledgement }}</li>
-
-      <!-- Authors -->
-      {{ if .authors }}
-        <li><strong>Authors:</strong> {{ delimit .authors ", " }}</li>
-      {{ else }}
-        <li><strong>Authors:</strong> None</li>
-      {{ end }}
-
-      <!-- Arguments -->
-      {{ if .arguments }}
-        <li><strong>Arguments:</strong>
-          <ul>
-            {{ range .arguments }}
-              <li>{{ .name }} ({{ .type }}): {{ .description }} [Default: {{ .default_value }}] [Required: {{ if .required }}Yes{{ else }}No{{ end }}]</li>
-            {{ end }}
-          </ul>
-        </li>
-      {{ else }}
-        <li><strong>Arguments:</strong> None</li>
-      {{ end }}
-
-      <!-- Citations -->
-      {{ if .citations }}
-        <li><strong>Citations:</strong>
+  <div id="metadata-{{ .name | urlize }}" class="solution-metadata">
+    <div class="solution-details">
+      <div class="close-button" onclick="toggleMetadata('{{ .name | urlize }}')">
+        Close preview
+      </div>
+      <h3>{{.title}}</h3>
+      <div class="subtitle"><code>{{ .group }}:{{ .name }}:{{ .version }}</code></div>
+      <p class="description">{{ .description }}<br/>
+          <!-- Tags -->
+          {{ if .tags }}
+            <span>Tags: {{ delimit .tags ", " }}</span>
+      {{ end }}</p>
+      <ul class="info">
+        {{ if .doi }}
+          <li><strong>DOI:</strong> {{ .doi }}</li>
+        {{ end }}
+        {{ if .license }}
+        <li><strong>License:</strong> {{ .license }}</li>
+        {{ end }}
+        {{ if .authors }}
+        <li><strong>Solution creator(s):</strong> {{ delimit .authors ", " }}</li>
+        {{ end }}
+      </ul>
+      <div class="usage">
+        <strong>Usage:</strong>
+        <pre><code class="language-python">album install {{ .group }}:{{ .name }}:{{ .version }}
+  album run {{ .group }}:{{ .name }}:{{ .version }}{{ if .arguments }}{{ range .arguments }}
+    --{{ .name }} # ({{ .type }}): {{ .description }} [Default: {{ .default_value }}] [Required: {{ if .required }}Yes{{ else }}No{{ end }}]{{ end }}{{ end }}</code></pre>
+      </div>
+      <div class="citations">
+        {{ if .citations }}
+          <p>Cite the following resources if you use this solution:</p>
           <ul>
             {{ range .citations }}
               <li>{{ .text }} (DOI: {{ .doi }}, URL: <a href="{{ .url }}">{{ .url }}</a>)</li>
             {{ end }}
           </ul>
-        </li>
-      {{ else }}
-        <li><strong>Citations:</strong> None</li>
-      {{ end }}
-
-      <!-- Documentation -->
-      {{ if .documentation }}
-        <li><strong>Documentation:</strong> {{ delimit .documentation "<br>" }}</li>
-      {{ else }}
-        <li><strong>Documentation:</strong> None</li>
-      {{ end }}
-
-      <!-- Tags -->
-      {{ if .tags }}
-        <li><strong>Tags:</strong> {{ delimit .tags ", " }}</li>
-      {{ else }}
-        <li><strong>Tags:</strong> None</li>
-      {{ end }}
-    </ul>
+        {{ end }}
+      </div>
+    </div>
   </div>
 </div>

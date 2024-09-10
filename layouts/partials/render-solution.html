@@ -8,9 +8,9 @@
 <!-- Check if the catalogs exist in the global context -->
 {{ with $global.Site.Data.catalogs }}
 
-  <!-- Loop through catalogs to find the correct one -->
+  <!-- Loop through the catalogs to find the correct one -->
   {{ range . }}
-    {{ if eq . $catalogName }}
+    {{ if eq .name $catalogName }} <!-- Access the catalog name using .name -->
       <!-- Access the solutions for the catalog -->
       {{ with index $global.Site.Data $catalogName }}
 

@@ -23,7 +23,7 @@ TODO
 
 # Featured solution
 
-{{< render_solution catalogName="solutions_image-challenges" group="visualization" solutionName="generate-example-dataset" >}}
+{{< render_solution catalogName="image-challenges" group="visualization" solutionName="generate-example-dataset" >}}
 
 This content will be displayed after the solution box.
 
