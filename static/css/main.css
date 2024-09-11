@@ -1,6 +1,7 @@
 body {
   font-family: sans-serif;
   line-height: 1.5;
+  background: #ededef;
 }
 
 a {
@@ -10,6 +11,10 @@ a {
 
 a:hover {
     color: #ff8777;
+}
+
+ul, ol {
+    margin-right: 20px;
 }
 
 li {
@@ -378,6 +383,7 @@ section .horizontal {
     padding: 20px;
     margin-left: -20px;
     margin-right: -20px;
+    margin-top: -19px;
     background-position: center center;
     display: flex;
     flex-direction: column;
@@ -410,6 +416,10 @@ section .horizontal {
     margin-bottom: 10px;
 }
 
+.scroll .repeated-heading {
+    margin-top: -9px;
+}
+
 .scroll .repeated-heading h2 {
     display: none;
 }
@@ -419,3 +429,5 @@ section .horizontal {
     align-self: stretch;
 }
 
+.scroll .notes li {
+}

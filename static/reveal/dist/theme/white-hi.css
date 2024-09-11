@@ -184,8 +184,8 @@ section.subsection h1, section.subsection h2 {
 
 .reveal h3 {
   font-size: var(--r-heading3-size);
-  margin-top: 60px;
-  margin-bottom: 60px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .reveal h4 {
@@ -236,7 +236,7 @@ section.subsection h1, section.subsection h2 {
 .reveal ul {
   display: inline-block;
   text-align: left;
-  margin: 2em 0 0 2em;
+  margin: 0.5em 1em 0 1em;
 }
 
 .reveal ul li {
