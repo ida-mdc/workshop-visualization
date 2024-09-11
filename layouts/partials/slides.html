@@ -1,7 +1,0 @@
-  <div class="slides" id="slides-container">
-    {{ range split (.Content | safeHTML) "<hr>" }}
-      <section>
-        {{ . | safeHTML }}
-      </section>
-    {{ end }}
-  </div>

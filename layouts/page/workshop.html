@@ -1,27 +1,16 @@
 {{ define "main" }}
-  <!-- Scroll Content (default) -->
-  <div id="scroll-content">
-    <a href="?view=slides" class="toggle-view">View as Slides</a>
-    <!-- Load the scroll view content from the partial -->
-    {{ partial "scroll.html" . }}
-  </div>
-
-  <!-- Slides Content (hidden by default, revealed when view=slides) -->
-  <div class="reveal" id="slides-content" style="display: none;">
+  <div class="workshop" id="page-content">
     <div class="reveal-header">
-      <!-- Button to exit slides and switch back to scroll view -->
-      <a href="?view=scroll" class="toggle-view">Exit slides</a>
-
-      <!-- Helmholtz Imaging logo -->
-      <img src="{{ "img/RZ_211119_Helmholtz-Imaging_Image-Mark_4C_Black.png" | relURL }}" height="50px" alt="Helmholtz Imaging Logo"/>
+      <a href="?view=slides" class="toggle-view hidden-in-slides">View as Slides</a>
+      <img src="{{ "img/RZ_211119_Helmholtz-Imaging_Image-Mark_4C_Black.png" | relURL }}" height="40px" alt="Helmholtz Imaging Logo"/>
     </div>
 
-    <!-- Load the slides view content from the partial -->
-    {{ partial "slides.html" . }}
+    <div class="slides" id="slides-container">
+      {{ partial "sections_with_toc.html" . }}
+    </div>
 
-    <!-- Reveal.js Footer with additional branding or information -->
     <div class="reveal-footer">
-      <span>2024</span> | <span><b>HELMHOLTZ IMAGING</b></span>
+      <span>2024</span> | <span><b>HELMHOLTZ IMAGING</b></span><span><span><a class="hidden-in-page" href="?view=scroll"><strong>Exit slides</strong></a></span></span>
     </div>
   </div>
 {{ end }}

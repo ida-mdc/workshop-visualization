@@ -31,13 +31,11 @@
       const view = params.get('view');
 
       // Toggle visibility based on view parameter
-      const scrollContent = document.getElementById("scroll-content");
-      const slidesContent = document.getElementById("slides-content");
+      const pageContent = document.getElementById("page-content");
 
       if (view === 'slides') {
-        // Show slides and hide scroll content
-        slidesContent.style.display = 'block';
-        scrollContent.style.display = 'none';
+        pageContent.classList.add('reveal');
+        pageContent.classList.remove('scroll');
 
         // Function to load CSS dynamically
         const loadCSS = (href) => {
@@ -59,7 +57,6 @@
         loadCSS("{{ "reveal/dist/reveal.css" | relURL }}");
         loadCSS("{{ "reveal/dist/theme/white-hi.css" | relURL }}");
         loadCSS("{{ "reveal/plugin/highlight/monokai.css" | relURL }}");
-        loadCSS("{{ "css/main.css" | relURL }}");
 
         // Load Reveal.js JavaScript and ensure Reveal is defined before initializing
         loadScript("{{ "reveal/dist/reveal.js" | relURL }}", function() {
@@ -87,9 +84,8 @@
           });
         });
       } else {
-        // Show scroll content and hide slides
-        scrollContent.style.display = 'block';
-        slidesContent.style.display = 'none';
+        pageContent.classList.remove('reveal');
+        pageContent.classList.add('scroll');
       }
     });
   </script>

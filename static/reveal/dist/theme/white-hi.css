@@ -16,8 +16,8 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   --r-main-font: 'Urbanist', Helvetica, sans-serif;
   --r-main-font-size: 42px;
   --r-main-color: #000;
-  --r-block-margin: 20px;
-  --r-heading-margin: 0 0 20px 0;
+  --r-block-margin: 20px 40px 10px 20px;
+  --r-heading-margin: 20px 0 20px 20px;
   --r-heading-font: 'Urbanist', Helvetica, sans-serif;
   --r-heading-color: #000;
   --r-heading-line-height: 1.2;
@@ -28,7 +28,7 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   --r-heading1-text-shadow: none;
   --r-heading1-size: 1.5em;
   --r-heading2-size: 1.3em;
-  --r-heading3-size: 1.3em;
+  --r-heading3-size: 1.1em;
   --r-heading4-size: 1em;
   --r-code-font: monospace;
   --r-link-color: #e1462c;
@@ -74,18 +74,12 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   line-height: 1.3;
   font-weight: inherit;
   flex-direction: column;
+  height: 100%;
+  overflow: hidden;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex: 1;
-}
-
-.reveal .slides section > *,
-.reveal .slides section > section > * {
-  padding-left: 20px;
-}
-.reveal .slides section > *:first-child,
-.reveal .slides section > section > *:first-child {
-  padding-top: 20px;
+  flex-wrap: nowrap;
 }
 
 .reveal .slides > section:first-child {
@@ -116,10 +110,9 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
     background: #0059a0;
 }
 
-.reveal section.subsection  {
+.reveal .slides section.subsection  {
     color: white;
     display: flex;
-    align-items: stretch;
     justify-content: center;
 }
 
@@ -134,11 +127,6 @@ section.subsection h1, section.subsection h2 {
     color: white;
     text-align: center;
     font-size: var(--r-heading1-size);
-    margin-bottom: 150px;
-}
-
-.reveal .hidden-in-page {
-    display: block;
 }
 
 .reveal .slides section:first-child h1 {
@@ -147,22 +135,22 @@ section.subsection h1, section.subsection h2 {
 
 
 .reveal:not(.has-vertical-slides) .controls .navigate-left,.reveal[data-navigation-mode=linear].has-horizontal-slides .navigate-left {
-    right: 6.4em;
+    right: 9.0em;
     bottom: 3.2em;
 }
 
 .reveal:not(.has-vertical-slides) .controls .navigate-right,.reveal[data-navigation-mode=linear].has-horizontal-slides .navigate-right {
-    right: 0;
+    right: 2.6em;
     bottom: 3.2em;
 }
 
 .reveal:not(.has-horizontal-slides) .controls .navigate-up {
-    right: 3.2em;
+    right: 5.8em;
     bottom: 6.4em;
 }
 
 .reveal:not(.has-horizontal-slides) .controls .navigate-down {
-    right: 3.2em;
+    right: 5.8em;
     bottom: -1.4em;
 }
 
@@ -177,7 +165,6 @@ section.subsection h1, section.subsection h2 {
 .reveal h5,
 .reveal h6 {
   margin: var(--r-heading-margin);
-  color: var(--r-heading-color);
   font-family: var(--r-heading-font);
   font-weight: var(--r-heading-font-weight);
   line-height: var(--r-heading-line-height);
@@ -197,6 +184,8 @@ section.subsection h1, section.subsection h2 {
 
 .reveal h3 {
   font-size: var(--r-heading3-size);
+  margin-top: 60px;
+  margin-bottom: 60px;
 }
 
 .reveal h4 {
@@ -211,8 +200,8 @@ section.subsection h1, section.subsection h2 {
  * OTHER
  *********************************************/
 .reveal p {
-  margin: var(--r-block-margin) 0;
-  line-height: 1.3;
+  margin: var(--r-block-margin);
+  line-height: 1.5;
 }
 
 /* Remove trailing margins after titles */
@@ -229,8 +218,8 @@ section.subsection h1, section.subsection h2 {
 .reveal img,
 .reveal video,
 .reveal iframe {
-  max-width: 95%;
-  max-height: 95%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .reveal strong,
@@ -247,7 +236,11 @@ section.subsection h1, section.subsection h2 {
 .reveal ul {
   display: inline-block;
   text-align: left;
-  margin: 0 0 0 1em;
+  margin: 2em 0 0 2em;
+}
+
+.reveal ul li {
+    margin-bottom: 20px;
 }
 
 .reveal ol {
@@ -397,7 +390,7 @@ section.subsection h1, section.subsection h2 {
 .reveal .slide-number {
     position: absolute;
     display: block;
-    right: 0.5em;
+    right: 1.5em;
     bottom: 1.5em;
     z-index: 31;
     font-family: var(--r-main-font);
