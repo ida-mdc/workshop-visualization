@@ -19,7 +19,8 @@ Welcome to this workshop, great that you are here!
 Let me briefly introduce myself.
 {{</ notes >}}
 
-{{< person-bio name="Deborah Schmidt" img="img/deborah.jpg" position="Head of Helmholtz Imaging Support Unit at MDC" >}}
+{{< person-bio name="Deborah Schmidt" img="img/people/deborah.jpg" position="Head of Helmholtz Imaging Support Unit at 
+MDC" >}}
 * x years of experience in y
 * currently not in a good mood
 
