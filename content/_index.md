@@ -17,7 +17,6 @@ layout: home
   - {{< tutorial-link link="tutorial-mesh-rendering-vtk" >}}
   - {{< tutorial-link link="tutorial-mesh-rendering-blender" >}}
   - {{< tutorial-link link="tutorial-mesh-cutting-volumes-blender" >}}
-  - {{< tutorial-link link="tutorial-mesh-rendering-transparency" >}}
   - {{< tutorial-link link="tutorial-choosing-colors" >}}
 - Questionable:
   - {{< tutorial-link link="tutorial-album-developer" >}}

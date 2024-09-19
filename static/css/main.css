@@ -95,6 +95,11 @@ h1, h2, h3 {
     display: flex;
 }
 
+.reveal .reveal-header {
+    margin-right: 2vw;
+    padding-top: 2vw;
+}
+
 h3 {
     color: #0059a0;
 }
@@ -102,6 +107,12 @@ h3 {
 .reveal-header img {
     margin: 0 0px 0 60px;
 }
+
+
+.reveal .reveal-header img {
+    margin: 0 0px 0 2vw;
+}
+
 .reveal-footer span {
     margin: 0 20px;
 }
@@ -551,8 +562,8 @@ section .presentation-title {
 
 .hi-icon {
     background-image: url("../img/RZ_211119_Helmholtz-Imaging_Image-Mark_4C_Black.png");
-    width: 40px;
-    height: 40px;
+    width: 2vw;
+    height: 2vw;
     background-size: contain;
 }
 
@@ -661,4 +672,5 @@ figure.inline img {
 
 figure.center {
     align-self: center;
+    max-width: 85%;
 }
