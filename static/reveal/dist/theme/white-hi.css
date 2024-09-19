@@ -129,6 +129,7 @@ section.subsection h1, section.subsection h2 {
 .qr-code-slides > span {
     border-top: 1px solid #e1462c;
     padding-top: 1vw;
+    text-align: right;
 }
 
 .qr-code-slides .qr-code {

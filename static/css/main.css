@@ -586,6 +586,11 @@ section .presentation-title {
     margin-top: 20px;
 }
 
+.reveal .tutorial {
+    align-self: stretch;
+    margin: 0.5vw 2vw;
+}
+
 .tutorial-link .title {
     font-size: 150%;
     font-weight: bold;
@@ -652,4 +657,8 @@ figure.inline {
 
 figure.inline img {
     margin: 10px;
+}
+
+figure.center {
+    align-self: center;
 }

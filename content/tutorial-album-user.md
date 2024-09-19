@@ -98,6 +98,15 @@ album run GROUP:NAME:VERSION
 
 ---
 
+## Updating a catalog
+{{< notes >}}
+TODO
+{{</ notes >}}
+
+TODO
+
+---
+
 ## Community
 
 {{< notes >}}
