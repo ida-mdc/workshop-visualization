@@ -3,3 +3,11 @@ languageCode = "en-us"
 title = "3D Data Visualization Workshop"
 [markup.goldmark.renderer]
 unsafe= true
+canonifyURLs= true
+[params.mermaid]
+enable = true
+[params.plantuml]
+enable = true
+[markup]
+  [markup.highlight]
+      guessSyntax = "false"
