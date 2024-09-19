@@ -238,6 +238,19 @@ section.solution .solution-box .preview {
     align-items: flex-start;
 }
 
+.person-bio.contentful {
+    flex-direction: row;
+}
+
+.scroll .person-bio.contentful {
+    align-self: flex-start;
+}
+
+.person-bio.contentful .person-details {
+    text-align: left;
+    margin-left: 20px;
+}
+
 .person-bio .person-img {
     border: 2px solid #0059a0;
     margin-top: 0px;

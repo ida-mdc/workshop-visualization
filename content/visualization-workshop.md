@@ -347,46 +347,6 @@ renderings.
 ---
 
 ## Choosing colors
-### Color palettes
-{{< notes >}}
-Selecting an appropriate color palette is crucial for both aesthetic and functional reasons in 3D visualizations. It can help emphasize key elements and ensure the visual representation is clear and accessible. 
-{{< /notes >}}
-
-{{< figure src="img/color-palettes.jpg" >}}
-
-{{< citations >}}
-- [https://coloors.io](https://coloors.io) 
-{{</ citations >}}
-
----
-
-## Choosing colors
-### Color theory
-{{< notes >}}
-Understanding color theory is essential for selecting effective color schemes in 3D visualization. Proper use of color can enhance the readability of complex datasets and guide the viewer’s attention to key features. 
-{{< /notes >}}
-
-- **Complementary Colors**: These are colors directly opposite each other on the color wheel, which can create strong 
-visual contrast.
-- **Analogous Colors**: These are adjacent to each other on the color wheel, creating harmony in the design.
-- **Triadic Colors**: This scheme uses three colors evenly spaced on the color wheel, providing both contrast and balance.
-
----
-
-## Choosing colors
-### Color accessibility
-{{< notes >}}
-Color accessibility is essential to ensure that your visualizations can be interpreted by individuals with color vision deficiencies. By selecting accessible color palettes, you can improve the inclusivity of your visualizations.
-{{< /notes >}}
-
-{{< figure src="img/color-accessibility.jpg" >}}
-
-- **Fiji  ▷ Image ▷ Color ▷ Simulate Color Blindness**
-
----
-
-## Choosing colors
-### Tipps for choosing colors
 {{< notes >}}
 TODO
 {{< /notes >}}
