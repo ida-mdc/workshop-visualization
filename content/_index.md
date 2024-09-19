@@ -13,6 +13,7 @@ layout: home
   - {{< tutorial-link link="tutorial-volume-rendering-native-tools" >}}
   - {{< tutorial-link link="tutorial-volume-rendering-bdv" >}}
   - {{< tutorial-link link="tutorial-volume-rendering-neuroglancer" >}}
+  - {{< tutorial-link link="tutorial-volume-animation-3dscript" >}}
   - {{< tutorial-link link="tutorial-mesh-conversion" >}}
   - {{< tutorial-link link="tutorial-mesh-rendering-vtk" >}}
   - {{< tutorial-link link="tutorial-mesh-rendering-blender" >}}
@@ -21,5 +22,4 @@ layout: home
 - Questionable:
   - {{< tutorial-link link="tutorial-album-developer" >}}
   - {{< tutorial-link link="tutorial-mesh-rendering-transparency" >}}
-- {{< tutorial-link link="image-prevalidation" >}}
 
