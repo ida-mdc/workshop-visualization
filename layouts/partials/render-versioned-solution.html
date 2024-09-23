@@ -1,6 +1,7 @@
 {{- $catalogName := .catalogName -}}
 {{- $group := .group -}}
 {{- $solutionName := .solutionName -}}
+{{- $version := .version -}}
 
 <!-- Access the global context passed from the calling template -->
 {{- $global := .global -}}
@@ -18,7 +19,7 @@
 
         <!-- Loop through the solutions to find the correct one -->
         {{ range . }}
-          {{ if and (eq .group $group) (eq .name $solutionName) }}
+          {{ if and (eq .group $group) (eq .name $solutionName) (eq .version $version) }}
             <!-- Render the solution -->
             {{ with (merge . (dict "catalogUrl" $catalogUrl)) }}
               {{ partial "solution.html" . }}

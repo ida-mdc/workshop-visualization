@@ -53,6 +53,14 @@ def fetch_related_data(cursor, solution_id):
     """, (solution_id,))
     citations = [{"text": row[0], "doi": row[1], "url": row[2]} for row in cursor.fetchall()]
 
+    # Fetch covers
+    cursor.execute("""
+        SELECT cover.source, cover.description
+        FROM cover
+        WHERE cover.solution_id = ?
+    """, (solution_id,))
+    covers = [{"source": row[0], "description": row[1]} for row in cursor.fetchall()]
+
     # Fetch documentation
     cursor.execute("""
         SELECT documentation.documentation 
@@ -75,7 +83,8 @@ def fetch_related_data(cursor, solution_id):
         "arguments": arguments,
         "citations": citations,
         "documentation": documentation,
-        "tags": tags
+        "tags": tags,
+        "covers": covers
     }
 
 # Function to process a catalog repository

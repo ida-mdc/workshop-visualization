@@ -674,3 +674,73 @@ figure.center {
     align-self: center;
     max-width: 85%;
 }
+
+.solution-in-tutorial {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+.solution-in-tutorial > * {
+    flex: 1;
+}
+
+.solution-in-tutorial .usage, .solution-in-tutorial .subtitle {
+    display: none;
+}
+
+.solution-in-tutorial .solution-box {
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    padding: 10px;
+    margin: 10px;
+    align-self: center;
+}
+.solution-in-tutorial .description, .solution-in-tutorial .citations p {
+    margin: 0;
+}
+
+.solution-in-tutorial .citations, .solution-in-tutorial .info {
+    margin-top: 10px;
+    font-size: 85%;
+}
+
+.reveal .solution-in-tutorial .citations ul li {
+    background: none;
+    color: black;
+    padding: 0;
+}
+
+.reveal .solution-in-tutorial .citations a {
+    color: black;
+}
+
+.reveal .solution-in-tutorial .solution-box {
+    padding: 1vw;
+    margin: 1vw 2vw 1vw 1vw;
+}
+
+.solution-cover {
+    height: 234px;
+    background-size: cover;
+    align-self: stretch;
+    background-position: center center;
+}
+
+.solution-code-link {
+    align-self: stretch;
+}
+
+.reveal .solution-code-link pre {
+    width: auto;
+    margin-top: 0;
+}
+
+.reveal .solution-code-link pre code {
+    max-height: 600px;
+}
+
+.reveal .solution-code-link .solution-source-code {
+    margin-bottom: 0px;
+    text-align: right;
+    font-size: 80%;
+}

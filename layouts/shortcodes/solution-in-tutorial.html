@@ -1,0 +1,9 @@
+<div class="solution-in-tutorial">
+    <p>
+        To simplify and unify solutions used in our tutorials, we use Album, a tool for capturing and sharing specific software use cases in dedicated virtual environments.
+        <br/><br/>
+        Click the solution box next to this text and follow the displayed usage instructions to run the solution either from command line or graphical interface.
+    </p>
+    {{ partial "render-solution.html" (dict "catalogName" (.Get "catalog") "group" (.Get "group") "solutionName" (.Get "solution") "version" (.Get "version") "global" $) }}
+</div>
+

@@ -1,0 +1,79 @@
+<div class="solution-code-link">
+
+{{- $catalogName := .Get "catalog" -}}
+{{- $group := .Get "group" -}}
+{{- $version := .Get "version" -}}
+{{- $solutionName := .Get "solution" -}}
+{{- $highlight := .Get "highlight" -}}
+{{- $lineRange := .Get "linerange" -}} <!-- Get the line range argument -->
+
+<!-- Access the global context passed from the calling template -->
+{{- $global := $ -}}
+
+<!-- Check if the catalogs exist in the global context -->
+{{ with $global.Site.Data.catalogs }}
+
+  <!-- Loop through the catalogs to find the correct one -->
+  {{ range . }}
+    {{ if eq .name $catalogName }} <!-- Access the catalog name using .name -->
+      {{- $catalogUrl := .url -}}
+      {{- $catalogUrl := replaceRE "\\.git$" "" $catalogUrl -}}
+      <!-- Access the solutions for the catalog -->
+      {{ with index $global.Site.Data $catalogName }}
+
+        <!-- Loop through the solutions to find the correct one -->
+        {{ range . }}
+          {{ if and (eq .group $group) (eq .name $solutionName) }}
+            <!-- Render the solution -->
+            {{- $solutionCode := printf "%s/-/raw/%s-%s-%s/solutions/%s/%s/solution.py" $catalogUrl .group .name $version .group .name -}}
+            {{ with resources.GetRemote $solutionCode }}
+              {{ with .Err }}
+                {{ errorf "%s" . }}
+              {{ else }}
+                {{ $lang := path.Ext $solutionCode | strings.TrimPrefix "." }}
+
+                <!-- Split the content by lines -->
+                {{ $lines := split .Content "\n" }}
+                {{ $selectedLines := $lines }} <!-- If no linerange, show all lines -->
+
+                <!-- Handle linerange (e.g., 2-5) -->
+                {{ if $lineRange }}
+                  {{ $startLine := (index (split $lineRange "-") 0) }}
+                  {{ $endLine := (index (split $lineRange "-") 1) }} <!-- End line is inclusive -->
+                  {{ $highlight := printf "%s,linenostart=%s" $highlight $startLine}}
+                  {{- $solutionLink := replace $solutionCode "raw" "blob" -}}
+                  {{- $solutionLink := printf "%s?ref_type=tags#L%s-%s" $solutionLink $startLine $endLine -}}
+
+                  {{ $startLine := $startLine | int }}
+                  {{ $endLine := $endLine | int }}
+                  <!-- Extract specific lines using index and range -->
+                  {{ $selectedLines := slice }} <!-- Initialize an empty slice -->
+                  {{ range $i, $line := $lines }}
+                    {{ if and (ge $i (1 | sub $startLine)) (lt $i $endLine) }}
+                      {{ $selectedLines = $selectedLines | append $line }}
+                    {{ end }}
+                  {{ end }}
+                  {{ $content := delimit $selectedLines "\n" }}
+                  <p class="solution-source-code"><a href="{{$solutionLink}}">Link to full source code</a></p>
+                  {{ highlight $content $lang $highlight }}
+                {{ else }}
+                  {{ $content := delimit $selectedLines "\n" }}
+                  {{ highlight $content $lang $highlight }}
+                {{ end }}
+
+              {{ end }}
+            {{ else }}
+              {{ errorf "Unable to get remote resource." }}
+            {{ end }}
+            {{ break }} <!-- Stop looping once the solution is found -->
+          {{ end }}
+        {{ end }}
+
+      {{ else }}
+        <p>No solutions found for the catalog "{{ $catalogName }}".</p>
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+</div>

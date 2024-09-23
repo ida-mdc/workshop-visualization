@@ -1,4 +1,5 @@
 <div class="solution-box">
+  {{- $solutionCover := printf "%s/-/raw/%s-%s-%s/solutions/%s/%s/%s" .catalogUrl .group .name .version .group .name (index (index .covers 0) "source") -}}
   <div class="preview" onclick="toggleMetadata('{{ .name | urlize }}')">
     <h3>{{.title}}</h3>
     <div class="subtitle"><code>{{ .group }}:{{ .name }}:{{ .version }}</code></div>
@@ -8,6 +9,7 @@
           <span>Tags: {{ delimit .tags ", " }}</span>
         {{ end }}</p>
   </div>
+  <div class="solution-cover" style="background-image:url({{$solutionCover}});"></div>
   <!-- Metadata (Initially Hidden) -->
   <div id="metadata-{{ .name | urlize }}" class="solution-metadata">
     <div class="solution-details">
