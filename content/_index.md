@@ -16,7 +16,6 @@ layout: home
   - Almost done:
   - A bit more work:
     - {{< tutorial-link link="tutorial-mesh-conversion" >}}
-    - {{< tutorial-link link="tutorial-volume-animation-3dscript" >}}
     - {{< tutorial-link link="tutorial-volume-rendering-neuroglancer" >}}
     - {{< tutorial-link link="tutorial-volume-rendering-bdv" >}}
     - {{< tutorial-link link="tutorial-volume-rendering-python" >}}

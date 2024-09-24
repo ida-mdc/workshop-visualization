@@ -163,7 +163,14 @@ text commands.
 - **Simple scripting**: Create animations by writing basic scripts in natural language.
 - **Automated rendering**: Generate complex 3D animations for presentations or publications.
 
-{{< tutorial-link link="tutorial-volume-animation-3dscript" >}}
+{{<figure src="https://gitlab.com/album-app/catalogs/image-challenges/-/raw/visualization-animate-with-3dscript-0.1.2/solutions/visualization/animate-with-3dscript/cover.jpg">}}
+
+{{<citations>}}
+- Schmid, B.; Tripal, P. & Fraaß, T. et al. (2019), "[3Dscript: animating 3D/4D microscopy data using a 
+  natural-language-based syntax](https://www.nature.com/articles/s41592-019-0359-1)", Nature methods 16(4): 278-280, 
+  PMID 30886414.
+- [Project website](https://bene51.github.io/3Dscript/)
+{{</citations>}}
 
 ---
 
