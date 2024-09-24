@@ -100,10 +100,32 @@ album run GROUP:NAME:VERSION
 
 ## Updating a catalog
 {{< notes >}}
-TODO
+To be able to run solutions deployed to a catalog after you already installed the catalog already, you have to 
+update your local index of the catalog in order to install and use new solutions.
 {{</ notes >}}
 
-TODO
+
+- **Update your local indices of catalogs** to use newly added solutions:
+
+{{< horizontal >}}
+
+{{<block>}}
+### Command line
+```bash
+# update all catalogs
+album upgrade
+
+# update a specific catalog
+album upgrade MY_CATALOG_NAME
+```
+{{</block>}}
+
+{{<block>}}
+### Graphical User Interface
+{{<figure src="img/album-update.png">}}
+{{</block>}}
+
+{{< /horizontal >}}
 
 ---
 

@@ -27,6 +27,10 @@ h1, h2, h3 {
     font-family: 'Urbanist', sans-serif;
 }
 
+pre {
+    padding: 10px;
+}
+
 .solution-box {
   margin-bottom: 20px;
   padding: 15px;
@@ -304,8 +308,8 @@ section.solution .solution-box .preview {
     background: black;
     padding: 5px 10px;
     position: relative;
-    display: inline-block;
 }
+
 .reveal .citations a {
     color: white;
 }
@@ -739,8 +743,12 @@ figure.center {
     max-height: 600px;
 }
 
-.reveal .solution-code-link .solution-source-code {
+.solution-code-link .solution-source-code {
     margin-bottom: 0px;
     text-align: right;
     font-size: 80%;
+}
+
+.tutorial-link h3 {
+    color: #e1462c;
 }

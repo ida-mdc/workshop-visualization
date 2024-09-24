@@ -121,7 +121,7 @@ section.subsection h1, section.subsection h2 {
 .reveal .qr-code-slides {
     display: flex;
     flex-direction: column;
-    margin: -200px 2vw 5vw 0;
+    margin: -250px 2vw 5vw 0;
     align-items: flex-end;
     align-self: flex-end;
 }

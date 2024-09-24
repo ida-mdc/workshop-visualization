@@ -9,22 +9,18 @@ cover: img/blender-render-result.png
 background: transparent
 ---
 
-TODO for all slides - add Blender documentation links
-
-TODO for all slides - fix layout overflows
-
 ## Create a New Blender Scene
 
 {{< notes >}}
 To start, launch Blender and create a new scene to begin setting up your rendering environment. You can save this scene and reload it later with the same solution, preserving your work.
 {{< /notes >}}
 
-TODO Fix Blender installation documentation.
+- **Install Blender** from the official website: https://www.blender.org/download/
+- **Launch Blender** and create a new scene.
 
-1. **Launch Blender 3.3.1** using the provided solution.
-2. Once Blender is open, save the scene to `MY_FOLDER/scene.blend`.
-3. To reopen the file later, use the following argument: `input: MY_FOLDER/scene.blend`
-
+{{<citations>}}
+- [Blender Online Community. Blender - a 3D modelling and rendering package, Stichting Blender Foundation, Amsterdam.](https://www.blender.org)
+{{</citations>}}
 
 ---
 
@@ -71,24 +67,9 @@ To see what the camera is capturing, you can switch to the camera view and adjus
 
 {{< figure src="img/blender-align-camera.png" class="center">}}
 
----
-
-## Performance
-### Adjust GPU Settings
-
-{{< notes >}}
-Blender relies heavily on your system’s GPU for rendering. Ensuring your GPU is properly configured will improve performance and the quality of your renderings.
-{{< /notes >}}
-
-{{< horizontal >}}
-
-- Blender requires a GPU with at least **2GB of VRAM**.
-- To configure your GPU, go to `Edit > Preferences... > System > Cycles Render Devices`
-- Ensure that **GPU Compute** is selected under `Cycles` as the **Render Engine**.
-
-{{< figure src="img/blender-gpu-settings.png">}}
-
-{{< /horizontal >}}
+{{<citations>}}
+- [Blender Documentation: Cameras](https://docs.blender.org/manual/en/latest/render/cameras.html#cameras)
+{{</citations>}}
 
 ---
 
@@ -108,6 +89,33 @@ Adjusting viewport shading and view parameters can improve performance or give y
 {{< figure src="img/blender-viewports.png">}}
 
 {{< /horizontal >}}
+
+{{<citations>}}
+- [Blender Documentation: Viewport Shading](https://docs.blender.org/manual/en/latest/editors/3dview/display/shading.html)
+{{</citations>}}
+
+---
+
+## Performance
+### Adjust GPU Settings
+
+{{< notes >}}
+Blender relies heavily on your system’s GPU for rendering. Ensuring your GPU is properly configured will improve performance and the quality of your renderings.
+{{< /notes >}}
+
+{{< horizontal >}}
+
+- Blender requires a GPU with at least **2GB of VRAM**.
+- To configure your GPU, go to `Edit > Preferences... > System > Cycles Render Devices`
+- Ensure that **GPU Compute** is selected under `Cycles` as the **Render Engine**.
+
+{{< figure src="img/blender-gpu-settings.png">}}
+
+{{< /horizontal >}}
+
+{{<citations>}}
+- [Blender Documentation: GPU Rendering](https://docs.blender.org/manual/en/latest/render/cycles/gpu_rendering.html)
+{{</citations>}}
 
 ---
 
@@ -129,6 +137,10 @@ Tweaking render parameters can improve the visual quality of your render, especi
 
 {{< /horizontal >}}
 
+{{<citations>}}
+- [Blender Documentation: Rendering](https://docs.blender.org/manual/en/latest/render/index.html)
+{{</citations>}}
+
 ---
 
 ## Object appearance
@@ -141,6 +153,10 @@ Smoothing the shading of objects can make your mesh appear less blocky and more 
 - Right-click the object and select **Shade Smooth** to apply smooth shading.
 
 {{< figure src="img/blender-shade-smooth.png" class="center">}}
+
+{{<citations>}}
+- [Blender Documentation: Shading](https://docs.blender.org/manual/en/latest/scene_layout/object/editing/shading.html)
+{{</citations>}}
 
 ---
 
@@ -161,6 +177,10 @@ Blender’s **Shading Tab** allows you to apply complex materials to your object
 {{< figure src="img/blender-material-nodes.png">}}
 
 {{< /horizontal >}}
+
+{{<citations>}}
+- [Blender Documentation: Materials](https://docs.blender.org/manual/en/latest/render/materials/introduction.html)
+{{</citations>}}
 
 ---
 
@@ -184,22 +204,17 @@ Blender includes a denoising feature to remove noise from rendered images, impro
 
 {{< /horizontal >}}
 
----
-
-## Automation
-
-{{< notes >}}
-TODO
-{{< /notes >}}
-
-TODO
+{{<citations>}}
+- [Blender Documentation: Reducing Noise](https://docs.blender.org/manual/en/latest/render/cycles/optimizations/reducing_noise.html)
+{{</citations>}}
 
 ---
 
 ## Happy rendering!
 
 {{< notes >}}
-Once you've completed these steps, you will have a beautifully rendered scene in Blender. Feel free to explore Blender's other features to continue improving your renderings. The key is to experiment with different materials, lighting setups, and camera angles to get the best results.
+Once you've completed these steps, you will have a beautifully rendered scene in Blender. Feel free to explore 
+Blender's other features, experiment with different materials, lighting setups, and camera angles to get the best results.
 {{< /notes >}}
 
 {{< figure src="img/blender-render-result.png" width="85%" class="center">}}

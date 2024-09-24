@@ -10,22 +10,11 @@ cover: img/bg.jpg
 ---
 
 ## Introduction
-
-{{< notes >}}
-Let me briefly introduce myself.
-{{</ notes >}}
-
-{{< person-bio name="Deborah Schmidt" img="img/people/deborah.jpg" position="Head of Helmholtz Imaging Support Unit at MDC" >}}
-* TODO
-
-{{</ person-bio >}}
-
----
-
-## Introduction
-
+{{< unlisted >}}
 {{< horizontal >}}
 {{< block >}}
+
+Hi, I'm Deborah, head of the Helmholtz Imaging Support Unit at MDC.
 
 ### Meet the Helmholtz Imaging Support Units!
 
@@ -39,13 +28,14 @@ img/logos/mdc.png{{< /logos >}}
 
 {{< /block >}}
 
-{{< figure src="img/people/hi-support-staff.jpg" >}}
+{{< figure src="img/people/hi-support-staff.jpg" caption="Members of all 3 Helmholtz Imaging Support Units at DESY, DKFZ, and MDC." >}}
 
 {{< /horizontal >}}
 
 ---
 
 ## Introduction
+{{< unlisted >}}
 ### Consulting along the entire pipeline and across all research domains
 {{< notes >}}
 You can contact us with any question along the imaging pipeline. We are funded to support all Helmholtz centers in 
@@ -53,7 +43,6 @@ Germany, but you can also reach out to us if you don't belong to Helmholtz.
 {{</ notes >}}
 {{< center >}} **support@helmholtz-imaging.de** {{< /center >}}
 {{< figure src="img/pipeline.png" >}}
-
 
 ---
 
@@ -67,11 +56,9 @@ that they can be launched from the same interface and tailored to automate speci
 Album manages separate virtual environments for each solution managed internally by micromamba to avoid version conflicts. Each solution can run custom installation and run scripts, written in Python, in these environments. Since Python runs across platforms, this enables us to write custom launchers and execution routines for a variety of software.
 {{< /notes >}}
 
-TODO
+- **Automate visualization tasks**: Use Album to manage multiple tools from a single launcher.
+- **Cross-platform support**: Album's Python-based approach works on all major platforms.
 
----
-
-## Automation of rendering tasks
 ### Album installation & the Image Challenges catalog
 {{< notes >}}
 If you want to run any of the Album solutions mentioned in this workshop, please check out this tutorial on how to 
@@ -89,54 +76,47 @@ catlog (as described in the tutorial):
 
 {{< notes >}}
 - Understanding the type of data you are working with is crucial for effective 3D rendering. Below, we outline the 
-common categories of datasets that are often visualized in three dimensions. Did we miss something? Let us know in the comment section below!
-{{< /notes >}}
-- **Voxel-Based Datasets**
-{{< notes >}}
-- These are typically 3D grids of values representing a volume, where each individual grid cell or "voxel" holds a 
-  specific value. Voxel-based datasets are common in medical imaging (e.g., MRI, CT scans), geospatial analysis, and fluid dynamics simulations. They can be visualized using techniques like volume rendering, isosurface extraction, and slice-based views.
+common categories of datasets that are often visualized in three dimensions.
 {{< /notes >}}
 
-- **Labels and Segmentations**
+- **Voxel-Based Datasets** (Euclidean-structured)
 {{< notes >}}
-- These are specialized 3D datasets that contain binary or integer values, often used to delineate structures within 
-  a larger dataset. For instance, in a medical context, they might identify specific organs or lesions within an MRI scan. Visualization techniques for labels and segmentations may include color mapping, overlaying onto the original 3D dataset, or interactive 3D views for exploration.
+Voxel-based datasets represent data as a grid of values (voxels) in **Euclidean space**, where each voxel holds a specific value, such as intensity in medical imaging (e.g., CT, MRI scans) or simulation results. These datasets are inherently structured and can be visualized using volume rendering, isosurface extraction, or slice-based views.
 {{< /notes >}}
 
-- **Meshes**
+- **Meshes** (Non-Euclidean-structured)
 {{< notes >}}
-- Meshes are composed of vertices, edges, and faces that define the shape of 3D objects. Meshes are common in 
-  computer graphics, CAD models, and finite element analysis. They can be visualized through techniques like surface rendering, wireframe views, and texture mapping. Additionally, properties like curvature or data fields can be color-mapped onto the mesh for better interpretation.
+Meshes are composed of **vertices, edges, and faces** that define the surface of a 3D object. Unlike voxels, which describe volumes, meshes describe surfaces and are commonly used in **computer graphics** and **CAD models**. Meshes can be visualized through techniques like surface rendering, wireframe views, and texture mapping. Properties like curvature or scalar fields can also be mapped onto the mesh for enhanced interpretation.
 {{< /notes >}}
 
-- **Point Clouds** - not covered here
+- **Point Clouds** (Non-Euclidean-structured) - not covered here
 {{< notes >}}
-- Point clouds consist of a set of points in a 3D coordinate system, usually defined by X, Y, and Z coordinates. 
-  These datasets can come from various sources such as LiDAR, 3D scanning, or particle simulations. Visualization strategies might include point-based rendering techniques, surface reconstruction, and various filtering methods to emphasize features of interest.
+Point clouds are a collection of points in 3D space, where each point is defined by its **X, Y, Z coordinates**. They are often derived from **LiDAR** scans, 3D scanning, or particle simulations. Visualization of point clouds often involves **point-based rendering**, surface reconstruction, or filtering techniques to highlight areas of interest.
 {{< /notes >}}
 
 - **Tables and Statistical Data** - barely covered here
 {{< notes >}}
-- These are often auxiliary datasets that accompany the primary 3D data, containing derived analysis results or 
-  metadata. For example, tables could contain quantitative measures associated with specific regions in a segmented 3D volume. Visualization for these types of data might include interactive tables that link to 3D views or statistical plots integrated within the 3D visualization environment.
+Although tables and statistical data are not inherently 3D, they often accompany 3D datasets as metadata or derived analysis results. For example, a table may contain quantitative metrics for specific regions of a segmented 3D volume. These datasets can be visualized in combination with 3D data, often through **interactive tables** or **linked statistical plots**.
 {{< /notes >}}
 
 - **Time-Series Data** - not covered here
 {{< notes >}}
-- While not inherently 3D, time-series data can add a temporal dimension to any of the above datasets, making them 4D. This is often the case in dynamic simulations or time-lapse imaging studies. Visualization strategies might include animation, timeline sliders, or real-time interactive exploration.
+Time-series data adds a temporal dimension to any of the above datasets, effectively making them **4D**. This is commonly seen in **dynamic simulations** or **time-lapse studies**. Visualization techniques include animations, timeline sliders, or real-time interactive exploration.
 {{< /notes >}}
+
+{{<figure src="img/3d-data-representations.jpg" caption="Examples of different 3D data type representations. Credit: [Gezawa, A. et al. (2020), CC BY 4.0](https://www.researchgate.net/publication/340074064_A_Review_on_Deep_Learning_Approaches_for_3D_Data_Representations_in_Retrieval_and_Classifications).">}}
 
 ---
 
 ## 3D Dataset types
-### Voxel space vs. object space
-{{< notes >}}
-TODO
-- explain the diffencre between voxel based images and meshes
-- 
-{{< /notes >}}
+### Voxel-Based Images
 
-TODO
+- Represent the **entire volume** of an object in a structured grid.
+- Each voxel holds a **scalar value**, often representing intensity in medical scans or simulation data.
+- Best for representing **interior** details of a structure, e.g., in **CT/MRI scans** or simulations.
+- **Volumetric rendering** and **slice-based views** are common visualization techniques.
+
+{{<figure src="img/voxel-based-data.png" caption="Voxel based data representation. Credit: [Hasanov, S. et al. (2021), CC BY-SA 4.0](https://www.researchgate.net/publication/353527450_Hierarchical_homogenization_and_experimental_evaluation_of_functionally_graded_materials_manufactured_by_the_fused_filament_fabrication_process).">}}
 
 ---
 
@@ -145,44 +125,61 @@ TODO
 Volumetric datasets, such as medical imaging (CT/MRI scans) or fluid simulations, are complex datasets where each voxel represents a value in 3D space. In this section, we'll explore the various techniques available for rendering and interacting with volumetric data. 
 {{< /notes >}}
 
+- **Slice-Based Visualization**: This involves rendering 2D cross-sections or "slices" of the 3D dataset, often used in 
+  medical imaging.
 - **Volume Rendering**: This is a common method for visualizing 3D datasets where voxel-based data is rendered directly. Tools like ParaView and Fiji provide options for volume rendering.
 - **Isosurface Extraction**: A method to extract 3D surfaces from volumetric data. Popular algorithms include Marching 
   Cubes and Marching Tetrahedrons.
-- **Slice-Based Visualization**: This involves rendering 2D cross-sections or "slices" of the 3D dataset, often used in 
-  medical imaging.
+
 
 {{< figure src="img/volume-rendering.png" >}}
 
 ---
 
 ## Visualizing volumetric datasets
-### Region Of Interests (ROIs) / Labels
-
+### Volume rendering with Fiji: BigDataViewer and related tools
 {{< notes >}}
-Regions of interest (ROIs) are often specific parts of a 3D dataset that you want to focus on or analyze in detail. Here, we explore tools and methods to select, highlight, and visualize ROIs in 3D datasets. 
+Fiji is still choice number one for many who want to inspect an image quickly, mainly because it supports a vast 
+number of data formats. While Fiji can already render 3D data with its built in 3D Viewer, it also comes with 
+BigDataViewer (BDV), a great tool for arbitrary slicing of 3D data of any size. A whole ecosystem of tools based on BDV 
+has evolved over time, which we will explore in the tutorial linked below.
 {{< /notes >}}
 
-TODO
-
----
-
-## Visualizing volumetric datasets
-### ImageJ, napari, pygfx?
-{{< notes >}}
-TODO
-{{< /notes >}}
-
-{{< tutorial-link link="tutorial-volume-rendering-native-tools" >}}
-
----
-
-## Visualizing volumetric datasets
-### BigDataViewer, BigVolumeViewer, SciView, and LabelEditor
-{{< notes >}}
-TODO
-{{< /notes >}}
+- **Supports large data formats**: BDV and Fiji can handle massive 3D datasets and allow arbitrary slicing.
+- **Ecosystem of tools**: BDV serves as a foundation for other Fiji plugins that support multi-scale rendering and slicing.
 
 {{< tutorial-link link="tutorial-volume-rendering-bdv" >}}
+
+---
+
+## Visualizing volumetric datasets
+### Volume rendering with Fiji: Animation
+{{< notes >}}
+Even though we won't focus on animation in this workshop, I don't want to miss the opportunity to mention the 
+wonderful Fiji 3DScript plugin, which offers the ability to generate animations of 3D objects based using simple 
+text commands. 
+{{< /notes >}}
+
+- **Simple scripting**: Create animations by writing basic scripts in natural language.
+- **Automated rendering**: Generate complex 3D animations for presentations or publications.
+
+{{< tutorial-link link="tutorial-volume-animation-3dscript" >}}
+
+---
+
+## Visualizing volumetric datasets
+## Python based tools
+{{< notes >}}
+With the rise of popularity of Python as a script and programming language in the life sciences and beyond, let's 
+look at Python based volumetric rendering in the tutorial linked below. We will look at Napari, Pygfx, and VTK. It 
+is worth mentioning that he last two tools are also great resources for rendering mesh based datasets.  
+{{< /notes >}}
+
+- **Napari**: Best for small to medium-sized datasets with interactive 3D volume rendering.
+- **Pygfx and VTK**: These tools provide advanced programmatic 3D rendering capabilities for both volumetric and mesh 
+  data.
+
+{{< tutorial-link link="tutorial-volume-rendering-python" >}}
 
 ---
 
@@ -190,46 +187,79 @@ TODO
 ### Web based rendering with Neuroglancer
 {{< notes >}}
 A web-based 3D viewer allows for interactive visualization directly in the browser without needing specialized software. These viewers can be embedded into web pages or shared with collaborators. 
+The following tutorial does not come with a full overview of existing web based viewers, but offers insight into a 
+project we are working on at MDC where we utilize Neuroglancer to display large scale mice brains online. 
 {{< /notes >}}
+
+- **Web-based viewer**: View volumetric data interactively in the browser.
+- **Collaboration-friendly**: Share URLs with collaborators to provide access to the 3D visualization.
 
 {{< tutorial-link link="tutorial-volume-rendering-neuroglancer" >}}
 
 ---
 
 ## Converting volumetric datasets into meshes
-{{< notes >}}
-TODO
-{{< /notes >}}
+### Mesh-Based Data
+
+- Represents only the **surface** of an object using **vertices, edges, and faces**.
+- Best for representing surface geometry and shapes, common in **computer graphics** and **CAD models**.
+- Efficient for rendering when you only need to visualize the object's surface.
+- Techniques include **surface rendering**, **wireframe views**, and **texture mapping**.
 
 {{< figure src="img/annotation-conversion.jpg" >}}
 
 ---
 
 ## Converting volumetric datasets into meshes
-### Annotation Or No Annotation
+### Annotations
+
 {{< notes >}}
-TODO
+Annotations can be used to add specific information to volumetric datasets, such as marking points of interest (e.g., cell locations, regions of interest) or segmenting areas of the data. Converting these annotated datasets into meshes allows for the visual representation of those specific features.
+
+When working with **unannotated** volumetric datasets, you can explore the data interactively using **transfer functions**. Transfer functions map intensity values in the dataset to colors and opacities, allowing you to visualize different regions of the volume without defining hard boundaries. This technique is often used for soft, exploratory visualizations of the internal structures of the data.
+
+**Transfer Functions**:
+- A transfer function defines how data values are mapped to colors and transparency.
+- Example: Low intensity values may be mapped to transparent regions, while higher intensities are mapped to visible colors.
+- Transfer functions are typically adjusted in visualization software like **ParaView**.
+- By adjusting transfer functions, you can emphasize specific parts of the volume without needing concrete borders or segmentations.
 {{< /notes >}}
 
-TODO
+- **Transfer functions**: Used for visualizing unannotated datasets, adjusting colors and opacities based on intensity values.
+
+{{< notes >}}
+When converting volumetric data to **meshes**, it's necessary to draw concrete borders between the **foreground** (the object of interest) and the **background**. This is achieved through:
+{{< /notes >}}
+
+- **Fixed thresholds**: Used to generate meshes by separating foreground from background using a set intensity threshold.
+- **Content-based annotations**: Create precise meshes by using annotated regions to define boundaries.
 
 ---
 
 ## Converting volumetric datasets into meshes
 ### Marching Cubes
 {{< notes >}}
-TODO
+The **Marching Cubes algorithm** is one of the most popular methods for extracting a 3D surface from volumetric data. It identifies the points in a voxel grid where the dataset crosses a specific threshold value (the **isosurface**) and uses those points to generate a mesh.
+
 {{< /notes >}}
 
-TODO
+- **Isosurface extraction**: Extract a 3D surface from a volumetric dataset by identifying where the data crosses a certain threshold.
+- **Marching Cubes algorithm**: One of the most widely used methods for generating surface meshes from volumetric data.
+
+{{< figure src="img/MarchingCubesEdit.svg" caption="Marching cubes algorithm. Credit: [Ryoshoru, Jmtrivial on Wikimedia](https://commons.wikimedia.org/wiki/File:MarchingCubesEdit.svg), CC BY-SA 4.0">}}
 
 ---
 
 ## Converting volumetric datasets into meshes
 ### Optimization
 {{< notes >}}
-TODO
+When converting volumetric data to meshes, **optimizing** the output is crucial for achieving smooth and accurate 
+results. One good approach is using **probability maps** rather than binary masks as input for the **Marching Cubes 
+algorithm**. 
 {{< /notes >}}
+
+- **Binary masks**: Create rough, blocky meshes because the data is thresholded into hard 0/1 values, losing subpixel detail.
+- **Probability maps**: Offer smoother results, as the algorithm can detect gradients between regions, improving mesh precision at subpixel levels.
 
 {{< figure src="img/mesh-conversion-optimization.jpg" >}}
 
@@ -256,18 +286,28 @@ Large, complex meshes can be computationally intensive to render. Reducing mesh 
 ## Converting volumetric datasets into meshes
 ### Conversion scripts
 {{< notes >}}
-TODO
+While several tools include converting volumetric datasets into meshes, VTK has worked particularly well in our 
+experience. Check out the tutorial below for more details. This includes Python code snippets, but also the 
+possibility to run conversion through a graphical user interface or command line using an Album solution.
 {{< /notes >}}
 
 {{< tutorial-link link="tutorial-mesh-conversion" >}}
 
 ---
 
-## Mesh processing
+## Mesh Processing
+
 {{< notes >}}
-TODO Mention MeshLab
+Once a mesh is generated from a volumetric dataset, further **processing** may be necessary to refine the mesh for better performance, rendering, or analysis. One of the most popular tools for mesh processing is **MeshLab**, an open-source application for cleaning, repairing, and optimizing 3D meshes. 
 {{< /notes >}}
-TODO
+
+- **MeshLab**: A powerful tool for cleaning, decimating, and refining 3D meshes. It supports:
+  - **Smoothing**: Remove sharp edges or rough areas in the mesh.
+  - **Decimation**: Reduce the number of polygons while maintaining the overall shape.
+  - **Repair**: Fix holes or non-manifold geometry in the mesh for better usability.
+  
+- **Other tools**: Blender and VTK also offer additional mesh processing capabilities.
+
 ---
 
 {{< cover src="img/single-betacell.jpg" background="black" color="white" title="Rendering meshes" >}}
@@ -280,7 +320,9 @@ TODO
 {{< /cover >}}
 
 {{< notes >}}
-TODO intro to rendering meshes and what effect proper rendering can have 
+Rendering meshes involves converting mesh data into visually meaningful images, taking into account surface 
+properties, lighting, and camera angles. Spending time on rendering approaches matching your use case is a way of 
+defining how to tell the story of your dataset.
 {{< /notes >}}
 
 ---
@@ -288,31 +330,37 @@ TODO intro to rendering meshes and what effect proper rendering can have
 ## Rendering meshes
 ### Rendering pipeline
 {{< notes >}}
-TODO
+The **rendering pipeline** defines the steps for converting a 3D mesh into a 2D image. The pipeline consists of several key stages:
 {{< /notes >}}
 
-TODO
+- **Mesh loading**: The first step in the pipeline involves loading the mesh into the rendering environment (e.g., VTK or Blender).
+- **Surface properties**: Define how light interacts with the surface of the mesh (e.g., roughness, reflectivity, transparency).
+- **Lighting**: Simulate the effect of light sources to highlight different parts of the mesh.
+- **Camera positioning**: Define the viewing angle and zoom level to best visualize the mesh.
 
 ---
 
 ## Rendering meshes
 ### Rendering meshes with VTK
 {{< notes >}}
-TODO
+VTK offers extensive tools for rendering meshes, allowing for the customization of surface properties and lighting to achieve the desired visualization. This tutorial will guide you through setting up a rendering pipeline in VTK, from loading meshes to final visualization.
 {{< /notes >}}
 
-TODO
-{{< tutorial-link link="tutorial-mesh-rendering-vtk" >}}
+- **VTK rendering features**: Customize surface properties like color, opacity, and lighting. VTK can also handle interactive rendering, where users can rotate and zoom in on the rendered mesh.
+
+- {{< tutorial-link link="tutorial-mesh-rendering-vtk" >}}
 
 ---
 
 ## Rendering meshes
 ### Rendering meshes with Blender
 {{< notes >}}
-TODO
+Blender is a powerful open-source tool for rendering meshes. It supports realistic rendering, including lighting, shadows, transparency, and advanced surface textures. In this tutorial, you will learn how to set up Blender to render scientific datasets as meshes.
 {{< /notes >}}
 
-TODO
+- **Blender rendering**: Blender has endless amazing features, but how does one start? Check out the short tutorial 
+  below.
+
 {{< tutorial-link link="tutorial-mesh-rendering-blender" >}}
 
 ---
@@ -323,51 +371,50 @@ TODO
 Blender’s powerful modeling and sculpting tools allow users to cut and manipulate 3D meshes. In this section, we'll cover techniques for cutting volumes to expose internal structures or focus on specific regions. 
 {{< /notes >}}
 
+- **Cutting meshes**: Use Blender’s **Boolean modifier** to subtract volumes and expose internal structures.
+- **Focus on regions**: Cut specific parts of the mesh to highlight or reveal hidden features inside the object.
+
 {{< tutorial-link link="tutorial-mesh-cutting-volumes-blender" >}}
-
-{{< figure src="img/cutting-volumes.jpg" >}}
-
----
-
-## Rendering meshes
-### Transparency
-{{< notes >}}
-Transparency can be used for highlighting specific parts of a scene by hiding others. It can also help to improve 
-visibility of objects in very complex scenes. Glass - like textures are also popular for realistic, graspable 
-renderings.
-{{< /notes >}}
-
-- **Transparency**: See-through materials where objects behind are fully visible. Common for windows and water surfaces.
-- **Translucency**: Light passes through, but objects behind appear blurred or diffused. Used for simulating skin, leaves,
-  or frosted glass.
-- **Glass**: Combines transparency with refraction and reflection, used for lenses or architectural glass.
-
-{{< tutorial-link link="tutorial-mesh-rendering-transparency" >}}
 
 ---
 
 ## Choosing colors
 {{< notes >}}
-TODO
+Choosing the right colors for your 3D visualizations is crucial for enhancing clarity and understanding. The 
+tutorial below guides you through color representation in digital programs, a brief look into existing colormaps, 
+and a few more tricks for picking the best colors for your project. 
 {{< /notes >}}
 
 {{< tutorial-link link="tutorial-choosing-colors" >}}
 
 ---
 
-## The next big thing / missing content
+## Point Clouds
+### Ongoing Helmholtz Imaging Collaboration
 {{< notes >}}
 TODO
+{{< /notes >}}
+
+TODO
+mention cloudcompare
+
+---
+
+## Ongoing challenges and opportunities
+{{< notes >}}
+In the future, we anticipate several areas of interest for 3D data visualization. These include advancements in web-based rendering tools, higher throughput for processing large datasets, and improvements in automation and dimensionality reduction.
 {{< /notes >}}
 
 - Web based viewers
 - High Throughput
 - Automated workflows
 - Dimensionality reduction
+
+### Would you be interested in more specific tutorials?
 - Animation
+- Different approaches  to transparency in Blender
 - Point cloud handling
 - Time series
-
 
 ---
 
@@ -377,5 +424,3 @@ TODO
 Thank you for attending this workshop. Feel free to reach out for further assistance or to explore 
 more visualization techniques! 
 {{< /notes >}}
-
-TODO
