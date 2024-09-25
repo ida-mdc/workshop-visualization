@@ -294,24 +294,43 @@ section.solution .solution-box .preview {
     font-size: 1.5vw;
 }
 
-.reveal .citations {
+.citations {
     max-width: 1400px;
 }
 
-.reveal .citations ul {
+.reveal .citations {
+    font-size: 85%;
+}
+
+
+.citations ul, .reveal .citations ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.reveal .citations ul li {
-    background: black;
-    padding: 5px 10px;
-    position: relative;
+.citations ul li {
+    display: inline-block;
 }
 
-.reveal .citations a {
+.citations ul li a {
+    background: #e1462c;
+    padding: 5px 10px;
+    position: relative;
+    display: inline-block;
+    transition: background-color 0.35s ease;
+}
+
+.citations ul li a:hover {
+    background: #ff8777;
+}
+
+.citations a {
     color: white;
+}
+
+.scroll .citations {
+    margin-left: -20px;
 }
 
 .reveal .cover {
@@ -499,23 +518,6 @@ section .presentation-title {
     border-radius: 0px;
 }
 
-.scroll .cover .citations ul {
-    margin: 0 -20px -20px -20px;
-    padding: 0;
-    list-style: none;
-}
-
-.scroll .cover .citations li {
-    background: white;
-    padding: 5px;
-    margin-bottom: 0px;
-}
-
-.scroll .cover .citations li a {
-    background: white;
-    text-decoration: none;
-}
-
 .scroll h2 {
 
 }
@@ -536,6 +538,7 @@ section .presentation-title {
     position: absolute;
     top: 0;
     right: 0;
+    border-radius: 50px;
 }
 
 
@@ -569,6 +572,7 @@ section .presentation-title {
     width: 2vw;
     height: 2vw;
     background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .scroll .hi-icon {

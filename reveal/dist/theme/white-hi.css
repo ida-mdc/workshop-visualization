@@ -498,13 +498,12 @@ figure {
  * LINKS
  *********************************************/
 .reveal a {
-  color: var(--r-link-color);
+
   text-decoration: none;
   transition: color 0.15s ease;
 }
 
 .reveal a:hover {
-  color: var(--r-link-color-hover);
   text-shadow: none;
   border: none;
 }
