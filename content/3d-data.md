@@ -126,6 +126,15 @@ Volumetric datasets, such as medical imaging (CT/MRI scans) or fluid simulations
 
 ## Visualizing volumetric datasets
 ### Transfer functions
+{{< notes >}}
+When working with **unannotated** volumetric datasets, you can explore the data interactively using **transfer functions**. Transfer functions map intensity values in the dataset to colors and opacities, allowing you to visualize different regions of the volume without defining hard boundaries. This technique is often used for soft, exploratory visualizations of the internal structures of the data.
+
+**Transfer Functions**:
+- A transfer function defines how data values are mapped to colors and transparency.
+- Example: Low intensity values may be mapped to transparent regions, while higher intensities are mapped to visible colors.
+- Transfer functions are typically adjusted in visualization software like **ParaView**.
+- By adjusting transfer functions, you can emphasize specific parts of the volume without needing concrete borders or segmentations.
+{{< /notes >}}
 
 {{< figure src="https://www.researchgate.net/profile/Stefan-Bruckner-2/publication/227615609/figure/fig10/AS:1076152089206787@1633586060991/Illustrative-volume-rendering-using-a-style-transfer-function-Images-a-d-depict.png">}}
 
@@ -213,12 +222,6 @@ project we are working on at MDC where we utilize Neuroglancer to display large 
 Annotations can be used to add specific information to volumetric datasets, such as marking points of interest (e.g., cell locations, regions of interest) or segmenting areas of the data. Converting these annotated datasets into meshes allows for the visual representation of those specific features.
 
 When working with **unannotated** volumetric datasets, you can explore the data interactively using **transfer functions**. Transfer functions map intensity values in the dataset to colors and opacities, allowing you to visualize different regions of the volume without defining hard boundaries. This technique is often used for soft, exploratory visualizations of the internal structures of the data.
-
-**Transfer Functions**:
-- A transfer function defines how data values are mapped to colors and transparency.
-- Example: Low intensity values may be mapped to transparent regions, while higher intensities are mapped to visible colors.
-- Transfer functions are typically adjusted in visualization software like **ParaView**.
-- By adjusting transfer functions, you can emphasize specific parts of the volume without needing concrete borders or segmentations.
 {{< /notes >}}
 
 - **Transfer functions**: Used for visualizing unannotated datasets, adjusting colors and opacities based on intensity values.
