@@ -1,6 +1,6 @@
-<div class="solution-box">
+<a class="solution-box" href="https://album.solutions/guide?catalog_url=https://gitlab.com/album-app/catalogs/image-challenges&catalog_name=image-challenges&group={{.group}}&name={{.name}}&version={{.version}}">
   {{- $solutionCover := printf "%s/-/raw/%s-%s-%s/solutions/%s/%s/%s" .catalogUrl .group .name .version .group .name (index (index .covers 0) "source") -}}
-  <div class="preview" onclick="toggleMetadata('{{ .name | urlize }}')">
+  <div class="preview">
     <h3>{{.title}}</h3>
     <div class="subtitle"><code>{{ .group }}:{{ .name }}:{{ .version }}</code></div>
     <p class="description">{{ .description }}<br/>
@@ -50,4 +50,4 @@ album run {{ .group }}:{{ .name }}:{{ .version }}{{ if .arguments }}{{ range .ar
       </div>
     </div>
   </div>
-</div>
+</a>
