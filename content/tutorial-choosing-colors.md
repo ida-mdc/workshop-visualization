@@ -1,6 +1,6 @@
 ---
 title: "Choosing colors for scientific 3D renderings"
-date: 2024-09-09
+date: 2024-09-25
 draft: false
 layout: workshop
 author: Deborah Schmidt

@@ -1,6 +1,6 @@
 ---
 title: "Volumetric Dataset Rendering in Python"
-date: 2024-09-09
+date: 2024-09-25
 draft: false
 layout: workshop
 author: Deborah Schmidt

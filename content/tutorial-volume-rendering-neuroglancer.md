@@ -1,6 +1,6 @@
 ---
 title: "Volumetric data rendering with Neuroglancer"
-date: 2024-09-09
+date: 2024-09-25
 draft: false
 layout: workshop
 author: Deborah Schmidt

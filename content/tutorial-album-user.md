@@ -1,6 +1,6 @@
 ---
 title: "How to install and use Album - a tool for decentralized software use case sharing"
-date: 2024-09-09
+date: 2024-09-25
 draft: false
 layout: workshop
 author: Deborah Schmidt
