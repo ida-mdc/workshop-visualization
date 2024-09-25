@@ -5,7 +5,7 @@ draft: false
 layout: workshop
 author: Deborah Schmidt
 author_position: Head of Helmholtz Imaging Support Unit
-description: In this workshop, we delve into various approaches and methodologies for visualizing 3D datasets. 
+description: In this workshop, we highlight various approaches and methodologies for visualizing 3D datasets. 
 cover: img/bg.jpg
 ---
 
@@ -13,22 +13,16 @@ cover: img/bg.jpg
 {{< unlisted >}}
 {{< horizontal >}}
 {{< block >}}
-
 Hi, I'm Deborah, head of the Helmholtz Imaging Support Unit at MDC.
 
-### Meet the Helmholtz Imaging Support Units!
-
-We are here to support you in case you have any questions or need support.
-
-### .. working in close collaboration with the Helmholtz Imaging Research Units.
-
+### Helmholtz Imaging is here for you with Support Units at 3 centers, working in close collaboration with the Helmholtz Imaging Research Units.
 {{< logos >}}img/logos/desy.png
 img/logos/dkfz.png
 img/logos/mdc.png{{< /logos >}}
 
 {{< /block >}}
 
-{{< figure src="img/people/hi-support-staff.jpg" caption="Members of all 3 Helmholtz Imaging Support Units at DESY, DKFZ, and MDC." >}}
+{{< figure src="img/people/hi-support-staff.jpg" caption="Members of all Helmholtz Imaging Support Units." >}}
 
 {{< /horizontal >}}
 
@@ -73,6 +67,8 @@ catlog (as described in the tutorial):
 ---
 
 ## 3D Dataset types
+{{< horizontal >}}
+{{< block >}}
 
 {{< notes >}}
 - Understanding the type of data you are working with is crucial for effective 3D rendering. Below, we outline the 
@@ -89,22 +85,26 @@ Voxel-based datasets represent data as a grid of values (voxels) in **Euclidean 
 Meshes are composed of **vertices, edges, and faces** that define the surface of a 3D object. Unlike voxels, which describe volumes, meshes describe surfaces and are commonly used in **computer graphics** and **CAD models**. Meshes can be visualized through techniques like surface rendering, wireframe views, and texture mapping. Properties like curvature or scalar fields can also be mapped onto the mesh for enhanced interpretation.
 {{< /notes >}}
 
-- **Point Clouds** (Non-Euclidean-structured) - not covered here
+- **Point Clouds** (Non-Euclidean-structured)
 {{< notes >}}
 Point clouds are a collection of points in 3D space, where each point is defined by its **X, Y, Z coordinates**. They are often derived from **LiDAR** scans, 3D scanning, or particle simulations. Visualization of point clouds often involves **point-based rendering**, surface reconstruction, or filtering techniques to highlight areas of interest.
 {{< /notes >}}
 
-- **Tables and Statistical Data** - barely covered here
+- **Tables and Statistical Data**
 {{< notes >}}
 Although tables and statistical data are not inherently 3D, they often accompany 3D datasets as metadata or derived analysis results. For example, a table may contain quantitative metrics for specific regions of a segmented 3D volume. These datasets can be visualized in combination with 3D data, often through **interactive tables** or **linked statistical plots**.
 {{< /notes >}}
 
-- **Time-Series Data** - not covered here
+- **Time-Series Data**
 {{< notes >}}
 Time-series data adds a temporal dimension to any of the above datasets, effectively making them **4D**. This is commonly seen in **dynamic simulations** or **time-lapse studies**. Visualization techniques include animations, timeline sliders, or real-time interactive exploration.
 {{< /notes >}}
 
+{{< /block >}}
+
 {{<figure src="img/3d-data-representations.jpg" caption="Examples of different 3D data type representations. Credit: [Gezawa, A. et al. (2020), CC BY 4.0](https://www.researchgate.net/publication/340074064_A_Review_on_Deep_Learning_Approaches_for_3D_Data_Representations_in_Retrieval_and_Classifications).">}}
+
+{{< /horizontal >}}
 
 ---
 
@@ -128,7 +128,7 @@ Volumetric datasets, such as medical imaging (CT/MRI scans) or fluid simulations
 - **Slice-Based Visualization**: This involves rendering 2D cross-sections or "slices" of the 3D dataset, often used in 
   medical imaging.
 - **Volume Rendering**: This is a common method for visualizing 3D datasets where voxel-based data is rendered directly. Tools like ParaView and Fiji provide options for volume rendering.
-- **Isosurface Rendering** vs. **Raycasting**
+- **Raycasting** vs. **Isosurface Rendering**
 
 
 {{< figure src="img/volume-rendering.png" >}}
@@ -158,16 +158,20 @@ Even though we won't focus on animation in this workshop, I don't want to miss t
 wonderful Fiji 3DScript plugin, which offers the ability to generate animations of 3D objects based using simple 
 text commands. 
 {{< /notes >}}
+{{< horizontal >}}
+{{< block >}}
 
 - **Simple scripting**: Create animations by writing basic scripts in natural language.
 - **Automated rendering**: Generate complex 3D animations for presentations or publications.
 
+{{< /block >}}
 {{<figure src="https://gitlab.com/album-app/catalogs/image-challenges/-/raw/visualization-animate-with-3dscript-0.1.2/solutions/visualization/animate-with-3dscript/cover.jpg">}}
+{{< /horizontal >}}
 
 {{<citations>}}
-- Schmid, B.; Tripal, P. & Fraaß, T. et al. (2019), "[3Dscript: animating 3D/4D microscopy data using a 
-  natural-language-based syntax](https://www.nature.com/articles/s41592-019-0359-1)", Nature methods 16(4): 278-280, 
-  PMID 30886414.
+- [Schmid, B.; Tripal, P. & Fraaß, T. et al. (2019), "3Dscript: animating 3D/4D microscopy data using a 
+  natural-language-based syntax", Nature methods 16(4): 278-280, 
+  PMID 30886414.](https://www.nature.com/articles/s41592-019-0359-1)
 - [Project website](https://bene51.github.io/3Dscript/)
 {{</citations>}}
 
@@ -349,7 +353,7 @@ VTK offers extensive tools for rendering meshes, allowing for the customization 
 
 - **VTK rendering features**: Customize surface properties like color, opacity, and lighting. VTK can also handle interactive rendering, where users can rotate and zoom in on the rendered mesh.
 
-- {{< tutorial-link link="tutorial-mesh-rendering-vtk" >}}
+{{< tutorial-link link="tutorial-mesh-rendering-vtk" >}}
 
 ---
 
@@ -430,3 +434,24 @@ In the future, we anticipate several areas of interest for 3D data visualization
 Thank you for attending this workshop. Feel free to reach out for further assistance or to explore 
 more visualization techniques! 
 {{< /notes >}}
+
+{{< horizontal >}}
+{{< block >}}
+
+### Don't hesitate to get in touch!
+
+**support@helmholtz-imaging.de**
+
+**https://connect.helmholtz-imaging.de**
+
+{{<space>}}{{</space>}}
+
+{{< logos >}}img/logos/desy.png
+img/logos/dkfz.png
+img/logos/mdc.png{{< /logos >}}
+
+{{< /block >}}
+
+{{< figure src="img/people/hi-support-staff.jpg" caption="Helmholtz Imaging Support Units at DESY, DKFZ, and MDC." >}}
+
+{{< /horizontal >}}

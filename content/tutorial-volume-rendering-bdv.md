@@ -1,5 +1,5 @@
 ---
-title: "Voxel based volume rendering with BDV based tools"
+title: "Volume rendering with BigDataViewer tools"
 date: 2024-09-09
 draft: false
 layout: workshop
