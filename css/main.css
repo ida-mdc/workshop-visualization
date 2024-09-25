@@ -762,3 +762,7 @@ figure.center {
     max-width: 200px;
     justify-self: flex-end;
 }
+
+.solution-box, .solution-box:hover {
+    color: black;
+}
