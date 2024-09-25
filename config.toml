@@ -1,4 +1,4 @@
-baseURL = "https://ida-mdc.gitlab.io/workshops/3d-data-visualization"
+baseURL = "https://ida-mdc.github.io/workshop-visualization
 languageCode = "en-us"
 title = "3D Data Visualization Workshop"
 [markup.goldmark.renderer]
