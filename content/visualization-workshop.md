@@ -178,16 +178,12 @@ text commands.
 ---
 
 ## Visualizing volumetric datasets
-## Python based tools
+### Python based tools
 {{< notes >}}
 With the rise of popularity of Python as a script and programming language in the life sciences and beyond, let's 
 look at Python based volumetric rendering in the tutorial linked below. We will look at Napari, Pygfx, and VTK. It 
 is worth mentioning that he last two tools are also great resources for rendering mesh based datasets.  
 {{< /notes >}}
-
-- **Napari**: Best for small to medium-sized datasets with interactive 3D volume rendering.
-- **Pygfx and VTK**: These tools provide advanced programmatic 3D rendering capabilities for both volumetric and mesh 
-  data.
 
 {{< tutorial-link link="tutorial-volume-rendering-python" >}}
 
@@ -201,7 +197,6 @@ The following tutorial does not come with a full overview of existing web based 
 project we are working on at MDC where we utilize Neuroglancer to display large scale mice brains online. 
 {{< /notes >}}
 
-- **Web-based viewer**: View volumetric data interactively in the browser.
 - **Collaboration-friendly**: Share URLs with collaborators to provide access to the 3D visualization.
 
 {{< tutorial-link link="tutorial-volume-rendering-neuroglancer" >}}
@@ -247,9 +242,7 @@ The **Marching Cubes algorithm** is one of the most popular methods for extracti
 
 {{< /notes >}}
 
-- **Isosurface extraction**: Extract a 3D surface from a volumetric dataset by identifying where the data crosses a certain threshold.
-
-{{< figure src="img/MarchingCubesEdit.svg" caption="Marching cubes algorithm. Credit: [Ryoshoru, Jmtrivial on Wikimedia](https://commons.wikimedia.org/wiki/File:MarchingCubesEdit.svg), CC BY-SA 4.0">}}
+{{< figure src="img/MarchingCubesEdit.svg" height="700px" caption="Marching cubes algorithm. Credit: [Ryoshoru, Jmtrivial on Wikimedia](https://commons.wikimedia.org/wiki/File:MarchingCubesEdit.svg), CC BY-SA 4.0">}}
 
 ---
 
@@ -385,6 +378,8 @@ Choosing the right colors for your 3D visualizations is crucial for enhancing cl
 tutorial below guides you through color representation in digital programs, a brief look into existing colormaps, 
 and a few more tricks for picking the best colors for your project. 
 {{< /notes >}}
+
+- Don't underestimate the impact of choosing colors matching your story!
 
 {{< tutorial-link link="tutorial-choosing-colors" >}}
 
