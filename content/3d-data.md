@@ -40,6 +40,30 @@ Germany, but you can also reach out to us if you don't belong to Helmholtz.
 
 ---
 
+## Automation of rendering tasks
+{{< unlisted >}}
+### Album & the Image Challenges catalog
+{{< notes >}}
+According to feedback from the community, automating visualization tasks is often harder than other tasks, because 
+it often involves the use of graphical interfaces. Additionally, one often requires a whole list of tools to 
+complete a full workflow from preparing to rendering the data. My team works on a  framework called [**Album**](https://album.solutions) which can provide executable entry points into diverse tools, so 
+that they can be launched from the same interface and tailored to automate specific use cases.
+
+Album manages separate virtual environments for each solution managed internally by micromamba to avoid version conflicts. Each solution can run custom installation and run scripts, written in Python, in these environments. Since Python runs across platforms, this enables us to write custom launchers and execution routines for a variety of software.
+
+If you want to run any of the Album solutions mentioned in this workshop, please check out this tutorial on how to 
+install Album and how to add a catalog of solutions to your local album collection. Please install the following 
+catlog (as described in the tutorial):
+{{< center >}} **`https://gitlab.com/album-app/catalogs/image-challenges.git`** {{< /center >}}
+
+{{< /notes >}}
+
+- **Automate visualization tasks**: Use Album to manage multiple tools from a single launcher.
+
+{{< tutorial-link link="tutorial-album-user" >}}
+
+---
+
 ## 3D Dataset types
 {{< horizontal >}}
 {{< block >}}
