@@ -233,15 +233,15 @@ When converting volumetric data to **meshes**, it's necessary to draw concrete b
 - **Fixed thresholds**: Used to generate meshes by separating foreground from background using a set intensity threshold.
 - **Content-based annotations**: Create precise meshes by using annotated regions to define boundaries.
 
-{{< citations >}}
-- [© Müller et al. https://doi.org/10.1083/jcb.202010039](https://rupress.org/jcb/article/220/2/e202010039/211599/3D-FIB-SEM-reconstruction-of-microtubule-organelle) 
-{{</ citations >}}
-
 ---
 
 ## Converting volumetric datasets into meshes
 
 {{< figure src="img/annotation-conversion.jpg" >}}
+
+{{< citations >}}
+- [© Müller et al. https://doi.org/10.1083/jcb.202010039](https://rupress.org/jcb/article/220/2/e202010039/211599/3D-FIB-SEM-reconstruction-of-microtubule-organelle) 
+{{</ citations >}}
 
 ---
 
