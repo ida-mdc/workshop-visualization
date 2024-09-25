@@ -752,3 +752,9 @@ figure.center {
 .tutorial-link h3 {
     color: #e1462c;
 }
+
+.image-right {
+    float: right;
+    max-width: 200px;
+    justify-self: flex-end;
+}

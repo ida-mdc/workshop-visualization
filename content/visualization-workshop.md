@@ -128,8 +128,7 @@ Volumetric datasets, such as medical imaging (CT/MRI scans) or fluid simulations
 - **Slice-Based Visualization**: This involves rendering 2D cross-sections or "slices" of the 3D dataset, often used in 
   medical imaging.
 - **Volume Rendering**: This is a common method for visualizing 3D datasets where voxel-based data is rendered directly. Tools like ParaView and Fiji provide options for volume rendering.
-- **Isosurface Extraction**: A method to extract 3D surfaces from volumetric data. Popular algorithms include Marching 
-  Cubes and Marching Tetrahedrons.
+- **Isosurface Rendering** vs. **Raycasting**
 
 
 {{< figure src="img/volume-rendering.png" >}}
@@ -206,12 +205,6 @@ project we are working on at MDC where we utilize Neuroglancer to display large 
 ---
 
 ## Converting volumetric datasets into meshes
-### Mesh-Based Data
-
-- Represents only the **surface** of an object using **vertices, edges, and faces**.
-- Best for representing surface geometry and shapes, common in **computer graphics** and **CAD models**.
-- Efficient for rendering when you only need to visualize the object's surface.
-- Techniques include **surface rendering**, **wireframe views**, and **texture mapping**.
 
 {{< figure src="img/annotation-conversion.jpg" >}}
 
@@ -251,7 +244,6 @@ The **Marching Cubes algorithm** is one of the most popular methods for extracti
 {{< /notes >}}
 
 - **Isosurface extraction**: Extract a 3D surface from a volumetric dataset by identifying where the data crosses a certain threshold.
-- **Marching Cubes algorithm**: One of the most widely used methods for generating surface meshes from volumetric data.
 
 {{< figure src="img/MarchingCubesEdit.svg" caption="Marching cubes algorithm. Credit: [Ryoshoru, Jmtrivial on Wikimedia](https://commons.wikimedia.org/wiki/File:MarchingCubesEdit.svg), CC BY-SA 4.0">}}
 
@@ -259,14 +251,16 @@ The **Marching Cubes algorithm** is one of the most popular methods for extracti
 
 ## Converting volumetric datasets into meshes
 ### Optimization
+
+- **Binary masks** vs. **Probability maps**
+
 {{< notes >}}
 When converting volumetric data to meshes, **optimizing** the output is crucial for achieving smooth and accurate 
 results. One good approach is using **probability maps** rather than binary masks as input for the **Marching Cubes 
 algorithm**. 
-{{< /notes >}}
-
 - **Binary masks**: Create rough, blocky meshes because the data is thresholded into hard 0/1 values, losing subpixel detail.
 - **Probability maps**: Offer smoother results, as the algorithm can detect gradients between regions, improving mesh precision at subpixel levels.
+{{< /notes >}}
 
 {{< figure src="img/mesh-conversion-optimization.jpg" >}}
 
@@ -365,9 +359,6 @@ VTK offers extensive tools for rendering meshes, allowing for the customization 
 Blender is a powerful open-source tool for rendering meshes. It supports realistic rendering, including lighting, shadows, transparency, and advanced surface textures. In this tutorial, you will learn how to set up Blender to render scientific datasets as meshes.
 {{< /notes >}}
 
-- **Blender rendering**: Blender has endless amazing features, but how does one start? Check out the short tutorial 
-  below.
-
 {{< tutorial-link link="tutorial-mesh-rendering-blender" >}}
 
 ---
@@ -376,10 +367,9 @@ Blender is a powerful open-source tool for rendering meshes. It supports realist
 ### Cutting volumes in Blender
 {{< notes >}}
 Blender’s powerful modeling and sculpting tools allow users to cut and manipulate 3D meshes. In this section, we'll cover techniques for cutting volumes to expose internal structures or focus on specific regions. 
-{{< /notes >}}
-
 - **Cutting meshes**: Use Blender’s **Boolean modifier** to subtract volumes and expose internal structures.
 - **Focus on regions**: Cut specific parts of the mesh to highlight or reveal hidden features inside the object.
+{{< /notes >}}
 
 {{< tutorial-link link="tutorial-mesh-cutting-volumes-blender" >}}
 
@@ -396,14 +386,23 @@ and a few more tricks for picking the best colors for your project.
 
 ---
 
-## Point Clouds
-### Ongoing Helmholtz Imaging Collaboration
+## Point Clouds - Project BESSY2 Reconstruction
+
+{{<horizontal>}}
+### Ongoing Helmholtz Imaging Collaboration of the DKFZ Support Unit and HZB Researchers
+
+{{<block>}}
+{{<figure src="img/logos/dkfz.png" height="50px" class="image-right">}}
+{{<figure src="img/logos/hzb-logo-a4-rgb.jpg" height="80px" class="image-right">}}
+{{</block>}}
+
+{{</horizontal>}}
+
 {{< notes >}}
-TODO
+Experiments in BESSY II change regularly, making tracking those changes - e.g. for planning additional experiments - necessary. Common surveying techniques are laborious and offer unneeded accuracy. Thus, we provide a pragmatic solution where the status quo is reconstructed from drone video footage. The resulting 3D reconstruction can be rendered from above using orthogonal projection. Overlaying this rendering with the original 2D plans gives valuable information about the differences between the status quo and the theoretical plans.
 {{< /notes >}}
 
-TODO
-mention cloudcompare
+{{<figure src="img/bessy2.jpg">}}
 
 ---
 

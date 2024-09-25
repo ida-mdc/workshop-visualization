@@ -32,7 +32,7 @@ This tutorial will guide you through using a Python based solution for volume to
 into the details of the code in the following slides.
 {{< /notes >}}
 
-{{< solution-in-tutorial catalog="image-challenges" group="visualization" solution="pixel-volumes-to-meshes-vtk" version="0.1.0" >}}
+{{< solution-in-tutorial catalog="image-challenges" group="visualization" solution="pixel-volumes-to-meshes-vtk" version="0.2.0" >}}
 
 ---
 
@@ -42,10 +42,8 @@ into the details of the code in the following slides.
 This is the full specification of the virtual environment used for this solution, including the VTK dependency.
 {{< /notes >}}
 
-TODO remove parent from solution
-
 {{< highlight highlight="linenos=inline" catalog="image-challenges" group="visualization" 
-solution="pixel-volumes-to-meshes-vtk" version="0.1.0" linerange="290-290" >}}
+solution="pixel-volumes-to-meshes-vtk" version="0.2.0"  linerange="314-329">}}
 
 ---
 
@@ -58,10 +56,11 @@ We start by converting **TIFF files** into meshes. Labelmaps, which contain mult
 - Add zero border around dataset
 - Load volumetric image using `vtkImageData`
 - Generate meshes using `vtkFlyingEdges3D` algorithm
-- Set marching cubes threshold via `GenerateValues (int numContours, double 	rangeStart, double 	rangeEnd)`
+- Set threshold between foreground and background via `GenerateValues (int numContours, double rangeStart, double 
+  rangeEnd)`
 
 {{< highlight highlight="linenos=inline" catalog="image-challenges" group="visualization" 
-solution="pixel-volumes-to-meshes-vtk" version="0.1.0" linerange="70-86" >}}
+solution="pixel-volumes-to-meshes-vtk" version="0.2.0" linerange="72-100" >}}
 
 {{<citations>}}
 - [VTK Documentation: vtkFlyingEdges3D](https://vtk.org/doc/nightly/html/classvtkFlyingEdges3D.html#details)
@@ -81,7 +80,7 @@ Smoothing makes the surface appear less jagged.
 - **Boundary Smoothing**: Smooths out the mesh along the boundaries. 
 
 {{< highlight highlight="linenos=inline" catalog="image-challenges" group="visualization" 
-solution="pixel-volumes-to-meshes-vtk" version="0.1.0" linerange="89-99" >}}
+solution="pixel-volumes-to-meshes-vtk" version="0.2.0" linerange="103-114" >}}
 
 {{<figure src="img/vtk-smoothing.png">}}
 
@@ -102,11 +101,9 @@ Here, we will optimize the meshes by **decimating** them. Decimation reduces the
 - **Preserve Topology**: Ensures that the overall shape and connectivity of the mesh are maintained during decimation.
 
 {{< highlight highlight="linenos=inline" catalog="image-challenges" group="visualization" 
-solution="pixel-volumes-to-meshes-vtk" version="0.1.0" linerange="102-108" >}}
+solution="pixel-volumes-to-meshes-vtk" version="0.2.0" linerange="117-125" >}}
 
 {{<figure src="img/vtk-mesh-reduction.png">}}
-
-TODO add topologyon parameter
 
 {{<citations>}}
 - [VTK Documentation: vtkDecimatePro](https://vtk.org/doc/nightly/html/classvtkDecimatePro.html#details)
@@ -120,5 +117,5 @@ TODO add topologyon parameter
 The final step in this process is to write the generated mesh to an STL file. STL files are widely used for 3D printing, simulations, and visualizations in tools like Blender.
 
 {{< highlight highlight="linenos=inline" catalog="image-challenges" group="visualization" 
-solution="pixel-volumes-to-meshes-vtk" version="0.1.0" linerange="126-140" >}}
+solution="pixel-volumes-to-meshes-vtk" version="0.2.0" linerange="155-160" >}}
 

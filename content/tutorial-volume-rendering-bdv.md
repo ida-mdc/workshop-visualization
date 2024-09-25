@@ -6,10 +6,8 @@ layout: workshop
 author: Deborah Schmidt
 author_position: Helmholtz Imaging | MDC Berlin
 description: Learn how to render voxel-based volumetric data using BigDataViewer (BDV) and tools built on top of BDV. 
-cover: img/bdv-rendering.jpg
+cover: https://imagej.net/media/plugins/bdv/bdv-bdv-start.png
 ---
-
-TODO add authors
 
 ## Introduction
 
@@ -24,21 +22,13 @@ These tools are commonly used for large datasets that are too large to load full
 - **Arbitrary slicing**: Enables users to zoom, rotate, and slice through datasets interactively and in any angle.
 - **Multiple data sources with individual transformations**: Enables visualization of datasets consisting of multiple 
   acquisitions.
+- Comes preinstalled with [**Fiji**](https://fiji.sc/).
 
 {{< citations >}}
 - [BDV Documentation](https://imagej.net/plugins/bdv/)
+- [Pietzsch, T., Saalfeld, S., Preibisch, S., & Tomancak, P. (2015). BigDataViewer: visualization and processing for 
+  large image data sets. Nature Methods, 12(6), 481–483. doi:10.1038/nmeth.3392](https://www.nature.com/articles/nmeth.3392)
 {{</ citations >}}
-
----
-
-## Introduction
-### Installation
-
-### Installation Steps:
-- Download and install [**Fiji**](https://fiji.sc/).
-- The BDV plugins are preinstalled and accessible through **Plugins > BigDataViewer**
-
-TODO image of BDV
 
 ---
 
@@ -52,6 +42,8 @@ BDV is compatible with several file formats, especially those designed for large
 - **HDF5/N5**: These formats allow for hierarchical storage of large datasets, enabling faster access to the data and efficient memory usage.
 - **Any dataset Fiji compatible dataset**: While these images might not support multi resolution rendering, they can 
   still be imported into BDV to leverage arbitrary slicing.
+
+{{<figure src="https://imagej.net/media/plugins/bdv/bdv-bdv-start.png">}}
 
 ---
 
@@ -87,6 +79,8 @@ datasets from various other image formats, for example
 {{< citations >}}
 - [BigStitcher](https://imagej.net/plugins/bigstitcher/)
 - [BigStitcher > Define New Dataset](https://imagej.net/plugins/bigstitcher/define-new-dataset)
+- [Hörl, D., Rojas Rusak, F., Preusser, F. et al. BigStitcher: reconstructing high-resolution image datasets of 
+  cleared and expanded samples. Nat Methods 16, 870–874 (2019). https://doi.org/10.1038/s41592-019-0501-0](https://doi.org/10.1038/s41592-019-0501-0)
 {{</ citations >}}
 
 ---
@@ -102,8 +96,6 @@ scale datasets.
 - **GPU-accelerated rendering**: BVV uses GPU processing to speed up the rendering of extremely large volumetric datasets.
 - **Multi-scale volume rendering**: Allows for efficient exploration of datasets by loading data at different scales.
 - available through Fiji **BigVolumeViewer** update site
-
-TODO screenshot
 
 {{< citations >}}
 - [BigVolumeViewer image.sc thread](https://forum.image.sc/t/bigvolumeviewer-tech-demo/12104)
@@ -138,30 +130,28 @@ TODO screenshot
 - **Interactive 3D rendering**: Explore volumetric data interactively using SciView’s intuitive interface.
 - **Supports advanced lighting and shading**: Create realistic 3D scenes with SciView’s lighting and shading options.
 
-TODO screenshot
 
 {{< citations >}}
-- [SciView installation instructions](https://docs.scenery.graphics/sciview/installation/installing-the-sciview-plugin-for-fiji)
+- [SciView documentation](https://docs.scenery.graphics/sciview)
+- [Ulrik Günther, Tobias Pietzsch, Aryaman Gupta, Kyle I.S. Harrington, Pavel Tomancak, Stefan Gumhold, and Ivo F. 
+  Sbalzarini: scenery — Flexible Virtual Reality Visualisation on the Java VM. IEEE VIS 2019 (accepted, arXiv:1906.
+  06726).](https://arxiv.org/abs/1906.06726)
 {{</ citations >}}
 
 ---
 
 ## MultiModal Big Image Data Sharing and Exploration (MoBIE)
 
-{{< notes >}}
-TODO
-{{< /notes >}}
-
 ### Key Features of MoBIE:
 - Special focus on **multimodal image datasets**
-- TODO add note about online dataset streaming
+- Can **stream remote data**
 - Support of **interactive tabular data exploration** alongside images
 - Integrated **registration features**
 
-TODO screenshot
-
 {{< citations >}}
 - [MoBIE website](https://mobie.github.io/)
+- [Pape, C., Meechan, K., Moreva, E. et al. MoBIE: a Fiji plugin for sharing and exploration of multi-modal 
+  cloud-hosted big image data. Nat Methods 20, 475–476 (2023). https://doi.org/10.1038/s41592-023-01776-4](https://doi.org/10.1038/s41592-023-01776-4)
 {{</ citations >}}
 
 ---
@@ -169,7 +159,7 @@ TODO screenshot
 ## Paintera
 
 {{< notes >}}
-TODO rewrite this in my own words: Paintera is a general visualization tool for 3D volumetric data and proof-reading in segmentation/reconstruction with a primary focus on neuron reconstruction from electron micrographs in connectomics.
+Paintera is a general visualization tool for 3D volumetric data and proof-reading in segmentation/reconstruction with a primary focus on neuron reconstruction from electron micrographs in connectomics.
 {{< /notes >}}
 
 {{<horizontal>}}
@@ -188,6 +178,6 @@ TODO rewrite this in my own words: Paintera is a general visualization tool for 
 {{</horizontal>}}
 
 {{< citations >}}
-- [Paintera on GitHub](https://github.com/saalfeldlab/paintera)
+- [Paintera on GitHub (Saalfeld Lab, Janelia Research Campus)](https://github.com/saalfeldlab/paintera)
 {{</ citations >}}
 
