@@ -4,7 +4,7 @@ date: 2024-09-09
 draft: false
 layout: workshop
 author: Deborah Schmidt
-author_position: Head of Helmholtz Imaging Support Unit
+author_position: Head of Helmholtz Imaging Support Unit, MDC Berlin
 description: In this workshop, we highlight various approaches and methodologies for visualizing 3D datasets. 
 cover: img/bg.jpg
 ---
@@ -40,32 +40,6 @@ Germany, but you can also reach out to us if you don't belong to Helmholtz.
 
 ---
 
-## Automation of rendering tasks
-{{< notes >}}
-According to feedback from the community, automating visualization tasks is often harder than other tasks, because 
-it often involves the use of graphical interfaces. Additionally, one often requires a whole list of tools to 
-complete a full workflow from preparing to rendering the data. My team works on a  framework called [**Album**](https://album.solutions) which can provide executable entry points into diverse tools, so 
-that they can be launched from the same interface and tailored to automate specific use cases.
-
-Album manages separate virtual environments for each solution managed internally by micromamba to avoid version conflicts. Each solution can run custom installation and run scripts, written in Python, in these environments. Since Python runs across platforms, this enables us to write custom launchers and execution routines for a variety of software.
-{{< /notes >}}
-
-- **Automate visualization tasks**: Use Album to manage multiple tools from a single launcher.
-- **Cross-platform support**: Album's Python-based approach works on all major platforms.
-
-### Album installation & the Image Challenges catalog
-{{< notes >}}
-If you want to run any of the Album solutions mentioned in this workshop, please check out this tutorial on how to 
-install Album and how to add a catalog of solutions to your local album collection. Please install the following 
-catlog (as described in the tutorial):
-{{< center >}} **`https://gitlab.com/album-app/catalogs/image-challenges.git`** {{< /center >}}
-
-{{< /notes >}}
-
-{{< tutorial-link link="tutorial-album-user" >}}
-
----
-
 ## 3D Dataset types
 {{< horizontal >}}
 {{< block >}}
@@ -88,16 +62,6 @@ Meshes are composed of **vertices, edges, and faces** that define the surface of
 - **Point Clouds** (Non-Euclidean-structured)
 {{< notes >}}
 Point clouds are a collection of points in 3D space, where each point is defined by its **X, Y, Z coordinates**. They are often derived from **LiDAR** scans, 3D scanning, or particle simulations. Visualization of point clouds often involves **point-based rendering**, surface reconstruction, or filtering techniques to highlight areas of interest.
-{{< /notes >}}
-
-- **Tables and Statistical Data**
-{{< notes >}}
-Although tables and statistical data are not inherently 3D, they often accompany 3D datasets as metadata or derived analysis results. For example, a table may contain quantitative metrics for specific regions of a segmented 3D volume. These datasets can be visualized in combination with 3D data, often through **interactive tables** or **linked statistical plots**.
-{{< /notes >}}
-
-- **Time-Series Data**
-{{< notes >}}
-Time-series data adds a temporal dimension to any of the above datasets, effectively making them **4D**. This is commonly seen in **dynamic simulations** or **time-lapse studies**. Visualization techniques include animations, timeline sliders, or real-time interactive exploration.
 {{< /notes >}}
 
 {{< /block >}}
@@ -127,11 +91,26 @@ Volumetric datasets, such as medical imaging (CT/MRI scans) or fluid simulations
 
 - **Slice-Based Visualization**: This involves rendering 2D cross-sections or "slices" of the 3D dataset, often used in 
   medical imaging.
-- **Volume Rendering**: This is a common method for visualizing 3D datasets where voxel-based data is rendered directly. Tools like ParaView and Fiji provide options for volume rendering.
-- **Raycasting** vs. **Isosurface Rendering**
+- **Volume raycasting** (max intensity, emission absorbtion)
 
+{{<horizontal>}}
+{{< figure src="img/volume-rendering.png" caption="Slicing, Max. Intensity, Emission Absorbtion">}}
+{{< figure src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Volume_ray_casting.svg/2560px-Volume_ray_casting.svg.png" caption="[Thetawavederivative work: Florian Hofmann, CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=14521474)">}}
+{{</horizontal>}}
 
-{{< figure src="img/volume-rendering.png" >}}
+---
+
+## Visualizing volumetric datasets
+### Transfer functions
+
+{{< figure src="https://www.researchgate.net/profile/Stefan-Bruckner-2/publication/227615609/figure/fig10/AS:1076152089206787@1633586060991/Illustrative-volume-rendering-using-a-style-transfer-function-Images-a-d-depict.png">}}
+
+Figure by Stefan Bruckner from the following publication:
+
+{{<citations>}}
+- [Bruckner, Stefan & Gröller, Eduard. (2007). Style Transfer Functions for Illustrative Volume Rendering. Computer 
+  Graphics Forum. 26. 715 - 724. 10.1111/j.1467-8659.2007.01095.x.](https://www.researchgate.net/publication/227615609_Style_Transfer_Functions_for_Illustrative_Volume_Rendering)
+{{</citations>}}
 
 ---
 
@@ -152,7 +131,7 @@ has evolved over time, which we will explore in the tutorial linked below.
 ---
 
 ## Visualizing volumetric datasets
-### Volume rendering with Fiji: Animation
+### Volume rendering with Fiji: Animation with 3DScript
 {{< notes >}}
 Even though we won't focus on animation in this workshop, I don't want to miss the opportunity to mention the 
 wonderful Fiji 3DScript plugin, which offers the ability to generate animations of 3D objects based using simple 
@@ -163,6 +142,7 @@ text commands.
 
 - **Simple scripting**: Create animations by writing basic scripts in natural language.
 - **Automated rendering**: Generate complex 3D animations for presentations or publications.
+- [Project website](https://bene51.github.io/3Dscript/)
 
 {{< /block >}}
 {{<figure src="https://gitlab.com/album-app/catalogs/image-challenges/-/raw/visualization-animate-with-3dscript-0.1.2/solutions/visualization/animate-with-3dscript/cover.jpg">}}
@@ -172,7 +152,6 @@ text commands.
 - [Schmid, B.; Tripal, P. & Fraaß, T. et al. (2019), "3Dscript: animating 3D/4D microscopy data using a 
   natural-language-based syntax", Nature methods 16(4): 278-280, 
   PMID 30886414.](https://www.nature.com/articles/s41592-019-0359-1)
-- [Project website](https://bene51.github.io/3Dscript/)
 {{</citations>}}
 
 ---
@@ -204,12 +183,6 @@ project we are working on at MDC where we utilize Neuroglancer to display large 
 ---
 
 ## Converting volumetric datasets into meshes
-
-{{< figure src="img/annotation-conversion.jpg" >}}
-
----
-
-## Converting volumetric datasets into meshes
 ### Annotations
 
 {{< notes >}}
@@ -232,6 +205,16 @@ When converting volumetric data to **meshes**, it's necessary to draw concrete b
 
 - **Fixed thresholds**: Used to generate meshes by separating foreground from background using a set intensity threshold.
 - **Content-based annotations**: Create precise meshes by using annotated regions to define boundaries.
+
+{{< citations >}}
+- [© Müller et al. https://doi.org/10.1083/jcb.202010039](https://rupress.org/jcb/article/220/2/e202010039/211599/3D-FIB-SEM-reconstruction-of-microtubule-organelle) 
+{{</ citations >}}
+
+---
+
+## Converting volumetric datasets into meshes
+
+{{< figure src="img/annotation-conversion.jpg" >}}
 
 ---
 
@@ -311,8 +294,7 @@ Once a mesh is generated from a volumetric dataset, further **processing** may b
 {{< cover src="img/single-betacell.jpg" background="black" color="white" title="Rendering meshes" >}}
 
 {{< citations >}}
-- [Müller, A., Schmidt, D. et al. **Modular segmentation, spatial analysis and visualization of volume 
-  electron microscopy datasets.** Nat Protoc 19, 1436–1466 (2024).](https://doi.org/10.1038/s41596-024-00957-5) 
+- [© Müller et al. https://doi.org/10.1083/jcb.202010039](https://rupress.org/jcb/article/220/2/e202010039/211599/3D-FIB-SEM-reconstruction-of-microtubule-organelle) 
 {{</ citations >}}
 
 {{< /cover >}}
@@ -328,13 +310,22 @@ defining how to tell the story of your dataset.
 ## Rendering meshes
 ### Rendering pipeline
 {{< notes >}}
-The **rendering pipeline** defines the steps for converting a 3D mesh into a 2D image. The pipeline consists of several key stages:
+In **3D rendering**, the graphics pipeline is responsible for transforming 3D coordinates into 2D pixels on the screen. This process involves several stages, where each step takes the output from the previous stage and prepares the data for the next. The pipeline efficiently transforms vertex data into pixels using **shaders**, small programs that run on the **GPU** to accelerate rendering. The pipeline can be divided into two main parts: **geometry processing** (converting 3D coordinates into 2D) and **fragment processing** (turning 2D data into colored pixels).
 {{< /notes >}}
 
-- **Mesh loading**: The first step in the pipeline involves loading the mesh into the rendering environment (e.g., VTK or Blender).
-- **Surface properties**: Define how light interacts with the surface of the mesh (e.g., roughness, reflectivity, transparency).
-- **Lighting**: Simulate the effect of light sources to highlight different parts of the mesh.
-- **Camera positioning**: Define the viewing angle and zoom level to best visualize the mesh.
+{{< horizontal >}}
+- **Vertex Shader**: Transforms 3D coordinates and applies basic vertex processing.
+- **Geometry Shader** (optional): Generates new geometry (e.g., additional triangles) from existing primitives.
+- **Fragment Shader**: Computes the final color of each pixel.
+- **Blending and Depth Testing**: Determines how pixels are blended and which ones are visible.
+
+{{<figure src="https://learnopengl.com/img/getting-started/pipeline.png" caption="Credit: Joey de Vries,https://learnopengl.com/, CC BY 4.0">}}
+
+{{< /horizontal >}}
+
+{{< citations >}}
+- [Hello Triangle on learnopengl.com](https://learnopengl.com/Getting-started/Hello-Triangle) 
+{{</ citations >}}
 
 ---
 
