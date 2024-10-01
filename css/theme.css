@@ -1,0 +1,768 @@
+body {
+  font-family: sans-serif;
+  line-height: 1.5;
+  background: #ededef;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+    color: #e1462c;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ff8777;
+}
+
+ul, ol {
+    margin-right: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+h1, h2, h3 {
+    font-family: 'Urbanist', sans-serif;
+}
+
+pre {
+    padding: 10px;
+}
+
+.solution-box {
+  margin-bottom: 20px;
+  padding: 15px;
+  align-self: stretch;
+}
+
+.toggle-button, .close-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.toggle-button:hover {
+  background-color: #0056b3;
+}
+
+.solution-metadata {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    align-items: center;
+    justify-content: center;
+}
+
+.reveal .solution-metadata {
+    position: relative;
+    background: none;
+    align-items: flex-begin;
+    justify-content: flex-begin;
+}
+
+.solution-details {
+    background: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    max-width: 1000px;
+}
+
+.reveal .solution-details {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    max-width: none;
+    margin: 0;
+}
+.reveal .solution-details h3 {
+    margin: 10px 0 50px 0;
+}
+
+.reveal-header {
+    z-index:100;
+    position: relative;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 40px;
+    padding-top: 40px;
+    display: flex;
+}
+
+.reveal .reveal-header {
+    margin-right: 2vw;
+    padding-top: 2vw;
+}
+
+h3 {
+    color: #0059a0;
+}
+
+.reveal-header img {
+    margin: 0 0px 0 60px;
+}
+
+
+.reveal .reveal-header img {
+    margin: 0 0px 0 2vw;
+}
+
+.reveal-footer span {
+    margin: 0 20px;
+}
+
+.toggle-view {
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.15s ease;
+    font-size: 25px;
+    font-family: "Urbanist";
+    text-align: right;
+    padding: 10px 10px;
+    display: block;
+}
+
+.scroll .hidden-in-page {
+    display: none;
+}
+
+.reveal .hidden-in-slides {
+    display: none;
+}
+
+.reveal .toggle-button, .reveal .close-button {
+    display: none;
+}
+
+.reveal .preview {
+    display: none;
+}
+
+.reveal .solution-metadata {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    font-size: 22pt;
+}
+
+.reveal .solution-box ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.reveal .solution-metadata .info, .reveal .solution-metadata .usage {
+    margin-top: 20px;
+}
+
+.reveal .solution-box {
+    font-size: 22pt;
+}
+
+hr { flex-basis: 100%; height: 0; margin: 0; border: none; }
+
+.citations {
+    color: #222224;
+    font-size: 90%;
+}
+
+.solutions section {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 30px;
+}
+
+.solution-box {
+    display: flex;
+    margin: 10px;
+    flex-direction: column;
+    border-radius: 5px;
+    cursor: pointer;
+    align-items: flex-start;
+    background: rgba(0,0,0,0.03);
+}
+.solution .solution-box {
+    width: 420px;
+    height: 300px;
+}
+
+.solution-box:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+.reveal .solution-box {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: 0;
+    box-shadow: none;
+    background: none;
+    cursor: default;
+}
+
+.reveal .solution-box .description {
+    max-width: 1000px;
+}
+
+section.solution .solution-box .preview {
+    flex: 1;
+}
+
+.catalog-usage {
+    display: flex;
+    flex-direction: column;
+}
+
+.reveal .subtitle {
+    font-size: 80%;
+    font-weight: bold;
+}
+
+.flex {
+    flex: 1;
+}
+
+.person-bio {
+    display: flex;
+    flex: 1;
+    align-self: stretch;
+    flex-direction: column;
+    margin-right: 30px;
+    justify-content: center;
+    text-align: center;
+}
+
+.scroll .person-bio {
+    margin-top: 20px;
+}
+
+.reveal .person-bio {
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.person-bio.contentful {
+    flex-direction: row;
+}
+
+.scroll .person-bio.contentful {
+    align-self: flex-start;
+}
+
+.person-bio.contentful .person-details {
+    text-align: left;
+    margin-left: 20px;
+}
+
+.person-bio .person-img {
+    border: 2px solid #0059a0;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background-size: cover;
+    background-position: center center;
+    height: 300px;
+    width: 250px;
+}
+
+.reveal .person-bio .person-img {
+    margin-right: 3vh;
+    height: 10vw;
+    width: 10vw;
+}
+
+.person-bio .name {
+    color: #0059a0;
+}
+
+.reveal .person-bio .name {
+    font-size: 2vw;
+}
+
+.reveal .person-bio .position {
+    font-size: 1.5vw;
+}
+
+.citations {
+    max-width: 1400px;
+}
+
+.reveal .citations {
+    font-size: 85%;
+}
+
+
+.citations ul, .reveal .citations ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.citations ul li {
+    display: inline-block;
+}
+
+.citations ul li a {
+    background: #e1462c;
+    padding: 5px 10px;
+    position: relative;
+    display: inline-block;
+    transition: background-color 0.35s ease;
+}
+
+.citations ul li a:hover {
+    background: #ff8777;
+}
+
+.citations a {
+    color: white;
+}
+
+.scroll .citations {
+    margin-left: -20px;
+}
+
+.reveal .cover {
+    position: absolute;
+    bottom: 0;
+    top: 0px;
+    left: 0;
+    right: 0;
+    flex: 1;
+    align-self: stretch;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+}
+
+section .horizontal {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    align-self: stretch;
+}
+
+section .horizontal > figure {
+    flex-direction: column;
+    justify-content: flex-end;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+}
+
+section .horizontal > figure img {
+    object-fit: contain;
+    object-position: center;
+    margin: 40px;
+}
+
+section .horizontal > figure figcaption {
+}
+
+.scroll section .horizontal > figure figcaption {
+    padding: 10px;
+    margin-top: -40px;
+}
+
+.horizontal > * {
+    flex: 1;
+}
+
+.scroll {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.workshop.scroll .slides {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.scroll .qr-code {
+    display: none;
+}
+
+.scroll .limited-width {
+    max-width: 1200px;
+    align-self: center;
+}
+
+.limited-width {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-self: stretch;
+}
+
+.scroll h1 {
+    font-size: 3em;
+}
+
+.scroll .presenter {
+    border-top: 1px solid #e1e1e3;
+    display: flex;
+    justify-self: flex-start;
+    padding-top: 20px;
+    opacity: 0.6;
+}
+
+.scroll .presenter > * {
+    margin-right: 20px;
+}
+
+.slides > section:first-child {
+    background: black;
+    color: white;
+    flex: 1;
+    height: 100%;
+    justify-content: space-evenly;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: top right; /* Make sure the image is aligned to the right */
+}
+
+.scroll .slides > section:first-child {
+    padding-top: 100px;
+    background-position: center right;
+    background-size: 50%;
+}
+
+.scroll .slides > section:first-child .notes {
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+section .presentation-title {
+    flex: 1;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    background: black;
+}
+
+.scroll section .presentation-title {
+    padding-left: 0px;
+    padding-top: 0;
+}
+.scroll section .presentation-title h1 {
+    margin-top: 0px;
+}
+.workshop .scroll section:nth-of-type(2) {
+  background-color: #f3f3f3;
+  color: #333;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.workshop .scroll section:nth-of-type(2) a {
+    text-decoration: none;
+}
+
+.scroll .person-bio .person-img {
+    overflow: hidden;
+    height: 100px;
+    width: 100px;
+    display: block;
+    border-radius: 50px;
+}
+
+.scroll .person-bio .person-img img {
+   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.scroll img {
+    max-height: 500px;
+    max-width: 100%;
+}
+
+.reveal .logos {
+    height: 150px;
+}
+
+.scroll .logos {
+    height: 70px;
+}
+
+.logos img {
+    height: 100%;
+}
+
+.scroll .cover {
+    height: 500px;
+    padding: 20px;
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-top: -19px;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0px;
+}
+
+.scroll h2 {
+
+}
+.scroll section {
+    background: #fdfdff;
+    padding: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.scroll .reveal-header {
+    margin: 20px 20px -160px 20px;
+    height: 50px;
+    padding: 20px;
+    background: #ededef;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50px;
+}
+
+
+.scroll .reveal-header a {
+    margin: 0 20px 0 0;
+}
+
+.scroll .repeated-heading {
+    margin-top: -9px;
+}
+
+.scroll .repeated-heading h2 {
+    display: none;
+}
+
+.center {
+    text-align: center;
+    align-self: stretch;
+}
+
+.center ul {
+    text-align: left;
+    display: inline-block;
+}
+
+.scroll .notes li {
+}
+
+.hi-icon {
+    background-image: url("../img/RZ_211119_Helmholtz-Imaging_Image-Mark_4C_Black.png");
+    width: 2vw;
+    height: 2vw;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.scroll .hi-icon {
+}
+
+
+.reveal .tutorial-link, .tutorial-link {
+    min-height: 350px;
+    justify-content: stretch;
+    padding: 10px;
+    color: black;
+    display: flex;
+    background: white;
+    border: 1px solid white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.reveal .tutorial-link:hover, .tutorial-link:hover {
+    color: black;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    transition: box-shadow 0.15s ease;
+}
+
+.reveal .tutorial-link > *, .tutorial-link > * {
+    flex: 1;
+}
+
+.tutorial {
+    padding: 0;
+    margin-top: 20px;
+}
+
+.reveal .tutorial {
+    align-self: stretch;
+    margin: 0.5vw 2vw;
+}
+
+.tutorial-link .title {
+    font-size: 150%;
+    font-weight: bold;
+    display: flex;
+}
+
+.tutorial-link .description {
+}
+
+.tutorial-link .cover-image {
+    flex: 1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: black;
+    background-position: center center;
+    margin: 0 0 0 20px;
+}
+
+.scroll .qr-code-slides {
+    display: none;
+}
+
+.scroll .reveal-footer {
+    display: none;
+}
+
+.home .tutorial-header {
+    display: none;
+}
+
+.home ul{
+    list-style: none;
+}
+
+.home ul ul {
+    margin: 0;
+    padding: 0;
+}
+
+.home ul ul > li {
+    margin: 20px 0 20px 40px;
+}
+
+.home ul ul > li .tutorial-link {
+    min-height: 0;
+}
+
+.home ul ul > li .title h3 {
+    margin: 0 0 10px 0;
+}
+
+
+.home ul ul > li .cover-image{
+    width: 200px;
+    height: 200px;
+    flex: none;
+}
+
+figure.inline {
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+}
+
+figure.inline img {
+    margin: 10px;
+}
+
+figure.center {
+    align-self: center;
+    max-width: 85%;
+}
+
+.solution-in-tutorial {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+.solution-in-tutorial > * {
+    flex: 1;
+}
+
+.solution-in-tutorial .usage, .solution-in-tutorial .subtitle {
+    display: none;
+}
+
+.solution-in-tutorial .solution-box {
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    padding: 10px;
+    margin: 10px;
+    align-self: center;
+}
+.solution-in-tutorial .description, .solution-in-tutorial .citations p {
+    margin: 0;
+}
+
+.solution-in-tutorial .citations, .solution-in-tutorial .info {
+    margin-top: 10px;
+    font-size: 85%;
+}
+
+.reveal .solution-in-tutorial .citations ul li {
+    background: none;
+    color: black;
+    padding: 0;
+}
+
+.reveal .solution-in-tutorial .citations a {
+    color: black;
+}
+
+.reveal .solution-in-tutorial .solution-box {
+    padding: 1vw;
+    margin: 1vw 2vw 1vw 1vw;
+}
+
+.solution-cover {
+    height: 234px;
+    background-size: cover;
+    align-self: stretch;
+    background-position: center center;
+}
+
+.solution-code-link {
+    align-self: stretch;
+}
+
+.reveal .solution-code-link pre {
+    width: auto;
+    margin-top: 0;
+}
+
+.reveal .solution-code-link pre code {
+    max-height: 600px;
+}
+
+.solution-code-link .solution-source-code {
+    margin-bottom: 0px;
+    text-align: right;
+    font-size: 80%;
+}
+
+.tutorial-link h3 {
+    color: #e1462c;
+}
+
+.image-right {
+    float: right;
+    max-width: 200px;
+    justify-self: flex-end;
+}
+
+.solution-box, .solution-box:hover {
+    color: black;
+}
