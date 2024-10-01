@@ -1,3 +1,3 @@
 [submodule "themes/hugo-theme-helmholtz-imaging-workshop"]
 	path = themes/hugo-theme-helmholtz-imaging-workshop
-	url = git@gitlab.com:ida-mdc/workshops/hugo-theme-helmholtz-imaging-workshop.git
+	url = https://gitlab.com/ida-mdc/workshops/hugo-theme-helmholtz-imaging-workshop.git
