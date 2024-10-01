@@ -1,6 +1,7 @@
 baseURL = "https://ida-mdc.github.io/workshop-visualization"
 languageCode = "en-us"
 title = "3D Data Visualization Workshop"
+theme = "hugo-theme-helmholtz-imaging-workshop"
 [markup.goldmark.renderer]
 unsafe= true
 canonifyURLs= true
