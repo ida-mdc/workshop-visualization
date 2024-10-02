@@ -465,6 +465,6 @@ img/logos/mdc.png{{< /logos >}}
 
 {{< /block >}}
 
-{{< figure src="img/people/hi-support-staff.jpg" caption="Helmholtz Imaging Support Units at DESY, DKFZ, and MDC." >}}
+{{< figure src="img/hi-support-staff.jpg" caption="Helmholtz Imaging Support Units at DESY, DKFZ, and MDC." >}}
 
 {{< /horizontal >}}
