@@ -115,6 +115,10 @@ section.subsection h1, section.subsection h2 {
     margin-left: 4vh;
 }
 
+figcaption {
+    font-size: 80%;
+}
+
 .reveal .toc {
     flex: 1;
 }
@@ -125,6 +129,8 @@ section.subsection h1, section.subsection h2 {
     margin: -250px 2vw 5vw 0;
     align-items: flex-end;
     align-self: flex-end;
+    position: absolute;
+    bottom: 30px;
 }
 
 .qr-code-slides > span {

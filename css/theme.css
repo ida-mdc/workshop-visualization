@@ -294,14 +294,11 @@ section.solution .solution-box .preview {
     font-size: 1.5vw;
 }
 
-.citations {
-    max-width: 1400px;
-}
-
 .reveal .citations {
+    max-width: 65%;
     font-size: 85%;
+    padding-left: 2vw;
 }
-
 
 .citations ul, .reveal .citations ul {
     list-style: none;
@@ -314,19 +311,10 @@ section.solution .solution-box .preview {
 }
 
 .citations ul li a {
-    background: #e1462c;
     padding: 5px 10px;
     position: relative;
     display: inline-block;
     transition: background-color 0.35s ease;
-}
-
-.citations ul li a:hover {
-    background: #ff8777;
-}
-
-.citations a {
-    color: white;
 }
 
 .scroll .citations {
@@ -495,7 +483,7 @@ section .presentation-title {
 }
 
 .reveal .logos {
-    height: 150px;
+    height: 120px;
 }
 
 .scroll .logos {
@@ -766,3 +754,10 @@ figure.center {
 .solution-box, .solution-box:hover {
     color: black;
 }
+
+.reveal .mermaid {
+    flex: 1;
+    align-self: stretch;
+    margin: 0 20px;
+}
+
