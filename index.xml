@@ -1,4 +1,41 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>3D Data Visualization Workshop</title><link>https://ida-mdc.github.io/workshop-visualization/</link><description>Recent content on 3D Data Visualization Workshop</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 25 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ida-mdc.github.io/workshop-visualization/index.xml" rel="self" type="application/rss+xml"/><item><title>Choosing colors for scientific 3D renderings</title><link>https://ida-mdc.github.io/workshop-visualization/tutorial-choosing-colors/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/tutorial-choosing-colors/</guid><description>&lt;h2 id="color-representation-in-digital-programs">Color Representation in Digital Programs&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>3D Data Visualization Workshop</title><link>https://ida-mdc.github.io/workshop-visualization/</link><description>Recent content on 3D Data Visualization Workshop</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 17 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ida-mdc.github.io/workshop-visualization/index.xml" rel="self" type="application/rss+xml"/><item><title>3D Data Visualization Workshop</title><link>https://ida-mdc.github.io/workshop-visualization/3d-data/</link><pubDate>Wed, 17 Sep 2025 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/3d-data/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>&lt;unlisted/>
+&lt;div class="flex">&lt;/div>
+&lt;div class="horizontal">
+ &lt;div >
+ &lt;p>Hi, I&amp;rsquo;m Deborah, head of the Helmholtz Imaging Support Unit at MDC.&lt;/p>
+&lt;h3 id="helmholtz-imaging-is-here-for-you-with-support-units-at-3-centers-working-in-close-collaboration-with-the-helmholtz-imaging-research-units">Helmholtz Imaging is here for you with Support Units at 3 centers, working in close collaboration with the Helmholtz Imaging Research Units.&lt;/h3>
+&lt;div class="logos">
+ &lt;img src="https://ida-mdc.github.io/workshop-visualization/img/logos/desy.png"/>
+ &lt;img src="https://ida-mdc.github.io/workshop-visualization/img/logos/dkfz.png"/>
+ &lt;img src="https://ida-mdc.github.io/workshop-visualization/img/logos/mdc.png"/>
+&lt;/div>
+&lt;/div>
+&lt;figure>&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/hi-support-staff.jpg"
+ alt="Members of all Helmholtz Imaging Support Units."style="max-width: 100%; height: auto;"
+ >&lt;figcaption>
+ &lt;p>Members of all Helmholtz Imaging Support Units.&lt;/p>
+ &lt;/figcaption>
+&lt;/figure>
+
+&lt;/div>
+&lt;div class="flex">&lt;/div>
+
+&lt;/p>
+&lt;hr>
+&lt;h2 id="introduction-1">Introduction&lt;/h2>
+&lt;unlisted/>
+&lt;h3 id="consulting-along-the-entire-pipeline-and-across-all-research-domains">Consulting along the entire pipeline and across all research domains&lt;/h3>
+&lt;p>&lt;aside class="notes">
+ You can contact us with any question along the imaging pipeline. We are funded to support all Helmholtz centers in
+Germany.
+&lt;/aside>
+&lt;div class="center">
+ &lt;strong>&lt;a href="mailto:support@helmholtz-imaging.de">support@helmholtz-imaging.de&lt;/a>&lt;/strong>
+&lt;/div>
+&lt;figure>&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/pipeline.png"style="max-width: 100%; height: auto;"
+ >
+&lt;/figure>&lt;/p></description></item><item><title>Choosing colors for scientific 3D renderings</title><link>https://ida-mdc.github.io/workshop-visualization/tutorial-choosing-colors/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/tutorial-choosing-colors/</guid><description>&lt;h2 id="color-representation-in-digital-programs">Color Representation in Digital Programs&lt;/h2>
 &lt;aside class="notes">
  Colors in digital visualizations are represented using different models, such as &lt;strong>HEX&lt;/strong>, &lt;strong>RGB&lt;/strong>, and &lt;strong>HSL&lt;/strong>.
 Digital programs might use different representations of colors - understanding how these models work can help you
