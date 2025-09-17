@@ -3,6 +3,7 @@ title: "Converting Volumes to Meshes with VTK"
 date: 2024-09-25
 draft: false
 layout: workshop
+type: page
 author: Deborah Schmidt
 author_position: Helmholtz Imaging | MDC Berlin
 description: This tutorial will guide you through converting 3D pixel datasets, such as labelmaps and masks, into 3D meshes using VTK.
@@ -42,7 +43,7 @@ into the details of the code in the following slides.
 This is the full specification of the virtual environment used for this solution, including the VTK dependency.
 {{< /notes >}}
 
-{{< highlight highlight="linenos=inline" catalog="image-challenges" group="visualization" 
+{{< highlight-solution highlight="linenos=inline" catalog="image-challenges" group="visualization" 
 solution="pixel-volumes-to-meshes-vtk" version="0.2.0"  linerange="314-329">}}
 
 ---
@@ -59,7 +60,7 @@ We start by converting **TIFF files** into meshes. Labelmaps, which contain mult
 - Set threshold between foreground and background via `GenerateValues (int numContours, double rangeStart, double 
   rangeEnd)`
 
-{{< highlight highlight="linenos=inline" catalog="image-challenges" group="visualization" 
+{{< highlight-solution highlight="linenos=inline" catalog="image-challenges" group="visualization" 
 solution="pixel-volumes-to-meshes-vtk" version="0.2.0" linerange="72-100" >}}
 
 {{<citations>}}
@@ -79,7 +80,7 @@ Smoothing makes the surface appear less jagged.
 - **Feature Edge Smoothing**: Ensures that important edges are preserved while smoothing.
 - **Boundary Smoothing**: Smooths out the mesh along the boundaries. 
 
-{{< highlight highlight="linenos=inline" catalog="image-challenges" group="visualization" 
+{{< highlight-solution highlight="linenos=inline" catalog="image-challenges" group="visualization" 
 solution="pixel-volumes-to-meshes-vtk" version="0.2.0" linerange="103-114" >}}
 
 {{<figure src="img/vtk-smoothing.png">}}
@@ -100,7 +101,7 @@ Here, we will optimize the meshes by **decimating** them. Decimation reduces the
 - **Target Reduction**: Defines the percentage reduction in the number of polygons (e.g., 0.5 for 50% reduction).
 - **Preserve Topology**: Ensures that the overall shape and connectivity of the mesh are maintained during decimation.
 
-{{< highlight highlight="linenos=inline" catalog="image-challenges" group="visualization" 
+{{< highlight-solution highlight="linenos=inline" catalog="image-challenges" group="visualization" 
 solution="pixel-volumes-to-meshes-vtk" version="0.2.0" linerange="117-125" >}}
 
 {{<figure src="img/vtk-mesh-reduction.png">}}
@@ -116,6 +117,6 @@ solution="pixel-volumes-to-meshes-vtk" version="0.2.0" linerange="117-125" >}}
 
 The final step in this process is to write the generated mesh to an STL file. STL files are widely used for 3D printing, simulations, and visualizations in tools like Blender.
 
-{{< highlight highlight="linenos=inline" catalog="image-challenges" group="visualization" 
+{{< highlight-solution highlight="linenos=inline" catalog="image-challenges" group="visualization" 
 solution="pixel-volumes-to-meshes-vtk" version="0.2.0" linerange="155-160" >}}
 

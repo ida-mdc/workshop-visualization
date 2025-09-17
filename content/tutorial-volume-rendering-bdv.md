@@ -3,10 +3,11 @@ title: "Volume rendering with BigDataViewer tools"
 date: 2024-09-25
 draft: false
 layout: workshop
+type: page
 author: Deborah Schmidt
 author_position: Helmholtz Imaging | MDC Berlin
 description: Learn how to render voxel-based volumetric data using BigDataViewer (BDV) and tools built on top of BDV. 
-cover: https://imagej.net/media/plugins/bdv/bdv-bdv-start.png
+cover: img/bvv-magic.png
 ---
 
 ## Introduction

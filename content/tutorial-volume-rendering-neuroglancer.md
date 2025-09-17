@@ -3,10 +3,11 @@ title: "Volumetric data rendering with Neuroglancer"
 date: 2024-09-25
 draft: false
 layout: workshop
+type: page
 author: Deborah Schmidt
 author_position: Helmholtz Imaging | MDC Berlin
 description: Use case description of how to render voxel-based volumetric data using Neuroglancer and stream data locally or remotely for visualization.
-cover: img/neuroglancer.png
+cover: img/the-human-brain.png
 ---
 
 ## Introduction

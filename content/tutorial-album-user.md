@@ -2,6 +2,7 @@
 title: "How to install and use Album - a tool for decentralized software use case sharing"
 date: 2024-09-25
 draft: false
+type: page
 layout: workshop
 author: Deborah Schmidt
 author_position: Head of Helmholtz Imaging Support Unit

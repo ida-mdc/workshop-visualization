@@ -5,14 +5,14 @@ draft: false
 layout: home
 ---
 
-- {{< tutorial-link link="workshop" >}}
+- {{< tutorial-link link="3d-data" >}}
 - Tutorials linked in the workshop:
-  - {{< tutorial-link link="album" >}}
-  - {{< tutorial-link link="volume-rendering-bdv" >}}
-  - {{< tutorial-link link="volume-rendering-python" >}}
-  - {{< tutorial-link link="volume-rendering-neuroglancer" >}}
-  - {{< tutorial-link link="mesh-conversion" >}}
-  - {{< tutorial-link link="mesh-rendering-vtk" >}}
-  - {{< tutorial-link link="mesh-rendering-blender" >}}
-  - {{< tutorial-link link="mesh-cutting-blender" >}}
-  - {{< tutorial-link link="colors" >}}
+  - {{< tutorial-link link="tutorial-album-user" >}}
+  - {{< tutorial-link link="tutorial-volume-rendering-bdv" >}}
+  - {{< tutorial-link link="tutorial-volume-rendering-python" >}}
+  - {{< tutorial-link link="tutorial-volume-rendering-neuroglancer" >}}
+  - {{< tutorial-link link="tutorial-mesh-conversion" >}}
+  - {{< tutorial-link link="tutorial-mesh-rendering-vtk" >}}
+  - {{< tutorial-link link="tutorial-mesh-rendering-blender" >}}
+  - {{< tutorial-link link="tutorial-mesh-cutting-volumes-blender" >}}
+  - {{< tutorial-link link="tutorial-choosing-colors" >}}
