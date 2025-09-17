@@ -1,6 +1,6 @@
 ---
 title: "3D Data Visualization Workshop"
-date: 2025-09-18
+date: 2025-09-17
 draft: false
 type: page
 layout: workshop
