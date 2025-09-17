@@ -31,7 +31,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.111.3'  # Match the Hugo version used in GitLab
+          hugo-version: '0.147.0'  # Match the Hugo version used in GitLab
           extended: false
 
       - name: Build Site
