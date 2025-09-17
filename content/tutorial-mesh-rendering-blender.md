@@ -3,6 +3,7 @@ title: "Rendering in Blender"
 date: 2024-09-25
 draft: false
 layout: workshop
+type: page
 author: Deborah Schmidt
 description: In this section, we will cover specific Blender features to help you create beautiful renderings from scientific datasets. Blender is a powerful tool for this purpose, but it has a steep learning curve, so we’ll break it down step-by-step.
 cover: img/blender-render-result.png

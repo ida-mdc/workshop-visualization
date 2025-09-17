@@ -3,6 +3,7 @@ title: "Volumetric Dataset Rendering in Python"
 date: 2024-09-25
 draft: false
 layout: workshop
+type: page
 author: Deborah Schmidt
 author_position: Helmholtz Imaging | MDC Berlin
 description: A tutorial on python based tools for visualizing volumetric datasets in 3D, including napari, Pygfx, and VTK.
@@ -52,7 +53,7 @@ unfortunately for some reason interfering with other virtual environments.
 {{< /notes >}}
 
 
-{{< highlight highlight="linenos=inline,hl_lines=9" catalog="image-challenges" group="visualization" 
+{{< highlight-solution highlight="linenos=inline,hl_lines=9" catalog="image-challenges" group="visualization" 
 solution="launch-napari" version="0.2.0"  linerange="58-67">}}
 
 ---
@@ -64,7 +65,7 @@ solution="launch-napari" version="0.2.0"  linerange="58-67">}}
 Here is the source code for how to launch napari programmatically:
 {{< /notes >}}
 
-{{< highlight highlight="linenos=inline" catalog="image-challenges" group="visualization" 
+{{< highlight-solution highlight="linenos=inline" catalog="image-challenges" group="visualization" 
 solution="launch-napari" version="0.2.0"  linerange="8-24">}}
 
 {{<citations>}}
@@ -111,7 +112,7 @@ directly either from command line or graphical user interface.
 This is the full specification of the virtual environment used for this solution, including the pygfx dependency.
 {{< /notes >}}
 
-{{< highlight highlight="linenos=inline,hl_lines=5" catalog="image-challenges" group="visualization" 
+{{< highlight-solution highlight="linenos=inline,hl_lines=5" catalog="image-challenges" group="visualization" 
 solution="render-volume-pygfx" version="0.1.0"  linerange="88-95">}}
 
 ---
@@ -123,7 +124,7 @@ solution="render-volume-pygfx" version="0.1.0"  linerange="88-95">}}
 Unlike napari, Pygfx deals with 3D scenes rather than single-image viewers. This allows for more complex visualizations involving multiple objects, interactive cameras, and customized environments.
 {{< /notes >}}
 
-{{< highlight highlight="linenos=inline,hl_lines=5" catalog="image-challenges" group="visualization" 
+{{< highlight-solution highlight="linenos=inline,hl_lines=5" catalog="image-challenges" group="visualization" 
 solution="render-volume-pygfx" version="0.1.0"  linerange="18-21">}}
 
 ---
@@ -135,7 +136,7 @@ solution="render-volume-pygfx" version="0.1.0"  linerange="18-21">}}
 Once the scene is set, the next step is to load the volume and apply rendering techniques. Depending on user input, Pygfx allows for either **isosurface rendering** (extracting a surface based on intensity values) or **raycasting** (rendering through the volume). The choice of strategy depends on whether you are interested in internal or surface features.
 {{< /notes >}}
 
-{{< highlight highlight="linenos=inline,hl_lines=5" catalog="image-challenges" group="visualization" 
+{{< highlight-solution highlight="linenos=inline,hl_lines=5" catalog="image-challenges" group="visualization" 
 solution="render-volume-pygfx" version="0.1.0"  linerange="23-41">}}
 
 ---
@@ -147,7 +148,7 @@ solution="render-volume-pygfx" version="0.1.0"  linerange="23-41">}}
 To enable interactive 3D rendering, Pygfx uses an **orbit controller** to manipulate the camera. This controller allows users to rotate around the scene, zoom in and out, and view the volume from different angles.
 {{< /notes >}}
 
-{{< highlight highlight="linenos=inline,hl_lines=5" catalog="image-challenges" group="visualization" 
+{{< highlight-solution highlight="linenos=inline,hl_lines=5" catalog="image-challenges" group="visualization" 
 solution="render-volume-pygfx" version="0.1.0"  linerange="40-55">}}
 
 {{<citations>}}

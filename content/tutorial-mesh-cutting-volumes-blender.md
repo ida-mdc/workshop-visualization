@@ -3,6 +3,7 @@ title: "Cutting mesh structures in Blender"
 date: 2024-09-25
 draft: false
 layout: workshop
+type: page
 author: Deborah Schmidt
 description: This brief tutorial showcases how to cut into mesh objects in Blender to highlight otherwise hidden features of the scene. This can be particularly valuable for complex renderings of scientific datasets.
 cover: img/cutting-volumes.png

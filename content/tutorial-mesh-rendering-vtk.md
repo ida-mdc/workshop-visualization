@@ -3,6 +3,7 @@ title: "Rendering meshes in VTK"
 date: 2024-09-25
 draft: false
 layout: workshop
+type: page
 author: Deborah Schmidt
 author_position: Helmholtz Imaging | MDC Berlin
 description: Learn how to render 3D meshes in VTK and get insights into the Python code behind it.
@@ -49,7 +50,7 @@ This is the full specification of the virtual environment used for this solution
 {{< /notes >}}
 
 
-{{< highlight highlight="linenos=inline,hl_lines=9" catalog="image-challenges" group="visualization" solution="visualize-meshes-vtk" version="0.1.0" linerange="316-332" >}}
+{{< highlight-solution highlight="linenos=inline,hl_lines=9" catalog="image-challenges" group="visualization" solution="visualize-meshes-vtk" version="0.1.0" linerange="316-332" >}}
 
 ---
 
@@ -63,7 +64,7 @@ and handling how the data will be visualized. The renderer adds objects to the s
 - **The renderer**: Manages the **3D scene** by adding objects (called actors), processing lighting, and handling the camera to control how the scene is displayed.
 - **Central component in VTK**: The renderer is responsible for **compositing all elements** (meshes, volumes, etc.) and rendering them into a final image or interactive display.
 
-{{< highlight highlight="linenos=inline,hl_lines=9" catalog="image-challenges" group="visualization" solution="visualize-meshes-vtk" version="0.1.0" linerange="97-97" >}}
+{{< highlight-solution highlight="linenos=inline,hl_lines=9" catalog="image-challenges" group="visualization" solution="visualize-meshes-vtk" version="0.1.0" linerange="97-97" >}}
 
 ---
 
@@ -77,7 +78,7 @@ from a specified folder and adds them as actors to the scene.
 - **Load STL files** via `vtkSTLReader`
 - **Coloring Meshes** via `actor.GetProperty().SetColor()`
 
-{{< highlight highlight="linenos=inline" catalog="image-challenges" group="visualization" solution="visualize-meshes-vtk" version="0.1.0" linerange="119-132" >}}
+{{< highlight-solution highlight="linenos=inline" catalog="image-challenges" group="visualization" solution="visualize-meshes-vtk" version="0.1.0" linerange="119-132" >}}
 
 ---
 
@@ -88,7 +89,7 @@ from a specified folder and adds them as actors to the scene.
 In this section, we convert volumetric data (such as TIFF files) into a format that VTK can render. This is done by transforming **NumPy arrays** into VTK-compatible data structures.
 {{< /notes >}}
 
-{{< highlight highlight="linenos=inline" catalog="image-challenges" group="visualization" solution="visualize-meshes-vtk" version="0.1.0" linerange="45-61" >}}
+{{< highlight-solution highlight="linenos=inline" catalog="image-challenges" group="visualization" solution="visualize-meshes-vtk" version="0.1.0" linerange="45-61" >}}
 
 ---
 
@@ -99,7 +100,7 @@ In this section, we convert volumetric data (such as TIFF files) into a format t
 This section handles the application of **color and opacity** transfer functions, which define how the volume is rendered based on the underlying voxel values. These functions control how data values are mapped to specific colors and levels of transparency.
 {{< /notes >}}
 
-{{< highlight highlight="linenos=inline" catalog="image-challenges" group="visualization" solution="visualize-meshes-vtk" version="0.1.0" linerange="63-74" >}}
+{{< highlight-solution highlight="linenos=inline" catalog="image-challenges" group="visualization" solution="visualize-meshes-vtk" version="0.1.0" linerange="63-74" >}}
 
 ---
 
@@ -110,7 +111,7 @@ This section handles the application of **color and opacity** transfer functions
 Once the volumetric data has been prepared and the transfer functions defined, a **volume node** is created to represent the volumetric data in the 3D scene. This is what gets rendered by VTK's pipeline.
 {{< /notes >}}
 
-{{< highlight highlight="linenos=inline" catalog="image-challenges" group="visualization" solution="visualize-meshes-vtk" version="0.1.0" linerange="76-80" >}}
+{{< highlight-solution highlight="linenos=inline" catalog="image-challenges" group="visualization" solution="visualize-meshes-vtk" version="0.1.0" linerange="76-80" >}}
 
 ---
 
@@ -123,7 +124,7 @@ The **render window** is where the final rendering of the meshes and volumes occ
 - **Render Window**: Manages the actual window where the scene is displayed.
 - **RenderWindowInteractor**: Allows for interactive control of the 3D scene using mouse and keyboard inputs.
 
-{{< highlight highlight="linenos=inline,hl_lines=9" catalog="image-challenges" group="visualization" solution="visualize-meshes-vtk" version="0.1.0" linerange="33-41" >}}
+{{< highlight-solution highlight="linenos=inline,hl_lines=9" catalog="image-challenges" group="visualization" solution="visualize-meshes-vtk" version="0.1.0" linerange="33-41" >}}
 
 ---
 

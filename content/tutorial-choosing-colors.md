@@ -3,6 +3,7 @@ title: "Choosing colors for scientific 3D renderings"
 date: 2024-09-25
 draft: false
 layout: workshop
+type: page
 author: Deborah Schmidt
 author_position: Head of Helmholtz Imaging Support Unit
 description: In this short tutorial, I will share tips and tricks for choosing colors for scientific 3D renderings.
