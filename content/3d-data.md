@@ -23,7 +23,7 @@ img/logos/mdc.png{{< /logos >}}
 
 {{< /block >}}
 
-{{< figure src="img/hi-support-staff.jpg" caption="Members of all Helmholtz Imaging Support Units." >}}
+{{< figure src="img/hi-staff.jpg" caption="Members of all Helmholtz Imaging Support Units." >}}
 
 {{< /horizontal >}}
 
