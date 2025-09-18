@@ -1,12 +1,12 @@
 ---
-title: "3D Data Visualization Workshop"
+title: "3D Data Visualization"
 date: 2025-09-17
 draft: false
 type: page
 layout: workshop
 author: Deborah Schmidt
 author_position: Head of Helmholtz Imaging Support Unit, MDC Berlin
-description: In this workshop, we highlight various approaches and methodologies for visualizing 3D datasets. 
+description: In this seminar, we highlight various approaches and methodologies for visualizing scientific 3D datasets. 
 cover: img/bg.jpg
 ---
 
