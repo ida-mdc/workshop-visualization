@@ -35,7 +35,7 @@ We will use the package manager `uv` to create a dedicated, isolated environment
 The best way to install uv is using the standalone installer for your operating system.   
 Choose one command below to install the uv tool globally on your system.
 
-🐧 macOS / Linux
+🐧 macOS / Linux  
 Run this command in your Bash/Zsh terminal:
 
 ```bash
@@ -50,7 +50,7 @@ Run this command in your PowerShell or Command Prompt terminal.
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-OR
+OR (in any OS)
 
 If you prefer a Python-only installation (requires `pip`):
 ```bash
