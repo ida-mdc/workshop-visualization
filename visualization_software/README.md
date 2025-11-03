@@ -32,23 +32,34 @@ We will use the package manager `uv` to create a dedicated, isolated environment
 
 ### Step 2.1: Install `uv`
 
-Choose **one** method below to install the `uv` tool globally on your system.
+The best way to install uv is using the standalone installer for your operating system.   
+Choose one command below to install the uv tool globally on your system.
 
-| Operating System | Recommended Standalone Command |
-| :--- | :--- |
-| **macOS / Linux** | `curl -LsSf https://astral.sh/uv/install.sh | sh` |
-| **Windows (PowerShell)** | `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"` |
+🐧 macOS / Linux
+Run this command in your Bash/Zsh terminal:
 
-* OR if you prefer a Python-only installation (requires `pip`):*
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+🪟 Windows
+
+Run this command in your PowerShell or Command Prompt terminal. 
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+OR
+
+If you prefer a Python-only installation (requires `pip`):
 ```bash
 # Installs pipx globally, then uses pipx to install uv.
 pip install --user pipx
 pipx install uv
 ```
 
-This is a one-time global installation and should be run before you run any of the commands in this Step 2.2. It is fine to run it anywhere in your terminal.
-
-### Step 2.2: Create the Workshop Environment
+### Step 2.2: Create and Activate the Workshop Environment
 
 First, create a new directory for your workshop files and navigate into it.  
 e.g.
@@ -65,18 +76,24 @@ uv venv .venv --python 3.11
 
 Finally, activate the environment using the command specific to your operating system/shell:
 
-```bash
-# --- Activation Commands (Choose ONLY ONE) ---
+🐧 macOS / Linux (Bash/Zsh)
 
+```bash
 ### macOS/Linux (Bash/Zsh): ###
 source .venv/bin/activate
+```
+
+🪟 Windows
+
+```bash
 
 ##### Windows (Command Prompt): ######
 .venv\Scripts\activate
-
+```
+OR
+```bash
 ##### Windows (PowerShell): #####
 .venv\Scripts\Activate.ps1
-
 ```
 
 ### Step 2.3: Install Required Python Packages
