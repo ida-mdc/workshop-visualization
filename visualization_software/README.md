@@ -28,6 +28,8 @@ After you have installed the core Fiji application:
 
 ## 2. Python Environment Setup (using `uv`)
 
+**Pro tip: If you never used the Terminal (Linux/Mac) or PowerShell (Windows), and experiencing difficulties following, paste the steps to ChatGPT/Gemini and ask for help.**
+
 We will use the package manager `uv` to create a dedicated, isolated environment for our workshop.
 
 ### Step 2.1: Install `uv`
