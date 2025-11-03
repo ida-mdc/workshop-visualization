@@ -167,4 +167,4 @@ solution="render-volume-pygfx" version="0.1.0"  linerange="40-55">}}
 - **Advanced customization**: Full control over lighting, shading, and rendering parameters.
 - **ParaView & 3D Slicer**: GUI-based tools built on VTK for easier interaction with volumetric data.
 
-{{< tutorial-link link="mesh-rendering-vtk" >}}
+{{< tutorial-link link="tutorial-mesh-rendering-vtk" >}}
