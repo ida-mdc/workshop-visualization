@@ -14,6 +14,7 @@ Please follow the instructions on their respective websites.
 | :--- |:-----------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------|
 | **Blender** | 3D Modeling and Rendering                                                    | [https://www.blender.org/download/](https://www.blender.org/download/)                            |
 | **Meshlab** | 3D Mesh Processing                                                           | [http://www.meshlab.net/#download](http://www.meshlab.net/#download)                              |
+| **ParaView** | 3D Visualization                                                            | [https://www.paraview.org/download/](https://www.paraview.org/download/)                          |
 | **Fiji (ImageJ)** | Image Analysis   <br/>(please install the MoBIE plugin - instructions below) | [https://imagej.net/software/fiji/downloads](https://imagej.net/software/fiji/downloads)          |
 
 ### Install the MoBIE plugin in Fiji
