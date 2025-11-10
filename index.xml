@@ -693,7 +693,7 @@ line or graphical user interface.
 &lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-3_in-depth-voxels/">Overview Slides&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-4_volume-rendering-bdv/">Volume Rendering BigDataViewer / MoBie&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-5_volume-rendering-neuroglancer/">OME NGFF / Neuroglancer&lt;/a>&lt;/li>
-&lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel-rendering-napari.ipynb">voxel_rendering_napari.ipynb&lt;/a>&lt;/li>
+&lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_napari.ipynb">voxel_rendering_napari.ipynb&lt;/a>&lt;/li>
 &lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_vtk.ipynb">voxel_rendering_vtk.ipynb&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;/li>
