@@ -104,7 +104,7 @@ OR
 With the environment activated, install the required packages using `uv`:
 
 ```bash
-uv pip install "napari[all]" pixel-patrol vtk
+uv pip install "napari[all]" pixel-patrol vtk jupyterlab
 ```
 
 ### 3. Verify Installations
