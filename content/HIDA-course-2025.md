@@ -24,7 +24,7 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
   - [Overview Slides]({{< ref "1-3_in-depth-voxels.md" >}})
   - [Volume Rendering BigDataViewer / MoBie]({{< ref "1-4_volume-rendering-bdv.md" >}})
   - [OME NGFF / Neuroglancer]({{< ref "1-5_volume-rendering-neuroglancer.md" >}})
-  - Notebook: [voxel_rendering_napari.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel-rendering-napari.ipynb)
+  - Notebook: [voxel_rendering_napari.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_napari.ipynb)
   - Notebook: [voxel_rendering_vtk.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_vtk.ipynb)
 
 ## Tuesday
