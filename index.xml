@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>3D Data Visualization Workshop</title><link>https://ida-mdc.github.io/workshop-visualization/</link><description>Recent content on 3D Data Visualization Workshop</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 17 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ida-mdc.github.io/workshop-visualization/index.xml" rel="self" type="application/rss+xml"/><item><title>3D Data Visualization</title><link>https://ida-mdc.github.io/workshop-visualization/3d-data/</link><pubDate>Wed, 17 Sep 2025 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/3d-data/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>3D Data Visualization Workshop</title><link>https://ida-mdc.github.io/workshop-visualization/</link><description>Recent content on 3D Data Visualization Workshop</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 17 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ida-mdc.github.io/workshop-visualization/index.xml" rel="self" type="application/rss+xml"/><item><title>3D Data Visualization</title><link>https://ida-mdc.github.io/workshop-visualization/2025_3d-data/</link><pubDate>Wed, 17 Sep 2025 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/2025_3d-data/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>&lt;unlisted/>
 &lt;div class="flex">&lt;/div>
 &lt;div class="horizontal">
@@ -35,7 +35,139 @@ Germany.
 &lt;/div>
 &lt;figure>&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/pipeline.png"style="max-width: 100%; height: auto;"
  >
-&lt;/figure>&lt;/p></description></item><item><title>Choosing colors for scientific 3D renderings</title><link>https://ida-mdc.github.io/workshop-visualization/tutorial-choosing-colors/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/tutorial-choosing-colors/</guid><description>&lt;h2 id="color-representation-in-digital-programs">Color Representation in Digital Programs&lt;/h2>
+&lt;/figure>&lt;/p></description></item><item><title>3D Data Visualization Workshop</title><link>https://ida-mdc.github.io/workshop-visualization/1-1_introduction/</link><pubDate>Wed, 17 Sep 2025 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/1-1_introduction/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>&lt;unlisted/>
+&lt;div class="flex">&lt;/div>
+&lt;div class="horizontal">
+ &lt;div >
+ &lt;p>Hi, we are the Helmholtz Imaging Support Unit at MDC.&lt;/p>
+&lt;h3 id="helmholtz-imaging-is-here-for-you-with-support-units-at-3-centers-working-in-close-collaboration-with-the-helmholtz-imaging-research-units">Helmholtz Imaging is here for you with Support Units at 3 centers, working in close collaboration with the Helmholtz Imaging Research Units.&lt;/h3>
+&lt;div class="logos">
+ &lt;img src="https://ida-mdc.github.io/workshop-visualization/img/logos/desy.png"/>
+ &lt;img src="https://ida-mdc.github.io/workshop-visualization/img/logos/dkfz.png"/>
+ &lt;img src="https://ida-mdc.github.io/workshop-visualization/img/logos/mdc.png"/>
+&lt;/div>
+&lt;/div>
+&lt;figure>&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/hi-support-staff.jpg"
+ alt="Members of all Helmholtz Imaging Support Units."style="max-width: 100%; height: auto;"
+ >&lt;figcaption>
+ &lt;p>Members of all Helmholtz Imaging Support Units.&lt;/p>
+ &lt;/figcaption>
+&lt;/figure>
+
+&lt;/div>
+&lt;div class="flex">&lt;/div>
+
+&lt;/p>
+&lt;hr>
+&lt;h2 id="introduction-1">Introduction&lt;/h2>
+&lt;unlisted/>
+&lt;h3 id="consulting-along-the-entire-pipeline-and-across-all-research-domains">Consulting along the entire pipeline and across all research domains&lt;/h3>
+&lt;p>&lt;aside class="notes">
+ You can contact us with any question along the imaging pipeline. We are funded to support all Helmholtz centers in
+Germany.
+&lt;/aside>
+&lt;div class="center">
+ &lt;strong>&lt;a href="mailto:support@helmholtz-imaging.de">support@helmholtz-imaging.de&lt;/a>&lt;/strong>
+&lt;/div>
+&lt;figure>&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/pipeline.png"style="max-width: 100%; height: auto;"
+ >
+&lt;/figure>&lt;/p></description></item><item><title>3D Data Visualization Workshop</title><link>https://ida-mdc.github.io/workshop-visualization/1-2_introduction-3d-data-types/</link><pubDate>Wed, 17 Sep 2025 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/1-2_introduction-3d-data-types/</guid><description>&lt;h2 id="3d-dataset-types">3D Dataset types&lt;/h2>
+&lt;div class="flex">&lt;/div>
+&lt;div class="horizontal">
+ &lt;figure>&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/3d-data-types-euklidian.png" width="800"style="max-width: 100%; height: auto;"
+ >
+&lt;/figure>
+&lt;div >
+ &lt;aside class="notes">
+ &lt;ul>
+&lt;li>Understanding the type of data you are working with is crucial for effective 3D rendering. Below, we outline the
+common categories of datasets that are often visualized in three dimensions.&lt;/li>
+&lt;/ul>
+&lt;/aside>
+&lt;ul>
+&lt;li>&lt;strong>Voxel-Based Datasets&lt;/strong> (Euclidean-structured)&lt;/li>
+&lt;/ul>
+&lt;aside class="notes">
+ Voxel-based datasets represent data as a grid of values (voxels) in &lt;strong>Euclidean space&lt;/strong>, where each voxel holds a specific value, such as intensity in medical imaging (e.g., CT, MRI scans) or simulation results. These datasets are inherently structured and can be visualized using volume rendering, isosurface extraction, or slice-based views.
+&lt;/aside>
+&lt;ul>
+&lt;li>&lt;strong>Meshes&lt;/strong> (Non-Euclidean-structured)&lt;/li>
+&lt;/ul>
+&lt;aside class="notes">
+ Meshes are composed of &lt;strong>vertices, edges, and faces&lt;/strong> that define the surface of a 3D object. Unlike voxels, which describe volumes, meshes describe surfaces and are commonly used in &lt;strong>computer graphics&lt;/strong> and &lt;strong>CAD models&lt;/strong>. Meshes can be visualized through techniques like surface rendering, wireframe views, and texture mapping. Properties like curvature or scalar fields can also be mapped onto the mesh for enhanced interpretation.
+&lt;/aside>
+&lt;ul>
+&lt;li>&lt;strong>Point Clouds&lt;/strong> (Non-Euclidean-structured)&lt;/li>
+&lt;/ul>
+&lt;aside class="notes">
+ Point clouds are a collection of points in 3D space, where each point is defined by its &lt;strong>X, Y, Z coordinates&lt;/strong>. They are often derived from &lt;strong>LiDAR&lt;/strong> scans, 3D scanning, or particle simulations. Visualization of point clouds often involves &lt;strong>point-based rendering&lt;/strong>, surface reconstruction, or filtering techniques to highlight areas of interest.
+&lt;/aside>
+&lt;ul>
+&lt;li>&lt;strong>Vector Fields&lt;/strong> (structured or unstructured)&lt;/li>
+&lt;/ul>
+&lt;aside class="notes">
+ Vector fields assign a vector to every point in space, showing direction and magnitude of change at each point.
+&lt;/aside>
+&lt;/div>
+
+&lt;/div>
+&lt;div class="flex">&lt;/div>
+
+
+&lt;hr>
+&lt;h2 id="voxelbased-images">Voxel‑Based Images&lt;/h2>
+&lt;aside class="notes">
+ Volumetric datasets, such as medical imaging (CT/MRI scans) or fluid simulations, are complex datasets where each voxel represents a value in 3D space.
+&lt;/aside>
+&lt;ul>
+&lt;li>&lt;strong>What is it?&lt;/strong> 3D grid (voxels) with scalar (or vector/tensor) values.&lt;/li>
+&lt;li>&lt;strong>Acquire (by domain):&lt;/strong> CT/MRI, light‑sheet/confocal, micro‑CT, simulations.&lt;/li>
+&lt;li>&lt;strong>Used for:&lt;/strong> Inspect interiors, segment/analyze regions, measure volumes.&lt;/li>
+&lt;li>&lt;strong>Stored as:&lt;/strong> TIFF stacks, NIfTI/NRRD, HDF5, &lt;strong>OME‑Zarr&lt;/strong> (great for big data &amp;amp; web).&lt;/li>
+&lt;li>&lt;strong>Visualized with:&lt;/strong> Orthogonal slices, &lt;strong>volume ray casting&lt;/strong>, MIP, isosurfaces.&lt;/li>
+&lt;/ul>
+&lt;figure>&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/voxel-based-data.png"
+ alt="Voxel based data representation. Credit: Hasanov, S. et al. (2021), CC BY-SA 4.0."style="max-width: 100%; height: auto;"
+ >&lt;figcaption>
+ &lt;p>Voxel based data representation. Credit: &lt;a href="https://www.researchgate.net/publication/353527450_Hierarchical_homogenization_and_experimental_evaluation_of_functionally_graded_materials_manufactured_by_the_fused_filament_fabrication_process">Hasanov, S. et al. (2021), CC BY-SA 4.0&lt;/a>.&lt;/p></description></item><item><title>3D Data Visualization Workshop</title><link>https://ida-mdc.github.io/workshop-visualization/2-1_in-depth-meshes/</link><pubDate>Wed, 17 Sep 2025 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/2-1_in-depth-meshes/</guid><description>&lt;h2 id="converting-volumetric-datasets-into-meshes">Converting volumetric datasets into meshes&lt;/h2>
+&lt;aside class="notes">
+ &lt;p>For scientific visualization, meshes are often extracted from volumetric datasets and then analyzed or rendered.
+Annotations can be used to add specific information to volumetric datasets, such as marking points of interest (e.g., cell locations, regions of interest) or segmenting areas of the data. Converting these annotated datasets into meshes allows for the visual representation of those specific features.&lt;/p>
+&lt;p>When converting volumetric data to &lt;strong>meshes&lt;/strong>, it&amp;rsquo;s necessary to draw concrete borders between the &lt;strong>foreground&lt;/strong> (the object of interest) and the &lt;strong>background&lt;/strong>. This is achieved through:&lt;/p></description></item><item><title>3D Data Visualization Workshop</title><link>https://ida-mdc.github.io/workshop-visualization/2-5_in-depth-point-clouds/</link><pubDate>Wed, 17 Sep 2025 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/2-5_in-depth-point-clouds/</guid><description>&lt;h2 id="project-bessy2-reconstruction">Project BESSY2 Reconstruction&lt;/h2>
+&lt;div class="flex">&lt;/div>
+&lt;div class="horizontal">
+ &lt;h3 id="helmholtz-imaging-collaboration">Helmholtz Imaging Collaboration&lt;/h3>
+&lt;div style="margin-right: 40px">
+ &lt;figure class="image-right">&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/logos/dkfz.png" height="50px"style="max-width: 100%; height: auto;"
+ >
+&lt;/figure>
+&lt;figure class="image-right">&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/logos/hzb-logo-a4-rgb.jpg" height="80px"style="max-width: 100%; height: auto;"
+ >
+&lt;/figure>
+&lt;/div>
+
+&lt;/div>
+&lt;div class="flex">&lt;/div>
+
+
+&lt;div style="margin-left: 40px; font-size: 60%">Jan-Simon Schmidt (HZB), Ole Johannsen (DKFZ, Helmholtz Imaging), Deborah Schmidt (MDC, Helmholtz Imaging)&lt;/div>
+&lt;aside class="notes">
+ Experiments in BESSY II change regularly, making tracking those changes - e.g. for planning additional experiments - necessary. Common surveying techniques are laborious and offer unneeded accuracy. Thus, we provide a pragmatic solution where the status quo is reconstructed from drone video footage. The resulting 3D reconstruction can be rendered from above using orthogonal projection. Overlaying this rendering with the original 2D plans gives valuable information about the differences between the status quo and the theoretical plans.
+&lt;/aside>
+&lt;figure>&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/bessy2-top.jpg"style="max-width: 100%; height: auto;"
+ >
+&lt;/figure>
+&lt;hr>
+&lt;h2 id="project-bessy2-reconstruction-1">Project BESSY2 Reconstruction&lt;/h2>
+&lt;h3 id="workflow--tools">Workflow &amp;amp; Tools&lt;/h3>
+&lt;ul>
+&lt;li>Extract point clouds from frames of drone video footage&lt;/li>
+&lt;li>&lt;strong>Clean &amp;amp; rotate, and merge point clouds&lt;/strong> (using &lt;em>CloudCompare&lt;/em>)&lt;/li>
+&lt;li>&lt;strong>Render results in Blender&lt;/strong> for inspection &amp;amp; visualization&lt;/li>
+&lt;li>&lt;strong>Convert to Potree format&lt;/strong> (multi resolution)&lt;/li>
+&lt;li>&lt;strong>Upload to public server&lt;/strong> → Accessible in browser with &lt;strong>Potree&lt;/strong> (open-source WebGL based point cloud renderer for large point clouds)&lt;/li>
+&lt;/ul></description></item><item><title>Choosing colors for scientific 3D renderings</title><link>https://ida-mdc.github.io/workshop-visualization/2-4_choosing-colors/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/2-4_choosing-colors/</guid><description>&lt;h2 id="color-representation-in-digital-programs">Color Representation in Digital Programs&lt;/h2>
 &lt;aside class="notes">
  Colors in digital visualizations are represented using different models, such as &lt;strong>HEX&lt;/strong>, &lt;strong>RGB&lt;/strong>, and &lt;strong>HSL&lt;/strong>.
 Digital programs might use different representations of colors - understanding how these models work can help you
@@ -73,7 +205,7 @@ apply colors across tools.
 &lt;figure>&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/AdditiveColor.svg"
  alt="Additive color mixing with Red, Green and Blue."style="max-width: 100%; height: auto;"
  >&lt;figcaption>
- &lt;p>Additive color mixing with Red, Green and Blue.&lt;/p></description></item><item><title>Converting Volumes to Meshes with VTK</title><link>https://ida-mdc.github.io/workshop-visualization/tutorial-mesh-conversion/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/tutorial-mesh-conversion/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+ &lt;p>Additive color mixing with Red, Green and Blue.&lt;/p></description></item><item><title>Converting Volumes to Meshes with VTK</title><link>https://ida-mdc.github.io/workshop-visualization/__tonotebook_tutorial-mesh-conversion/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/__tonotebook_tutorial-mesh-conversion/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;aside class="notes">
  In this tutorial, we will use &lt;strong>VTK&lt;/strong> to convert 3D volumetric datasets (e.g., labelmaps, masks, and raw data) into 3D meshes. This process is particularly useful for creating surfaces that can be used in 3D visualizations, simulations, or exported to Blender for further processing. You will also learn how to optimize these meshes by decimating and smoothing them.
 &lt;/aside>
@@ -99,50 +231,10 @@ into the details of the code in the following slides.
  To simplify and unify solutions used in our tutorials, we use Album, a tool for capturing and sharing specific software use cases in dedicated virtual environments.
  &lt;br/>&lt;br/>
  Click the solution box next to this text and follow the displayed usage instructions to run the solution either from command line or graphical interface.
- &lt;/p></description></item><item><title>Cutting mesh structures in Blender</title><link>https://ida-mdc.github.io/workshop-visualization/tutorial-mesh-cutting-volumes-blender/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/tutorial-mesh-cutting-volumes-blender/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+ &lt;/p></description></item><item><title>Cutting mesh structures in Blender</title><link>https://ida-mdc.github.io/workshop-visualization/2-3_mesh-cutting-volumes-blender/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/2-3_mesh-cutting-volumes-blender/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;aside class="notes">
  &lt;p>Cutting into mesh structures in Blender can be incredibly helpful for scientific visualization, especially when dealing with complex datasets. By cutting into an object, you can reveal internal structures that would otherwise remain hidden, providing deeper insights into the data.&lt;/p>
-&lt;p>For example, in our research, we visualized the structure of a &lt;strong>beta cell&lt;/strong> from the following publication. We cut into the 3D volume, revealing important internal details that ended up getting featured on the cover of the journal.&lt;/p></description></item><item><title>How to install and use Album - a tool for decentralized software use case sharing</title><link>https://ida-mdc.github.io/workshop-visualization/tutorial-album-user/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/tutorial-album-user/</guid><description>&lt;h2 id="why-does-album-exist">Why does Album exist?&lt;/h2>
-&lt;div class="center">
- &lt;figure>&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/album/album-comparison.png"style="max-width: 100%; height: auto;"
- >
-&lt;/figure>
-
-&lt;/div>
-&lt;aside class="notes">
- &lt;ul>
-&lt;li>In science, commercial tools exist and can be very useful, but to push the boundaries of knowledge and stay ahead of new developments, scientists often rely on &lt;strong>open-source tools&lt;/strong> and &lt;strong>custom software&lt;/strong>.&lt;/li>
-&lt;li>This results in scientists needing to figure out which tools solve their problems, how to install them, and how to use them, which leads to a diverse and sometimes confusing ecosystem.&lt;/li>
-&lt;li>While there are IT solutions that help with &lt;strong>unifying software use cases&lt;/strong> (like Docker or virtual environments), these tools are often challenging for non-computer experts due to their complexity and the risk of version conflicts.&lt;/li>
-&lt;li>&lt;strong>Album&lt;/strong> exists to solve this problem by making it easier to manage, share, and use scientific software solutions without requiring deep technical expertise.&lt;/li>
-&lt;/ul>
-
-&lt;/aside>
-&lt;hr>
-&lt;h2 id="how-does-it-work">How does it work?&lt;/h2>
-&lt;aside class="notes">
- &lt;ul>
-&lt;li>Each &lt;strong>Album solution&lt;/strong> is essentially a &lt;strong>single script&lt;/strong> (written in Python) that wraps a specific &lt;strong>software use
-case&lt;/strong>.&lt;/li>
-&lt;li>This script describes:
-&lt;ul>
-&lt;li>The &lt;strong>software dependencies&lt;/strong> required for the solution.&lt;/li>
-&lt;li>The &lt;strong>metadata&lt;/strong> of the use case (such as who to cite, arguments available, and links to further documentation).&lt;/li>
-&lt;li>The &lt;strong>launch parameters&lt;/strong> and run routine for the specific use case.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>Album handles the entire installation process by automatically installing a virtual environment for each solution
-individually, and it offers a clean, uniform interface to run different tools, both from a graphical interface or
-from command line.&lt;/li>
-&lt;/ul>
-
-&lt;/aside>
-&lt;div class="flex">&lt;/div>
-&lt;div class="horizontal">
- &lt;figure>&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/album/album-schema-people-big.png"
- alt="Solutions can wrap different tools and libraries. They can be bundled in catalogs and shared with users who don&amp;rsquo;t have any coding experience." width="900"style="max-width: 100%; height: auto;"
- >&lt;figcaption>
- &lt;p>Solutions can &lt;strong>wrap different tools and libraries&lt;/strong>. They can be bundled in catalogs and &lt;strong>shared with users who don&amp;rsquo;t have any coding experience&lt;/strong>.&lt;/p></description></item><item><title>Rendering in Blender</title><link>https://ida-mdc.github.io/workshop-visualization/tutorial-mesh-rendering-blender/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/tutorial-mesh-rendering-blender/</guid><description>&lt;h2 id="create-a-new-blender-scene">Create a New Blender Scene&lt;/h2>
+&lt;p>For example, in our research, we visualized the structure of a &lt;strong>beta cell&lt;/strong> from the following publication. We cut into the 3D volume, revealing important internal details that ended up getting featured on the cover of the journal.&lt;/p></description></item><item><title>Rendering in Blender</title><link>https://ida-mdc.github.io/workshop-visualization/2-2_mesh-rendering-blender/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/2-2_mesh-rendering-blender/</guid><description>&lt;h2 id="create-a-new-blender-scene">Create a New Blender Scene&lt;/h2>
 &lt;aside class="notes">
  To start, launch Blender and create a new scene to begin setting up your rendering environment. You can save this scene and reload it later with the same solution, preserving your work.
 &lt;/aside>
@@ -375,7 +467,7 @@ Blender&amp;rsquo;s other features, experiment with different materials, lightin
 &lt;/aside>
 &lt;figure class="center">&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/blender-render-result.png" width="85%"style="max-width: 100%; height: auto;"
  >
-&lt;/figure></description></item><item><title>Rendering meshes in VTK</title><link>https://ida-mdc.github.io/workshop-visualization/tutorial-mesh-rendering-vtk/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/tutorial-mesh-rendering-vtk/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;/figure></description></item><item><title>Rendering meshes in VTK</title><link>https://ida-mdc.github.io/workshop-visualization/__tonotebook__tutorial-mesh-rendering-vtk/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/__tonotebook__tutorial-mesh-rendering-vtk/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;aside class="notes">
  &lt;strong>VTK&lt;/strong> is a powerful toolkit for rendering 3D meshes, and this tutorial focuses on using the provided solution for rendering scientific 3D datasets. We will explore not just how to run the solution, but also how the underlying Python code works, step by step. You will learn the foundational concepts of VTK while also understanding how to extend the code for your own datasets.
 &lt;/aside>
@@ -411,9 +503,23 @@ Blender&amp;rsquo;s other features, experiment with different materials, lightin
  To simplify and unify solutions used in our tutorials, we use Album, a tool for capturing and sharing specific software use cases in dedicated virtual environments.
  &lt;br/>&lt;br/>
  Click the solution box next to this text and follow the displayed usage instructions to run the solution either from command line or graphical interface.
- &lt;/p></description></item><item><title>Volume rendering with BigDataViewer tools</title><link>https://ida-mdc.github.io/workshop-visualization/tutorial-volume-rendering-bdv/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/tutorial-volume-rendering-bdv/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+ &lt;/p></description></item><item><title>Volume rendering of Voxel based data</title><link>https://ida-mdc.github.io/workshop-visualization/1-3_in-depth-voxels/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/1-3_in-depth-voxels/</guid><description>&lt;h2 id="visualizing-volumetric-datasets">Visualizing volumetric datasets&lt;/h2>
 &lt;aside class="notes">
- &lt;p>&lt;strong>BDV (BigDataViewer)&lt;/strong> is a powerful tool for visualizing large-scale 3D image data, particularly for biological datasets such as volumetric microscopy images. BDV allows for interactive exploration of massive image datasets using a hierarchical storage approach, which enables real-time rendering of very large volumes without overwhelming system memory. BDV is part of a broader family of tools, including &lt;strong>BigVolumeViewer (BVV)&lt;/strong> for large volumetric datasets and &lt;strong>SciView&lt;/strong> for interactive 3D rendering in scientific contexts.&lt;/p></description></item><item><title>Volumetric data rendering with Neuroglancer</title><link>https://ida-mdc.github.io/workshop-visualization/tutorial-volume-rendering-neuroglancer/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/tutorial-volume-rendering-neuroglancer/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+ Volumetric datasets, such as medical imaging (CT/MRI scans) or fluid simulations, are complex datasets where each voxel represents a value in 3D space. In this section, we&amp;rsquo;ll explore the various techniques available for rendering and interacting with volumetric data.
+&lt;/aside>
+&lt;ul>
+&lt;li>&lt;strong>Slice-Based Visualization&lt;/strong>: This involves rendering 2D cross-sections or &amp;ldquo;slices&amp;rdquo; of the 3D dataset, often used in
+medical imaging.&lt;/li>
+&lt;li>&lt;strong>Volume raycasting&lt;/strong> (max intensity, emission absorbtion)&lt;/li>
+&lt;/ul>
+&lt;div class="flex">&lt;/div>
+&lt;div class="horizontal">
+ &lt;figure>&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/volume-rendering.png"
+ alt="Slicing, Max. Intensity, Emission Absorbtion"style="max-width: 100%; height: auto;"
+ >&lt;figcaption>
+ &lt;p>Slicing, Max. Intensity, Emission Absorbtion&lt;/p></description></item><item><title>Volume rendering with BigDataViewer tools</title><link>https://ida-mdc.github.io/workshop-visualization/1-4_volume-rendering-bdv/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/1-4_volume-rendering-bdv/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;aside class="notes">
+ &lt;p>&lt;strong>BDV (BigDataViewer)&lt;/strong> is a powerful tool for visualizing large-scale 3D image data, particularly for biological datasets such as volumetric microscopy images. BDV allows for interactive exploration of massive image datasets using a hierarchical storage approach, which enables real-time rendering of very large volumes without overwhelming system memory. BDV is part of a broader family of tools, including &lt;strong>BigVolumeViewer (BVV)&lt;/strong> for large volumetric datasets and &lt;strong>SciView&lt;/strong> for interactive 3D rendering in scientific contexts.&lt;/p></description></item><item><title>Volumetric data rendering with Neuroglancer</title><link>https://ida-mdc.github.io/workshop-visualization/1-5_volume-rendering-neuroglancer/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/1-5_volume-rendering-neuroglancer/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;aside class="notes">
  &lt;p>&lt;strong>Neuroglancer&lt;/strong> is a web-based tool for visualizing large-scale 3D datasets such as brain volumes, microscopy
 images, and annotations. Neuroglancer allows you to stream volumetric datasets for interactive exploration in the browser.&lt;/p>
@@ -481,97 +587,141 @@ line or graphical user interface.
  To simplify and unify solutions used in our tutorials, we use Album, a tool for capturing and sharing specific software use cases in dedicated virtual environments.
  &lt;br/>&lt;br/>
  Click the solution box next to this text and follow the displayed usage instructions to run the solution either from command line or graphical interface.
- &lt;/p></description></item><item><title>Image Prevalidation</title><link>https://ida-mdc.github.io/workshop-visualization/album-solutions/</link><pubDate>Mon, 09 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/album-solutions/</guid><description>&lt;h1 id="test">Test&lt;/h1>
-&lt;div class="mermaid">sequenceDiagram
- participant Alice
- participant Bob
- Alice->>John: Hello John, how are you?
- loop Healthcheck
- John->>John: Fight against hypochondria
- end
- Note right of John: Rational thoughts &lt;br/>prevail!
- John-->>Alice: Great!
- John->>Bob: How about you?
- Bob-->>John: Jolly good!
-&lt;/div>
-&lt;hr>
-&lt;h2 id="test-2">Test 2&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt install something
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Solutions</title><link>https://ida-mdc.github.io/workshop-visualization/solutions/</link><pubDate>Mon, 09 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/solutions/</guid><description>&lt;section>&lt;div class="presentation-title">&lt;h1>List of solutions&lt;/h1>&lt;/div>&lt;/section>
-
- 
- &lt;section>
- &lt;section class="subsection catalog-usage">
- &lt;h2>Catalog: default&lt;/h2>
-&lt;div>
-&lt;p>Run this command line to add the catalog to your local solutions collection:&lt;/p>
-&lt;pre>&lt;code>
-album add-catalog https://gitlab.com/album-app/catalogs/default.git
-&lt;/code>&lt;/pre>
-&lt;/div>
- &lt;/section>
- &lt;hr>
-
- 
- 
- &lt;section class="solution">&lt;a class="solution-box" href="https://album.solutions/guide?catalog_url=https://gitlab.com/album-app/catalogs/image-challenges&amp;catalog_name=image-challenges&amp;group=album&amp;name=template-fiji-macro&amp;version=0.1.0">&lt;div class="preview">
- &lt;h3>Fiji Macro template&lt;/h3>
- &lt;div class="subtitle">&lt;code>album:template-fiji-macro:0.1.0&lt;/code>&lt;/div>
- &lt;p class="description">An Album solution template run a macro script in Fiji.&lt;br/>
- 
- 
- &lt;span>Tags: template, java, fiji, macro, maven&lt;/span>
- &lt;/p>
- &lt;/div>
- &lt;div class="solution-cover" style="background-image:url(%25!s%28%3cnil%3e%29/-/raw/album-template-fiji-macro-0.1.0/solutions/album/template-fiji-macro/cover.png);">&lt;/div>
- 
- &lt;div id="metadata-template-fiji-macro" class="solution-metadata">
- &lt;div class="solution-details">
- &lt;div class="close-button" onclick="toggleMetadata('template-fiji-macro')">Close solution&lt;/div>
- &lt;h3>Fiji Macro template&lt;/h3>
- &lt;div class="subtitle">&lt;code>album:template-fiji-macro:0.1.0&lt;/code>&lt;/div>
- &lt;p class="description">An Album solution template run a macro script in Fiji.&lt;br/>
- 
- 
- &lt;span>Tags: template, java, fiji, macro, maven&lt;/span>
- &lt;/p>
- &lt;ul class="info">
- 
- &lt;li>&lt;strong>DOI:&lt;/strong> 10.5281/zenodo.6405812&lt;/li>
- 
- 
- &lt;li>&lt;strong>License:&lt;/strong> unlicense&lt;/li>
- 
- 
- &lt;li>&lt;strong>Solution creator(s):&lt;/strong> Album team&lt;/li>
- 
- &lt;/ul>
- &lt;div class="usage">
- &lt;strong>Usage:&lt;/strong>
- &lt;pre>&lt;code class="language-python">album install album:template-fiji-macro:0.1.0
-album run album:template-fiji-macro:0.1.0
- --output_image_path # (file): The output file name to where the processed boat image is going to be saved. [Default: ] [Required: Yes]&lt;/code>&lt;/pre>
- &lt;/div>
- &lt;div class="citations">
- 
- &lt;p>Cite the following resources if you use this solution:&lt;/p></description></item><item><title>TODO</title><link>https://ida-mdc.github.io/workshop-visualization/todo/</link><pubDate>Mon, 09 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/todo/</guid><description>&lt;ul>
-&lt;li>
-&lt;p>General:&lt;/p>
+ &lt;/p></description></item><item><title>3D Data Visualization Workshop @ HIDA, November 2025</title><link>https://ida-mdc.github.io/workshop-visualization/hida-course-2025-backup/</link><pubDate>Mon, 09 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/hida-course-2025-backup/</guid><description>&lt;h1 id="workshop-3d-data-rendering">Workshop 3D Data Rendering&lt;/h1>
+&lt;p>With the Helmholtz Imaging Support Unit @ MDC Berlin&lt;/p>
+&lt;h2 id="monday">Monday&lt;/h2>
 &lt;ul>
-&lt;li>TODO make proper &amp;ldquo;how to run solution&amp;rdquo; page and link to it from solutions!&lt;/li>
+&lt;li>12pm Installation time&lt;/li>
+&lt;li>1pm Lunch&lt;/li>
+&lt;li>2pm &lt;strong>Introduction, general remarks&lt;/strong> - 30min
+&lt;ul>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-1_introduction/">Slides&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>
-&lt;p>After presentation:&lt;/p>
+&lt;li>2:30pm &lt;strong>3D Data Types&lt;/strong> - 30min, 30min try-out
 &lt;ul>
-&lt;li>TODO redeploy rest without defaults in channels&lt;/li>
-&lt;li>TODO add impressum&lt;/li>
-&lt;li>TODO make proper landing page&lt;/li>
-&lt;li>TODO add comment thingy&lt;/li>
-&lt;li>TODO add readme&lt;/li>
-&lt;li>TODO add header&lt;/li>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-2_introduction-3d-data-types/">Slides&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/example_data">Example data&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;/li>
+&lt;li>3:30pm &lt;strong>Quality Control&lt;/strong> - 30min
+&lt;ul>
+&lt;li>&lt;a href="https://ida-mdc.gitlab.io/workshops/prevalidation/overview/">Slides&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>4pm Coffee&lt;/li>
+&lt;li>4:30pm &lt;strong>Volumetric Data Rendering&lt;/strong> - 1h, 30min try-out
+&lt;ul>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-3_in-depth-voxels/">Overview Slides&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-4_volume-rendering-bdv/">Volume Rendering BigDataViewer / MoBie&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-5_volume-rendering-neuroglancer/">OME NGFF / Neuroglancer&lt;/a>&lt;/li>
+&lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel-rendering-napari.ipynb">voxel_rendering_napari.ipynb&lt;/a>&lt;/li>
+&lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_vtk.ipynb">voxel_rendering_vtk.ipynb&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="tuesday">Tuesday&lt;/h2>
+&lt;ul>
+&lt;li>10am &lt;strong>Meshes&lt;/strong> - 60min follow-along
+&lt;ul>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/2-1_in-depth-meshes/">Overview Slides&lt;/a>&lt;/li>
+&lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_to_mesh.ipynb">voxel_to_mesh.ipynb&lt;/a>&lt;/li>
+&lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/mesh_rendering_tutorial.ipynb">mesh_rendering_tutorial.ipynb&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/2-2_mesh-rendering-blender/">Basic mesh rendering in Blender&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/2-3_mesh-cutting-volumes-blender/">Mesh cutting in Blender&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>11:00am &lt;strong>Colors&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/2-4_choosing-colors/">Choosing Colors&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>11:15am Coffee&lt;/li>
+&lt;li>11:30am &lt;strong>Getting To Know Your Data&lt;/strong> with &lt;a href="https://jochen-mueller.net/">Jochen Müller&lt;/a> (Stiftung Planetarium Berlin)&lt;/li>
+&lt;li>1pm Lunch&lt;/li>
+&lt;li>2pm &lt;strong>Point Clouds&lt;/strong> - 30min
+&lt;ul>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/2-5_in-depth-point-clouds/">Slides&lt;/a>&lt;/li>
+&lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/point_clouds_tutorial.ipynb">point_clouds_tutorial.ipynb&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>2:30pm &lt;strong>Vector Fields&lt;/strong> - 30min
+&lt;ul>
+&lt;li>Slides&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>3pm Open Working Time&lt;/li>
+&lt;/ul>
+&lt;h2 id="wednesday">Wednesday&lt;/h2>
+&lt;ul>
+&lt;li>10am &lt;strong>VR Showcase&lt;/strong> with Christoph Karg (MDC)&lt;/li>
+&lt;li>11am Open Working Time&lt;/li>
+&lt;li>1pm Lunch&lt;/li>
+&lt;li>2pm Open Working Time&lt;/li>
+&lt;/ul>
+&lt;h2 id="thursday">Thursday&lt;/h2>
+&lt;ul>
+&lt;li>10am Open Working Time&lt;/li>
+&lt;li>1pm Lunch&lt;/li>
+&lt;li>2:30pm &lt;strong>Presentation &amp;amp; Feedback&lt;/strong>&lt;/li>
+&lt;li>5pm &lt;a href="https://www.planetarium.berlin/en/events/black-holes">Black Holes&lt;/a> @ Zeiss Großplanetarium&lt;/li>
+&lt;/ul></description></item><item><title>3D Data Visualization Workshop @ HIDA, November 2025</title><link>https://ida-mdc.github.io/workshop-visualization/hida-course-2025/</link><pubDate>Mon, 09 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/hida-course-2025/</guid><description>&lt;h1 id="workshop-3d-data-rendering">Workshop 3D Data Rendering&lt;/h1>
+&lt;p>With the Helmholtz Imaging Support Unit @ MDC Berlin&lt;/p>
+&lt;h2 id="monday">Monday&lt;/h2>
+&lt;ul>
+&lt;li>12pm Installation time&lt;/li>
+&lt;li>1pm Lunch&lt;/li>
+&lt;li>2pm &lt;strong>Introduction, general remarks&lt;/strong> - 30min
+&lt;ul>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-1_introduction/">Slides&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>2:30pm &lt;strong>3D Data Types&lt;/strong> - 30min, 30min try-out
+&lt;ul>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-2_introduction-3d-data-types/">Slides&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/example_data">Example data&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>3:30pm &lt;strong>Quality Control&lt;/strong> - 30min
+&lt;ul>
+&lt;li>&lt;a href="https://ida-mdc.gitlab.io/workshops/prevalidation/overview/">Slides&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>4pm Coffee&lt;/li>
+&lt;li>4:30pm &lt;strong>Volumetric Data Rendering&lt;/strong> - 1h, 30min try-out
+&lt;ul>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-3_in-depth-voxels/">Overview Slides&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-4_volume-rendering-bdv/">Volume Rendering BigDataViewer / MoBie&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-5_volume-rendering-neuroglancer/">OME NGFF / Neuroglancer&lt;/a>&lt;/li>
+&lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel-rendering-napari.ipynb">voxel_rendering_napari.ipynb&lt;/a>&lt;/li>
+&lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_vtk.ipynb">voxel_rendering_vtk.ipynb&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="tuesday">Tuesday&lt;/h2>
+&lt;ul>
+&lt;li>10am &lt;strong>Meshes&lt;/strong> - 60min follow-along&lt;/li>
+&lt;li>11:00am &lt;strong>Colors&lt;/strong>&lt;/li>
+&lt;li>11:15am Coffee&lt;/li>
+&lt;li>11:30am &lt;strong>Getting To Know Your Data&lt;/strong> with &lt;a href="https://jochen-mueller.net/">Jochen Müller&lt;/a> (Stiftung Planetarium Berlin)&lt;/li>
+&lt;li>1pm Lunch&lt;/li>
+&lt;li>2pm &lt;strong>Point Clouds&lt;/strong> - 30min&lt;/li>
+&lt;li>2:30pm &lt;strong>Vector Fields&lt;/strong> - 30min&lt;/li>
+&lt;li>3pm Open Working Time&lt;/li>
+&lt;/ul>
+&lt;h2 id="wednesday">Wednesday&lt;/h2>
+&lt;ul>
+&lt;li>10am &lt;strong>VR Showcase&lt;/strong> with Christoph Karg (MDC)&lt;/li>
+&lt;li>11am Open Working Time&lt;/li>
+&lt;li>1pm Lunch&lt;/li>
+&lt;li>2pm Open Working Time&lt;/li>
+&lt;/ul>
+&lt;h2 id="thursday">Thursday&lt;/h2>
+&lt;ul>
+&lt;li>10am Open Working Time&lt;/li>
+&lt;li>1pm Lunch&lt;/li>
+&lt;li>2:30pm &lt;strong>Presentation &amp;amp; Feedback&lt;/strong>&lt;/li>
+&lt;li>5pm &lt;a href="https://www.planetarium.berlin/en/events/black-holes">Black Holes&lt;/a> @ Zeiss Großplanetarium&lt;/li>
 &lt;/ul></description></item><item><title>Post 3</title><link>https://ida-mdc.github.io/workshop-visualization/posts/post-3/</link><pubDate>Wed, 15 Mar 2023 11:00:00 -0700</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/posts/post-3/</guid><description>&lt;p>Occaecat aliqua consequat laborum ut ex aute aliqua culpa quis irure esse magna dolore quis. Proident fugiat labore eu laboris officia Lorem enim. Ipsum occaecat cillum ut tempor id sint aliqua incididunt nisi incididunt reprehenderit. Voluptate ad minim sint est aute aliquip esse occaecat tempor officia qui sunt. Aute ex ipsum id ut in est velit est laborum incididunt. Aliqua qui id do esse sunt eiusmod id deserunt eu nostrud aute sit ipsum. Deserunt esse cillum Lorem non magna adipisicing mollit amet consequat.&lt;/p></description></item><item><title>Post 2</title><link>https://ida-mdc.github.io/workshop-visualization/posts/post-2/</link><pubDate>Wed, 15 Feb 2023 10:00:00 -0700</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/posts/post-2/</guid><description>&lt;p>Anim eiusmod irure incididunt sint cupidatat. Incididunt irure irure irure nisi ipsum do ut quis fugiat consectetur proident cupidatat incididunt cillum. Dolore voluptate occaecat qui mollit laborum ullamco et. Ipsum laboris officia anim laboris culpa eiusmod ex magna ex cupidatat anim ipsum aute. Mollit aliquip occaecat qui sunt velit ut cupidatat reprehenderit enim sunt laborum. Velit veniam in officia nulla adipisicing ut duis officia.&lt;/p>
 &lt;p>Exercitation voluptate irure in irure tempor mollit Lorem nostrud ad officia. Velit id fugiat occaecat do tempor. Sit officia Lorem aliquip eu deserunt consectetur. Aute proident deserunt in nulla aliquip dolore ipsum Lorem ut cupidatat consectetur sit sint laborum. Esse cupidatat sit sint sunt tempor exercitation deserunt. Labore dolor duis laborum est do nisi ut veniam dolor et nostrud nostrud.&lt;/p></description></item><item><title>Post 1</title><link>https://ida-mdc.github.io/workshop-visualization/posts/post-1/</link><pubDate>Sun, 15 Jan 2023 09:00:00 -0700</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/posts/post-1/</guid><description>&lt;p>Tempor proident minim aliquip reprehenderit dolor et ad anim Lorem duis sint eiusmod. Labore ut ea duis dolor. Incididunt consectetur proident qui occaecat incididunt do nisi Lorem. Tempor do laborum elit laboris excepteur eiusmod do. Eiusmod nisi excepteur ut amet pariatur adipisicing Lorem.&lt;/p>
 &lt;p>Occaecat nulla excepteur dolore excepteur duis eiusmod ullamco officia anim in voluptate ea occaecat officia. Cillum sint esse velit ea officia minim fugiat. Elit ea esse id aliquip pariatur cupidatat id duis minim incididunt ea ea. Anim ut duis sunt nisi. Culpa cillum sit voluptate voluptate eiusmod dolor. Enim nisi Lorem ipsum irure est excepteur voluptate eu in enim nisi. Nostrud ipsum Lorem anim sint labore consequat do.&lt;/p></description></item></channel></rss>
