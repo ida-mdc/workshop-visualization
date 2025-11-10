@@ -34,7 +34,7 @@ look at Python based volumetric rendering in the tutorial linked below. We will 
 {{< /notes >}}
 
 1. Install and activate environment ([guide](https://github.com/ida-mdc/workshop-visualization/tree/main/visualization_software))
-2. Download Notebook [voxel_rendering_napari.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel-rendering-napari.ipynb) into workshop directory 
+2. Download Notebook [voxel_rendering_napari.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_napari.ipynb) into workshop directory 
 3. Type `jupyter lab` and press `Enter`
 4. Open Notebook from list of files on the left side
 5. Run Cells in the Notebooks one by one by pressing `Shift` and `Enter`
