@@ -41,6 +41,7 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
 - 2:15pm **Point Clouds Demo**
   - [Slides]({{< ref "2-5_point-clouds-showcase.md" >}})
 - 2:30pm **Vector Fields**
+  - [Slides](https://docs.google.com/presentation/d/1UfsegcYlMT454YMB2zek1GrSZjjgnr4DiAGPCRTTBPM/edit?usp=sharing)
 - 3pm Open Working Time
 
 
