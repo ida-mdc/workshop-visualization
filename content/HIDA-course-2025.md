@@ -29,13 +29,20 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
 
 ## Tuesday
 - 10am **Meshes** - 60min follow-along
-- 11:00am **Colors**
+  - [Overview Slides]({{< ref "2-1_in-depth-meshes.md" >}})
+  - Notebook: [voxel_to_mesh.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_to_mesh.ipynb)
+  - [Basic mesh rendering in Blender]({{< ref "2-2_mesh-rendering-blender.md" >}})
+  - [Mesh cutting in Blender]({{< ref "2-3_mesh-cutting-volumes-blender.md" >}})
 - 11:15am Coffee
 - 11:30am **Getting To Know Your Data** with [Jochen Müller](https://jochen-mueller.net/) (Stiftung Planetarium Berlin)
 - 1pm Lunch
-- 2pm **Point Clouds** - 30min
-- 2:30pm **Vector Fields** - 30min
+- 2pm **Colors**
+  - [Choosing Colors]({{< ref "2-4_choosing-colors.md" >}})
+- 2:15pm **Point Clouds Demo**
+  - [Slides]({{< ref "2-5_point-clouds-showcase.md" >}})
+- 2:30pm **Vector Fields**
 - 3pm Open Working Time
+
 
 ## Wednesday
 - 10am **VR Showcase** with Christoph Karg (MDC)
@@ -44,7 +51,8 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
 - 2pm Open Working Time
 
 ## Thursday
-- 10am Open Working Time
+- 10:00am **Photogrammetry Showcase** with  
+- 10:30am Open Working Time
 - 1pm Lunch
 - 2:30pm **Presentation & Feedback**
 - 5pm [Black Holes](https://www.planetarium.berlin/en/events/black-holes) @ Zeiss Großplanetarium

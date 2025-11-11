@@ -15,19 +15,6 @@ jobs:
         with:
           submodules: true  # Include if using submodules
 
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.8'
-
-      - name: Install Python Dependencies
-        run: |
-          pip install --upgrade pip
-          pip install packaging
-
-      - name: Run Build Script
-        run: python3 ./build.py
-
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
