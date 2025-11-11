@@ -130,14 +130,14 @@ common categories of datasets that are often visualized in three dimensions.&lt;
 &lt;figure>&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/voxel-based-data.png"
  alt="Voxel based data representation. Credit: Hasanov, S. et al. (2021), CC BY-SA 4.0."style="max-width: 100%; height: auto;"
  >&lt;figcaption>
- &lt;p>Voxel based data representation. Credit: &lt;a href="https://www.researchgate.net/publication/353527450_Hierarchical_homogenization_and_experimental_evaluation_of_functionally_graded_materials_manufactured_by_the_fused_filament_fabrication_process">Hasanov, S. et al. (2021), CC BY-SA 4.0&lt;/a>.&lt;/p></description></item><item><title>3D Data Visualization Workshop</title><link>https://ida-mdc.github.io/workshop-visualization/2-1_in-depth-meshes/</link><pubDate>Wed, 17 Sep 2025 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/2-1_in-depth-meshes/</guid><description>&lt;h2 id="converting-volumetric-datasets-into-meshes">Converting volumetric datasets into meshes&lt;/h2>
+ &lt;p>Voxel based data representation. Credit: &lt;a href="https://www.researchgate.net/publication/353527450_Hierarchical_homogenization_and_experimental_evaluation_of_functionally_graded_materials_manufactured_by_the_fused_filament_fabrication_process">Hasanov, S. et al. (2021), CC BY-SA 4.0&lt;/a>.&lt;/p></description></item><item><title>Meshes</title><link>https://ida-mdc.github.io/workshop-visualization/2-1_in-depth-meshes/</link><pubDate>Wed, 17 Sep 2025 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/2-1_in-depth-meshes/</guid><description>&lt;h2 id="converting-voxel-datasets-into-meshes">Converting voxel datasets into meshes&lt;/h2>
 &lt;aside class="notes">
  &lt;p>For scientific visualization, meshes are often extracted from volumetric datasets and then analyzed or rendered.
 Annotations can be used to add specific information to volumetric datasets, such as marking points of interest (e.g., cell locations, regions of interest) or segmenting areas of the data. Converting these annotated datasets into meshes allows for the visual representation of those specific features.&lt;/p>
-&lt;p>When converting volumetric data to &lt;strong>meshes&lt;/strong>, it&amp;rsquo;s necessary to draw concrete borders between the &lt;strong>foreground&lt;/strong> (the object of interest) and the &lt;strong>background&lt;/strong>. This is achieved through:&lt;/p></description></item><item><title>3D Data Visualization Workshop</title><link>https://ida-mdc.github.io/workshop-visualization/2-5_in-depth-point-clouds/</link><pubDate>Wed, 17 Sep 2025 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/2-5_in-depth-point-clouds/</guid><description>&lt;h2 id="project-bessy2-reconstruction">Project BESSY2 Reconstruction&lt;/h2>
+&lt;p>When converting volumetric data to &lt;strong>meshes&lt;/strong>, it&amp;rsquo;s necessary to draw concrete borders between the &lt;strong>foreground&lt;/strong> (the object of interest) and the &lt;strong>background&lt;/strong>. This is achieved through:&lt;/p></description></item><item><title>Pointcloud Showcase</title><link>https://ida-mdc.github.io/workshop-visualization/2-5_point-clouds-showcase/</link><pubDate>Wed, 17 Sep 2025 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/2-5_point-clouds-showcase/</guid><description>&lt;h2 id="project-bessy2-reconstruction">Project BESSY2 Reconstruction&lt;/h2>
 &lt;div class="flex">&lt;/div>
 &lt;div class="horizontal">
- &lt;h3 id="helmholtz-imaging-collaboration">Helmholtz Imaging Collaboration&lt;/h3>
+ &lt;h3 id="helmholtz-imaging-collaboration-with-jan-simon-schmidt-hzb">Helmholtz Imaging Collaboration with Jan-Simon Schmidt (HZB)&lt;/h3>
 &lt;div style="margin-right: 40px">
  &lt;figure class="image-right">&lt;img src="https://ida-mdc.github.io/workshop-visualization/img/logos/dkfz.png" height="50px"style="max-width: 100%; height: auto;"
  >
@@ -165,9 +165,34 @@ Annotations can be used to add specific information to volumetric datasets, such
 &lt;li>Extract point clouds from frames of drone video footage&lt;/li>
 &lt;li>&lt;strong>Clean &amp;amp; rotate, and merge point clouds&lt;/strong> (using &lt;em>CloudCompare&lt;/em>)&lt;/li>
 &lt;li>&lt;strong>Render results in Blender&lt;/strong> for inspection &amp;amp; visualization&lt;/li>
+&lt;li>&lt;strong>Integrate room layout&lt;/strong> by converting SVG file to Mesh &amp;amp; import it in Blender&lt;/li>
 &lt;li>&lt;strong>Convert to Potree format&lt;/strong> (multi resolution)&lt;/li>
 &lt;li>&lt;strong>Upload to public server&lt;/strong> → Accessible in browser with &lt;strong>Potree&lt;/strong> (open-source WebGL based point cloud renderer for large point clouds)&lt;/li>
-&lt;/ul></description></item><item><title>Choosing colors for scientific 3D renderings</title><link>https://ida-mdc.github.io/workshop-visualization/2-4_choosing-colors/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/2-4_choosing-colors/</guid><description>&lt;h2 id="color-representation-in-digital-programs">Color Representation in Digital Programs&lt;/h2>
+&lt;/ul>
+&lt;hr>
+&lt;div class="cover" style="background-image: url(/workshop-visualization/img/bessy-beamline-video.png); background-color: black; color: white">
+ &lt;h2 style="color: white">Blender fly-through&lt;/h2>
+ &lt;div style="flex: 1">&lt;/div>
+ 
+&lt;/div>
+&lt;hr>
+&lt;div class="cover" style="background-image: url(/workshop-visualization/img/bessy-beamline-floorplan.png); background-color: white; color: black">
+ &lt;h2 style="color: black">Floor plan&lt;/h2>
+ &lt;div style="flex: 1">&lt;/div>
+ 
+&lt;/div>
+&lt;hr>
+&lt;div class="cover" style="background-image: url(/workshop-visualization/img/bessy-beamline-floor-render.png); background-color: black; color: white">
+ &lt;h2 style="color: white">Blender floor&lt;/h2>
+ &lt;div style="flex: 1">&lt;/div>
+ 
+&lt;/div>
+&lt;hr>
+&lt;div class="cover" style="background-image: url(/workshop-visualization/img/bessy-beamline-potree.png); background-color: black; color: white">
+ &lt;h2 style="color: white">Potree / Entwine-generated EPT format&lt;/h2>
+ &lt;div style="flex: 1">&lt;/div>
+ 
+&lt;/div></description></item><item><title>Choosing colors for scientific 3D renderings</title><link>https://ida-mdc.github.io/workshop-visualization/2-4_choosing-colors/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/2-4_choosing-colors/</guid><description>&lt;h2 id="color-representation-in-digital-programs">Color Representation in Digital Programs&lt;/h2>
 &lt;aside class="notes">
  Colors in digital visualizations are represented using different models, such as &lt;strong>HEX&lt;/strong>, &lt;strong>RGB&lt;/strong>, and &lt;strong>HSL&lt;/strong>.
 Digital programs might use different representations of colors - understanding how these models work can help you
@@ -587,85 +612,7 @@ line or graphical user interface.
  To simplify and unify solutions used in our tutorials, we use Album, a tool for capturing and sharing specific software use cases in dedicated virtual environments.
  &lt;br/>&lt;br/>
  Click the solution box next to this text and follow the displayed usage instructions to run the solution either from command line or graphical interface.
- &lt;/p></description></item><item><title>3D Data Visualization Workshop @ HIDA, November 2025</title><link>https://ida-mdc.github.io/workshop-visualization/hida-course-2025-backup/</link><pubDate>Mon, 09 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/hida-course-2025-backup/</guid><description>&lt;h1 id="workshop-3d-data-rendering">Workshop 3D Data Rendering&lt;/h1>
-&lt;p>With the Helmholtz Imaging Support Unit @ MDC Berlin&lt;/p>
-&lt;h2 id="monday">Monday&lt;/h2>
-&lt;ul>
-&lt;li>12pm Installation time&lt;/li>
-&lt;li>1pm Lunch&lt;/li>
-&lt;li>2pm &lt;strong>Introduction, general remarks&lt;/strong> - 30min
-&lt;ul>
-&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-1_introduction/">Slides&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>2:30pm &lt;strong>3D Data Types&lt;/strong> - 30min, 30min try-out
-&lt;ul>
-&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-2_introduction-3d-data-types/">Slides&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/example_data">Example data&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>3:30pm &lt;strong>Quality Control&lt;/strong> - 30min
-&lt;ul>
-&lt;li>&lt;a href="https://ida-mdc.gitlab.io/workshops/prevalidation/overview/">Slides&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>4pm Coffee&lt;/li>
-&lt;li>4:30pm &lt;strong>Volumetric Data Rendering&lt;/strong> - 1h, 30min try-out
-&lt;ul>
-&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-3_in-depth-voxels/">Overview Slides&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-4_volume-rendering-bdv/">Volume Rendering BigDataViewer / MoBie&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/1-5_volume-rendering-neuroglancer/">OME NGFF / Neuroglancer&lt;/a>&lt;/li>
-&lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel-rendering-napari.ipynb">voxel_rendering_napari.ipynb&lt;/a>&lt;/li>
-&lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_vtk.ipynb">voxel_rendering_vtk.ipynb&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="tuesday">Tuesday&lt;/h2>
-&lt;ul>
-&lt;li>10am &lt;strong>Meshes&lt;/strong> - 60min follow-along
-&lt;ul>
-&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/2-1_in-depth-meshes/">Overview Slides&lt;/a>&lt;/li>
-&lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_to_mesh.ipynb">voxel_to_mesh.ipynb&lt;/a>&lt;/li>
-&lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/mesh_rendering_tutorial.ipynb">mesh_rendering_tutorial.ipynb&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/2-2_mesh-rendering-blender/">Basic mesh rendering in Blender&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/2-3_mesh-cutting-volumes-blender/">Mesh cutting in Blender&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>11:00am &lt;strong>Colors&lt;/strong>
-&lt;ul>
-&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/2-4_choosing-colors/">Choosing Colors&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>11:15am Coffee&lt;/li>
-&lt;li>11:30am &lt;strong>Getting To Know Your Data&lt;/strong> with &lt;a href="https://jochen-mueller.net/">Jochen Müller&lt;/a> (Stiftung Planetarium Berlin)&lt;/li>
-&lt;li>1pm Lunch&lt;/li>
-&lt;li>2pm &lt;strong>Point Clouds&lt;/strong> - 30min
-&lt;ul>
-&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/2-5_in-depth-point-clouds/">Slides&lt;/a>&lt;/li>
-&lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/point_clouds_tutorial.ipynb">point_clouds_tutorial.ipynb&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>2:30pm &lt;strong>Vector Fields&lt;/strong> - 30min
-&lt;ul>
-&lt;li>Slides&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>3pm Open Working Time&lt;/li>
-&lt;/ul>
-&lt;h2 id="wednesday">Wednesday&lt;/h2>
-&lt;ul>
-&lt;li>10am &lt;strong>VR Showcase&lt;/strong> with Christoph Karg (MDC)&lt;/li>
-&lt;li>11am Open Working Time&lt;/li>
-&lt;li>1pm Lunch&lt;/li>
-&lt;li>2pm Open Working Time&lt;/li>
-&lt;/ul>
-&lt;h2 id="thursday">Thursday&lt;/h2>
-&lt;ul>
-&lt;li>10am Open Working Time&lt;/li>
-&lt;li>1pm Lunch&lt;/li>
-&lt;li>2:30pm &lt;strong>Presentation &amp;amp; Feedback&lt;/strong>&lt;/li>
-&lt;li>5pm &lt;a href="https://www.planetarium.berlin/en/events/black-holes">Black Holes&lt;/a> @ Zeiss Großplanetarium&lt;/li>
-&lt;/ul></description></item><item><title>3D Data Visualization Workshop @ HIDA, November 2025</title><link>https://ida-mdc.github.io/workshop-visualization/hida-course-2025/</link><pubDate>Mon, 09 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/hida-course-2025/</guid><description>&lt;h1 id="workshop-3d-data-rendering">Workshop 3D Data Rendering&lt;/h1>
+ &lt;/p></description></item><item><title>3D Data Visualization Workshop @ HIDA, November 2025</title><link>https://ida-mdc.github.io/workshop-visualization/hida-course-2025/</link><pubDate>Mon, 09 Sep 2024 00:00:00 +0000</pubDate><guid>https://ida-mdc.github.io/workshop-visualization/hida-course-2025/</guid><description>&lt;h1 id="workshop-3d-data-rendering">Workshop 3D Data Rendering&lt;/h1>
 &lt;p>With the Helmholtz Imaging Support Unit @ MDC Berlin&lt;/p>
 &lt;h2 id="monday">Monday&lt;/h2>
 &lt;ul>
@@ -700,13 +647,28 @@ line or graphical user interface.
 &lt;/ul>
 &lt;h2 id="tuesday">Tuesday&lt;/h2>
 &lt;ul>
-&lt;li>10am &lt;strong>Meshes&lt;/strong> - 60min follow-along&lt;/li>
-&lt;li>11:00am &lt;strong>Colors&lt;/strong>&lt;/li>
+&lt;li>10am &lt;strong>Meshes&lt;/strong> - 60min follow-along
+&lt;ul>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/2-1_in-depth-meshes/">Overview Slides&lt;/a>&lt;/li>
+&lt;li>Notebook: &lt;a href="https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_to_mesh.ipynb">voxel_to_mesh.ipynb&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/2-2_mesh-rendering-blender/">Basic mesh rendering in Blender&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/2-3_mesh-cutting-volumes-blender/">Mesh cutting in Blender&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
 &lt;li>11:15am Coffee&lt;/li>
 &lt;li>11:30am &lt;strong>Getting To Know Your Data&lt;/strong> with &lt;a href="https://jochen-mueller.net/">Jochen Müller&lt;/a> (Stiftung Planetarium Berlin)&lt;/li>
 &lt;li>1pm Lunch&lt;/li>
-&lt;li>2pm &lt;strong>Point Clouds&lt;/strong> - 30min&lt;/li>
-&lt;li>2:30pm &lt;strong>Vector Fields&lt;/strong> - 30min&lt;/li>
+&lt;li>2pm &lt;strong>Colors&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/2-4_choosing-colors/">Choosing Colors&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>2:15pm &lt;strong>Point Clouds Demo&lt;/strong>
+&lt;ul>
+&lt;li>&lt;a href="https://ida-mdc.github.io/workshop-visualization/2-5_point-clouds-showcase/">Slides&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>2:30pm &lt;strong>Vector Fields&lt;/strong>&lt;/li>
 &lt;li>3pm Open Working Time&lt;/li>
 &lt;/ul>
 &lt;h2 id="wednesday">Wednesday&lt;/h2>
@@ -718,7 +680,8 @@ line or graphical user interface.
 &lt;/ul>
 &lt;h2 id="thursday">Thursday&lt;/h2>
 &lt;ul>
-&lt;li>10am Open Working Time&lt;/li>
+&lt;li>10:00am &lt;strong>Photogrammetry Showcase&lt;/strong> with&lt;/li>
+&lt;li>10:30am Open Working Time&lt;/li>
 &lt;li>1pm Lunch&lt;/li>
 &lt;li>2:30pm &lt;strong>Presentation &amp;amp; Feedback&lt;/strong>&lt;/li>
 &lt;li>5pm &lt;a href="https://www.planetarium.berlin/en/events/black-holes">Black Holes&lt;/a> @ Zeiss Großplanetarium&lt;/li>
