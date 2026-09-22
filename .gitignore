@@ -4,3 +4,8 @@ data
 public
 resources
 themes
+# notebook render output and caches
+notebooks/results/
+**/.ipynb_checkpoints/
+__pycache__/
+site/
