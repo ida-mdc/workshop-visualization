@@ -82,4 +82,4 @@ Large, complex meshes can be computationally intensive to render. Reducing mesh 
 Blender is a powerful open-source tool for rendering meshes. It supports realistic rendering, including lighting, shadows, transparency, and advanced surface textures. In this tutorial, you will learn how to set up Blender to render scientific datasets as meshes.
 {{< /notes >}}
 
-{{< tutorial-link link="2-2_mesh-rendering-blender" >}}
+{{< tutorial-link link="mesh-rendering-blender" >}}

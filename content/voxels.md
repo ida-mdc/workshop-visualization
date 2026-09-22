@@ -111,7 +111,7 @@ has evolved over time, which we will explore in the tutorial linked below.
 
 - **Supports large data formats**: The BDV ecosystem can handle massive 3D datasets and allow arbitrary slicing.
 
-{{< tutorial-link link="1-4_volume-rendering-bdv" >}}
+{{< tutorial-link link="volume-rendering-bdv" >}}
 
 ---
 
@@ -154,4 +154,4 @@ project we are working on at MDC where we utilize Neuroglancer to display large 
 
 - **Collaboration-friendly**: Share URLs with collaborators to provide access to the 3D visualization.
 
-{{< tutorial-link link="1-5_volume-rendering-neuroglancer" >}}
+{{< tutorial-link link="volume-rendering-neuroglancer" >}}
