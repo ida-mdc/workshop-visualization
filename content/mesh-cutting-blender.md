@@ -42,7 +42,9 @@ The dataset shown in this tutorial originates from the same publication.
 Before working in Blender, it’s important to convert volumetric datasets, such as **TIFF** files, into mesh representations. Volumetric datasets are often used in scientific contexts, but rendering them directly in Blender can be challenging. By converting them into meshes, you can use Blender's powerful tools to manipulate and visualize the data in 3D space.
 {{< /notes >}}
 
-{{< tutorial-link link="mesh-conversion" >}}
+**Notebook:** [voxel_to_mesh.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/voxel_to_mesh.ipynb)
+
+{{< qr-code identifier="nb-voxel-to-mesh" link="https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/voxel_to_mesh.ipynb">}}
 
 ---
 
