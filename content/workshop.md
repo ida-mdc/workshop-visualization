@@ -60,7 +60,7 @@ catlog (as described in the tutorial):
 
 - **Automate visualization tasks**: Use Album to manage multiple tools from a single launcher.
 
-{{< tutorial-link link="tutorial-album-user" >}}
+{{< tutorial-link link="album" >}}
 
 ---
 
@@ -159,7 +159,7 @@ has evolved over time, which we will explore in the tutorial linked below.
 - **Supports large data formats**: BDV and Fiji can handle massive 3D datasets and allow arbitrary slicing.
 - **Ecosystem of tools**: BDV serves as a foundation for other Fiji plugins that support multi-scale rendering and slicing.
 
-{{< tutorial-link link="tutorial-volume-rendering-bdv" >}}
+{{< tutorial-link link="volume-rendering-bdv" >}}
 
 ---
 
@@ -197,7 +197,7 @@ look at Python based volumetric rendering in the tutorial linked below. We will 
 is worth mentioning that he last two tools are also great resources for rendering mesh based datasets.  
 {{< /notes >}}
 
-{{< tutorial-link link="tutorial-volume-rendering-python" >}}
+{{< tutorial-link link="volume-rendering-python" >}}
 
 ---
 
@@ -211,7 +211,7 @@ project we are working on at MDC where we utilize Neuroglancer to display large 
 
 - **Collaboration-friendly**: Share URLs with collaborators to provide access to the 3D visualization.
 
-{{< tutorial-link link="tutorial-volume-rendering-neuroglancer" >}}
+{{< tutorial-link link="volume-rendering-neuroglancer" >}}
 
 ---
 
@@ -299,7 +299,7 @@ experience. Check out the tutorial below for more details. This includes Python 
 possibility to run conversion through a graphical user interface or command line using an Album solution.
 {{< /notes >}}
 
-{{< tutorial-link link="tutorial-mesh-conversion" >}}
+{{< tutorial-link link="mesh-conversion" >}}
 
 ---
 
@@ -364,7 +364,7 @@ VTK offers extensive tools for rendering meshes, allowing for the customization 
 
 - **VTK rendering features**: Customize surface properties like color, opacity, and lighting. VTK can also handle interactive rendering, where users can rotate and zoom in on the rendered mesh.
 
-{{< tutorial-link link="tutorial-mesh-rendering-vtk" >}}
+{{< tutorial-link link="mesh-rendering-vtk" >}}
 
 ---
 
@@ -374,7 +374,7 @@ VTK offers extensive tools for rendering meshes, allowing for the customization 
 Blender is a powerful open-source tool for rendering meshes. It supports realistic rendering, including lighting, shadows, transparency, and advanced surface textures. In this tutorial, you will learn how to set up Blender to render scientific datasets as meshes.
 {{< /notes >}}
 
-{{< tutorial-link link="tutorial-mesh-rendering-blender" >}}
+{{< tutorial-link link="mesh-rendering-blender" >}}
 
 ---
 
@@ -386,7 +386,7 @@ Blender’s powerful modeling and sculpting tools allow users to cut and manipul
 - **Focus on regions**: Cut specific parts of the mesh to highlight or reveal hidden features inside the object.
 {{< /notes >}}
 
-{{< tutorial-link link="tutorial-mesh-cutting-volumes-blender" >}}
+{{< tutorial-link link="mesh-cutting-blender" >}}
 
 ---
 
@@ -399,7 +399,7 @@ and a few more tricks for picking the best colors for your project.
 
 - Don't underestimate the impact of choosing colors matching your story!
 
-{{< tutorial-link link="tutorial-choosing-colors" >}}
+{{< tutorial-link link="colors" >}}
 
 ---
 
