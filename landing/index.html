@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D Data Visualization Workshop — Helmholtz Imaging</title>
+<meta name="description" content="Workshop on visualizing scientific 3D data — image volumes, meshes, point clouds and vector fields. Helmholtz Imaging Support Unit at MDC Berlin.">
+<link rel="preload" href="bg.jpg" as="image">
+<style>
+  :root {
+    --accent: #e1462c;
+    --bg: #ededef;
+    --ink: #1c1c1e;
+    --muted: #6b6b70;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Urbanist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+  }
+  a { color: var(--accent); }
+
+  header {
+    background: var(--card);
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  header img { height: 32px; display: block; }
+  header a { color: var(--muted); text-decoration: none; font-size: .92rem; }
+  header a:hover { color: var(--accent); }
+
+  .hero {
+    padding: 80px 28px 72px;
+    text-align: center;
+    color: #fff;
+    background: linear-gradient(rgba(0,0,0,.58), rgba(0,0,0,.62)), url('bg.jpg') center/cover no-repeat;
+  }
+  .hero h1 {
+    margin: 0 0 14px;
+    font-size: clamp(2.1rem, 5vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -.01em;
+  }
+  .hero p {
+    margin: 0 auto;
+    max-width: 640px;
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    opacity: .94;
+  }
+
+  main { max-width: 880px; margin: 0 auto; padding: 44px 28px 72px; }
+
+  h2 {
+    font-size: .82rem;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    color: var(--muted);
+    font-weight: 600;
+    margin: 0 0 18px;
+  }
+
+  /* Current edition, deliberately the loudest thing on the page. */
+  .featured {
+    display: block;
+    background: var(--card);
+    color: var(--ink);
+    text-decoration: none;
+    padding: 34px 36px;
+    border-top: 5px solid var(--accent);
+    box-shadow: 0 2px 18px rgba(0,0,0,.11);
+    transition: transform .16s ease, box-shadow .16s ease;
+  }
+  a.featured:hover { transform: translateY(-3px); box-shadow: 0 8px 26px rgba(0,0,0,.17); }
+  /* Announced but not published yet: no link, muted accent. */
+  .featured.upcoming { border-top-color: var(--muted); }
+  .featured.upcoming .badge { color: var(--muted); }
+  .featured.upcoming .cta { color: var(--muted); font-weight: 400; }
+  .featured .badge {
+    display: inline-block;
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .featured .year {
+    font-size: clamp(2.6rem, 7vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -.02em;
+  }
+  .featured .title { font-size: 1.22rem; font-weight: 600; margin-top: 10px; }
+  .featured .meta { color: var(--muted); margin-top: 4px; }
+  .featured .cta { margin-top: 20px; color: var(--accent); font-weight: 600; }
+  .featured .cta span { transition: margin-left .16s ease; margin-left: 4px; display: inline-block; }
+  .featured:hover .cta span { margin-left: 10px; }
+
+  .past { margin-top: 44px; }
+  .past-list { display: grid; gap: 10px; }
+  .edition {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    background: var(--card);
+    color: var(--ink);
+    text-decoration: none;
+    padding: 16px 22px;
+    border-left: 3px solid transparent;
+    transition: border-color .16s ease, box-shadow .16s ease;
+  }
+  .edition:hover { border-left-color: var(--accent); box-shadow: 0 2px 12px rgba(0,0,0,.09); }
+  .edition .year { font-size: 1.28rem; font-weight: 700; min-width: 3.2em; }
+  .edition .name { font-weight: 600; min-width: 6.2em; }
+  .edition .meta { color: var(--muted); font-size: .95rem; }
+  @media (max-width: 560px) {
+    .edition { flex-wrap: wrap; gap: 4px 12px; }
+    .edition .meta { flex-basis: 100%; }
+  }
+
+  footer {
+    background: var(--card);
+    padding: 22px 28px;
+    text-align: center;
+    color: var(--muted);
+    font-size: .88rem;
+  }
+  footer strong { color: var(--ink); letter-spacing: .04em; }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="helmholtz-imaging-logo.png" alt="Helmholtz Imaging">
+  <a href="mailto:support@helmholtz-imaging.de">support@helmholtz-imaging.de</a>
+</header>
+
+<div class="hero">
+  <h1>3D Data Visualization</h1>
+  <p>A hands-on workshop on rendering scientific 3D data (image volumes, meshes,
+     point clouds and vector fields), run by the Helmholtz Imaging Support Unit at MDC Berlin.</p>
+</div>
+
+<main>
+  <h2>Next workshop</h2>
+  <div class="featured upcoming">
+    <div class="badge">Upcoming</div>
+    <div class="year">2026</div>
+    <div class="title">3D Data Visualization Workshop</div>
+    <div class="meta">Dates to be announced</div>
+    <div class="cta">Material goes online closer to the workshop.</div>
+  </div>
+
+  <div class="past">
+    <h2>Earlier workshops &amp; seminars</h2>
+    <!-- editions: generated from the <year>-<name> tags by
+         tools/render-landing.py; do not edit by hand -->
+    <div class="past-list"></div>
+  </div>
+</main>
+
+<footer>
+  <strong>HELMHOLTZ IMAGING</strong> — Support Unit at MDC Berlin
+</footer>
+
+</body>
+</html>
