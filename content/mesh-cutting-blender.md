@@ -42,7 +42,7 @@ The dataset shown in this tutorial originates from the same publication.
 Before working in Blender, it’s important to convert volumetric datasets, such as **TIFF** files, into mesh representations. Volumetric datasets are often used in scientific contexts, but rendering them directly in Blender can be challenging. By converting them into meshes, you can use Blender's powerful tools to manipulate and visualize the data in 3D space.
 {{< /notes >}}
 
-{{< tutorial-link link="tutorial-mesh-conversion" >}}
+{{< tutorial-link link="mesh-conversion" >}}
 
 ---
 
@@ -53,7 +53,7 @@ Before working in Blender, it’s important to convert volumetric datasets, such
 Once your volumetric data has been converted into a mesh, the next step is to create a scene in Blender. This involves importing your mesh into Blender, setting up the lighting and camera, and preparing the scene for rendering. By creating a 3D scene, you can explore the dataset from different perspectives and apply advanced rendering techniques.
 {{< /notes >}}
 
-{{< tutorial-link link="tutorial-mesh-rendering-blender" >}}
+{{< tutorial-link link="mesh-rendering-blender" >}}
 
 ---
 
