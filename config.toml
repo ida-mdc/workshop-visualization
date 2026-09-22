@@ -5,6 +5,14 @@ theme = "hugo-theme-helmholtz-imaging-workshop"
 [markup.goldmark.renderer]
 unsafe= true
 canonifyURLs= true
+[params]
+# Where the decks load images from. Empty means "use the local static/img",
+# which is what you want when running `hugo server` locally. CI overrides it
+# with HUGO_PARAMS_IMAGEBASE, pinning images to the deployed commit so that
+# archived editions keep serving the images they were built with.
+imageBase = ""
+# The edition being taught; shown in the footer. CI overrides it to match.
+edition = "2026-workshop"
 [params.mermaid]
 enable = true
 [params.plantuml]

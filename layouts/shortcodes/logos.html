@@ -1,0 +1,8 @@
+{{- /* Overrides the theme's logos.html to route image URLs through img-url. */ -}}
+<div class="logos">
+{{ range split (.Inner | safeHTML) "\n" }}
+  {{- with (trim . " \r") }}
+  <img src="{{ partial "img-url.html" (dict "src" .) }}"/>
+  {{- end }}
+{{ end }}
+</div>

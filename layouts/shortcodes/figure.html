@@ -1,0 +1,49 @@
+{{- /*
+  Overrides the theme's figure.html to route image URLs through img-url.
+  Otherwise identical, except that the theme's width/height auto-calculation
+  has been dropped: it computed $width/$height that the <img> tag below never
+  read, so it had no effect.
+*/ -}}
+<figure{{ with .Get "class" }} class="{{ . }}"{{ end }}>
+  {{- if .Get "link" -}}
+    <a href="{{ .Get "link" }}"{{ with .Get "target" }} target="{{ . }}"{{ end }}{{ with .Get "rel" }} rel="{{ . }}"{{ end }}>
+  {{- end -}}
+
+  {{- $src := partial "img-url.html" (dict "src" (.Get "src")) -}}
+  {{- /* Images bundled as page/site resources keep resolving as before. */ -}}
+  {{- if not site.Params.imageBase -}}
+    {{- $u := urls.Parse $src -}}
+    {{- if not $u.IsAbs -}}
+      {{- with or (.Page.Resources.Get $u.Path) (resources.Get $u.Path) -}}
+        {{- $src = .RelPermalink -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+
+  <img src="{{ $src }}"
+    {{- if or (.Get "alt") (.Get "caption") }}
+    alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ .Get "caption" | markdownify| plainify }}{{ end }}"
+    {{- end -}}
+    {{- with .Get "width" }} width="{{ . }}"{{ end -}}
+    {{- with .Get "height" }} height="{{ . }}"{{ end -}}
+    {{- with .Get "loading" }} loading="{{ . }}"{{ end -}}
+    {{- /* Add CSS to make images responsive */ -}}
+    style="max-width: 100%; height: auto;{{ with .Get "style" }} {{ . }}{{ end }}"
+  >
+  {{- if .Get "link" }}</a>{{ end -}}
+  {{- if or (or (.Get "title") (.Get "caption")) (.Get "attr") -}}
+    <figcaption>
+      {{ with (.Get "title") -}}
+        <h4>{{ . }}</h4>
+      {{- end -}}
+      {{- if or (.Get "caption") (.Get "attr") -}}<p>
+        {{- .Get "caption" | markdownify -}}
+        {{- with .Get "attrlink" }}
+          <a href="{{ . }}">
+        {{- end -}}
+        {{- .Get "attr" | markdownify -}}
+        {{- if .Get "attrlink" }}</a>{{ end }}</p>
+      {{- end }}
+    </figcaption>
+  {{- end }}
+</figure>

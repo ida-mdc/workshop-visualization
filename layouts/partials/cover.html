@@ -1,0 +1,6 @@
+{{- /* Overrides the theme's cover.html to route image URLs through img-url. */ -}}
+<div class="cover" style="background-image: url({{ partial "img-url.html" (dict "src" .src) }}); background-color: {{.background}}; color: {{.color}}">
+    <h2 style="color: {{.color}}">{{.title}}</h2>
+    <div style="flex: 1"></div>
+    {{.content | markdownify}}
+</div>

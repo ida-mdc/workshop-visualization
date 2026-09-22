@@ -1,0 +1,31 @@
+{{- /*
+  Resolves an image path to the URL the page should load it from.
+
+  With site.Params.imageBase empty (the local default) this behaves exactly
+  like the theme did: the path is resolved against the site's baseURL and the
+  image is served from the published static/ directory. That is what you want
+  for `hugo server` and for any offline/local preview.
+
+  With imageBase set, images that live in THIS repository's static/ directory
+  are loaded from there instead - CI points it at raw.githubusercontent.com,
+  pinned to the deployed commit, so archived editions keep serving the images
+  they were built with and the images never have to be published per edition.
+
+  The theme ships its own static/img (HI logos, pipeline.png, ...). Those files
+  are not in this repository, so a raw URL for them would 404 - they always stay
+  local. Note that Hugo's os.FileExists sees the union of project and theme
+  files under static/, which is why the theme directory is tested explicitly.
+
+  Call with: (dict "src" "img/foo.png")
+*/ -}}
+{{- $src := .src -}}
+{{- $themeStatic := "themes/hugo-theme-helmholtz-imaging-workshop/static" -}}
+{{- $inProject := os.FileExists (printf "static/%s" $src) -}}
+{{- $inTheme := os.FileExists (printf "%s/%s" $themeStatic $src) -}}
+{{- if (urls.Parse $src).IsAbs -}}
+  {{- $src -}}
+{{- else if and site.Params.imageBase $inProject (not $inTheme) -}}
+  {{- printf "%s%s" site.Params.imageBase $src -}}
+{{- else -}}
+  {{- $src | absLangURL -}}
+{{- end -}}
