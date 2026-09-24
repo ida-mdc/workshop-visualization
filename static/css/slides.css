@@ -353,8 +353,8 @@ section .horizontal > figure.viz3d-figure {
  * Two columns parked in the white margins either side of the cloud, so the
  * illustration keeps the middle of the slide and goes on turning underneath
  * the answers. `position: absolute` is against the slide section, which
- * reveal already positions; z-index clears the shared WebGL canvas, which
- * is a fixed overlay at z-index 2 and would otherwise cover the text.
+ * reveal already positions; z-index keeps the columns above the scene's
+ * canvas, which is a positioned child of the illustration next to them.
  */
 .reveal .slides section .guesses {
   position: absolute;

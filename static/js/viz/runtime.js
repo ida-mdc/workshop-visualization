@@ -301,12 +301,30 @@ export function annotate(text, from, to, opts = {}) {
 const setups = new Map();   // scene name -> setup function
 const live = [];            // mounted instances, in document order
 
-let renderer = null;
-let overlay = null;
 let running = false;
 let visibleCount = 0;
 let observer = null;
 let webglFailed = false;
+
+/**
+ * How many WebGL contexts to keep alive at once.
+ *
+ * One canvas per illustration, but not one context per illustration: the
+ * overview page has fourteen scenes and browsers cap contexts per renderer
+ * process - sixteen in Chrome, shared between tabs of the same site, and
+ * lower in Safari - so a page that took one each would be a tab away from
+ * losing them. Contexts are made when a scene comes near the viewport and
+ * the least recently seen is dropped past this many, which on a scroll
+ * through the overview means three or four alive at a time.
+ *
+ * Big enough that scrolling back a slide or two does not pay for a context
+ * again: a new one has to recompile every shader the scene uses, and the
+ * volume ray marcher is not a small program.
+ */
+const CONTEXT_BUDGET = 6;
+
+/** Instances holding a renderer, least recently drawn first. */
+const withContext = [];
 
 // ---------------------------------------------------------------- stylesheet
 
@@ -371,12 +389,15 @@ const CSS = `
    grows to fill the slide, so without this the controls and the caption end up
    underneath it. */
 .reveal .viz3d-figure { margin-bottom: 74px; }
-.viz3d-overlay { position: fixed; inset: 0; width: 100%; height: 100%;
-  pointer-events: none; z-index: 2; }
+/* The canvas is a child of the placeholder and fills it, so the browser
+   scrolls and composites it with everything else. pointer-events off keeps
+   the drag on the placeholder, which is what OrbitControls listens to. */
+.viz3d > canvas { position: absolute; inset: 0; width: 100%; height: 100%;
+  display: block; pointer-events: none; }
 .viz3d-fallback { display: flex; align-items: center; justify-content: center;
   height: 100%; padding: 16px; box-sizing: border-box; text-align: center;
   font: 400 13px/1.5 sans-serif; color: #9a9aa4; }
-@media print { .viz3d-overlay { display: none; } }
+@media print { .viz3d > canvas { display: none; } }
 `;
 
 function injectCSS() {
@@ -389,20 +410,82 @@ function injectCSS() {
 
 // ------------------------------------------------------------------ renderer
 
-function ensureRenderer() {
-  if (renderer || webglFailed) return renderer;
-  overlay = document.createElement('canvas');
-  overlay.className = 'viz3d-overlay';
-  document.body.appendChild(overlay);
+/**
+ * Is WebGL available at all?
+ *
+ * Asked once, with a throwaway context that is handed straight back, so
+ * that a browser with WebGL switched off gets the fallback sentence
+ * instead of fourteen empty boxes.
+ */
+let webglOK = null;
+function webglSupported() {
+  if (webglOK !== null) return webglOK;
   try {
-    renderer = new THREE.WebGLRenderer({
-      canvas: overlay, antialias: true, alpha: true,
+    const probe = document.createElement('canvas');
+    const gl = probe.getContext('webgl2') || probe.getContext('webgl');
+    webglOK = !!gl;
+    gl?.getExtension('WEBGL_lose_context')?.loseContext();
+  } catch (err) {
+    webglOK = false;
+    console.warn('viz3d: WebGL unavailable,', err);
+  }
+  return webglOK;
+}
+
+/** One attempt at a context, or null with the reason logged. */
+function makeRenderer(inst) {
+  try {
+    return new THREE.WebGLRenderer({
+      canvas: inst.canvas, antialias: true, alpha: true,
     });
   } catch (err) {
-    webglFailed = true;
-    overlay.remove();
-    overlay = null;
-    console.warn('viz3d: WebGL unavailable,', err);
+    console.error('viz3d: no WebGL context for '
+      + `"${inst.el.dataset.scene}"`, err);
+    return null;
+  }
+}
+
+/** Give an instance a renderer of its own, evicting one if we are at budget. */
+function acquireContext(inst) {
+  if (inst.failed) return null;
+  if (inst.renderer) {
+    // Freshen its place in the queue: eviction takes from the front.
+    const at = withContext.indexOf(inst);
+    if (at > -1 && at !== withContext.length - 1) {
+      withContext.splice(at, 1);
+      withContext.push(inst);
+    }
+    return inst.renderer;
+  }
+  if (webglFailed || !webglSupported()) return null;
+
+  while (withContext.length >= CONTEXT_BUDGET) {
+    const victim = withContext.shift();
+    if (victim === inst) continue;
+    releaseContext(victim);
+  }
+
+  // Asking twice, with a context handed back in between.
+  //
+  // Refusing to make one is usually the browser saying it has too many
+  // open, and its ceiling is not ours to know: it counts contexts across
+  // every tab of the site, so a second copy of the deck open next door
+  // halves whatever we budgeted for. Freeing one of ours and asking again
+  // is the difference between "someone else is using them" and "this
+  // scene cannot be drawn".
+  let renderer = makeRenderer(inst);
+  if (!renderer && withContext.length) {
+    releaseContext(withContext.shift());
+    renderer = makeRenderer(inst);
+  }
+  if (!renderer) {
+    // This scene's problem, not the whole page's - and not WebGL's either.
+    // The first version of this marked WebGL as unavailable and put "this
+    // browser has switched WebGL off" on all fourteen scenes, which was
+    // wrong twice over: the browser had not, and the other thirteen were
+    // drawing perfectly at the time.
+    inst.failed = true;
+    showFallback(inst.el, SCENE_FAILED);
     return null;
   }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -415,15 +498,47 @@ function ensureRenderer() {
   // material.clippingPlanes - the cutting scenes do.
   renderer.localClippingEnabled = true;
   renderer.setClearAlpha(0);
-  renderer.setScissorTest(true);
-  // A lost context (laptop sleeping mid-talk, GPU driver reset) is recoverable:
-  // three restores its own state, we only have to keep the loop alive.
-  overlay.addEventListener('webglcontextlost', (e) => {
+
+  // A lost context (laptop sleeping mid-talk, GPU driver reset, or this
+  // very budget evicting it) is recoverable: forget the renderer and let
+  // the next frame build another.
+  inst.canvas.addEventListener('webglcontextlost', (e) => {
     e.preventDefault();
-    running = false;
+    inst.renderer = null;
+    inst.sizedTo = '';
+    const at = withContext.indexOf(inst);
+    if (at > -1) withContext.splice(at, 1);
   });
-  overlay.addEventListener('webglcontextrestored', start);
+
+  inst.renderer = renderer;
+  inst.sizedTo = '';
+  withContext.push(inst);
   return renderer;
+}
+
+/** Hand a context back to the browser. */
+function releaseContext(inst) {
+  if (!inst.renderer) return;
+  inst.renderer.dispose();
+  // dispose() frees three's own caches but leaves the context itself for
+  // the garbage collector, which is too late when the point is to stay
+  // under a hard limit. Drop it now.
+  inst.renderer.forceContextLoss();
+  inst.renderer = null;
+  inst.sizedTo = '';
+
+  // And then throw the canvas away too.
+  //
+  // A canvas that has had its context force-lost never gets another one -
+  // getContext keeps handing back the same dead context, so
+  // `new WebGLRenderer({ canvas })` on it fails. Scrolling down the page
+  // therefore worked and scrolling back up did not: every scene whose
+  // context had been evicted on the way down refused to come back. The
+  // element itself has to be replaced, which is cheap; it has no state
+  // worth keeping.
+  const fresh = document.createElement('canvas');
+  inst.canvas.replaceWith(fresh);
+  inst.canvas = fresh;
 }
 
 const NO_WEBGL = 'This illustration needs WebGL, which this browser has '
@@ -481,24 +596,10 @@ function fitCamera(inst, aspect) {
 
 function frame(now) {
   if (!running) return;
-  const w = window.innerWidth;
   const h = window.innerHeight;
-  if (w !== lastW || h !== lastH) {
-    renderer.setSize(w, h, false);
-    overlay.style.width = w + 'px';
-    overlay.style.height = h + 'px';
-    lastW = w;
-    lastH = h;
-  }
-
-  // Wipe the whole overlay first: the per-scene scissor rectangles below only
-  // clear their own area, so anything drawn where a scene used to be would
-  // otherwise stay on screen after a slide change.
-  renderer.setScissorTest(false);
-  renderer.clear();
-  renderer.setScissorTest(true);
-
+  const w = window.innerWidth;
   const t = now / 1000;
+
   for (const inst of live) {
     // Rectangle first, `checkVisibility` second, and the order matters.
     //
@@ -518,11 +619,21 @@ function frame(now) {
     if (r.bottom <= 0 || r.top >= h || r.right <= 0 || r.left >= w) continue;
     if (!isVisible(inst.el)) continue;
 
-    const bottom = h - r.bottom;   // WebGL measures y from the bottom
-    renderer.setViewport(r.left, bottom, r.width, r.height);
-    renderer.setScissor(r.left, bottom, r.width, r.height);
+    const renderer = acquireContext(inst);
+    if (!renderer) continue;
 
-    const aspect = r.width / r.height;
+    // Round, because a placeholder in a flex row lands on fractional
+    // pixels and resizing the drawing buffer every frame to chase a
+    // rounding difference reallocates it every frame.
+    const cw = Math.round(r.width);
+    const ch = Math.round(r.height);
+    const size = cw + 'x' + ch;
+    if (inst.sizedTo !== size) {
+      renderer.setSize(cw, ch, false);
+      inst.sizedTo = size;
+    }
+
+    const aspect = cw / ch;
     if (inst.camera.isPerspectiveCamera) {
       if (inst.camera.aspect !== aspect) {
         inst.camera.aspect = aspect;
@@ -556,12 +667,11 @@ function frame(now) {
 
     // A scene can take over drawing entirely. Nothing does at the moment -
     // the triptych this was built for now spreads its panels with one
-    // camera - so this is an extension point with no users, not a
-    // constraint on how the runtime draws.
+    // camera - so this is an extension point with no users. The rectangle
+    // it gets is the canvas, which is now the whole of the scene's box.
     if (inst.api && inst.api.draw) {
-      inst.api.draw(renderer, {
-        left: r.left, bottom, width: r.width, height: r.height,
-      }, inst);
+      inst.api.draw(renderer, { left: 0, bottom: 0, width: cw, height: ch },
+        inst);
     } else {
       renderer.render(inst.scene, inst.camera);
     }
@@ -570,9 +680,8 @@ function frame(now) {
 }
 
 function start() {
-  if (running || visibleCount === 0 || !ensureRenderer()) return;
+  if (running || visibleCount === 0 || !webglSupported()) return;
   running = true;
-  lastW = lastH = 0;
   requestAnimationFrame(frame);
 }
 
@@ -737,10 +846,13 @@ function ensureEnvironment() {
   const tex = new THREE.CanvasTexture(canvas);
   tex.mapping = THREE.EquirectangularReflectionMapping;
   tex.colorSpace = THREE.SRGBColorSpace;
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  environment = pmrem.fromEquirectangular(tex).texture;
-  pmrem.dispose();
-  tex.dispose();
+  // Handed over as an equirectangular map rather than run through
+  // PMREMGenerator here. The generator needs a renderer, and scenes are now
+  // built before any context exists - each one gets its own, lazily, when
+  // it first comes near the viewport. Three prefilters an environment
+  // texture itself, per renderer, the first time it draws with it, so the
+  // result is the same and nothing has to own a renderer this early.
+  environment = tex;
   return environment;
 }
 
@@ -759,10 +871,15 @@ function defaultLights(scene) {
 }
 
 function mount(el, setup) {
-  if (!ensureRenderer()) {
+  if (!webglSupported()) {
     showFallback(el);
     return;
   }
+
+  // The canvas exists from the start; the context behind it does not, and
+  // is made when the scene first comes near the viewport.
+  const canvas = document.createElement('canvas');
+  el.appendChild(canvas);
 
   const scene = new THREE.Scene();
   // Both cameras exist from the start so a scene can switch between them
@@ -795,7 +912,10 @@ function mount(el, setup) {
   el.insertAdjacentElement('afterend', bar);
 
   const inst = {
-    el, scene, camera, controls, bar,
+    el, canvas, scene, camera, controls, bar,
+    renderer: null,
+    sizedTo: '',
+    failed: false,
     frustumHeight: 4,
     frustumWidth: 0,
     fitRadius: null,
