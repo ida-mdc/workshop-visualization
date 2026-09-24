@@ -31,11 +31,11 @@ Martin: flowers
 Dante: a flower
 {{< /guesses >}}
 
-{{< guesses-note >}}
+{{< reveal-note >}}
 **3D is our natural habitat.** Reading shape, depth and occlusion from a moving
 view is something we all do continuously and without effort. 
 Let's take advantage of this by rendering volumetric scientific datasets in 3D, so we can read them best.
-{{< /guesses-note >}}
+{{< /reveal-note >}}
 
 ---
 
@@ -79,6 +79,23 @@ It can be much simpler and very helpful to explore 3D datasets in a dimensionali
 
 {{< /horizontal >}}
 
+{{< notes >}}
+Of course, a 3D rendering is still a 2D image. The display has two dimensions, and
+the third one is only implied - by motion, by perspective, by shadows. 
+{{< /notes >}}
+
+
+---
+
+## 3D Datasets - Data Types
+### Which axes does your data have?
+
+
+- **X, Y, Z** - the three spatial axes. This is the part that makes it 3D. Also called **width, height, and depth**.
+- **C** - channels: stains, wavelengths, labels.
+- **T** - time: the same volume recorded at different time points.
+- **3D** in this workshop refers to the three spatial axes.
+
 ---
 
 ## 3D Datasets - Data Types
@@ -93,9 +110,10 @@ Let's start by discussing the most common data types which can be represented in
 A value at every point of a regular grid, so the position of a voxel is its
 index and the file is just an array plus the size of one voxel.
 
-That size is the thing to check: **isotropic** means the same spacing along all
-three axes, **anisotropic** means it is not - the normal case in microscopy,
-and it lives in the metadata rather than in the pixels.
+**Isotropic** means the same spacing along all
+three axes, **anisotropic** means it is not, which is the normal case in
+microscopy. The voxel size is included in the file header / the metadata, and if it is wrong or missing, 
+everything based on the dataset depending on space (like 3D visualizations) will be inaccurate.
 {{< /notes >}}
 
 {{< horizontal >}}
@@ -105,7 +123,8 @@ and it lives in the metadata rather than in the pixels.
 - This enables us to look inside any structure in the grid
 - Watch for **resolution**, and whether it is **isotropic** or **anisotropic**
 
-- **Formats** TIFF / OME-TIFF, OME-Zarr, HDF5 / N5, NIfTI, NRRD, DICOM, MRC
+- **Formats** TIFF / OME-TIFF, OME-Zarr, HDF5 / N5, NIfTI, NRRD, DICOM, MRC,
+  vendor formats (CZI, LIF, ND2, IMS, LSM), NetCDF, ...
 {{< /block >}}
 
 {{< scene name="voxel-grid" height="300" hint="off" >}}
@@ -119,10 +138,7 @@ and it lives in the metadata rather than in the pixels.
 ### Meshes
 
 {{< notes >}}
-Two words worth knowing: **watertight**, meaning the surface closes so a volume
-can be computed, and **manifold**, meaning every edge belongs to exactly two
-triangles. Software will open a mesh that is neither and then fail at the step
-that matters.
+Meshes are usually not measured by scientific imaging modalities, but derived from voxels or point clouds for improved visualizations.
 {{< /notes >}}
 
 {{< horizontal >}}
@@ -130,8 +146,8 @@ that matters.
 {{< block >}}
 - Points in space joined into triangles, describing a **surface**
 - Quality metrics:
-  - **watertight**: the surface closes so a volume can be computed
-  - **manifold**, meaning every edge belongs to exactly two triangles
+  - **watertight**: no holes, so the surface encloses a volume
+  - **manifold**: every edge is shared by exactly two triangles
   - **normals** facing outward
   
 - **Formats** STL, PLY, OBJ, glTF / GLB, VTK / VTP
@@ -151,8 +167,9 @@ that matters.
 
 {{< block >}}
 - Carries **positions plus attributes**; no connectivity
-- **Drawn as primitives** - dots, quads, or splats
-- The **density** of the points will determine how well one can estimate a surface- 
+- **Drawn as primitives**: a **dot** , **square, or a **splat** (a soft
+  oriented disc that blends with its neighbours into a surface)
+- The **density** of the points will determine how well one can estimate a surface
 
 - **Formats** LAS / LAZ, COPC, E57, PLY, plain XYZ / CSV
 {{< /block >}}
@@ -185,7 +202,7 @@ that matters.
 
 ---
 
-## 3D Dataset - Sources in Science
+## 3D Datasets - Sources in Science
 ### Microscopy
 
 {{< notes >}}
@@ -202,7 +219,7 @@ Datasets in microscopy often also contain multiple channels and can size up to t
 
 ---
 
-## 3D Dataset - Sources in Science
+## 3D Datasets - Sources in Science
 ### Tomography
 
 {{< notes >}}
@@ -217,7 +234,7 @@ Tomography datasets are usually isotropic (same resolution in all dimensions), a
 
 ---
 
-## 3D Dataset - Sources in Science
+## 3D Datasets - Sources in Science
 ### Photogrammetry
 
 {{< notes >}}
@@ -227,9 +244,7 @@ and triangulates every surface point from the images that can see it.
 
 A point only exists if several photographs see it, so overlap is what decides
 whether the reconstruction works. It also only ever sees surfaces - there is no
-interior - and it needs texture to match, so shiny, transparent or plain
-objects fail. In exchange it is the cheapest 3D capture there is, and the only
-one here whose colour is measured rather than chosen.
+interior - and it needs texture to match. 
 {{< /notes >}}
 
 - **Examples**: drone survey, handheld and phone capture, multi-camera rigs
@@ -238,7 +253,7 @@ one here whose colour is measured rather than chosen.
 
 ---
 
-## 3D Dataset - Sources in Science
+## 3D Datasets - Sources in Science
 ### Range scanning
 
 {{< notes >}}
@@ -247,9 +262,10 @@ to come back gives a distance. The scanner sweeps through a grid of directions,
 so what it records is one distance per direction - a range image, not a
 picture.
 
-Because distance is measured, the result arrives in real units. Only the first return is kept, so it sees
-surfaces, and everything behind them is a shadow with no points in it. There is no colour
-unless a camera is mounted alongside.
+Because distance is measured, the result arrives in real units. 
+
+Depending on the specific modalities, different signals are kept, from first pulse only to full waveforms (also see next section).
+This affects if areas directly hidden from the pulse are recoverable from the signals or not.
 {{< /notes >}}
 
 - **Examples**: terrestrial laser scanning, airborne LiDAR, structured light, time-of-flight cameras
@@ -258,26 +274,30 @@ unless a camera is mounted alongside.
 
 ---
 
-## 3D Dataset - Sources in Science
+## 3D Datasets - Sources in Science
 ### Echo and wave methods
 
 {{< notes >}}
 Echo methods send a pulse and time the return, exactly like a laser scanner.
-The difference is that the whole returning waveform is kept and reflections contribute to the reconstructed volume.
+The whole returning waveform is kept and reflections contribute to the reconstructed volume.
 This makes it possible to retrieve information from areas in the shadow of the pulse.
 
 Reconstruction is called migration here, but it is tomographic
 back projection under another name, and it fails the same way when there are
 too few shots.
+
+Imaging radar - SAR - belongs to this family too, but works a bit differently: the antenna moves, and the
+long synthetic aperture that gives it its resolution is built up along that
+path and not from a fixed array of shots.
 {{< /notes >}}
 
-- **Examples**: seismic reflection, sub-bottom profiling, sonar, ground-penetrating radar, ultrasound
+- **Examples**: seismic reflection, sub-bottom profiling, sonar, ground-penetrating radar, ultrasound, imaging radar (SAR)
 
 {{< scene name="acq-echo" height="320" >}}
 
 ---
 
-## 3D Dataset - Sources in Science
+## 3D Datasets - Sources in Science
 ### Simulation
 
 {{< notes >}}
@@ -341,6 +361,23 @@ flowchart LR
 - [The graphics pipeline, on learnopengl.com](https://learnopengl.com/Getting-started/Hello-Triangle)
 - Akenine-Möller, Haines & Hoffman, *Real-Time Rendering* - chapter 2, the four-stage model used above
 {{< /citations >}}
+
+---
+
+## Rendering Pipeline
+### Terms which are helpful to know
+
+The rendering pipeline is in one way or the other implemented in all 3D visualization tools. Only selected parts are exposed to the user.
+For example, opening a volume in napari runs the same pipeline; the software has just chosen the camera, the lights
+and the materials for you. In Blender, in contrast, you can adjust pretty much all aspects along the rendering pipeline.
+
+Some terms come up repeatedly in the context of 3D rendering:
+
+- **Shader** - a small program that runs on the GPU, once per vertex or once
+  per pixel.
+- **Rasterization** - for each triangle, which pixels does it cover? This is step of mapping freely positioned 3D objects onto a raster.
+- **Ray tracing** - for each pixel, follow a ray into the scene and see what it
+  meets. Handles shadows, reflections and transparency well. Marching a ray through a volume works this way.
 
 ---
 
@@ -503,6 +540,18 @@ Browser based 3D visualization is rapidly growing. Here are a few options.
 {{< /notes >}}
 
 {{< tools kind="browser">}}
+
+---
+
+## What this needs from your machine
+
+- **The GPU matters more than the CPU.** Volume rendering is work per pixel and depends on GPU shaders. Integrated graphics handle small volumes and get slow quickly.
+- **Graphics memory is the limitation.** A volume has to fit in VRAM to be
+  rendered interactively. When it does not, data has to be downsampled, chunked,
+  or streamed.
+- **In the browser** you need WebGL2, which every current browser has. WebGPU
+  is arriving and is considerably faster.
+- You can run expensive rendering jobs headless (without a graphical user interface) on the cluster, for example with Blender.
 
 ---
 
