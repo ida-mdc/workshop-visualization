@@ -1,0 +1,45 @@
+{{- /*
+  An interactive 3D illustration, drawn with three.js.
+
+      {{< scene name="representations" height="420" caption="..." >}}
+
+  `name` is a file in static/js/viz/scenes/ and the id the scene registers
+  under. Everything else is optional:
+
+      height    px, default 400. The height on the scrolling page; in the deck
+                the illustration takes whatever the slide has left over, which
+                may be more or less than this
+      caption   figcaption under the illustration, markdown
+      hint      the grey corner label, default "drag to rotate"; "off" removes it
+      fill      "true" when the illustration IS the slide - nothing under it
+                but a heading. It then takes the whole slide rather than the
+                56vh a scene is normally capped at, which exists to leave
+                room for the text below and is wrong when there is none.
+
+  The placeholder holds the space; the drawing itself happens on one shared
+  canvas over the page, see static/js/viz/runtime.js for why. The <script> is
+  a module, so it is deferred by definition and loads once per name however
+  many times the scene appears.
+*/ -}}
+{{- $name := .Get "name" -}}
+{{- if not $name -}}
+  {{- errorf "scene shortcode in %s: missing name" .Page.File.Path -}}
+{{- end -}}
+{{- $src := printf "js/viz/scenes/%s.js" $name -}}
+{{- if not (fileExists (printf "static/%s" $src)) -}}
+  {{- errorf "scene shortcode in %s: no such scene, static/%s does not exist" .Page.File.Path $src -}}
+{{- end -}}
+{{- /*
+  All on one line, deliberately. Inside a horizontal row the shortcode's
+  output goes through markdownify, and an absent `hint` used to leave a line
+  of pure whitespace in the middle of the tag - which closes the HTML block,
+  so the indented line after it became an indented code block and the slide
+  showed the style attribute as literal text.
+*/ -}}
+<figure class="viz3d-figure{{ if eq (.Get "fill") "true" }} viz3d-fill{{ end }}">
+  <div class="viz3d" data-scene="{{ $name }}"{{ with .Get "hint" }} data-hint="{{ . }}"{{ end }} style="--viz3d-height: {{ .Get "height" | default "400" }}px"></div>
+  {{- with .Get "caption" }}
+  <figcaption>{{ . | markdownify }}</figcaption>
+  {{- end }}
+</figure>
+<script type="module" src="{{ $src | relURL }}"></script>

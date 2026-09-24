@@ -1,0 +1,15 @@
+{{- /*
+  The URL of a file in static/, resolved against the site's baseURL.
+
+  Exists so a mermaid code block can reference an image. Hugo expands
+  shortcodes in the raw markdown before the fence is turned into HTML, so a
+  shortcode works inside one - which relURL alone cannot, there being no
+  template context in a fenced block.
+
+  Usage, inside a mermaid fence:
+
+      A["<img src='SHORTCODE u "icons/pipeline/mesh.svg" SHORTCODE'/>Mesh"]
+
+  where SHORTCODE is the usual angle-bracket shortcode delimiter pair.
+*/ -}}
+{{- (.Get 0) | relURL -}}

@@ -1,0 +1,218 @@
+# The tool tables, as data rather than as markdown in one slide.
+#
+# Three slides ask the same question of the same tools, and other decks ask it
+# again, so the list lives here and the {{< tools >}} shortcode renders it.
+# Adding a tool is one entry; it shows up wherever its `kind` is rendered.
+#
+#   kind      desktop | library | browser - which slide it appears on
+#   voxels    what the tool does with that data type, as a table cell:
+#   meshes      "X"      a first-class object for it
+#   points      "<text>" supported, but with the limitation spelled out
+#   vectors     ""       not supported
+#   good_for  the column that actually decides which tool you open
+#
+# Link every tool from its own name. The name is rendered as markdown, so a
+# row with several tools in it gets several links - and a reader who wants
+# one of them does not have to go and search for it.
+#
+# Open source only. Not because the commercial packages are bad, but because
+# we support scientists across all domains and a tool nobody can install is
+# not an answer - see the speaker notes on the tools slide.
+
+# ------------------------------------------------------------------- desktop
+
+- name: "[**napari**](https://napari.org)"
+  kind: desktop
+  voxels: "X"
+  meshes: "X"
+  points: "X"
+  vectors: "X"
+  good_for: "exploring and annotating n-dimensional images; a layer type per data type"
+
+- name: "[**Fiji**](https://fiji.sc) + [**BigDataViewer**](https://imagej.net/plugins/bdv) / [**BigVolumeBrowser**](https://imagej.net/plugins/bigvolumebrowser) / [**MoBIE**](https://mobie.github.io)"
+  kind: desktop
+  voxels: "X"
+  meshes: "X"
+  points: "X"
+  vectors: ""
+  good_for: "terabyte microscopy volumes, arbitrary re-slicing, sharing projects"
+
+- name: "[**3D Slicer**](https://slicer.org)"
+  kind: desktop
+  voxels: "X"
+  meshes: "X"
+  points: "X"
+  vectors: "X"
+  good_for: "clinical volumes, DICOM, segmentation, deformation fields"
+
+- name: "[**ParaView**](https://www.paraview.org)"
+  kind: desktop
+  voxels: "X"
+  meshes: "X"
+  points: "X"
+  vectors: "X"
+  good_for: "simulation output, glyphs and streamlines, everything at once"
+
+- name: "[**Blender**](https://www.blender.org)"
+  kind: desktop
+  voxels: "OpenVDB only"
+  meshes: "X"
+  points: "positions only"
+  vectors: ""
+  good_for: "publication figures and animation; full control of light and material"
+
+- name: "[**Blender**](https://www.blender.org) + [**Microscopy Nodes**](https://github.com/oanegros/MicroscopyNodes)"
+  kind: desktop
+  voxels: "X"
+  meshes: "X"
+  points: ""
+  vectors: ""
+  good_for: "the same, but it loads OME-TIFF and OME-Zarr stacks directly"
+
+- name: "[**CloudCompare**](https://www.cloudcompare.org/)"
+  kind: desktop
+  voxels: ""
+  meshes: "X"
+  points: "X"
+  vectors: "arrows only"
+  good_for: "registering and comparing scans, distances between clouds"
+
+- name: "[**MeshLab**](https://www.meshlab.net)"
+  kind: desktop
+  voxels: ""
+  meshes: "X"
+  points: "X"
+  vectors: ""
+  good_for: "cleaning, repairing and reconstructing surfaces"
+
+# ------------------------------------------------------------------ libraries
+
+- name: "[**VTK**](https://vtk.org) / [**PyVista**](https://pyvista.org) / [**vedo**](https://vedo.embl.es)"
+  kind: library
+  voxels: "X"
+  meshes: "X"
+  points: "X"
+  vectors: "X"
+  good_for: "the general-purpose one; renders headless, so it runs on a cluster"
+
+- name: "[**napari**](https://napari.org) (as a library)"
+  kind: library
+  voxels: "X"
+  meshes: "X"
+  points: "X"
+  vectors: "X"
+  good_for: "script the viewer you were already clicking in"
+
+- name: "[**trimesh**](https://trimesh.org)"
+  kind: library
+  voxels: "occupancy grids"
+  meshes: "X"
+  points: "X"
+  vectors: ""
+  good_for: "mesh repair, boolean operations, measuring"
+
+- name: "[**Open3D**](https://www.open3d.org)"
+  kind: library
+  voxels: "occupancy grids"
+  meshes: "X"
+  points: "X"
+  vectors: ""
+  good_for: "point cloud registration and surface reconstruction"
+
+- name: "[**k3d-jupyter**](https://k3d-jupyter.org), [**ipyvolume**](https://ipyvolume.readthedocs.io)"
+  kind: library
+  voxels: "X"
+  meshes: "X"
+  points: "X"
+  vectors: ""
+  good_for: "3D inside a notebook, next to the code that made it"
+
+- name: "[**Dask**](https://www.dask.org) + [**Zarr**](https://zarr.dev)"
+  kind: library
+  voxels: "X"
+  meshes: ""
+  points: ""
+  vectors: "X"
+  good_for: "not a viewer - what makes data too large for memory openable at all"
+
+# -------------------------------------------------------------------- browser
+
+- name: "[**Neuroglancer**](https://github.com/google/neuroglancer)"
+  kind: browser
+  voxels: "X"
+  meshes: "X"
+  points: "annotations"
+  vectors: ""
+  good_for: "huge volumes with segmentations; the whole view is a URL"
+
+- name: "[**webKnossos**](https://webknossos.org)"
+  kind: browser
+  voxels: "X"
+  meshes: "X"
+  points: "skeletons"
+  vectors: ""
+  good_for: "annotating large volumes, collaboratively"
+
+- name: "[**Viv**](https://github.com/hms-dbmi/viv) / [**Avivator**](https://avivator.gehlenborglab.org)"
+  kind: browser
+  voxels: "X"
+  meshes: ""
+  points: ""
+  vectors: ""
+  good_for: "highly multiplexed microscopy, no server needed"
+
+- name: "[**itk-vtk-viewer**](https://kitware.github.io/itk-vtk-viewer/)"
+  kind: browser
+  voxels: "X"
+  meshes: "X"
+  points: "X"
+  vectors: ""
+  good_for: "images, meshes and point sets together, via itk-wasm"
+
+- name: "[**NiiVue**](https://niivue.com), [**VolView**](https://volview.kitware.com)"
+  kind: browser
+  voxels: "X"
+  meshes: "X"
+  points: ""
+  vectors: ""
+  good_for: "neuroimaging and clinical volumes; easy to embed in a page"
+
+- name: "[**luxar**](https://github.com/royerlab/luxar) (Royer lab)"
+  kind: browser
+  voxels: "as Gaussian splats"
+  meshes: "X"
+  points: "X"
+  vectors: "lines and tracks"
+  good_for: "gigabyte volumes and time-lapses from a plain static file host"
+
+- name: "[**vizarr**](https://github.com/hms-dbmi/vizarr)"
+  kind: browser
+  voxels: "X"
+  meshes: ""
+  points: ""
+  vectors: ""
+  good_for: "OME-Zarr straight from a URL - what the IDR serves its images with"
+
+- name: '[**Mol\***](https://molstar.org/viewer-docs/volumes_and_segmentations/overview/) Volumes & Segmentations'
+  kind: browser
+  voxels: "X"
+  meshes: "X"
+  points: ""
+  vectors: ""
+  good_for: "cryo-EM maps with their segmentations - the viewer behind EMDB and EMPIAR"
+
+- name: "[**Potree**](https://potree.org)"
+  kind: browser
+  voxels: ""
+  meshes: ""
+  points: "X"
+  vectors: ""
+  good_for: "streaming point clouds far too large to load"
+
+- name: "[**three.js**](https://threejs.org) / [**Babylon.js**](https://www.babylonjs.com)"
+  kind: browser
+  voxels: "[add-on](https://github.com/Donitzo/three.js-volume-renderer)"
+  meshes: "X"
+  points: "X"
+  vectors: "write it yourself"
+  good_for: "anything custom - the illustrations in these slides are three.js"

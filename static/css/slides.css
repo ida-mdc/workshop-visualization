@@ -1,0 +1,543 @@
+/* Project styles on top of the theme.
+ *
+ * Loaded from layouts/partials/head/css.html, which exists only to add this
+ * file after the theme's own stylesheet.
+ */
+
+/* Keep figures inside the slide.
+ *
+ * A slide is a fixed box: heading, then content, then a fixed footer across
+ * the bottom. An image with no height limit takes its natural size, and most
+ * screenshots are 600-900 px tall, so they push the rest of the slide under
+ * the footer or off the bottom entirely. On the scrolling page the same image
+ * is fine, because the page just gets longer - which is why this only applies
+ * in the deck.
+ *
+ * vh rather than px so it scales with the projector: 34vh leaves room for a
+ * two-line heading, a caption and the footer at 720p, and more at 1080p.
+ *
+ * A figure that needs to be bigger or smaller than this can still say so -
+ * the shortcode's own `style` wins, being an inline attribute.
+ */
+.reveal .slides section img {
+  max-height: 34vh;
+  width: auto;
+}
+
+/* Two figures side by side have half the width each, so they can afford to be
+ * a little taller before they are the thing that overflows. */
+.reveal .slides section .horizontal img {
+  max-height: 36vh;
+}
+
+/* A cover slide is the exception: its image is the slide. */
+.reveal .slides section .cover img {
+  max-height: none;
+}
+
+/* Long tables shrink rather than run off the bottom. Reveal sets a large base
+ * font; a twelve-row reference table does not need it. */
+.reveal .slides section table {
+  font-size: 0.78em;
+}
+
+.reveal .slides section table td,
+.reveal .slides section table th {
+  padding-top: 0.22em;
+  padding-bottom: 0.22em;
+}
+
+/* Lists on a slide sit a little tighter than on the scrolling page. The theme
+ * spaces list items for reading; a slide is read at a distance but has a hard
+ * bottom edge, and on a six-item list this is worth about forty pixels. */
+.reveal .slides section li {
+  margin-bottom: 6px;
+}
+
+/* Inline swatches - the little colour chips in a bulleted list - are sized
+ * for the scrolling page, where a 60 px chip next to one line of text is
+ * fine. Six of them on one slide is not. */
+.reveal .slides section figure.inline img {
+  max-height: 1.9em;
+}
+
+/* Logo rows on the title and closing slides. */
+.reveal .slides section .logos img {
+  max-height: 7vh;
+}
+
+/* The "separate tutorial" card. Its QR code is sized for someone at the back
+ * of a room to scan, which is right - but on a slide that already has a
+ * heading and a list it is the thing that pushes the card past the bottom. */
+.reveal .slides section .tutorial .qr-code img,
+.reveal .slides section .tutorial .qr-code canvas,
+.reveal .slides section .tutorial .qr-code table {
+  max-height: 16vh;
+  width: auto;
+}
+
+/* Citations and figure captions are reference material, not the point of the
+ * slide. At the theme's slide font size a two-line citation block plus two
+ * captions is worth eighty pixels, which is exactly the margin the
+ * "what comes out" slides were missing - two figures at a fixed height, a
+ * four-item list and a source note all on one slide.
+ *
+ * On the scrolling page they stay at their normal size; this is only the
+ * deck, where the bottom edge is hard. */
+.reveal .slides section .citations {
+  font-size: 0.6em;
+  margin-top: 0.35em;
+}
+
+.reveal .slides section figcaption {
+  font-size: 0.62em;
+  margin-top: 0.2em;
+  line-height: 1.3;
+}
+
+.reveal .slides section figcaption p {
+  margin: 0;
+}
+
+/* The two reference lines under an illustration.
+ *
+ * These are captions, not the content of the slide - the illustration is.
+ * At the theme's list size they take a third of the height and crowd the
+ * footer, so they are set smaller and closer, the way a legend would be. */
+/* General sibling, not adjacent: Hugo emits the scene's <script> - and
+ * often an {{< notes >}} aside - between the figure and the list. */
+.reveal .slides section .viz3d-figure ~ ul {
+  font-size: 0.62em;
+  margin-top: 0.35em;
+}
+
+.reveal .slides section .viz3d-figure ~ ul li {
+  margin-bottom: 2px;
+}
+
+/* Cap how tall an illustration gets in the deck.
+ *
+ * The placeholder is a flex child and will take every pixel the slide has
+ * spare, which for a wide triptych means a very tall box with the panels
+ * stranded in the middle of it and the caption lines pushed onto the
+ * footer. Leaves room for the three panel captions underneath. */
+.reveal .slides section .viz3d {
+  max-height: 56vh;
+}
+
+/* The three panel captions. Base styling lives in the runtime's own CSS so
+ * it applies everywhere; only the deck's size is set here. */
+.reveal .slides section .viz3d-panels {
+  font-size: 0.4em;
+}
+
+/* An illustration sharing a row with its bullets.
+ *
+ * The deck's floor for a placeholder is 140px, because in the usual
+ * single-column layout the illustration stretches to whatever the slide has
+ * left. Inside {{< horizontal >}} nothing stretches it - the row is as tall
+ * as its content - so it needs a height of its own. */
+.reveal .slides section .horizontal .viz3d {
+  min-height: 42vh;
+}
+
+/* Two tutorial cards side by side on a slide.
+ *
+ * The card is sized for the scrolling page, where it is the width of the
+ * column and has as much vertical room as it needs. Two of them in a row on
+ * a slide, each with a title and a description, run past the bottom. */
+.reveal .slides section .tutorial {
+  font-size: 0.62em;
+}
+
+/* Mermaid diagrams sit at the size they were drawn at, and shrink only if
+ * they would not otherwise fit.
+ *
+ * Not stretched to the column width: blowing a small diagram up to full
+ * width scales its text up with it, so every flowchart ends up with a
+ * different font size depending on how many nodes it happens to have. One
+ * font size for all of them, set in js/mermaid-slides.js, is what makes a
+ * deck of them look like one deck.
+ */
+.mermaid {
+  text-align: left;
+}
+
+/* ...unless the author asked for it centred.
+ *
+ * `{{< center >}}` sets `text-align: center` on a wrapper and lets it
+ * inherit, which an inherited value cannot do against the rule above -
+ * that one is set on the element itself and wins. Naming .mermaid inside
+ * .center puts the choice back in the markdown: wrap a diagram to centre
+ * it, leave it alone for the left-aligned default. */
+.center .mermaid {
+  text-align: center;
+}
+
+/* inline-block, not a flex item: as a flex item the SVG's auto height
+   collapses the container to nothing and the next diagram draws on top of
+   this one. */
+.mermaid svg {
+  display: inline-block;
+  vertical-align: top;
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+}
+
+/* 64vh, not 62: the pipeline is the tallest diagram in the deck at 680px,
+ * and 62vh cropped it by ten pixels - enough for the browser to scale the
+ * whole SVG and shrink its type below every other flowchart's. */
+.reveal .slides section .mermaid svg {
+  max-height: 64vh;
+}
+
+/* There is no tighter ceiling for a diagram inside {{< horizontal >}}.
+ *
+ * There used to be - 52vh, for two diagrams sharing a row. No row in the
+ * deck has ever held two, and the rule was instead shrinking the two
+ * single-diagram rows it did match. A scaled SVG has smaller text than an
+ * unscaled one beside it, so those two slides disagreed with the other two
+ * about how big a flowchart's type is. */
+
+/* The tool tables, from data/tools.yaml via the {{< tools >}} shortcode.
+ *
+ * The four support columns are scanned down, not read across, so they are
+ * centred and no wider than they have to be. A cell that spells out a
+ * limitation is deliberately quieter than a plain X - the eye should find the
+ * X's first and only then notice the exceptions.
+ */
+/* Fixed columns, so the three tool slides line up with each other.
+ *
+ * Left to itself a table sizes its columns to its own content, so the
+ * desktop, library and browser tables each came out different - and flicking
+ * between them made the whole grid jump. table-layout:fixed plus explicit
+ * widths means the reader's eye can stay where it is.
+ */
+table.tools {
+  table-layout: fixed;
+  width: 100%;
+}
+
+table.tools th:first-child,
+table.tools td:first-child {
+  width: 25%;
+}
+
+table.tools th:last-child,
+table.tools td:last-child {
+  width: 39%;
+}
+
+table.tools .tools-support {
+  width: 9%;
+  text-align: center;
+}
+
+table.tools .tools-partly {
+  font-size: 0.85em;
+  font-style: italic;
+  color: #6a6a74;
+}
+
+/* {{< arrow >}} - the middle column of a three-part row: what turns the
+ * illustration on the left into the one on the right.
+ *
+ * flex:0 1 auto so the two illustrations either side keep the space; the
+ * arrow column is the caption, not a third picture.
+ */
+.arrow-note {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  flex: 0 1 auto;
+  min-width: 0;
+  gap: 1.1em;
+  padding: 0 0.6em 1.6em;
+}
+
+.arrow-note-body > :first-child { margin-top: 0; }
+.arrow-note-body > :last-child { margin-bottom: 0; }
+
+/* The shaft is the element; the head is drawn on the end of it with a
+ * border triangle, so there is no image to load and it inherits colour. */
+.arrow-note-arrow {
+  position: relative;
+  height: 2px;
+  min-width: 70px;
+  background: #c8ccd4;
+  margin-right: 12px;
+}
+
+.arrow-note-arrow::after {
+  content: "";
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left: 12px solid #c8ccd4;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+
+/* Under the shaft, not over it: above, it lands on the last line of the
+ * list, and the list is the thing being read. */
+.arrow-note-arrow span {
+  position: absolute;
+  top: 0.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.75em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #6a6a74;
+}
+
+/* Mermaid draws a pale chip behind every node label. Under an icon that
+ * chip reads as a second box inside the node - the name belongs to the
+ * picture above it, not to a label of its own. Two elements draw it
+ * depending on the shape, hence both selectors. */
+.mermaid .labelBkg,
+.mermaid .nodeLabel,
+.mermaid .nodeLabel p,
+.mermaid foreignObject div,
+.mermaid foreignObject p {
+  background: transparent !important;
+}
+
+/* A scene in a {{< horizontal >}} row should take the whole column.
+ *
+ * The theme lays out any figure in such a row with `align-self: flex-end`
+ * and sizes it to its content, which is right for a screenshot - it hangs at
+ * the bottom next to the text. A scene is not a screenshot: it is given a
+ * column and should fill it, or the slide is mostly white space above a
+ * small drawing. The selector has to out-specify `section .horizontal >
+ * figure`, hence the element plus class.
+ */
+section .horizontal > figure.viz3d-figure {
+  align-self: stretch;
+  justify-content: center;
+}
+
+/* A scene that is the entire slide.
+ *
+ * The theme lays a slide out as a column with `align-items: flex-start`, so
+ * a figure with no heading or text beside it has nothing to give it a width
+ * and collapses to a few pixels - the slide comes up blank. Everywhere else
+ * the text supplies the width, which is why this only bites on a wordless
+ * slide.
+ *
+ * `fill="true"` on the shortcode says the illustration IS the slide. Then
+ * the 56vh ceiling further up is wrong too - that exists to stop an
+ * illustration crowding out the text under it, and here there is none.
+ */
+.reveal .slides section > .viz3d-figure {
+  align-self: stretch;
+  width: 100%;
+}
+
+.reveal .slides section > .viz3d-fill {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.reveal .slides section > .viz3d-fill .viz3d {
+  max-height: none;
+  min-height: 0;
+}
+
+/* What everyone guessed the point cloud was.
+ *
+ * Two columns parked in the white margins either side of the cloud, so the
+ * illustration keeps the middle of the slide and goes on turning underneath
+ * the answers. `position: absolute` is against the slide section, which
+ * reveal already positions; z-index clears the shared WebGL canvas, which
+ * is a fixed overlay at z-index 2 and would otherwise cover the text.
+ */
+.reveal .slides section .guesses {
+  position: absolute;
+  top: 20vh;
+  width: 22vw;
+  z-index: 3;
+  font-size: 0.55em;
+  line-height: 1.35;
+}
+
+.reveal .slides section .guesses--left { left: 2vw; }
+
+/* Right-aligned so both columns are ragged towards the cloud in the middle
+ * and flush against the slide edge. */
+.reveal .slides section .guesses--right { right: 2vw; text-align: right; }
+
+.guesses .guesses-title {
+  font-size: 0.72em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9a9aa4;
+  margin: 0 0 0.6em;
+}
+
+/* `.reveal` on the front because the theme sets `list-style-type: disc` on
+ * `.reveal ul`, from a stylesheet reveal injects at runtime - same
+ * specificity as a bare `.guesses ul`, and later in the cascade, so it
+ * wins. A bullet also sits on the wrong side of a right-aligned column. */
+.reveal .guesses ul, .guesses ul {
+  list-style: none; margin: 0; padding: 0;
+}
+.reveal .guesses li, .guesses li { margin: 0 0 0.75em; }
+.guesses q { font-style: italic; }
+.guesses cite { display: block; font-style: normal; font-size: 0.8em;
+  color: #9a9aa4; }
+
+/* The same slide on the scrolling page.
+ *
+ * The reader should get what the room gets: the picture first, the answers
+ * beside it afterwards. js/guesses.js adds the button and flips
+ * `data-guesses`; the columns go either side of the illustration here.
+ *
+ * Grid on the section, because the shortcode emits the two columns as
+ * siblings of the figure with no wrapper to make a row out of - and a
+ * wrapper would have to be remembered in the markdown every time. Row 1 is
+ * the heading, row 2 the three columns, row 3 the button.
+ */
+.scroll section[data-guesses] {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 1.7fr) 1fr;
+  column-gap: 1.5rem;
+  align-items: center;
+}
+
+.scroll section[data-guesses] > * { grid-column: 1 / -1; }
+
+.scroll section[data-guesses] > .viz3d-figure {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.scroll section[data-guesses] > .guesses--left {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.scroll section[data-guesses] > .guesses--right {
+  grid-column: 3;
+  grid-row: 2;
+  text-align: right;
+}
+
+/* Hidden, not absent: revealing the answers must not move the flower. */
+.scroll section[data-guesses="hidden"] .guesses {
+  visibility: hidden;
+}
+
+/* Never in the deck, whatever the script decides: there the two columns
+ * are reveal fragments and the button would be a second way to do the
+ * same thing, sitting on the slide. */
+.reveal .guesses-reveal {
+  display: none;
+}
+
+.guesses-reveal {
+  grid-row: 3;
+  justify-self: center;
+  margin: 0.5rem 0 1.5rem;
+  padding: 0.5em 1.4em;
+  font: inherit;
+  font-size: 0.95em;
+  color: #e1462c;
+  background: none;
+  border: 2px solid #e1462c;
+  border-radius: 2em;
+  cursor: pointer;
+}
+
+.guesses-reveal:hover {
+  color: #ffffff;
+  background: #e1462c;
+}
+
+/* The sentence that says what the slide was for.
+ *
+ * Hidden by default, so it is absent from the deck however it is reached -
+ * there the speaker makes this point out loud, and a paragraph under the
+ * cloud would get read instead of watched. On the page it arrives with the
+ * answers, for the same reason the answers wait: the reader should have
+ * looked before being told what the looking proved.
+ */
+.guesses-note {
+  display: none;
+}
+
+.scroll section[data-guesses="shown"] .guesses-note {
+  display: block;
+  grid-column: 1 / -1;
+  grid-row: 3;
+  justify-self: center;
+  max-width: 62ch;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.guesses-note p {
+  margin: 0;
+}
+
+/* The theme's own marker elements. Unknown tags, so they are inline boxes
+ * by default - which is harmless in flow and not harmless in a grid, where
+ * an empty one takes a cell of its own. */
+unlisted,
+hidden {
+  display: none;
+}
+
+/* The icons in a flowchart, in nodes of their own.
+ *
+ * Mermaid draws an image shape as a `g.image-shape` holding the bordered
+ * outline as `path`s with the `image` on top. The border is right for a box
+ * with words in it and wrong for a picture - five framed stamps in a row
+ * read as a filmstrip rather than as a chain. `!important` because mermaid
+ * styles these through an id selector of its own.
+ */
+.mermaid g.image-shape path {
+  stroke: none !important;
+}
+
+/* The tool tables are longer than a slide.
+ *
+ * Cropping them is deliberate - the point of the slide is "here is a lot of
+ * software", not "read all of this" - but a hard cut at the slide edge looks
+ * like a rendering bug. The fade says the list continues, and the line in
+ * the corner says where to go to read it. Both only exist in the deck: on
+ * the page the whole table is already there.
+ *
+ * `:has()` rather than a class on the slide, so this follows the shortcode
+ * wherever it is used instead of having to be remembered in the markdown.
+ */
+.reveal .slides section:has(table.tools)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 16vh;
+  background: linear-gradient(to bottom,
+    rgba(255, 255, 255, 0) 0%, #ffffff 62%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.tools-hint {
+  display: none;
+}
+
+.reveal .slides section .tools-hint {
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 1.3em;
+  margin: 0;
+  z-index: 2;
+  font-size: 0.4em;
+  color: #9a9aa4;
+}

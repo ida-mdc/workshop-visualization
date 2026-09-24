@@ -1,0 +1,24 @@
+{{- /*
+  A column of text with an arrow under it, pointing right.
+
+      {{< arrow >}}
+      - **Occlusion**
+      - **Shading and shadows**
+      {{< /arrow >}}
+
+  For the middle of a {{< horizontal >}} row, where the two things on either
+  side are illustrations and this says what turns the left one into the right
+  one. The text is HTML rather than drawn into a scene on purpose: text in a
+  scene is sized in world units, so it scales with the frustum and ends up
+  either unreadable on a laptop or enormous on a projector.
+
+  `label` puts a word on the arrow itself; without it the arrow is bare.
+*/ -}}
+<div class="arrow-note">
+  <div class="arrow-note-body">
+    {{- .Inner | markdownify -}}
+  </div>
+  <div class="arrow-note-arrow">
+    {{- with .Get "label" }}<span>{{ . }}</span>{{ end -}}
+  </div>
+</div>

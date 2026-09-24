@@ -34,8 +34,15 @@ raw = f"https://raw.githubusercontent.com/{repo}/{ref}/static/"
 # (/workshop-visualization/<edition>/img/x.png), and a local preview uses a
 # different host again, so consume everything up to and including the edition
 # path - leaving any of it behind would splice the new URL onto the old prefix.
+#
+# '=' has to be excluded from that prefix. `hugo --minify` leaves attribute
+# values unquoted, so the page says `src=/workshop-visualization/...` with no
+# quote to stop at - and a prefix allowed to contain '=' swallows the `src=`
+# itself, replacing the whole thing with a bare URL. The browser then parses
+# the URL as an attribute name and the image silently never loads. Same for
+# `content=` on the og:image meta tag.
 pattern = re.compile(
-    r'[^\s"\'()<>]*?/' + re.escape(path) + r'/(img/[^\s"\'()<>&]+)')
+    r'[^\s"\'()<>=]*?/' + re.escape(path) + r'/(img/[^\s"\'()<>&]+)')
 
 rewritten = 0
 for f in root.rglob("*"):

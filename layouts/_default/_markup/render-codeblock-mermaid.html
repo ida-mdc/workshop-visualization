@@ -1,0 +1,27 @@
+{{- /*
+  Overrides the theme's mermaid code block hook so that
+  static/js/mermaid-slides.js owns mermaid, rather than the theme.
+
+  That file configures mermaid for a deck - full-width diagrams, tighter
+  packing - and re-renders any diagram that collapsed because Reveal had the
+  slide hidden when mermaid first measured it. See the comment at the top of
+  it for the why.
+
+  Note what is NOT here: the theme's `hasMermaid` store flag. Setting it makes
+  baseof.html emit its own `mermaid.initialize({ startOnLoad: true })`, and a
+  second initialize() replaces the configuration rather than merging into it -
+  so whichever module happened to run last would decide how the diagrams look.
+*/ -}}
+<div class="mermaid">
+  {{- .Inner | safeHTML }}
+</div>
+{{- /*
+  Emitted once per diagram, and deliberately not guarded by a
+  `.Page.Store` flag. The guard worked in a build and was poison under
+  `hugo server`: Page.Store survives a rebuild, so after the first one the
+  flag was still set, the tag stopped being written, and every diagram on
+  the page rendered as its own source text with nothing in the console to
+  say why. A module is fetched and executed once per URL however many
+  script tags point at it, so repeating it costs nothing.
+*/ -}}
+<script type="module" src="{{ "js/mermaid-slides.js" | relURL }}"></script>

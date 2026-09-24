@@ -1,0 +1,45 @@
+{{- /*
+  What somebody thought the point cloud was.
+
+      {{< guesses title="What LLMs said" side="left" >}}
+      ChatGPT: a tree
+      Claude: a mushroom, or an umbrella
+      {{< /guesses >}}
+
+  One guess per line, `who: what`. Only the first colon splits, so an answer
+  may contain more. Blank lines are ignored, which means you can leave gaps
+  while collecting.
+
+      title   the label above the column
+      side    "left" or "right"; in the deck the column is parked in the
+              white margin beside the illustration
+
+  The block is a reveal fragment, and both sides carry fragment index 0, so
+  the whole comparison arrives on one press of space rather than a column at
+  a time. Outside the deck reveal's fragment CSS does not apply and the
+  guesses are simply there, which is what a reader scrolling the page wants.
+*/ -}}
+{{- $side := .Get "side" | default "left" -}}
+<aside class="guesses guesses--{{ $side }} fragment" data-fragment-index="0">
+  {{- with .Get "title" }}
+  <h3 class="guesses-title">{{ . }}</h3>
+  {{- end }}
+  <ul>
+  {{- range (split (trim .Inner "\n") "\n") -}}
+    {{- $line := trim . " \t" -}}
+    {{- if $line -}}
+      {{- $parts := split $line ":" -}}
+      {{- $who := trim (index $parts 0) " " -}}
+      {{- $said := trim (delimit (after 1 $parts) ":") " " -}}
+    <li><q>{{ $said }}</q> <cite>{{ $who }}</cite></li>
+    {{- end -}}
+  {{- end }}
+  </ul>
+</aside>
+{{- /*
+  Emitted per column and not guarded by a `.Page.Store` flag - a module is
+  fetched and run once per URL however many tags point at it, and the flag
+  survives a `hugo server` rebuild, which silently stops the tag ever being
+  written again.
+*/ -}}
+<script type="module" src="{{ "js/guesses.js" | relURL }}"></script>

@@ -1,0 +1,18 @@
+{{- /*
+  Keep this slide out of the Table of Contents.
+
+  Overrides the theme's version, which emits `<unlisted/>`. That slash does
+  nothing: `unlisted` is not a known HTML element, so the parser reads the
+  tag as an OPEN tag with no close, and every following element on the slide
+  - heading, figure, the lot - is parsed as its child rather than the
+  section's. On a text slide that goes unnoticed; on a slide laid out with
+  flexbox it is fatal, because the section's flex children are now
+  grandchildren sitting inside one inline box, and `section > .thing`
+  selectors stop matching. That is what collapsed the depth-instinct
+  illustration to a thumbnail.
+
+  An explicit closing tag fixes it and still satisfies the theme, whose
+  sections_with_toc.html looks for /<unlisted[ ]*\/?>/ - which the opening
+  tag matches on its own.
+*/ -}}
+<unlisted></unlisted>

@@ -27,8 +27,14 @@
     {{- with .Get "width" }} width="{{ . }}"{{ end -}}
     {{- with .Get "height" }} height="{{ . }}"{{ end -}}
     {{- with .Get "loading" }} loading="{{ . }}"{{ end -}}
-    {{- /* Add CSS to make images responsive */ -}}
-    style="max-width: 100%; height: auto;{{ with .Get "style" }} {{ . }}{{ end }}"
+    {{- /* Add CSS to make images responsive.
+
+       safeCSS is load-bearing: Go's contextual autoescaping will not
+       interpolate an ordinary string into a style attribute, and replaces it
+       with the literal "ZgotmplZ". Without it the shortcode's `style`
+       parameter silently does nothing at all - which it had been doing
+       everywhere it was used, here and in 3d-data-types.md. */ -}}
+    style="max-width: 100%; height: auto;{{ with .Get "style" }} {{ . | safeCSS }}{{ end }}"
   >
   {{- if .Get "link" }}</a>{{ end -}}
   {{- if or (or (.Get "title") (.Get "caption")) (.Get "attr") -}}

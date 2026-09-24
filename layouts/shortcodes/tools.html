@@ -1,0 +1,75 @@
+{{- /*
+  One of the tool tables, from data/tools.yaml.
+
+      {{< tools kind="desktop" >}}
+      {{< tools kind="browser" limit="7" >}}
+
+  `kind` is desktop, library or browser. Every tool with that kind is listed,
+  in the order the data file has them, so reordering a slide is an edit to the
+  data rather than to the markdown - and the same list can be rendered from
+  another deck without being copied.
+
+  `limit` keeps a slide from overflowing: only the first N rows are drawn and
+  the note underneath says how many were left out, so a long list reads as a
+  long list rather than as the whole story.
+
+  A cell is "X" when the tool has a first-class object for that data type, the
+  limitation in words when it half-supports it, and empty when it does not.
+  Written out rather than abbreviated: this is read from the back of a room.
+
+  Every table carries the same footer, because every one of them is a snapshot
+  of a moving target and the useful response to a missing tool is a pull
+  request, not an email.
+
+  `tools-hint` only appears in the deck, where the slide crops the table and
+  the fade at the bottom says there is more. On the page the table is all
+  there, so the sentence would be a lie.
+*/ -}}
+{{- $kind := .Get "kind" -}}
+{{- if not $kind -}}
+  {{- errorf "tools shortcode in %s: missing kind" .Page.File.Path -}}
+{{- end -}}
+{{- $all := where site.Data.tools "kind" $kind -}}
+{{- if not $all -}}
+  {{- errorf "tools shortcode in %s: no tools of kind %q in data/tools.yaml" .Page.File.Path $kind -}}
+{{- end -}}
+{{- $rows := $all -}}
+{{- with .Get "limit" -}}
+  {{- $rows = first (int .) $all -}}
+{{- end -}}
+{{- $hidden := sub (len $all) (len $rows) -}}
+{{- $page := .Page -}}
+{{- $inline := dict "display" "inline" -}}
+{{- $source := printf "%s/blob/main/sitedata/tools.yaml" (site.Params.repo | default "") -}}
+<table class="tools">
+  <thead>
+    <tr>
+      <th>Tool</th>
+      <th>Voxels</th>
+      <th>Meshes</th>
+      <th>Points</th>
+      <th>Vector fields</th>
+      <th>Good for</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{- range $rows }}
+    <tr>
+      <td>{{ $page.RenderString $inline .name }}</td>
+      {{- range (slice .voxels .meshes .points .vectors) }}
+      <td class="tools-support{{ if eq . "X" }} tools-yes{{ else if . }} tools-partly{{ end }}">{{ . }}</td>
+      {{- end }}
+      <td>{{ $page.RenderString $inline .good_for }}</td>
+    </tr>
+  {{- end }}
+  </tbody>
+</table>
+<p class="tools-hint" aria-hidden="true">the whole list is on the page version of these slides</p>
+<p class="tools-more">
+  {{- if gt $hidden 0 }}
+  and {{ $hidden }} more &mdash;
+  {{- end }}
+  the whole table is
+  <a href="{{ $source }}"><code>data/tools.yaml</code></a>,
+  and a pull request is the quickest way to add what we have missed.
+</p>

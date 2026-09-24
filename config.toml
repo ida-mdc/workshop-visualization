@@ -2,6 +2,12 @@ baseURL = "https://ida-mdc.github.io/workshop-visualization"
 languageCode = "en-us"
 title = "3D Data Visualization Workshop"
 theme = "hugo-theme-helmholtz-imaging-workshop"
+# Hugo's data directory, moved off its default name. `.gitignore` carries a
+# `data` rule from before this site, and a bare pattern like that matches at
+# every level - so it swallowed both Hugo's own data/ and static/data/, and
+# the tool tables silently never reached the repository. Renaming the
+# directory is less fragile than teaching the ignore file about two of them.
+dataDir = "sitedata"
 [markup.goldmark.renderer]
 unsafe= true
 canonifyURLs= true
@@ -13,6 +19,10 @@ canonifyURLs= true
 imageBase = ""
 # The edition being taught; shown in the footer. CI overrides it to match.
 edition = "2026-workshop"
+# Where the source lives, for "edit this / send a PR" links on the slides.
+# The git remote is GitLab, but the published deck and the copy people can
+# open and fork is the GitHub mirror behind the baseURL above.
+repo = "https://github.com/ida-mdc/workshop-visualization"
 [params.mermaid]
 enable = true
 [params.plantuml]
@@ -20,3 +30,15 @@ enable = true
 [markup]
   [markup.highlight]
       guessSyntax = "false"
+# `hugo server` only - it has no effect on a built site.
+#
+# Hugo's dev server sends Last-Modified and no Cache-Control, so a browser
+# falls back to heuristic freshness: it may reuse a file for 10% of its age
+# without asking the server at all. On a day-old file that is hours, and the
+# scenes under static/js are hand-edited files the server never fingerprints -
+# so an edit lands, the page is reloaded, and nothing changes.
+[server]
+[[server.headers]]
+for = "/**"
+[server.headers.values]
+Cache-Control = "no-store"

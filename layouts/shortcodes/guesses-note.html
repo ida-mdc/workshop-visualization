@@ -1,0 +1,15 @@
+{{- /*
+  The point of the opening slide, spelled out - for readers only.
+
+      {{< guesses-note >}}
+      3D is our natural habitat...
+      {{< /guesses-note >}}
+
+  Goes under the illustration on the scrolling page, and appears with the
+  answers when the reader presses the button. Never in the deck: there the
+  speaker says this out loud, and a paragraph of prose under the cloud
+  would be read instead of watched.
+*/ -}}
+<div class="guesses-note">
+  {{- .Inner | markdownify }}
+</div>

@@ -1,6 +1,8 @@
 .idea
 .hugo_build.lock
-data
+# Root only: an unanchored `data` also matches static/data, which is the
+# scene data the illustrations load.
+/data
 public
 resources
 themes

@@ -1,0 +1,9 @@
+{{- /*
+  Overrides the theme's head/css.html only to add css/slides.css after it.
+  The three links below are the theme's, unchanged - keep them in sync if the
+  theme's version changes.
+*/ -}}
+<link type="text/css" rel="stylesheet" href="{{ "css/theme.css" | relURL }}">
+<link rel="stylesheet" href="{{ "reveal/plugin/highlight/monokai.css" | relURL }}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;700&display=swap">
+<link type="text/css" rel="stylesheet" href="{{ "css/slides.css" | relURL }}">
