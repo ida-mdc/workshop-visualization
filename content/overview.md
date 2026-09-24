@@ -27,29 +27,27 @@ Thomas: a flower
 Inga: a flower
 Artür: a flower
 Maria: a flower
+Martin: flowers
 Dante: a flower
 {{< /guesses >}}
 
 {{< guesses-note >}}
 **3D is our natural habitat.** Reading shape, depth and occlusion from a moving
-view is something we all do continuously and without effort - which is why the
-room says *a flower* where a language model, shown a still frame, says *a tree*
-or *a mushroom cloud*. Volumetric scientific data is exactly where that training
-pays off, so it is worth rendering these datasets in a way that lets you use it
-rather than flattening away the one dimension we read best.
+view is something we all do continuously and without effort. 
+Let's take advantage of this by rendering volumetric scientific datasets in 3D, so we can read them best.
 {{< /guesses-note >}}
 
 ---
 
 ## Motivation
-### Why do you want to visualize?
+### Purpose of visualization
 
 {{< notes >}}
-3D datasets (datasets with a width, height, and depth dimension) can be visualized for very diverse purposes, that I would group like this: 
+3D datasets (datasets with a width, height, and depth dimension) can be visualized for different reasons: 
 {{< /notes >}}
 
 - **To understand** - comprehend a dataset in all spatial dimensions at once.
-- **To derive knowledge** - visualize specific features to draw conclusions from.
+- **To learn** - visualize specific features to draw conclusions from.
 - **To share and tell** - discuss your work (and your data) with and beyond scientific circles.
 
 ---
