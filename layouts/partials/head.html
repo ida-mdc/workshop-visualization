@@ -1,0 +1,20 @@
+{{- /*
+  Overrides the theme's head.html only to add the robots meta below. The
+  four lines above it are the theme's, unchanged - keep them in sync if the
+  theme's version changes.
+*/ -}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+{{ partialCached "head/css.html" . }}
+{{ partialCached "head/js.html" . }}
+{{- /*
+  Set only for the draft build, by tools/build-site.sh.
+
+  That copy is public but deliberately unlinked, and a search engine has no
+  way of telling an unfinished edition from the real one - left indexable it
+  would compete with the published edition for its own title. robots.txt
+  cannot say this: these are project pages, so the only robots.txt the
+  domain has belongs to whichever repository owns ida-mdc.github.io.
+*/ -}}
+{{ if site.Params.noindex }}<meta name="robots" content="noindex, nofollow">{{ end }}

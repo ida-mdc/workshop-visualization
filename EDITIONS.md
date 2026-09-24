@@ -2,6 +2,7 @@
 
 ```
 /                 landing/
+/draft/           content/            everything, drafts included
 /2026-workshop/   content/            the edition being worked on
 /2025-workshop/   tag 2025-workshop
 /2025-seminar/    tag 2025-seminar
@@ -15,6 +16,24 @@ they start with the year.
 `content/` holds only the edition being worked on, reworked in place. A page's
 filename is its URL, so `content/voxels.md` is published at
 `/2026-workshop/voxels/`.
+
+## The draft URL
+
+    https://ida-mdc.github.io/workshop-visualization/draft/
+
+Built on every push to `main`, and the only copy that includes pages marked
+`draft: true`. Nothing links to it - not the landing page, not the editions -
+so the way to it is this file. Send it to someone who should read a page
+before it is finished.
+
+It is public, because the repository is. It is not secret, just unlisted: the
+pages carry `noindex` so that an unfinished edition does not turn up in a
+search for the finished one, and that is the whole of the protection. Do not
+put anything there that should not be read.
+
+`/draft/` and `/2026-workshop/` are built from the same working tree, so once
+`PUBLISH_CURRENT` is `true` the only difference between them is the draft
+pages.
 
 ## Build
 

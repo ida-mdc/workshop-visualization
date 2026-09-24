@@ -10,6 +10,9 @@
 #   ./preview.sh              -> http://localhost:1313/
 #   PORT=8000 ./preview.sh    -> http://localhost:8000/
 #
+# Includes /draft/, the unlinked copy that has `draft: true` pages in it, so
+# that what you see here is what the workflow publishes.
+#
 # Archived editions load their images from raw.githubusercontent.com pinned to
 # their tag, so they need network access and the tags need to be pushed.
 set -eu
@@ -20,7 +23,7 @@ PORT=${PORT:-1313}
 OUT=${OUT:-site}
 EDITION=${EDITION:-$(tools/current-edition.sh)}
 
-tools/build-site.sh "$OUT" "http://localhost:$PORT" --with-current
+tools/build-site.sh "$OUT" "http://localhost:$PORT" --with-current --with-draft
 
 # The landing page does not link the edition being worked on while it is
 # unpublished, which would leave no way into it here. Add a banner that only

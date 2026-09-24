@@ -23,9 +23,10 @@ env:
   BASE: 'https://ida-mdc.github.io/workshop-visualization'
   REPO: 'ida-mdc/workshop-visualization'
   # Whether the edition being worked on is ready to go public. While this is
-  # 'false' only the landing page and the archived editions are published;
-  # ./preview.sh always builds the current edition so you can work on it.
-  # Flip to 'true' when it should go live, and link it from landing/index.html.
+  # 'false' only the landing page, the archived editions and /draft/ are
+  # published; ./preview.sh always builds the current edition so you can work
+  # on it. Flip to 'true' when it should go live, and link it from
+  # landing/index.html.
   PUBLISH_CURRENT: 'false'
 
 jobs:
@@ -51,12 +52,15 @@ jobs:
           hugo-version: '0.147.0'  # Match the Hugo version used locally
           extended: false
 
+      # /draft/ is built on every run, published, and linked from nowhere -
+      # a URL to send a reviewer while an edition is still being written.
+      # See EDITIONS.md.
       - name: Build site
         run: |
           if [ "$PUBLISH_CURRENT" = "true" ]; then
-            tools/build-site.sh site "$BASE" --with-current
+            tools/build-site.sh site "$BASE" --with-current --with-draft
           else
-            tools/build-site.sh site "$BASE"
+            tools/build-site.sh site "$BASE" --with-draft
           fi
 
       - name: Upload artifact
