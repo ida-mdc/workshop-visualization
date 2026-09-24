@@ -310,19 +310,19 @@ will not open in a viewer that expects a plain array.
 ---
 config:
   flowchart:
-    wrappingWidth: 260
+    wrappingWidth: 255
 ---
 flowchart LR
-  M@{ img: "{{< u "icons/pipeline/mesh.svg" >}}", label: "Mesh", pos: "b", w: 80, h: 80 }
-  P@{ img: "{{< u "icons/pipeline/points.svg" >}}", label: "Point cloud", pos: "b", w: 80, h: 80 }
-  F@{ img: "{{< u "icons/pipeline/vectors.svg" >}}", label: "Vector field", pos: "b", w: 80, h: 80 }
-  G@{ img: "{{< u "icons/pipeline/glyphs.svg" >}}", label: "Glyphs, streamlines", pos: "b", w: 80, h: 80 }
-  T@{ img: "{{< u "icons/pipeline/primitives.svg" >}}", label: "Primitives", pos: "b", w: 80, h: 80 }
-  R@{ img: "{{< u "icons/pipeline/rasterize.svg" >}}", label: "Rasterize", pos: "b", w: 80, h: 80 }
-  S@{ img: "{{< u "icons/pipeline/shade.svg" >}}", label: "Shade", pos: "b", w: 80, h: 80 }
-  V@{ img: "{{< u "icons/pipeline/voxels.svg" >}}", label: "Voxels", pos: "b", w: 80, h: 80 }
-  RM@{ img: "{{< u "icons/pipeline/raymarch.svg" >}}", label: "March a ray", pos: "b", w: 80, h: 80 }
-  PX@{ img: "{{< u "icons/pipeline/pixels.svg" >}}", label: "Pixels", pos: "b", w: 80, h: 80 }
+  M@{ img: "{{< u "icons/pipeline/mesh.svg" >}}", label: "Mesh", pos: "b", w: 68, h: 68 }
+  P@{ img: "{{< u "icons/pipeline/points.svg" >}}", label: "Point cloud", pos: "b", w: 68, h: 68 }
+  F@{ img: "{{< u "icons/pipeline/vectors.svg" >}}", label: "Vector field", pos: "b", w: 68, h: 68 }
+  G@{ img: "{{< u "icons/pipeline/glyphs.svg" >}}", label: "Glyphs, streamlines", pos: "b", w: 68, h: 68 }
+  T@{ img: "{{< u "icons/pipeline/primitives.svg" >}}", label: "Primitives", pos: "b", w: 68, h: 68 }
+  R@{ img: "{{< u "icons/pipeline/rasterize.svg" >}}", label: "Rasterize", pos: "b", w: 68, h: 68 }
+  S@{ img: "{{< u "icons/pipeline/shade.svg" >}}", label: "Shade", pos: "b", w: 68, h: 68 }
+  V@{ img: "{{< u "icons/pipeline/voxels.svg" >}}", label: "Voxels", pos: "b", w: 68, h: 68 }
+  RM@{ img: "{{< u "icons/pipeline/raymarch.svg" >}}", label: "March a ray", pos: "b", w: 68, h: 68 }
+  PX@{ img: "{{< u "icons/pipeline/pixels.svg" >}}", label: "Pixels", pos: "b", w: 68, h: 68 }
   M --> T
   P --> T
   F --> G
@@ -422,6 +422,11 @@ flowchart LR
 
 {{< horizontal >}}
 ```mermaid
+---
+config:
+  flowchart:
+    wrappingWidth: 760
+---
 flowchart LR
   Q["What must the reader see?"] --> A["Shape, from outside"]
   Q --> B["Something inside something else"]

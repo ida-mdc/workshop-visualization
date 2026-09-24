@@ -185,11 +185,16 @@
   max-width: 100% !important;
 }
 
-/* 64vh, not 62: the pipeline is the tallest diagram in the deck at 680px,
- * and 62vh cropped it by ten pixels - enough for the browser to scale the
- * whole SVG and shrink its type below every other flowchart's. */
+/* The ceiling is what is actually left under the headings.
+ *
+ * A slide is 1080 tall, the footer sits at about 1010, and the tallest
+ * diagram in the deck starts at 266 - so roughly 69vh is the real room.
+ * Anything lower than that scales the SVG down, and a scaled SVG has
+ * smaller type than an unscaled one on the next slide. The diagrams are
+ * sized to fit this rather than the other way round; see REFERENCE_FONT in
+ * js/mermaid-slides.js. */
 .reveal .slides section .mermaid svg {
-  max-height: 64vh;
+  max-height: 69vh;
 }
 
 /* There is no tighter ceiling for a diagram inside {{< horizontal >}}.

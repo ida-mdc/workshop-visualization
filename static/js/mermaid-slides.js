@@ -47,7 +47,7 @@ const MERMAID = 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
  * The size the deck's diagrams are drawn at, and the size the wrap widths
  * in the markdown are written for. See buildConfig.
  */
-const REFERENCE_FONT = 26;
+const REFERENCE_FONT = 32;
 
 /** What buildConfig settled on, for fitWrapping to scale against. */
 let fontSize = REFERENCE_FONT;
@@ -103,9 +103,9 @@ function buildConfig() {
     flowchart: {
       useMaxWidth: false,
       htmlLabels: true,
-      nodeSpacing: Math.round(font * 1.4),
-      rankSpacing: Math.round(font * 2.3),
-      padding: Math.round(font * 0.45),
+      nodeSpacing: Math.round(font * 1.0),
+      rankSpacing: Math.round(font * 1.5),
+      padding: Math.round(font * 0.4),
       curve: 'basis',
       // How wide a label may get before it wraps. Generous, because the
       // default breaks at about 120px and turns "Fixed size, scripted,
