@@ -49,29 +49,43 @@ const MERMAID = 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
  */
 const REFERENCE_FONT = 32;
 
-/** What buildConfig settled on, for fitWrapping to scale against. */
+/** What buildConfig settled on, for withWrapping to scale against. */
 let fontSize = REFERENCE_FONT;
 
+/** A mermaid frontmatter block, if the diagram opens with one. */
+const FRONTMATTER = /^---\r?\n[\s\S]*?\r?\n---\r?\n/;
+
 /**
- * Rescale a diagram's own `wrappingWidth` to the font it is about to be
- * drawn at.
+ * Move a diagram's own `wrappingWidth` out of its frontmatter and onto one
+ * line, scaled to the font it is about to be drawn at.
  *
- * A diagram that needs a hand fitting says so in its own frontmatter, in
- * pixels - but pixels only mean something next to a font size, and the
- * page draws at 16px where the deck draws at 26. Left alone, a wrap width
- * chosen so the pipeline fits a slide stops wrapping anything at all on
- * the page, the diagram comes out half as wide again as the column, and
- * the browser scales the whole SVG down - so the one diagram that needed
- * help is the one that ends up with the smallest type on the page.
+ * Two problems, one fix.
  *
- * Scaling the number with the font keeps the shape the author chose and
- * lets it fit both places.
+ * The scaling: a diagram that needs a hand fitting says so in pixels, and
+ * pixels only mean something next to a font size - the page draws at 16
+ * where a slide draws at 32. Left alone, a width chosen so the pipeline
+ * fits a slide stops wrapping anything on the page, and the browser scales
+ * the whole SVG down, so the one diagram that needed help ends up with the
+ * smallest type.
+ *
+ * The frontmatter: it is YAML, and YAML is indentation. Hugo's HTML
+ * minifier strips leading whitespace inside a div - it spares <pre>, but
+ * mermaid source is not in one - which turns
+ *
+ *     config:            into    config:
+ *       flowchart:               flowchart:
+ *         wrappingWidth:         wrappingWidth: 255
+ *
+ * three sibling keys, and mermaid quietly ignores the width. `hugo server`
+ * does not minify, so this only ever appeared once deployed. An init
+ * directive is a single line with no indentation to lose.
  */
-function fitWrapping(text) {
-  const k = fontSize / REFERENCE_FONT;
-  if (Math.abs(k - 1) < 0.001) return text;
-  return text.replace(/(wrappingWidth:[ \t]*)(\d+(?:\.\d+)?)/g,
-    (_, head, n) => head + Math.round(Number(n) * k));
+function withWrapping(text) {
+  const found = text.match(/wrappingWidth:[ \t]*(\d+(?:\.\d+)?)/);
+  if (!found) return text;
+  const wrap = Math.round(Number(found[1]) * (fontSize / REFERENCE_FONT));
+  return '%%{init: {"flowchart": {"wrappingWidth": ' + wrap + '}}}%%\n'
+    + text.replace(FRONTMATTER, '');
 }
 
 function buildConfig() {
@@ -329,7 +343,7 @@ async function render(root) {
   // `render` just returns the markup for a string, leaving where it goes
   // to us. One svg in, one svg out, however many times it runs.
   for (const el of pending) {
-    const text = fitWrapping(sources.get(el));
+    const text = withWrapping(sources.get(el));
     // eslint-disable-next-line no-await-in-loop
     await preloadIcons(text);
     inFlight = mermaid.render(`mermaid-slides-${serial++}`, text)
