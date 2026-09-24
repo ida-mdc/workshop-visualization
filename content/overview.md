@@ -494,8 +494,7 @@ But using a library can make it easier to include rendering into existing script
 
 {{< notes >}}
 Browser based 3D visualization is rapidly growing. Here are a few options.
-
-More on these: [Rendering in the browser]({{< ref "browser-rendering.md" >}})
+<!-- TODO point at the browser rendering page here once content/browser-rendering.md is committed -->
 {{< /notes >}}
 
 {{< tools kind="browser">}}

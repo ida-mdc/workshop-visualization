@@ -23,7 +23,7 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
 - 4:15pm **Volumetric Data Rendering**
   - [Overview Slides]({{< ref "voxels.md" >}}) TODO review
   - [Volume Rendering BigDataViewer / MoBie]({{< ref "volume-rendering-bdv.md" >}}) TODO review
-  - [Rendering in the browser]({{< ref "browser-rendering.md" >}}) TODO review
+  <!-- TODO link the browser rendering page here once content/browser-rendering.md is committed -->
   - Notebook: [voxel_rendering_napari.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_napari.ipynb)
   - Notebook: [voxel_rendering_vtk.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_vtk.ipynb)
 
@@ -41,7 +41,7 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
 - 2:15pm **Point Clouds Demo**
   - [Slides]({{< ref "point-clouds.md" >}})
 - 2:30pm **Vector Fields**
-  - [Slides]({{< ref "vector-fields.md" >}})
+  <!-- TODO link the vector fields slides here once content/vector-fields.md is committed -->
   - [Slides](https://docs.google.com/presentation/d/1UfsegcYlMT454YMB2zek1GrSZjjgnr4DiAGPCRTTBPM/edit?usp=sharing)
 - 3pm Open Working Time
 
