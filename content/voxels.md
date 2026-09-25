@@ -1,5 +1,5 @@
 ---
-title: "Volume rendering of Voxel based data"
+title: "Volume Rendering of Voxel Based Data"
 date: 2024-09-25
 draft: false
 layout: workshop
