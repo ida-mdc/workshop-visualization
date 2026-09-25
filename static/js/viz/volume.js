@@ -7,7 +7,7 @@
 // voxel.
 //
 // So the data goes to the GPU as one 3D texture and a ray is marched through
-// it per pixel, front to back, accumulating colour and opacity through a
+// it per pixel, front to back, accumulating color and opacity through a
 // transfer function. That is what every volume viewer the audience will
 // actually use does, which makes this the honest picture as well as the
 // cheaper one.
@@ -34,7 +34,7 @@ import { THREE, ramp } from './runtime.js';
  *   Slice        one sample, on one plane. Nothing hidden, nothing inferred.
  *   MIP          the brightest sample along the ray. Great for sparse bright
  *                structures, and it destroys depth order completely.
- *   Emission     accumulate colour and opacity front to back. What people
+ *   Emission     accumulate color and opacity front to back. What people
  *                mean by "volume rendering", and what the transfer function
  *                governs entirely.
  *   Isosurface   stop at the first sample over the threshold and shade it -
@@ -123,7 +123,7 @@ const FRAG = /* glsl */`
 
   // Central differences one voxel apart. The gradient of a scalar field is
   // the closest thing a volume has to a surface normal, and it is what makes
-  // the difference between a lit object and a coloured smudge.
+  // the difference between a lit object and a colored smudge.
   vec3 gradient(vec3 p) {
     return vec3(
       sampleAt(p + vec3(voxel.x, 0.0, 0.0)) - sampleAt(p - vec3(voxel.x, 0.0, 0.0)),
@@ -155,6 +155,27 @@ const FRAG = /* glsl */`
       return;
     }
 
+    // Start each ray a random fraction of a step in.
+    //
+    // Without this, every ray in the picture takes its samples on the same
+    // set of planes, and the surface a transfer function draws can only ever
+    // land on one of them. The error is the same for neighbouring pixels, so
+    // it does not look like noise - it looks like contour lines, and a head
+    // rendered this way comes out with the grain of a wood carving. People
+    // read those rings as anatomy, which is worse than an ugly picture.
+    //
+    // Breaking the alignment per pixel spends the same error on high
+    // frequency detail instead, where the eye reads it as surface texture.
+    // Every production volume renderer does this.
+    //
+    // Only the slice is left alone, because it takes one sample at a place
+    // the viewer chose and there is nothing to align. The other three all
+    // band, maximum intensity included - it misses the same peak in the same
+    // way for a whole run of neighbouring pixels.
+    float jitter = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233)))
+                         * 43758.5453);
+    p += stride * jitter;
+
     if (mode == MODE_MIP) {
       float peak = 0.0;
       for (float i = 0.0; i < steps; i += 1.0) {
@@ -162,7 +183,7 @@ const FRAG = /* glsl */`
         p += stride;
       }
       vec4 c = texture(transfer, vec2(peak, 0.5));
-      // Colour from the peak, but opacity still from the ramp, so the picture
+      // Color from the peak, but opacity still from the ramp, so the picture
       // fades out where a ray found nothing but noise.
       if (c.a <= 0.01) discard;
       outColor = vec4(c.rgb, 1.0);
@@ -177,7 +198,7 @@ const FRAG = /* glsl */`
           vec3 n = -normalize(gradient(p) + 1e-6);
           float lit = 0.32 + 0.68
             * max(0.0, dot(n, normalize(vec3(0.6, 0.8, 0.5))));
-          // A surface colour, not a transfer-function colour: the transfer
+          // A surface color, not a transfer-function color: the transfer
           // curve is tuned for accumulating along a ray, and its value at the
           // threshold is usually near-black - which would render the
           // isosurface as a silhouette.
@@ -248,7 +269,7 @@ const FRAG = /* glsl */`
 `;
 
 /**
- * The transfer function: colour from a ramp, opacity from a curve.
+ * The transfer function: color from a ramp, opacity from a curve.
  *
  * Two ways to give the opacity. `points` is a list of [value, alpha] anchors
  * interpolated linearly between - what VTK calls a piecewise function and
@@ -268,6 +289,19 @@ const FRAG = /* glsl */`
  * it is what keeps background noise as a haze instead of a wall, which is
  * the whole difference between seeing the specimen inside its volume and
  * seeing the volume.
+ *
+ * `window` is the radiologist's window and level, and it applies to the
+ * COLOR only. A stained micro-CT puts air at zero and soft tissue between
+ * about 0.1 and 0.5, with bone above that and nothing much in the top third -
+ * so a ramp spread evenly over 0 to 1 spends most of itself on values the
+ * specimen does not contain, and renders a frog as a dark smudge. Windowing
+ * to the range that is actually occupied is what every CT viewer does before
+ * it shows you anything.
+ *
+ * Opacity is deliberately NOT windowed. Thresholds and anchor points in this
+ * deck are quoted in data units, they are compared against numbers in
+ * scan.js, and a window that silently moved them would make every one of
+ * those numbers a lie.
  */
 function piecewise(points, v) {
   if (v <= points[0][0]) return points[0][1];
@@ -284,12 +318,15 @@ function piecewise(points, v) {
 
 export function transferLUT(stops, {
   threshold = 0.2, width = 0.08, density = 0.05, curve = 2.5, points = null,
+  window = null,
 } = {}) {
   const N = 256;
   const data = new Uint8Array(N * 4);
+  const [wlo, whi] = window || [0, 1];
+  const span = Math.max(whi - wlo, 1e-6);
   for (let i = 0; i < N; i++) {
     const v = i / (N - 1);
-    const c = ramp(stops, v);
+    const c = ramp(stops, Math.min(1, Math.max(0, (v - wlo) / span)));
     // With anchor points the opacity is read straight off the curve, which is
     // the only way to say "show this band and not the brighter one" - a single
     // rising shoulder can never hide something above what it shows.
@@ -313,12 +350,18 @@ export function transferLUT(stops, {
  * Split from transferLUT so that a scene drawing the curve for the reader and
  * the shader sampling it are looking at the same 256 numbers - a transfer
  * function plotted from a second implementation is a plot of something else.
+ *
+ * `opts.lut` hands over a finished 256-entry RGBA table instead, for the one
+ * case a ramp cannot express: a label field, where value 7 is object 7 and
+ * has no business being a shade between object 6 and object 8. Such a table
+ * is sampled with a nearest filter for the same reason.
  */
 export function transferTexture(stops, opts = {}) {
-  const data = transferLUT(stops, opts);
+  const data = opts.lut || transferLUT(stops, opts);
   const tex = new THREE.DataTexture(data, data.length / 4, 1);
-  tex.minFilter = THREE.LinearFilter;
-  tex.magFilter = THREE.LinearFilter;
+  const filter = opts.lut ? THREE.NearestFilter : THREE.LinearFilter;
+  tex.minFilter = filter;
+  tex.magFilter = filter;
   tex.needsUpdate = true;
   return tex;
 }
@@ -331,9 +374,10 @@ export function transferTexture(stops, opts = {}) {
  */
 export function makeVolume(parent, {
   shape, bounds, stops, threshold = 0.2, width = 0.08, density = 0.05,
-  curve = 2.5, points = null, steps = 150, shade = 1, edge = 0, ambient = 0.22,
-  interpolate = true, mode = MODES['Emission-absorption'], slice = 0,
-  isoColor = '#ffffff', texture: shared = null,
+  curve = 2.5, points = null, window = null, lut = null, steps = 150,
+  shade = 1, edge = 0, ambient = 0.22, interpolate = true,
+  mode = MODES['Emission-absorption'], slice = 0, isoColor = '#ffffff',
+  texture: shared = null,
 }) {
   const [nx, ny, nz] = shape;
   const [bx, by, bz] = bounds;
@@ -348,7 +392,7 @@ export function makeVolume(parent, {
     texture.type = THREE.UnsignedByteType;
     // Linear by default. Nearest shows the sampling grid honestly, but it
     // also makes the gradient stair-step, and without a usable gradient
-    // there is no lighting and the volume renders as a coloured smudge. The
+    // there is no lighting and the volume renders as a colored smudge. The
     // voxel-grid scene is where the lattice gets shown; here the job is to
     // look like a volume viewer.
     const filter = interpolate ? THREE.LinearFilter : THREE.NearestFilter;
@@ -361,7 +405,9 @@ export function makeVolume(parent, {
   const uniforms = {
     volume: { value: texture },
     transfer: {
-      value: transferTexture(stops, { threshold, width, density, curve, points }),
+      value: transferTexture(stops, {
+        threshold, width, density, curve, points, window, lut,
+      }),
     },
     steps: { value: steps },
     viewDir: { value: new THREE.Vector3(0, 0, -1) },
@@ -431,13 +477,15 @@ export function makeVolume(parent, {
      * Rebuild the transfer function.
      *
      * `stops` can be replaced too, for a scene that offers a choice of
-     * colormap - the isosurface colour follows the top of the ramp, since
-     * that is the one place the transfer function's own colour is no use.
+     * colormap - the isosurface color follows the top of the ramp, since
+     * that is the one place the transfer function's own color is no use.
      */
     retune(opts = {}) {
       const { stops: nextStops = stops, ...curveOpts } = opts;
       stops = nextStops;
-      const settings = { threshold, width, density, curve, points, ...curveOpts };
+      const settings = {
+        threshold, width, density, curve, points, window, lut, ...curveOpts,
+      };
       uniforms.transfer.value.dispose();
       uniforms.transfer.value = transferTexture(stops, settings);
       uniforms.threshold.value = settings.threshold;

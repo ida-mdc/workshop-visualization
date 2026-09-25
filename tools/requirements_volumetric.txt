@@ -1,0 +1,31 @@
+# Everything the volume rendering notebooks import.
+#
+#     uv venv --python 3.11
+#     uv pip install -r tools/requirements_volumetric.txt
+#
+# Just this session, not the whole workshop. The full environment is in
+# visualization_software/README.md; this file is here so that somebody who
+# only wants to follow the voxels notebooks does not have to install Blender's
+# and Meshlab's Python neighbours to do it.
+#
+# Unpinned on purpose. A workshop is taught once a year against whatever is
+# current, and a pinned set goes stale between editions in a way that is
+# harder to debug in a room than an API change is.
+
+# voxel_rendering_napari.ipynb
+napari[all]
+dask
+tifffile
+imageio
+
+# voxel_rendering_vtk.ipynb - the transfer function built by hand
+vtk
+
+# voxel_rendering_pygfx.ipynb - the same volume on the GPU through wgpu
+pygfx
+wgpu
+
+# shared
+numpy
+matplotlib
+jupyterlab

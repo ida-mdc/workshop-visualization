@@ -14,10 +14,10 @@
 import { THREE } from './runtime.js';
 
 /** Opacity levels, faintest to solid. */
-export const BUCKETS = [0.10, 0.22, 0.38, 0.58, 0.80, 1.0];
+export const BUCKETS = [0.04, 0.10, 0.22, 0.38, 0.58, 0.80, 1.0];
 
 /** Below this a voxel is not worth drawing at all. */
-export const MIN_ALPHA = 0.06;
+export const MIN_ALPHA = 0.03;
 
 /**
  * A smooth opacity ramp centred on `threshold`.
@@ -63,7 +63,7 @@ export function bucketedVoxels({ samples, size, colorFor }) {
     const mesh = new THREE.InstancedMesh(
       new THREE.BoxGeometry(size.x * f, size.y * f, size.z * f),
       // No vertexColors: three.js wires instanceColor up on its own, and
-      // asking for vertex colours on a BoxGeometry that has none makes the
+      // asking for vertex colors on a BoxGeometry that has none makes the
       // shader multiply by (0,0,0) - every voxel black.
       new THREE.MeshStandardMaterial({
         roughness: 0.55,
@@ -91,6 +91,45 @@ export function bucketedVoxels({ samples, size, colorFor }) {
 }
 
 /**
+ * The positions the volume holds a value at but has nothing to show for.
+ *
+ * A volume is a value at EVERY position in the block, and a threshold throws
+ * most of them away. Draw only what survives and the slide says "a volume is
+ * a data structure with holes in it", which is the one thing it is trying not
+ * to say - the specimen floats in a wireframe box with nothing between it and
+ * the walls, and the empty positions look like absent positions rather than
+ * like positions holding zero.
+ *
+ * So they are drawn, as one point each. Points and not cubes: at 68 across
+ * there are a quarter of a million of them, which is nothing as vertices and
+ * three million triangles as boxes - and a box big enough to see would hide
+ * the specimen behind a fog anyway. Small and faint, they read as the lattice
+ * carrying on into the dark, which is what they are.
+ *
+ * `positions` is flat x, y, z.
+ */
+export function emptyLattice(positions, {
+  color = '#8f9bb0', opacity = 0.085, size = 1.35,
+} = {}) {
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position',
+    new THREE.BufferAttribute(new Float32Array(positions), 3));
+  return new THREE.Points(geometry, new THREE.PointsMaterial({
+    color,
+    size,
+    // Screen-sized, not world-sized. These have to stay a speckle at every
+    // zoom; grown with the lattice they turn into the fog this is avoiding.
+    sizeAttenuation: false,
+    transparent: true,
+    opacity,
+    // Occluded by the specimen, but never occluding each other - a quarter
+    // of a million transparent points cannot be sorted and do not need to
+    // be.
+    depthWrite: false,
+  }));
+}
+
+/**
  * The wireframe box of the acquisition itself.
  *
  * `scale` shrinks it per axis, for the case where the viewer is ignoring the
@@ -98,12 +137,33 @@ export function bucketedVoxels({ samples, size, colorFor }) {
  * has to be wrong with it or the two disagree.
  */
 export function acquisitionBox(bounds, scale = { x: 1, y: 1, z: 1 }) {
-  return new THREE.LineSegments(
+  const box = new THREE.LineSegments(
     new THREE.EdgesGeometry(new THREE.BoxGeometry(
       2 * bounds.x * scale.x, 2 * bounds.y * scale.y, 2 * bounds.z * scale.z,
     )),
     new THREE.LineBasicMaterial({
-      color: '#9aa7b4', transparent: true, opacity: 0.55,
+      color: '#9aa7b4',
+      transparent: true,
+      opacity: 0.55,
+      // Never occludes the specimen, and never writes depth for it to be
+      // tested against - see the renderOrder below for the other half.
+      depthWrite: false,
     }),
   );
+  // Drawn before the volume it encloses.
+  //
+  // Both are transparent, so they share a queue that three sorts by distance
+  // from the camera - and a wireframe box and the volume inside it have the
+  // same centre, so the order between them was a coin toss that the box kept
+  // winning. A ray marched volume writes no depth, so nothing stopped the
+  // box's FAR edges from being painted over the specimen: four white wires
+  // apparently running across the front of a frog they are behind.
+  //
+  // Putting the box first lets the volume paint over whichever edges it
+  // covers, which is every edge behind it and the parts of the near edges
+  // that cross it. Losing a near edge where it crosses the specimen is the
+  // price, and it is much the smaller error: a wire that disappears behind
+  // a solid object is what a wire does.
+  box.renderOrder = -1;
+  return box;
 }

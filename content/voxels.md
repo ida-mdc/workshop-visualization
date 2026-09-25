@@ -6,152 +6,218 @@ layout: workshop
 type: page
 author: Deborah Schmidt
 author_position: Helmholtz Imaging | MDC Berlin
-description: Learn how to render voxel-based volumetric data using BigDataViewer (BDV) and tools built on top of BDV. 
-cover: img/bvv-magic.png
+description: A brief overview of how to render voxel based image datasets.
+cover: img/frog2.png
 ---
 
 
-## Visualizing volumetric datasets
+## Voxels
+
 {{< notes >}}
-Volumetric datasets, such as medical imaging (CT/MRI scans) or fluid simulations, are complex datasets where each voxel represents a value in 3D space. In this section, we'll explore the various techniques available for rendering and interacting with volumetric data. 
+A pixel has two dimensions, a voxel has three - think of it as a little cube.
+A 3D dataset is a block of them.
+
+All three blocks below are depicting a Argentine horned frog, scanned by computed tomography (head, tongue - which has impressive adhesive
+qualities, and a detail of the tongue).
 {{< /notes >}}
 
-- **Slice-Based Visualization**: This involves rendering 2D cross-sections or "slices" of the 3D dataset, often used in 
-  medical imaging.
-- **Volume raycasting** (max intensity, emission absorbtion)
+- A **grid-based data structure**: a value at every position in a discrete block
+- **Transparency** makes the shape - voxels outside a chosen intensity range are not drawn
+- **Voxel size** can differ per axis, and belongs in the metadata
 
-{{<horizontal>}}
-{{< figure src="img/volume-rendering.png" caption="Slicing, Max. Intensity, Emission Absorbtion">}}
-{{< figure src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Volume_ray_casting.svg/2560px-Volume_ray_casting.svg.png" caption="[Thetawavederivative work: Florian Hofmann, CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=14521474)">}}
-{{</horizontal>}}
+{{< scene name="voxel-cubes" height="400" hint="drag to turn all three" >}}
+
+{{< citations >}}
+- *Ceratophrys ornata*, iodine-stained micro-CT. [Kleinteich & Gorb](https://doi.org/10.5061/dryad.066mr), CC0
+{{< /citations >}}
 
 ---
 
-## Visualizing Voxel Data interactively with napari
+## Voxels
+### When the spacing is wrong
+
 {{< notes >}}
-With the rise of popularity of Python as a script and programming language in the life sciences and beyond, let's 
-look at Python based volumetric rendering in the tutorial linked below. We will start with Napari and later also look into VTK.
+When a dataset is acquired in slices, the slice thickness often differs from
+the pixel size within a slice. The result is anisotropic: the spacing between
+samples is not the same along every axis.
+
+That spacing lives in the metadata, not in the array. If it is not written
+down, or not read, the viewer draws cubes and the specimen comes out the wrong
+shape.
 {{< /notes >}}
 
-1. Install and activate environment ([guide](https://github.com/ida-mdc/workshop-visualization/tree/main/visualization_software))
-2. Download Notebook [voxel_rendering_napari.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_napari.ipynb) into workshop directory 
-3. Type `jupyter lab` and press `Enter`
-4. Open Notebook from list of files on the left side
-5. Run Cells in the Notebooks one by one by pressing `Shift` and `Enter`
+{{< scene name="voxel-spacing" height="400" hint="drag to turn all three" caption="Same data in the middle and on the right. Only the metadata differs." >}}
 
 ---
 
-## Visualizing volumetric datasets
-### Transfer functions
-{{< notes >}}
-When working with **unannotated** volumetric datasets, you can explore the data interactively using **transfer functions**. Transfer functions map intensity values in the dataset to colors and opacities, allowing you to visualize different regions of the volume without defining hard boundaries. This technique is often used for soft, exploratory visualizations of the internal structures of the data.
+## Ray casting
 
-**Transfer Functions**:
-- A transfer function defines how data values are mapped to colors and transparency.
-- Example: Low intensity values may be mapped to transparent regions, while higher intensities are mapped to visible colors.
-- Transfer functions are typically adjusted in visualization software like **ParaView**.
-- By adjusting transfer functions, you can emphasize specific parts of the volume without needing concrete borders or segmentations.
+Ray casting sends one ray from the camera through each pixel and records what
+it meets.
+
+{{< scene name="volume-raycasting" height="430" hint="drag to rotate" >}}
+
+---
+
+
+## Ray casting
+### What the shader does with the samples
+
+{{< notes >}}
+One dataset, one ray per pixel, four renderings. The only thing that differs
+between the panels is what the shader does with the samples a ray collected.
+
+The plots underneath are those same four operations on a single ray.
 {{< /notes >}}
 
-{{< horizontal >}}
+{{< scene name="volume-modes" height="430" hint="drag to turn" >}}
 
-{{< figure src="img/llustrative-volume-rendering-using-a-style-transfer-function-Images-a-d-depict.png">}}
-
-{{<figure src="img/transferfunction2.png" width="500px">}}
-
-{{< /horizontal >}}
-
-{{<citations>}}
-- Figure by Stefan Bruckner from the following publication: [Bruckner, Stefan & Gröller, Eduard. (2007). Style Transfer Functions for Illustrative Volume Rendering. Computer 
-  Graphics Forum. 26. 715 - 724. 10.1111/j.1467-8659.2007.01095.x.](https://www.researchgate.net/publication/227615609_Style_Transfer_Functions_for_Illustrative_Volume_Rendering)
-{{</citations>}}
+- Each is a **shader**, a small program run per pixel on the GPU - and more modes exist than these four
 
 ---
 
-## Rendering with VTK including Transfer Function adjustment
+## Transfer functions
+### Value in, color and opacity out
+
+{{< figure src="icons/transfer-function.svg" style="max-height: 36vh; width: auto" >}}
+
+
+A **transfer function** turns a voxel's value into a color and an opacity. The
+same lookup table is applied to every voxel in the volume. It includes:
+
+- A **color ramp** spanning the range the data occupies
+- An **opacity curve**, which decides what is visible and what is seen through
+
+---
+
+## Transfer functions
+### Examples
+
 {{< notes >}}
-VTK is a great tool for experimenting with visualizing a 3D data set using transfer functions. You can try it out with the following notebook.
+The same volume under four transfer functions. Nothing about the data changes
+between them; only which values are opaque and what color they take.
 {{< /notes >}}
 
-1. Install and activate environment ([guide](https://github.com/ida-mdc/workshop-visualization/tree/main/visualization_software))
-2. Download Notebook [voxel_rendering_vtk.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_vtk.ipynb) into workshop directory 
-3. Type `jupyter lab` and press `Enter`
-4. Open Notebook from list of files on the left side
-5. Run Cells in the Notebooks one by one by pressing `Shift` and `Enter`
+{{< scene name="volume-transfer" height="400" hint="drag to turn" >}}
 
 ---
 
-## Big Data Rendering
-### How can images be loaded partially and on demand?
+## Try it out
+### napari
+
+{{< notes >}}
+napari renders volumes on the GPU and is the quickest way to get one on
+screen.
+
+Drag the frog on, press the 2D/3D button, and try the rendering modes in the
+layer controls.
+{{< /notes >}}
+
+```bash
+uvx --from "napari[all]" napari
+```
 
 {{< horizontal >}}
 
 {{< block >}}
+Drag [frog-head.tif](https://github.com/ida-mdc/workshop-visualization/raw/main/example_data/ceratophrys-ornata/frog-head-256x256x195.tif) onto the window, then press
 
-- Image stored in chunks as files on disk
-- Image stored in different resolutions
-- Open Microscopy Environment specification format (OME-NGFF)
+{{< figure src="img/napari-3d-button.png" style="max-height: 7vh; width: auto" >}}
 
+and pick a **rendering** mode in the layer controls
 {{< /block >}}
 
-{{<figure src="img/resolution-pyramid.png" width="600">}}
+{{< figure src="img/napari-rendering-modes.png" style="max-height: 42vh; width: auto" >}}
 
 {{< /horizontal >}}
 
 ---
 
-## Big Data Rendering
-### BigDataViewer Ecosystem
+## Try it out
+### Jupyter notebooks
+
 {{< notes >}}
-Fiji is still choice number one for many who want to inspect an image quickly, mainly because it supports a vast 
-number of data formats. While Fiji can already render 3D data with its built in 3D Viewer, it also comes with 
-BigDataViewer (BDV), a great tool for arbitrary slicing of 3D data of any size. A whole ecosystem of tools based on BDV 
-has evolved over time, which we will explore in the tutorial linked below.
+VTK exposes the transfer function directly, so it is the option when the
+curve has to be built by hand.
 {{< /notes >}}
 
-- **Supports large data formats**: The BDV ecosystem can handle massive 3D datasets and allow arbitrary slicing.
+```bash
+uv venv .venv_volumetric --python 3.11
+uv pip install --python .venv_volumetric -r tools/requirements_volumetric.txt
+uv run --python .venv_volumetric jupyter lab
+```
 
-{{< tutorial-link link="volume-rendering-bdv" >}}
+- [voxel_rendering_napari.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_napari.ipynb) - the same viewer, driven from Python
+- [voxel_rendering_vtk.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_vtk.ipynb) - transfer functions by hand
 
 ---
 
-## Big Data Rendering
-## Streaming data locally
+## Challenges
+### Separating foreground from background
 
 {{< notes >}}
-For local visualization, you can use a **simple Python server** to serve your data locally to visualization tools which support streaming. This allows you to view your data without hosting it on a remote server. 
+A threshold separates foreground from background when their intensities are clearly separable. In the frog three quarters of the voxels are exactly zero.
+
+FIB-SEM is resin and stained membrane edge to edge, so every voxel is sample.
+Its histogram has no counts at zero, and no threshold separates the individual elements.
 {{< /notes >}}
 
-### With Python:
-- **Step 1**: Open your terminal and activate the [workshop environment](https://github.com/ida-mdc/workshop-visualization/tree/main/visualization_software)
-- **Step 2**: Download [this script](https://github.com/ida-mdc/workshop-visualization/tree/main/example_data/server.py) somewhere convenient.
-- **Step 3**: Navigate to your data: `cd workshop`
-- **Step 4**: Run the script: `python server.py`
-- **Step 2**: Open the **Neuroglancer demo page** and enter the local URL of your data (e.g., 
-  `zarr://http://localhost:8000/my-dataset.ome.zarr`).
+{{< block >}}
+- A threshold works when there **is** a background
+- Some datasets have none - FIB-SEM is resin, stain and membrane, edge to edge
+- **No transfer function fixes this** - it requires a preprocessing step
+{{< /block >}}
+
+{{< horizontal >}}
+
+{{< figure src="img/fibsem-slice-histogram.png" >}}
+
+{{< scene name="fibsem-block" height="400" hint="drag to rotate" >}}
+
+{{< /horizontal >}}
+
+{{< citations >}}
+- FIB-SEM of a mouse pancreatic islet, `jrc_mus-pancreas-1`: [Xu, Pang, Bennett, Mueller, Solimena & Hess (2020)](https://doi.org/10.25378/janelia.13114499), CC BY 4.0, via [OpenOrganelle](https://openorganelle.janelia.org/datasets/jrc_mus-pancreas-1) · see also [Müller et al. (2021)](https://doi.org/10.1083/jcb.202010039)
+{{< /citations >}}
 
 ---
 
-## Big Data Rendering
-### Providing data 
+## Challenges
+### Denoising and segmentation, before rendering
+
 {{< notes >}}
-If we share data via web protocol, e.g. HTTP, we can use web tools such as the OME NGFF Validator to inspect the metadata and format of our OME ZARRs.  
+Denoising estimates the signal underneath a noisy acquisition. Segmentation
+assigns each voxel to an object, so the volume carries labels.
+
+Both run before the volume reaches a viewer. A label volume is drawn as
+objects with a shape and a color, and the transfer function no longer has to
+separate them.
+
+The panels are one block as acquired, denoised and segmented. The nuclei on
+the left are hard to pick out at all; after denoising they are round and
+separate.
 {{< /notes >}}
 
-1. Open https://ome.github.io/ome-ngff-validator/
-2. Either open one of their example URLs, or..
-3. .. attach your data URL to the validator URL: https://ome.github.io/ome-ngff-validator/?source=http://0.0.0.0:8080/my-dataset.ome.zarr 
+{{< scene name="volume-upstream" height="400" hint="drag to turn" >}}
+
+- **[nnInteractive](https://github.com/MIC-DKFZ/nnInteractive)** for your own volumes: a point, a scribble or a box on one 2D slice gives a full 3D mask you can correct, in napari, MITK or 3D Slicer
+
+{{< citations >}}
+- Tribolium at low laser power, [CARE example data](https://doi.org/10.1038/s41592-018-0216-7), Weigert et al. · denoised with [UniFMIR](https://bioimage.io/#/?id=decisive-panda) (fine-tuned on this dataset, CC BY 4.0) · segmented with [Cellpose 3](https://doi.org/10.1038/s41592-025-02595-5)
+{{< /citations >}}
 
 ---
 
-## Visualizing volumetric datasets
-### Web based rendering with Neuroglancer
+## Challenges
+### When it does not fit in memory
+
 {{< notes >}}
-A web-based 3D viewer allows for interactive visualization directly in the browser without needing specialized software. These viewers can be embedded into web pages or shared with collaborators. 
-The following tutorial does not come with a full overview of existing web based viewers, but offers insight into a 
-project we are working on at MDC where we utilize Neuroglancer to display large scale mice brains online. 
+Light-sheet and volume EM produce hundreds of gigabytes, well beyond graphics
+memory.
+
+The answer is a different data layout and viewers that load on demand.
 {{< /notes >}}
 
-- **Collaboration-friendly**: Share URLs with collaborators to provide access to the 3D visualization.
-
-{{< tutorial-link link="volume-rendering-neuroglancer" >}}
+{{< horizontal >}}
+{{< tutorial-link link="large-data" >}}
+{{< /horizontal >}}

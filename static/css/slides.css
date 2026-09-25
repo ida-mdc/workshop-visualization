@@ -125,10 +125,70 @@
   max-height: 56vh;
 }
 
-/* The three panel captions. Base styling lives in the runtime's own CSS so
- * it applies everywhere; only the deck's size is set here. */
+/* The panel captions. Base styling lives in the runtime's own CSS so it
+ * applies everywhere; only the deck's size is set here.
+ *
+ * 0.4em was a caption size chosen when these strips carried a paragraph
+ * each. They carry a phrase now, and a phrase on a slide has to be readable
+ * from the back of the room like everything else on it. */
 .reveal .slides section .viz3d-panels {
-  font-size: 0.4em;
+  font-size: 0.62em;
+}
+
+
+/* A row of text UNDER an illustration, rather than beside it.
+ *
+ * The horizontal shortcode brackets its row with two `.flex` spacers, which
+ * are `flex: 1` and exist to centre a row that is the whole slide. On a slide
+ * that also holds a scene they are competing with the illustration for the
+ * same spare pixels, and they win twice over - so three captions sat pinned
+ * to the bottom of the slide with a third of it blank above them and the
+ * illustration squashed to its 140px floor.
+ *
+ * The child combinator matters. Several slides in the overview put the scene
+ * INSIDE the horizontal row, and there the row really is the whole slide and
+ * the spacers are doing their job. Only a scene that is a sibling of the row
+ * is competing with it.
+ */
+.reveal .slides section:has(> .viz3d-figure) > .flex {
+  flex: 0 0 0;
+}
+
+/* The citations shortcode pushes itself to the bottom of the slide the same
+ * way, with an empty `flex: 1` div of its own rather than a classed one. On
+ * a slide with a scene that spacer and the illustration split the free space
+ * between them, so the illustration ends up at half the height it could
+ * have had, with a band of white underneath it. `:empty` is what keeps this
+ * off anything that is actually content.
+ *
+ * `!important` because that spacer carries its flex as an inline style, and
+ * an inline style beats any selector a stylesheet can write. The classed
+ * spacer above needs no such thing. */
+.reveal .slides section:has(> .viz3d-figure) > div[style]:empty {
+  flex: 0 0 0 !important;
+}
+
+/* ...and once they stop taking it, the figure takes all of it instead. The
+ * figure is `flex: 1` so that it fills a slide it has to itself, and capping
+ * the placeholder inside it does not stop the figure growing - it just
+ * leaves the spare pixels stranded below the illustration and inside the
+ * figure, with the captions still pinned to the bottom of the slide.
+ *
+ * So the figure is sized to its contents here, and the illustration is given
+ * a height rather than a ceiling. 34vh, in vh so that it scales with the
+ * projector, leaves room under it for the transfer curves, the panel labels
+ * and a line of slide text per column without any of them meeting the
+ * footer.
+ */
+.reveal .slides section:has(> .viz3d-figure):has(> .horizontal)
+  > .viz3d-figure {
+  flex: 0 0 auto;
+}
+
+.reveal .slides section:has(> .viz3d-figure):has(> .horizontal) .viz3d {
+  height: 34vh;
+  max-height: 34vh;
+  min-height: 0;
 }
 
 /* An illustration sharing a row with its bullets.
@@ -400,40 +460,40 @@ section .horizontal > figure.viz3d-figure {
  *
  * The reader should get what the room gets: the picture first, the answers
  * beside it afterwards. js/guesses.js adds the button and flips
- * `data-guesses`; the columns go either side of the illustration here.
+ * `data-reveal`; the columns go either side of the illustration here.
  *
  * Grid on the section, because the shortcode emits the two columns as
  * siblings of the figure with no wrapper to make a row out of - and a
  * wrapper would have to be remembered in the markdown every time. Row 1 is
  * the heading, row 2 the three columns, row 3 the button.
  */
-.scroll section[data-guesses] {
+.scroll section:has(.guesses) {
   display: grid;
   grid-template-columns: 1fr minmax(0, 1.7fr) 1fr;
   column-gap: 1.5rem;
   align-items: center;
 }
 
-.scroll section[data-guesses] > * { grid-column: 1 / -1; }
+.scroll section:has(.guesses) > * { grid-column: 1 / -1; }
 
-.scroll section[data-guesses] > .viz3d-figure {
+.scroll section:has(.guesses) > .viz3d-figure {
   grid-column: 2;
   grid-row: 2;
 }
 
-.scroll section[data-guesses] > .guesses--left {
+.scroll section:has(.guesses) > .guesses--left {
   grid-column: 1;
   grid-row: 2;
 }
 
-.scroll section[data-guesses] > .guesses--right {
+.scroll section:has(.guesses) > .guesses--right {
   grid-column: 3;
   grid-row: 2;
   text-align: right;
 }
 
 /* Hidden, not absent: revealing the answers must not move the flower. */
-.scroll section[data-guesses="hidden"] .guesses {
+.scroll section[data-reveal="hidden"] .guesses {
   visibility: hidden;
 }
 
@@ -463,7 +523,7 @@ section .horizontal > figure.viz3d-figure {
   background: #e1462c;
 }
 
-/* The sentence that says what the slide was for.
+/* A sentence the reader gets after asking for it.
  *
  * Hidden by default, so it is absent from the deck however it is reached -
  * there the speaker makes this point out loud, and a paragraph under the
@@ -471,11 +531,11 @@ section .horizontal > figure.viz3d-figure {
  * answers, for the same reason the answers wait: the reader should have
  * looked before being told what the looking proved.
  */
-.guesses-note {
+.reveal-note {
   display: none;
 }
 
-.scroll section[data-guesses="shown"] .guesses-note {
+.scroll section[data-reveal="shown"] .reveal-note {
   display: block;
   grid-column: 1 / -1;
   grid-row: 3;
@@ -484,7 +544,7 @@ section .horizontal > figure.viz3d-figure {
   margin: 0.5rem 0 1.5rem;
 }
 
-.guesses-note p {
+.reveal-note p {
   margin: 0;
 }
 

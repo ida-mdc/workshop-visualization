@@ -47,8 +47,13 @@ export function spreadPanels(camera, panels) {
  * so it grows and shrinks with the frustum and ends up either unreadable or
  * enormous - and a label describing a picture has no business living inside
  * the space the picture is of.
+ *
+ * Numbered by default, because most of these strips are a sequence and the
+ * prose around them refers to "panel 2". Pass `numbered: false` where the
+ * panels are alternatives rather than steps - a number there is one more
+ * thing on the slide that means nothing.
  */
-export function panelStrip(el, labels) {
+export function panelStrip(el, labels, { numbered = true } = {}) {
   const strip = document.createElement('div');
   strip.className = 'viz3d-panels';
   strip.style.gridTemplateColumns = `repeat(${labels.length}, 1fr)`;
@@ -59,7 +64,7 @@ export function panelStrip(el, labels) {
     // down the slide that the reader has to pair up by hand.
     const { title, body } = typeof entry === 'string' ? { title: entry } : entry;
     const cell = document.createElement('span');
-    cell.innerHTML = `<b>${i + 1}</b> ${title}`
+    cell.innerHTML = (numbered ? `<b>${i + 1}</b> ` : '') + title
       + (body ? `<i class="viz3d-panel-body">${body}</i>` : '');
     strip.appendChild(cell);
   }
@@ -77,8 +82,17 @@ export function panelStrip(el, labels) {
  *
  * Returns one 2D context per panel, already scaled for the device pixel
  * ratio, plus a `resize` to call if the illustration changes width.
+ *
+ * Pass `draw` and the plots redraw themselves whenever the strip changes
+ * size, which is the difference between these appearing in the deck and not.
+ * A canvas whose backing store is resized is also cleared, and in the deck
+ * every slide but the current one is `display: none` - so a scene that drew
+ * its plots once, on load, drew them into a canvas of zero width, and by the
+ * time the slide was shown and given a real width there was nothing left to
+ * put the drawing back. Resizing the window was the only thing that did, and
+ * nobody resizes a window mid-talk.
  */
-export function panelPlots(el, count, { height = 52 } = {}) {
+export function panelPlots(el, count, { height = 52, draw = null } = {}) {
   const strip = document.createElement('div');
   strip.className = 'viz3d-plots';
   strip.style.gridTemplateColumns = `repeat(${count}, 1fr)`;
@@ -105,6 +119,14 @@ export function panelPlots(el, count, { height = 52 } = {}) {
     });
   }
   resize();
+
+  if (draw && typeof ResizeObserver !== 'undefined') {
+    // The first callback arrives as soon as the strip is laid out, which is
+    // also the first moment there is anything to draw into - so this doubles
+    // as the initial draw for a scene whose data was ready too early.
+    new ResizeObserver(() => draw()).observe(strip);
+  }
+
   return { contexts, canvases, resize, strip };
 }
 
@@ -121,6 +143,13 @@ export function panelPlots(el, count, { height = 52 } = {}) {
  * well as the panels, so they walk out of the caption grid underneath them -
  * and a row that no longer lines up with its labels is worse than a row you
  * cannot zoom.
+ *
+ * The camera is no help in aiming any of this. Tilting it away from
+ * horizontal tilts the axis the panels are spread along with it, and the row
+ * comes out marching diagonally down the slide; near the poles the up vector
+ * is degenerate and the strip picks an arbitrary rotation on top of that. A
+ * scene whose specimen needs to start at some other angle puts a rotated
+ * group inside each panel and leaves this alone - see volume-modes.js.
  */
 export function panelOrbit(ctx, panels) {
   const drag = { on: false, x: 0, y: 0 };
@@ -161,7 +190,7 @@ export function panelOrbit(ctx, panels) {
 }
 
 /**
- * Colours for the illustrations.
+ * Colors for the illustrations.
  *
  * Anchored on the theme's red and blue so a scene sits in the deck rather than
  * on top of it, then extended with hues that hold up next to them. The tints
@@ -232,7 +261,18 @@ export function clearGroup(group) {
 export function makeLabel(text, {
   color = '#232430', size = 15, weight = 600, padding = 6, scale = 0.09,
 } = {}) {
+  // Rendered four times larger than it is drawn, and that is not the same
+  // thing as the device pixel ratio.
+  //
+  // `sizeAttenuation: false` sizes this sprite as a fraction of the
+  // VIEWPORT, so on a 1080-tall slide a 0.075 label is about forty pixels
+  // high however far away it is anchored. The texture used to be made at
+  // the nominal font size times the device ratio - twenty-odd pixels on an
+  // ordinary screen - and was then stretched up to fill those forty, which
+  // is what made the words in the ray casting scene look soft. Supersampling
+  // costs one small texture per label and nothing per frame.
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const ss = 4 * dpr;
   const font = `${weight} ${size}px ui-sans-serif, system-ui, sans-serif`;
   const measure = document.createElement('canvas').getContext('2d');
   measure.font = font;
@@ -240,10 +280,10 @@ export function makeLabel(text, {
   const h = Math.ceil(size * 1.5) + padding;
 
   const canvas = document.createElement('canvas');
-  canvas.width = Math.ceil(w * dpr);
-  canvas.height = Math.ceil(h * dpr);
+  canvas.width = Math.ceil(w * ss);
+  canvas.height = Math.ceil(h * ss);
   const g = canvas.getContext('2d');
-  g.scale(dpr, dpr);
+  g.scale(ss, ss);
   g.font = font;
   g.textBaseline = 'middle';
   g.fillStyle = color;
@@ -252,6 +292,11 @@ export function makeLabel(text, {
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.anisotropy = 4;
+  // The texture is bigger than the sprite, so it is always minified - a
+  // linear filter without mipmaps is what keeps the strokes crisp rather
+  // than averaging them into grey.
+  tex.minFilter = THREE.LinearFilter;
+  tex.generateMipmaps = false;
   const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
     map: tex, transparent: true, sizeAttenuation: false, depthTest: false,
     depthWrite: false,
@@ -351,13 +396,16 @@ const CSS = `
    caption underneath the footer. Let it take what is left instead. */
 .reveal .viz3d { min-height: 140px; }
 .viz3d:active { cursor: grabbing; }
+/* The panel's name is what a reader looks for first, so it is the clearest
+   text in the strip. */
 .viz3d-panels { display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 0 1rem; margin: 2px 0 0; font-size: 11px; line-height: 1.3;
-  letter-spacing: 0.04em; text-transform: uppercase; color: #6a6a78; }
+  gap: 0 1rem; margin: 4px 0 0; font-size: 13px; line-height: 1.3;
+  font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #24252f; }
 .viz3d-panels span { text-align: center; }
 .viz3d-panels .viz3d-panel-body { display: block; margin: 5px auto 0; max-width: 34ch;
   font-style: normal; text-transform: none; letter-spacing: normal;
-  font-size: 12.5px; line-height: 1.45; color: #40414c; }
+  font-weight: 400; font-size: 12.5px; line-height: 1.45; color: #4c4e59; }
 .viz3d-panels b { color: #a8a8b2; margin-right: 0.35em; }
 .viz3d-plots { display: grid; gap: 0 1rem; margin: 6px 0 0; }
 .viz3d-plots canvas { width: 100%; display: block; }
@@ -665,10 +713,11 @@ function frame(now) {
     inst.controls.update();
     if (inst.api && inst.api.tick) inst.api.tick(t, inst);
 
-    // A scene can take over drawing entirely. Nothing does at the moment -
-    // the triptych this was built for now spreads its panels with one
-    // camera - so this is an extension point with no users. The rectangle
-    // it gets is the canvas, which is now the whole of the scene's box.
+    // A scene can take over drawing entirely. The acquisition triptychs do,
+    // in acquisition.js: one of their three panels is drawn in perspective
+    // while the other two stay orthographic, which is two passes over
+    // sub-rectangles of the same box. The rectangle they get is the canvas,
+    // which since every scene has its own is the whole of the scene's box.
     if (inst.api && inst.api.draw) {
       inst.api.draw(renderer, { left: 0, bottom: 0, width: cw, height: ch },
         inst);
@@ -993,7 +1042,7 @@ function mount(el, setup) {
      * illustration that has to be drawn in more than one pass, with more
      * than one camera over sub-rectangles of the same box.
      *
-     * No scene uses this. The triptych did, and no longer does.
+     * Used by the acquisition triptychs, via acquisition.js.
      */
     onDraw(fn) {
       if (!inst.api) inst.api = {};

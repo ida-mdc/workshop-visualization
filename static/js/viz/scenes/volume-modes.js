@@ -11,18 +11,27 @@
 // all four together.
 //
 // Under each panel is the same thing again in one dimension: the intensity a
-// single ray actually meets crossing this head, front to back, and what the
-// mode does with it. That profile is read out of the volume, not drawn by
-// hand - air, skin, skull, brain, skull, skin, air - so the four little plots
-// and the four big pictures are two views of one operation.
+// single ray actually meets crossing the frog, and what the mode does with
+// it. That profile is read out of the volume, not drawn by hand - air, skin,
+// the stained soft tissue, a bone, and out the other side - so the four
+// little plots and the four big pictures are two views of one operation.
 
 import {
   defineScene, THREE, panelStrip, panelPlots, spreadPanels, panelOrbit,
 } from '../runtime.js';
 import { makeVolume, MODES } from '../volume.js';
-import { loadHead, SHAPE, BOUNDS } from '../head.js';
+import { loadScan, SHAPE, BOUNDS, BANDS, WINDOW } from '../scan.js';
 
+// Keyed by the names MODES uses, so the shader a panel gets is looked up by
+// this same string. What the strip prints comes from LABELS.
 const ORDER = ['Slice', 'MIP', 'Emission-absorption', 'Isosurface'];
+
+const LABELS = {
+  Slice: 'slice',
+  MIP: 'maximum intensity projection',
+  'Emission-absorption': 'emission-absorption',
+  Isosurface: 'isosurface',
+};
 
 /** Warm greys through to white - a radiology palette, not a pretty one. */
 const STOPS = ['#0d1017', '#3f4654', '#8d8a86', '#ded6c8', '#ffffff'];
@@ -36,17 +45,18 @@ const HOT = '#e1462c';
 const TEAL = '#1f7a8c';
 
 /**
- * The intensity one ray meets crossing the head front to back.
+ * The intensity one ray meets crossing the frog, side to side.
  *
- * Taken out of the volume at eye level on the midline, so the profile is the
- * real thing: air, the bright skin and fat, the dark skull, the brain, and
- * out the other side. Every plot below is this same curve - only what the
- * mode does with it changes.
+ * Taken across the shoulders rather than down the middle, because that line
+ * crosses skin, a long run of stained muscle and one limb bone on its way
+ * through - so the curve has the shape the four modes have something to
+ * disagree about. Every plot below is this same curve; only what the mode
+ * does with it changes.
  */
 function sampleRay(data) {
   const [nx, ny, nz] = SHAPE;
-  const j = Math.round(0.46 * ny);
-  const k = Math.round(0.50 * nz);
+  const j = Math.round(0.55 * ny);
+  const k = Math.round(0.30 * nz);
   const out = new Float32Array(SAMPLES);
   for (let s = 0; s < SAMPLES; s++) {
     const i = Math.min(nx - 1, Math.round((s / (SAMPLES - 1)) * (nx - 1)));
@@ -57,13 +67,23 @@ function sampleRay(data) {
 
 /** The opacity this scene's transfer function gives a sample. */
 function alphaOf(v) {
-  const w = 0.07;
+  const w = WIDTH;
   const t = Math.min(1, Math.max(0, (v - (THRESHOLD - w)) / (2 * w)));
   return t * t * (3 - 2 * t) * DENSITY;
 }
 
-const THRESHOLD = 0.32;
-const DENSITY = 0.5;
+// Just above the skin, so the isosurface closes over the animal instead of
+// over the noise around it, and the emission ramp opens where the specimen
+// starts.
+const THRESHOLD = BANDS.skin + 0.04;
+const WIDTH = 0.06;
+
+// One sample is worth a tenth, not a half. At a half a ray saturates two
+// samples into the skin and every pixel of the emission panel is the color
+// of skin - a black frog-shaped hole. A tenth lets a ray cross a centimetre
+// of the animal before it fills up, so what comes out is the average of what
+// is in there rather than the color of the first thing it touched.
+const DENSITY = 0.1;
 
 /**
  * One ray, and what each mode keeps of it.
@@ -79,7 +99,11 @@ function drawRay(g2d, w, h, profile, mode) {
   const y = (v) => base - v * (base - top);
 
   g2d.clearRect(0, 0, w, h);
-  g2d.font = '600 14px Urbanist, sans-serif';
+  // Sized against the canvas, not in fixed pixels. A panel is 300 px wide on
+  // the scrolling page and 480 on a 1080p projector, and a caption locked to
+  // 14 px is legible in the first and invisible in the second.
+  g2d.font = `600 ${Math.round(Math.min(26, Math.max(15, w / 21)))}px `
+    + 'Urbanist, sans-serif';
   g2d.textBaseline = 'alphabetic';
 
   // The profile, always.
@@ -100,14 +124,14 @@ function drawRay(g2d, w, h, profile, mode) {
   g2d.lineTo(w - pad, base);
   g2d.stroke();
 
-  const dot = (s, v, colour) => {
-    g2d.fillStyle = colour;
+  const dot = (s, v, color) => {
+    g2d.fillStyle = color;
     g2d.beginPath();
     g2d.arc(x(s), y(v), 4, 0, Math.PI * 2);
     g2d.fill();
   };
-  const label = (text, px, colour, align = 'center') => {
-    g2d.fillStyle = colour;
+  const label = (text, px, color, align = 'center') => {
+    g2d.fillStyle = color;
     g2d.textAlign = align;
     g2d.fillText(text, px, h - 5);
   };
@@ -121,7 +145,7 @@ function drawRay(g2d, w, h, profile, mode) {
     g2d.lineTo(x(s), base);
     g2d.stroke();
     dot(s, profile[s], HOT);
-    label('one sample, the rest ignored', w / 2, HOT);
+    label('one sample at a chosen depth', w / 2, HOT);
     return;
   }
 
@@ -140,13 +164,13 @@ function drawRay(g2d, w, h, profile, mode) {
     g2d.stroke();
     g2d.setLineDash([]);
     dot(at, peak, HOT);
-    label('the largest of all of them', w / 2, HOT);
+    label('the largest sample along the ray', w / 2, HOT);
     return;
   }
 
   if (mode === 2) {                                   // emission-absorption
     // The accumulation, on the same axes: every sample adds a little until
-    // the ray is opaque and the rest of the head stops mattering.
+    // the ray is opaque and the rest of the animal stops mattering.
     let acc = 0;
     let closed = -1;
     g2d.beginPath();
@@ -165,7 +189,7 @@ function drawRay(g2d, w, h, profile, mode) {
       g2d.fillStyle = 'rgba(180, 186, 196, 0.30)';
       g2d.fillRect(x(closed), top, w - pad - x(closed), base - top);
     }
-    label('every sample adds, until the ray is full', w / 2, TEAL);
+    label('each sample adds, until the ray is opaque', w / 2, TEAL);
     return;
   }
 
@@ -187,48 +211,35 @@ function drawRay(g2d, w, h, profile, mode) {
     g2d.fillRect(x(hit), top, w - pad - x(hit), base - top);
     dot(hit, profile[hit], HOT);
   }
-  label('the first crossing; the rest is light', w / 2, HOT);
+  label('the first sample above the threshold', w / 2, HOT);
 }
 
-defineScene('head-modes', (ctx) => {
+defineScene('volume-modes', (ctx) => {
   const { scene, projection, frustum, view, controls } = ctx;
   const camera = projection('orthographic');
-  frustum(1.25, 5.0);
-  view(-1.7, 0.45, 3.4);
+  frustum(1.18, 5.2);
+  // Level, and looking straight at the row. Where the frog faces is the
+  // tilt group's job, below.
+  view(0, 0, 3.4);
   // OrbitControls would swing the outer panels through depth; panelOrbit
   // turns each panel in place instead.
   controls.enabled = false;
   for (let i = 1; i <= ORDER.length; i++) camera.layers.enable(i);
 
-  panelStrip(ctx.el, [
-    {
-      title: 'slice',
-      body: 'One sample on one plane, perpendicular to the view - so turning '
-        + 'the volume cuts a new plane. The only mode that still shows you '
-        + 'the background.',
-    },
-    {
-      title: 'maximum intensity',
-      body: 'The brightest sample along each ray. Superb for sparse bright '
-        + 'structures, and it throws away depth order entirely - nothing '
-        + 'here says which of two things is in front.',
-    },
-    {
-      title: 'emission-absorption',
-      body: 'Colour and opacity accumulated front to back. What people mean '
-        + 'by "volume rendering", and governed entirely by the transfer '
-        + 'function.',
-    },
-    {
-      title: 'isosurface',
-      body: 'Stops at the first sample over the threshold and shades it. A '
-        + 'surface, with no mesh ever built - and only as trustworthy as the '
-        + 'threshold.',
-    },
-  ]);
+  // The strip is dark, because these four are dark renderings. On white the
+  // background of a slice is a black rectangle sitting in a white slide, and
+  // the three volume renderings lose their faint ends into the page.
+  ctx.el.style.background = '#101319';
+
+  // Titles only. Each panel already carries a caption inside its plot saying
+  // what that mode does with the ray; a paragraph underneath as well made
+  // three layers of text per panel, all of it small.
+  panelStrip(ctx.el, ORDER.map((n) => LABELS[n]), { numbered: false });
 
   const panels = [];
-  const plots = panelPlots(ctx.el, ORDER.length, { height: PLOT_HEIGHT });
+  const plots = panelPlots(ctx.el, ORDER.length, {
+    height: PLOT_HEIGHT, draw: () => redraw(),
+  });
   let profile = null;
 
   function redraw() {
@@ -240,9 +251,7 @@ defineScene('head-modes', (ctx) => {
       drawRay(g2d, clientWidth, PLOT_HEIGHT, profile, i);
     });
   }
-  window.addEventListener('resize', redraw);
-
-  loadHead().then((texture) => {
+  loadScan().then((texture) => {
     profile = sampleRay(texture.image.data);
     redraw();
     ORDER.forEach((name, i) => {
@@ -250,14 +259,26 @@ defineScene('head-modes', (ctx) => {
       scene.add(panel);
       panels.push(panel);
 
-      const volume = makeVolume(panel, {
+      // The frog lies on its back inside the panel. The scan is sliced
+      // dorsal to ventral, so its y axis is the animal's thickness; a
+      // quarter turn about x points that at the camera and what the panel
+      // shows is a frog's back, which is the view of a frog nobody has to be
+      // told about. It is a group inside the panel rather than a starting
+      // angle on panelOrbit, so dragging still starts from level and the
+      // spread stays a row - see panelOrbit for why the camera cannot do it.
+      const tilt = new THREE.Group();
+      tilt.rotation.x = Math.PI / 2;
+      panel.add(tilt);
+
+      const volume = makeVolume(tilt, {
         shape: SHAPE,
         bounds: BOUNDS,
         stops: STOPS,
         texture,
         threshold: THRESHOLD,
         density: DENSITY,
-        width: 0.07,
+        width: WIDTH,
+        window: WINDOW,
         curve: 1,
         steps: 180,
         // Unlit, so the difference between the panels is the mode and
