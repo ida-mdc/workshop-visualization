@@ -53,6 +53,7 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
 
 ## Thursday
 - 10am **VR Showcase**
+  - [Slides]({{< ref "vr-showcase.md" >}})
 - 10:30am Open Working Time
 - 1pm Lunch
 - 3pm **Presentation & Feedback**
