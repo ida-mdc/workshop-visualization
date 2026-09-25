@@ -41,8 +41,7 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
 - 2:15pm **Point Clouds Demo**
   - [Slides]({{< ref "point-clouds.md" >}})
 - 2:30pm **Vector Fields**
-  <!-- TODO link the vector fields slides here once content/vector-fields.md is committed -->
-  - [Slides](https://docs.google.com/presentation/d/1UfsegcYlMT454YMB2zek1GrSZjjgnr4DiAGPCRTTBPM/edit?usp=sharing)
+  - [Slides](https://docs.google.com/presentation/d/1-1JZgfX_mI7O-hc0a87jiUeIkjSDVrHvkAye3upBfI8/edit?usp=sharing)
 - 3pm Open Working Time
 
 
@@ -53,6 +52,7 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
 
 ## Thursday
 - 10am **VR Showcase**
+  - [Slides]({{< ref "vr-showcase.md" >}})
 - 10:30am Open Working Time
 - 1pm Lunch
 - 3pm **Presentation & Feedback**
