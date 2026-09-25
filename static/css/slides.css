@@ -606,3 +606,22 @@ hidden {
   font-size: 0.4em;
   color: #9a9aa4;
 }
+
+/* The page description on the title slide.
+ *
+ * The theme puts it in `aside.notes`, which shows on the scrolling page and
+ * which reveal hides. It carries the credit for the cover image, so it has to
+ * be readable in both views. Scoped to the first section: every other `.notes`
+ * on the deck is a speaker note and stays hidden.
+ */
+.reveal .slides > section:first-child aside.notes {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 40px;
+  margin-top: 0.5em;
+  font-size: 0.38em;
+  line-height: 1.5;
+  text-align: left;
+  color: #b9bec7;
+}

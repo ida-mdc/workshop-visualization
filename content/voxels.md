@@ -1,12 +1,12 @@
 ---
 title: "Volume Rendering of Voxel Based Data"
-date: 2024-09-25
+date: 2026-09-24
 draft: false
 layout: workshop
 type: page
 author: Deborah Schmidt
 author_position: Helmholtz Imaging | MDC Berlin
-description: A brief overview of how to render voxel based image datasets.
+description: "A brief overview of how to render voxel based image datasets. Cover image: iodine-stained micro-CT of Ceratophrys ornata, Kleinteich & Gorb 2015, CC0."
 cover: img/frog2.png
 ---
 
