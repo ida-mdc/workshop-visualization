@@ -21,7 +21,7 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
   - [Slides](https://ida-mdc.gitlab.io/workshops/prevalidation/overview/) TODO change link
 - 3:45pm Coffee
 - 4:15pm **Volumetric Data Rendering**
-  - [Overview Slides]({{< ref "voxels.md" >}}) TODO review
+  - [Overview Slides]({{< ref "voxels.md" >}})
   - [Volume Rendering BigDataViewer / MoBie]({{< ref "volume-rendering-bdv.md" >}}) TODO review
   <!-- TODO link the browser rendering page here once content/browser-rendering.md is committed -->
   - Notebook: [voxel_rendering_napari.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_napari.ipynb)

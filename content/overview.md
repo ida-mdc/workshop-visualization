@@ -23,12 +23,13 @@ Gemini: a mushroom cloud, an explosion
 {{< /guesses >}}
 
 {{< guesses title="What people said" side="right" >}}
-Thomas: a flower
+Thomas: a flower or palm
 Inga: a flower
 Artür: a flower
 Maria: a flower
 Martin: flowers
 Dante: a flower
+Matthias & Rob: a flower
 {{< /guesses >}}
 
 {{< reveal-note >}}
@@ -321,7 +322,7 @@ will not open in a viewer that expects a plain array.
 1. **Application** - you assemble the scene: geometry, camera, lights, materials
 2. **Geometry** - place every vertex in the world, project it onto the image plane
 3. **Rasterization** - which pixels does each primitive cover?
-4. **Pixel processing** - what colour is each of those pixels: lighting, texture, depth, blending
+4. **Pixel processing** - what color is each of those pixels: lighting, texture, depth, blending
 {{< /notes >}}
 
 {{< horizontal >}}
@@ -375,9 +376,11 @@ Some terms come up repeatedly in the context of 3D rendering:
 
 - **Shader** - a small program that runs on the GPU, once per vertex or once
   per pixel.
-- **Rasterization** - for each triangle, which pixels does it cover? This is step of mapping freely positioned 3D objects onto a raster.
-- **Ray tracing** - for each pixel, follow a ray into the scene and see what it
-  meets. Handles shadows, reflections and transparency well. Marching a ray through a volume works this way.
+- **Rasterization** - for each triangle, which pixels does it cover? The step that maps freely positioned 3D objects onto a raster.
+- **Ray casting** - for each pixel, send a ray into the scene and read what it
+  passes through. Volume rendering is this.
+- **Ray tracing** - ray casting plus secondary rays, which is where reflections
+  and shadows come from.
 
 ---
 
@@ -473,7 +476,7 @@ flowchart LR
   A --> A2["Mesh rendering or surface rendering for volumes"]
   B --> B2["Volume rendering with transfer functions or clipping plane"]
   C --> C2["Voxel slices plus one 3D overview"]
-  D --> D2["Point cloud - dots or splats, coloured by attribute"]
+  D --> D2["Point cloud - dots or splats, colored by attribute"]
   E --> E2["Vector field - glyphs, streamlines or animation"]
 ```
 {{< /horizontal >}}

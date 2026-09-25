@@ -1,5 +1,12 @@
 // Voxels: a filled block of numbers.
 //
+// The overview deck's data-type slide, on the procedural flower. Its mesh,
+// point-cloud and vector-field neighbours use the same specimen, so the four
+// slides are four representations of one thing.
+//
+// The voxels session opens on the real frog scan, in voxel-cubes.js. Keep
+// them apart: this scene belongs beside the flower.
+//
 // Three things, and no more than three - this is the slide that introduces
 // the data type, not the one about transfer functions.
 //
@@ -19,7 +26,7 @@
 // flower losing its height - which is the failure people actually meet.
 //
 // Solid voxels rather than a soft ramp, so cutting into the block shows a
-// cut face rather than a haze - and so the colour is doing one job, which
+// cut face rather than a haze - and so the color is doing one job, which
 // is depth into the specimen.
 
 import { defineScene, THREE, ramp, clearGroup } from '../runtime.js';
@@ -31,7 +38,7 @@ import {
 const B = shape.BOUNDS;
 
 // Sequential and monotonic in lightness, so it still reads in greyscale and
-// to a colour-blind viewer - but through more than one hue, because the
+// to a color-blind viewer - but through more than one hue, because the
 // point of the cut-away is to see structure on the cut face and a
 // single-hue ramp gives it almost nothing to show.
 const VALUE = ['#fde3a7', '#e8894b', '#b83d6b', '#5c2a6e', '#1b1b45'];
@@ -101,7 +108,7 @@ defineScene('voxel-grid', ({ scene, ui, view }) => {
     drawn.add(bucketedVoxels({
       samples,
       size: { x: step, y: height, z: step },
-      // Colour is the value itself, never the value relative to the
+      // Color is the value itself, never the value relative to the
       // threshold: moving the threshold changes what is shown, never what a
       // shade means.
       colorFor: (v) => ramp(VALUE, v),
