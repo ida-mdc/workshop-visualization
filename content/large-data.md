@@ -6,15 +6,15 @@ layout: workshop
 type: page
 author: Deborah Schmidt
 author_position: Helmholtz Imaging | MDC Berlin
-description: How to handle large 3D datasets for visualization tasks.
+description: Four reasons a 3D dataset gets too large, and three ways to make it usable anyway - laying it out to be read in pieces, streaming only what is on screen, and fitting it to something smaller.
 cover: img/bvv-magic.png
 ---
 
 ## Large 3D Data
 
 {{< notes >}}
-Four different walls, and it is worth knowing which one you hit. Disk and the
-network are about keeping and moving the data; RAM and graphics memory are
+Four different walls, and it is worth knowing which one you have hit. Disk and
+the network are about keeping and moving the data; RAM and graphics memory are
 about drawing it.
 
 The three strategies on the right are the rest of this session, in order. They
@@ -25,8 +25,8 @@ stack: a layout is what makes streaming possible, and a fit makes both cheaper.
 
 {{< block >}}
 **Too large for what**
-- **Disk** - the raw scan, the converted copy and its pyramid all have to live somewhere
-- **RAM** - out-of-core: too big to read in one go
+- **Disk** - the raw scan, the converted copy and its extra resolution levels all have to live somewhere
+- **RAM** - out-of-core: the file is too big to read into memory in one go
 - **Graphics memory** - a card has 8 to 24 GB
 - **The network** - it sits on a server, so every byte you look at has to cross the wire before you see it
 {{< /block >}}
@@ -65,7 +65,7 @@ contributes one row to it.
 
 {{< notes >}}
 A format can be read in pieces when it has three things: a chunk or tile grid,
-a set of resolution levels, and metadata describing both.
+a resolution pyramid, and metadata describing both.
 
 The extension says nothing about it. A tiled OME-TIFF with sub-resolutions has
 all three, and a plain TIFF stack has none.
@@ -90,11 +90,12 @@ all three, and a plain TIFF stack has none.
 
 {{< /horizontal >}}
 
-- The three things that make the difference: a **chunk or tile grid**, **resolution levels**, and **metadata** describing both
-- TIFF can have all three - `raw2ometiff` writes a tiled OME-TIFF pyramid, and BigTIFF lifts the 4 GB file size limit
+- A **chunk or tile grid** - fetch one piece at a time; a tile is the 2D version, one plane
+- A **resolution pyramid** - the same data downsampled again and again
+- **Metadata** describing both - TIFF can have all three: `raw2ometiff`, and BigTIFF for the 4 GB limit
 
 {{< citations >}}
-- [OME-NGFF spec](https://ngff.openmicroscopy.org/latest/) · [Moore et al. (2021), Nat Methods 18, 1496–1498](https://doi.org/10.1038/s41592-021-01326-w) · [raw2ometiff](https://github.com/glencoesoftware/raw2ometiff) · [OME-TIFF sub-resolutions](https://docs.openmicroscopy.org/ome-model/latest/ome-tiff/specification.html)
+- [OME-NGFF spec](https://ngff.openmicroscopy.org/latest/) · [Moore et al. (2021), Nat Methods 18, 1496–1498](https://doi.org/10.1038/s41592-021-01326-w) · [raw2ometiff](https://github.com/glencoesoftware/raw2ometiff)
 {{< /citations >}}
 
 ---
@@ -148,36 +149,51 @@ A viewer that opens a URL and shows nothing has its reason on this page.
 ---
 
 ## 1 · Layout
+### What an octree is
+
+{{< notes >}}
+The data here is a thin hollow shell: nothing inside it, nothing outside it,
+only the wall in between. Those are exactly the three kinds of region an
+octree exists to tell apart.
+
+The rule, applied depth by depth: a cell the shell passes through splits into
+eight smaller cells - octo- is eight, the root shared with octopus and
+October. A cell the shell misses entirely stops right there, however coarse,
+and nothing below it is ever built. Drag the depth slider and watch the wall
+keep splitting while the inside and the outside stay two big empty boxes the
+whole way through.
+{{< /notes >}}
+
+{{< scene name="octree-build" height="440" caption="Solid boxes hold data; open ones do not, and are never split further. The readout compares the leaf count against a dense grid at the same fine resolution." >}}
+
+---
+
+## 1 · Layout
 ### A grid for volumes, a tree for everything else
 
 {{< notes >}}
-A volume is dense. Every voxel exists, so a regular chunk grid fits it exactly
-and finding a chunk is arithmetic.
+A volume is dense - every voxel exists, so a plain grid of equal chunks fits
+it exactly, and finding one is arithmetic: multiply the coordinates by the
+chunk size.
 
-A point cloud or a surface is sparse and uneven. A regular grid over one gives
-mostly empty chunks and a few overloaded ones, so these formats subdivide a
-cell into eight only where there is something to hold. That is an octree, and
-it is why Potree has one and BigVolumeViewer does not.
-
-Drawing one is a single walk: descend while the node is still large on screen,
-stop when it is small enough.
+A point cloud or a mesh is sparse: a grid over one is mostly empty chunks with
+a few overloaded ones. The tree from the last slide solves exactly that, and
+its depth takes over the job that separate downsampled copies do in a grid.
 {{< /notes >}}
 
 {{< horizontal >}}
 
 {{< block >}}
 **Dense → a grid**
-- Every voxel exists, so every chunk is the same size
-- Finding a chunk is **arithmetic** - there is no index to walk
-- The resolution levels are **separate downsampled copies**
+- Every chunk is the same size, so finding one is arithmetic
+- Resolution levels are separate downsampled copies, stored alongside the full one
 - OME-Zarr, N5, precomputed, BigVolumeViewer
 {{< /block >}}
 
 {{< block >}}
 **Sparse → an octree**
-- Subdivide a cell into eight **only where there is data**
-- Each node carries a **sample** of what is below it, so a node is already a picture
-- **Depth is the resolution level** - no separate copies
+- Depth is the resolution level - no separate copies to store
+- Each node holds a sample of what is below it, so a node is already a picture on its own
 - COPC, EPT, Potree, 3D Tiles, Nexus
 {{< /block >}}
 
@@ -190,8 +206,7 @@ stop when it is small enough.
 
 {{< notes >}}
 BigVolumeViewer renders volumes on the GPU that do not fit in graphics memory.
-It reads the resolution pyramid BigDataViewer already builds and loads blocks
-on demand.
+It reads the resolution pyramid BigDataViewer already builds.
 
 The cover of this deck was rendered with it.
 {{< /notes >}}
@@ -221,14 +236,16 @@ The cover of this deck was rendered with it.
 ### BigVolumeViewer keeps a cache of blocks
 
 {{< notes >}}
-No octree. It holds a GPU cache of small blocks, each one block of the volume
-at one level of the pyramid, evicted least-recently-used, plus a lookup texture
-saying where each block currently sits.
+BigVolumeViewer keeps a GPU cache of blocks - the same idea as a chunk, one
+piece of the grid at one resolution level - plus a lookup texture that
+records where each block currently sits. This is the grid from a few slides
+back, not a tree: there is no octree here.
 
-Every block asks for the level its distance to the camera calls for. Until that
-level arrives it is drawn from the coarsest data that has, and the frame is
-repainted until every block has what it asked for. That is the blur that
-sharpens. Nothing schedules a coarse-to-fine pass over the whole volume.
+Every block asks for the level its distance from the camera calls for, and
+until that level has arrived it is drawn from whatever coarser level is
+already there. The cache drops its oldest block to make room for a new one,
+and the frame keeps repainting until every block has what it asked for - that
+is the blur that sharpens.
 {{< /notes >}}
 
 {{< scene name="bvv-blocks" height="420" caption="Near the camera, fine blocks; further out, coarse. Drag *blocks arrived* to watch each one climb to the level its distance asked for." >}}
@@ -323,43 +340,63 @@ horizon stays sketchy.
 ---
 
 ## 2 · Layout, used
-### Meshes, and the meshes that are born adaptive
+### Making a surface mesh smaller
 
 {{< notes >}}
-A surface mesh is made smaller after the fact: decimate it, or cut it into
-fragments with coarser stand-ins and stream those. Compression is a third axis -
-Draco and meshopt shrink the file and leave it just as unstreamable.
+A surface mesh you already have gets smaller after the fact, in two unrelated
+ways. Fewer triangles is decimation: weld or drop them, quadric edge collapse
+keeps the shape best of the simple methods. Fewer bytes per triangle is
+compression: Draco and meshopt shrink the file on disk, without changing how
+many triangles a viewer has to hold at once.
 
-A simulation mesh is the other way round. It is adaptive from the start, refined
-where the solution needs it, and t8code is the Helmholtz library for exactly
-that - a forest of octrees indexed along a space-filling curve.
+Streaming a mesh is the octree idea again, this time applied to triangles: cut
+the surface into fragments, keep a coarser stand-in for each one, and load
+only the fragments and levels a view actually needs.
+{{< /notes >}}
 
-Coloring a t8code mesh by refinement level in ParaView shows the adaptivity
-itself, which is the thing worth looking at.
+- **Fewer triangles** - decimate: weld or drop them, quadric edge collapse keeps shape best
+- **Fewer bytes per triangle** - Draco, meshopt compress the file; the triangle count does not change
+- **Fewer triangles loaded at once** - 3D Tiles, Nexus, Neuroglancer multi-resolution meshes: an octree of fragments, the same idea as a point cloud's
+
+{{< citations >}}
+- [3D Tiles](https://www.ogc.org/standard/3dtiles/) · [Nexus](https://vcg.isti.cnr.it/nexus/) · [meshoptimizer](https://github.com/zeux/meshoptimizer) · [Draco](https://github.com/google/draco)
+{{< /citations >}}
+
+---
+
+## 2 · Layout, used
+### A mesh that starts adaptive
+
+{{< notes >}}
+A simulation mesh is adaptive from the start: refined wherever the solution
+needs it. t8code is the Helmholtz library for that - a forest of octrees, one
+tree per region of the domain, each refined on its own.
+
+Every element is numbered along a space-filling curve: a path that visits
+every cell once and keeps cells that are close in space close together in the
+numbering too. A contiguous range of that numbering is then a contiguous
+region of space, which is what makes it cheap to hand one range to one process
+and know its neighbors came along with it.
+
+Coloring a t8code mesh by its refinement level in ParaView shows the
+adaptivity itself, the thing worth looking at.
 {{< /notes >}}
 
 {{< horizontal >}}
 
 {{< block >}}
-**A surface you already have**
-- **Fewer triangles** - decimate; quadric edge collapse before anything cruder
-- **Fewer at a time** - 3D Tiles, Nexus, Neuroglancer multi-resolution meshes: the octree again, one fragment per node
-- **Smaller bytes** - Draco, meshopt. A different axis from level of detail
+- [**t8code**](https://dlr-amr.github.io/t8code/) (DLR) - a **forest of octrees** over hex, tet, prism and pyramid elements
+- Elements numbered along a **space-filling curve** - shown here for a simple 2D grid
+- Run to **1.1 trillion elements** on a million cores
+- Writes **`.pvtu`** for ParaView, tagging each element with its refinement level
 {{< /block >}}
 
-{{< block >}}
-**A mesh from a simulation**
-- [**t8code**](https://dlr-amr.github.io/t8code/) (DLR) - adaptive mesh refinement over a **forest of octrees**: hex, tet, prism, pyramid
-- Elements ordered along a **space-filling curve**, which is what makes them cheap to partition across ranks
-- Run to **1.1 trillion elements** on a million cores
-- Writes **`.pvtu`** for ParaView, tagging each element with its refinement level and MPI rank
-{{< /block >}}
+{{< figure src="img/morton-curve.svg" style="max-height: 30vh; width: auto" caption="A Morton (Z-order) curve through an 8×8 grid, first cell blue, last cell red. It zigzags inside one quadrant before it ever jumps to the next." >}}
 
 {{< /horizontal >}}
 
 {{< citations >}}
-- [t8code](https://github.com/DLR-AMR/t8code), GPLv2, DLR · Holke et al. (2023), [*t8code v1.0*](https://elib.dlr.de/194377/), SIAM IMR · [`T8code.jl`](https://github.com/DLR-AMR/T8code.jl)
-- [3D Tiles](https://www.ogc.org/standard/3dtiles/) · [Nexus](https://vcg.isti.cnr.it/nexus/) · [meshoptimizer](https://github.com/zeux/meshoptimizer) · [Draco](https://github.com/google/draco)
+- [t8code](https://github.com/DLR-AMR/t8code), GPLv2, DLR Institute for Software Technology · Holke et al. (2023), [*t8code v1.0*](https://elib.dlr.de/194377/), SIAM IMR · [`T8code.jl`](https://github.com/DLR-AMR/T8code.jl)
 {{< /citations >}}
 
 ---
@@ -491,16 +528,36 @@ curl -I https://your-host.org/my-dataset.ome.zarr/.zattrs   # look for the two h
 ---
 
 ## 4 · A cheaper representation
+### What a Gaussian splat is
+
+{{< notes >}}
+A Gaussian splat is a small blob in 3D space: a position, a shape (which way it
+points and how stretched it is), a color and an opacity. A handful of these,
+overlapping and blended, can stand in for a smooth surface that would
+otherwise need thousands of voxels to describe.
+
+This is the same frog from the volumes session, fitted here at whatever
+detail the slider asks for - by averaging each cell of a grid, not by the
+optimization luxar actually runs. It is a stand-in for the idea, not a luxar
+fit; the real numbers are on the next slide.
+{{< /notes >}}
+
+{{< scene name="splat-fit" height="440" hint="drag to rotate" caption="The same frog, as a volume and as a few thousand splats. Toggle between them, and drag the detail slider to change the splat budget." >}}
+
+{{< citations >}}
+- The frog: [*Ceratophrys ornata* micro-CT](https://doi.org/10.5061/dryad.066mr), Kleinteich & Gorb, CC0
+{{< /citations >}}
+
+---
+
+## 4 · A cheaper representation
 ### luxar fits the volume and ships the fit
 
 {{< notes >}}
-luxar fits the intensity field with a sparse set of oriented Gaussians and
-ships those. Empty space costs nothing, because a fit spends parameters only
-where there is signal.
-
-The sunflower is a micro-CT scan from Zenodo, 3.06 G voxels, halved on every
-axis and then fitted here. Both pictures are the same projection; the right
-one is drawn from the splats alone.
+This is the real thing: a sunflower head from a published micro-CT scan, 3.06
+billion voxels, halved on every axis and fitted by actual luxar - gradient
+descent, not the grid average from the last slide. Both pictures are the same
+projection; the right one is drawn from the splats alone.
 
 Two things to know before trying it. Fitting needs the CUDA kernels compiled
 with `make build-cuda` - the PyTorch fallback is orders of magnitude slower.
@@ -514,7 +571,7 @@ empty specimen holder.
 - Fits the volume with **oriented Gaussian splats** and ships those
 - Empty space costs **nothing** - parameters go where the signal is
 - `fit` → `lod` → `convert`, then **any static host** serves it
-- Fitting wants an **NVIDIA GPU**; 28 minutes on a laptop card
+- Fitting wants an **NVIDIA GPU** - 20 to 30 minutes on a laptop card
 - An approximation - **measurements belong on the voxels**
 {{< /block >}}
 

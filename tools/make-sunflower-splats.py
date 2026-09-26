@@ -21,7 +21,7 @@ itself is far brighter. Sampling five slices puts the 90th percentile at
 ~13000 and the 99th at ~43000, so [20000, 60000] separates them cleanly and
 sends everything below it to exactly zero. That zero matters: a Gaussian fit
 spends parameters wherever there is signal, so a background left at a faint
-non-zero costs splats and blurs the result. Only 2.6% of voxels survive.
+non-zero costs splats and blurs the result. Only 3% of voxels survive.
 
 SCALE.  Halved on every axis, which keeps the individual florets resolved and
 brings the fit down to about half an hour on a laptop GPU.
