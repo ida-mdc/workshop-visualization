@@ -88,7 +88,7 @@ def run():
 
     w = Writer(
         'sectioning', SECTIONS,
-        ['the slice being imaged', 'this image', 'the stack'],
+        ['slice being imaged', 'this image', 'stack'],
         'slice',
         note='Cutting first means each section is imaged on its own, so '
              'nothing tells it where it belongs relative to its neighbours. '

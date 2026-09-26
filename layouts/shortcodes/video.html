@@ -1,0 +1,35 @@
+{{- /*
+  A short clip, for showing an interaction that a still cannot.
+
+      {{< video src="video/nninteractive.mp4" caption="..." >}}
+
+  `src` is a path under static/. Optional:
+
+      caption   figcaption under the clip, markdown
+      height    max height on a slide, default 34vh - the same ceiling the
+                deck puts on images, so a clip cannot push the footer off
+      loop      "off" to play once; default loops
+      controls  "off" to hide them; default shown
+
+  Muted and playsinline because browsers refuse to autoplay anything else,
+  and a clip that needs a click is a clip that does not get played in a talk.
+*/ -}}
+{{- $src := .Get "src" -}}
+{{- if not $src -}}
+  {{- errorf "video shortcode in %s: missing src" .Page.File.Path -}}
+{{- end -}}
+{{- if not (fileExists (printf "static/%s" $src)) -}}
+  {{- errorf "video shortcode in %s: no such file, static/%s does not exist" .Page.File.Path $src -}}
+{{- end -}}
+<figure class="viz-video">
+  <video
+    src="{{ $src | relURL }}"
+    style="max-height: {{ .Get "height" | default "34vh" }}; max-width: 100%;"
+    autoplay muted playsinline
+    {{ if ne (.Get "loop") "off" }}loop{{ end }}
+    {{ if ne (.Get "controls") "off" }}controls{{ end }}>
+  </video>
+  {{- with .Get "caption" }}
+  <figcaption>{{ . | markdownify }}</figcaption>
+  {{- end }}
+</figure>

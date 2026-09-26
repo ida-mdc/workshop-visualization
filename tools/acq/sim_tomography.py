@@ -157,7 +157,7 @@ def run():
 
     w = Writer(
         'tomography', ANGLES,
-        ['the beam and the detector', 'what this angle records',
+        ['beam and detector', 'what this angle records',
          'reconstructed'],
         'rotation',
         note='Nothing here measures a voxel. Each angle records one '

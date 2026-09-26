@@ -172,7 +172,7 @@ function unitGeometry(part, segments) {
 }
 
 /**
- * The union of `parts` as one triangle mesh, with a per-vertex colour blended
+ * The union of `parts` as one triangle mesh, with a per-vertex color blended
  * along each part's long axis.
  *
  * `segments` tessellates each part, so halving it is the honest version of

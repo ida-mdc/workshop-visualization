@@ -1,6 +1,6 @@
 // Choosing a colormap, on data that shows the difference.
 //
-// A smooth heightfield, coloured by height. Smooth data is where a colormap's
+// A smooth heightfield, colored by height. Smooth data is where a colormap's
 // faults show: on a specimen with hard edges you cannot tell whether a
 // boundary you see is in the data or in the palette.
 //
@@ -11,9 +11,9 @@
 //   structure in the long, flat green.
 //
 //   Greyscale is the print test. A map that survives it is monotonic in
-//   lightness, which is the property that makes a colour ordering readable.
+//   lightness, which is the property that makes a color ordering readable.
 //
-//   The colour-vision filter is the accessibility test. Roughly one man in
+//   The color-vision filter is the accessibility test. Roughly one man in
 //   twelve sees the deuteranope version, and jet loses most of its range in it
 //   while viridis keeps almost all of its own.
 
@@ -41,7 +41,7 @@ function height(x, z) {
 
 /**
  * Vienot's deuteranopia approximation, applied in linear RGB - which is where
- * three.js keeps colours, so no conversion is needed either way.
+ * three.js keeps colors, so no conversion is needed either way.
  */
 function deuteranope(c) {
   const r = c.r;
@@ -86,8 +86,8 @@ defineScene('colormap-choice', ({ scene, ui, view }) => {
     envMapIntensity: 0.25, side: THREE.DoubleSide,
   }));
   scene.add(surface);
-  // Deliberately dim, even lighting: shading that competes with the colour
-  // would make it impossible to judge the colour.
+  // Deliberately dim, even lighting: shading that competes with the color
+  // would make it impossible to judge the color.
   const fill = new THREE.DirectionalLight(0xffffff, 0.55);
   fill.position.set(2, 5, 3);
   scene.add(fill);
@@ -112,7 +112,7 @@ defineScene('colormap-choice', ({ scene, ui, view }) => {
     repaint();
   });
 
-  ui.choice('Seen as', ['Full colour', 'Greyscale', 'Deuteranope'], (i) => {
+  ui.choice('Seen as', ['Full color', 'Greyscale', 'Deuteranope'], (i) => {
     filter = ['none', 'grey', 'cvd'][i];
     repaint();
   });

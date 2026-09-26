@@ -1,16 +1,155 @@
 ---
-title: "Volumetric data rendering with Neuroglancer"
+title: "Rendering in the browser"
 date: 2024-09-25
 draft: false
 layout: workshop
 type: page
 author: Deborah Schmidt
 author_position: Helmholtz Imaging | MDC Berlin
-description: Use case description of how to render voxel-based volumetric data using Neuroglancer and stream data locally or remotely for visualization.
+description: What can be rendered in a browser today, which tool fits which data, and a worked case of streaming a volume with Neuroglancer.
 cover: img/the-human-brain.png
 ---
 
-## Introduction
+## Why the browser at all
+
+{{< notes >}}
+The browser has quietly become one of the better places to put scientific 3D
+data, for one reason that has nothing to do with graphics: **a URL reaches
+everybody**. No install, no version, no operating system, no "which release of
+the plugin are you on". For anything you want a collaborator, a reviewer or a
+reader to actually look at, that is decisive.
+
+What made it possible technically is WebGL2 - and increasingly WebGPU - giving
+a page real GPU access, plus chunked cloud formats like OME-Zarr that can be
+read a piece at a time over HTTP. Those two together mean a browser can stream
+a terabyte the same way it streams a map: fetch the tiles you are looking at,
+at the resolution you need.
+
+The limits are real and worth stating. GPU memory is whatever the machine has
+and you cannot ask for more. There is no filesystem, so the data has to be
+served from somewhere with CORS set correctly. And the format decides
+everything: put a 200 GB TIFF on a web server and no browser tool will help
+you.
+{{< /notes >}}
+
+- **A URL reaches everyone** - no install, no versions, no platform
+- **WebGL2 and WebGPU** give a page real GPU access
+- **Chunked formats** (OME-Zarr, EPT, COPC) let it fetch only what is on screen
+- **But**: the data must be served with CORS, and in a chunked format to begin with
+
+---
+
+## What renders in a browser today
+### Volumes and images
+
+{{< notes >}}
+An overview, because this field moved fast and most people's mental map is a
+few years old.
+
+**Neuroglancer** is the one we use below: Google's WebGL viewer, built for
+connectomics, extremely good at enormous volumes with segmentations and
+annotations, and it encodes the whole view state in the URL.
+
+**webKnossos** is the other heavyweight - a full annotation platform rather
+than just a viewer, strong on collaborative skeleton and volume annotation.
+
+**Viv** is a library rather than an application, for multiplexed and highly
+multichannel imaging; **Avivator** is the drop-in viewer that demonstrates it,
+and **Vitessce** builds on Viv to put imaging and single-cell data side by side.
+
+**itk-vtk-viewer** and **VolView** both come from Kitware and both run vtk.js
+in the page - VolView leans towards clinical DICOM work and does cinematic
+volume rendering.
+
+**NiiVue** is the neuroimaging one: small, fast, WebGL2, reads NIfTI and friends,
+and embeds in a page in a few lines.
+{{< /notes >}}
+
+| Tool | Best at | Reads |
+|---|---|---|
+| **Neuroglancer** | huge volumes with segmentations and annotations; shareable URLs | Zarr / OME-Zarr, N5, precomputed |
+| **webKnossos** | collaborative annotation at scale, not just viewing | Zarr, WKW, N5 |
+| **Viv** / **Avivator** | highly multiplexed 2D and 3D microscopy | OME-Zarr, OME-TIFF |
+| **Vitessce** | imaging plus single-cell data in one view | OME-Zarr, AnnData |
+| **itk-vtk-viewer** | images, meshes and point sets together | many, via itk-wasm |
+| **VolView** | clinical volumes, cinematic rendering | DICOM, NIfTI |
+| **NiiVue** | neuroimaging, easy to embed | NIfTI, DICOM, MGH |
+| **MoBIE** (web) | sharing multi-modal projects from the BDV world | OME-Zarr, N5 |
+
+{{< citations >}}
+- [Neuroglancer](https://github.com/google/neuroglancer) · [webKnossos](https://webknossos.org) · [Viv](https://github.com/hms-dbmi/viv) · [Vitessce](https://vitessce.io) · [itk-vtk-viewer](https://kitware.github.io/itk-vtk-viewer/docs/) · [VolView](https://kitware.github.io/VolView/) · [NiiVue](https://github.com/niivue/niivue)
+{{< /citations >}}
+
+---
+
+## What renders in a browser today
+### Meshes, point clouds and scenes
+
+{{< notes >}}
+The other half of the landscape, and the half people forget exists.
+
+For **point clouds**, Potree is still the reference: it reads Entwine point
+tiles, streams billions of points, and it is what the BESSY II reconstruction
+in this workshop is served with. COPC is the newer single-file alternative to
+EPT and is worth preferring for new data.
+
+For **meshes**, glTF is the format to export to - it is the JPEG of 3D, and
+`<model-viewer>` puts one on a page in a single HTML tag. Smithsonian Voyager
+is the polished end of this: annotations, tours, measurement, built for
+museums.
+
+For **anything custom**, three.js is the library underneath most of the above -
+including every illustration in these slides. Deck.gl is the one to reach for
+when the data is geospatial.
+{{< /notes >}}
+
+| Tool | Best at | Reads |
+|---|---|---|
+| **Potree** | streaming very large point clouds | EPT, LAS/LAZ |
+| **COPC viewers** | same, from a single cloud-optimised file | COPC |
+| **CesiumJS** / **deck.gl** | geospatial point clouds, tiles and terrain | 3D Tiles, LAS |
+| **`<model-viewer>`** | one mesh on a page, in one HTML tag | glTF / GLB |
+| **Smithsonian Voyager** | annotated, guided object presentation | glTF |
+| **three.js** / **Babylon.js** | anything custom, including these slides | glTF, OBJ, PLY |
+
+{{< citations >}}
+- [Potree](https://github.com/potree/potree) · [COPC](https://copc.io) · [deck.gl](https://deck.gl) · [model-viewer](https://modelviewer.dev) · [Voyager](https://smithsonian.github.io/dpo-voyager/) · [three.js](https://threejs.org)
+{{< /citations >}}
+
+---
+
+## What renders in a browser today
+### Choosing one
+
+{{< notes >}}
+The honest decision rule, which is shorter than the tables.
+
+Start from the data. If it is a big volume with segmentations, Neuroglancer. If
+people need to annotate it together, webKnossos. If it is highly multiplexed
+microscopy, Viv. If it is a point cloud, Potree or COPC. If it is one mesh you
+want people to look at, glTF and model-viewer - and you are done in an
+afternoon.
+
+Then check the format, because that is what actually blocks you. Every tool in
+these tables wants chunked, multi-resolution data served over HTTP with CORS
+enabled. Converting to OME-Zarr or EPT is the work; picking the viewer is the
+easy part.
+{{< /notes >}}
+
+- **Big volume + segmentation** → Neuroglancer
+- **Needs collaborative annotation** → webKnossos
+- **Multiplexed microscopy** → Viv / Avivator
+- **Point cloud** → Potree, or COPC for new data
+- **One mesh, for anyone** → glTF + `<model-viewer>`
+- **Something bespoke** → three.js
+
+{{< center >}}
+In every case: the conversion is the work, the viewer is the easy part.
+{{< /center >}}
+
+---
+
+## Neuroglancer, in detail
 
 {{< notes >}}
 **Neuroglancer** is a web-based tool for visualizing large-scale 3D datasets such as brain volumes, microscopy 
@@ -31,8 +170,8 @@ locally or remotely, and working with the Neuroglancer interface to adjust views
 
 ---
 
-## Available datasets
-## Popular datasets using Neuroglancer
+## Neuroglancer, in detail
+### Popular datasets
 
 {{< notes >}}
 Neuroglancer has been used to visualize several large-scale, high-resolution datasets, especially in the fields of neuroscience, biology, and medical imaging. These datasets often involve volumetric scans, such as brain structures, organs, or entire organisms, making Neuroglancer an invaluable tool for researchers who need interactive, 3D visualizations of such complex data.
@@ -51,7 +190,7 @@ Neuroglancer has been used to visualize several large-scale, high-resolution dat
 
 ---
 
-## Available datasets
+## Neuroglancer, in detail
 ### Helmholtz Imaging collaboration use case
 
 {{< notes >}}
@@ -71,7 +210,8 @@ Neuroglancer to visualize mice brains with different genetic mutations and corre
 
 ---
 
-## Dataset requirements
+## Neuroglancer, in detail
+### Dataset requirements
 
 {{< notes >}}
 For Neuroglancer to visualize data, the data must be **available through streams**, either locally or remotely. Neuroglancer streams data on demand, so it’s crucial that data be served via an HTTP or other streaming protocol. Whether data is hosted locally or on a cloud, the tool fetches the portions needed as the user navigates through the 3D space.
@@ -90,7 +230,7 @@ For Neuroglancer to visualize data, the data must be **available through streams
 
 ---
 
-## Data hosting for Neuroglancer
+## Hosting the data
 
 {{< notes >}}
 There are several options for **hosting data** for Neuroglancer. Data can be hosted locally or on cloud storage (e.g., 
@@ -104,7 +244,7 @@ AWS, Google Cloud). Hosting data remotely allows for easier sharing and collabor
 
 ---
 
-## Data hosting for Neuroglancer
+## Hosting the data
 ### Helmholtz storage compatible to Neuroglancer
 
 
@@ -138,3 +278,41 @@ which provides a convenient way to host and stream datasets without size limitat
 - [https://hifis-storage.desy.de](https://hifis-storage.desy.de/)
 {{</citations>}}
 
+
+---
+
+## Hosting the data
+### Streaming from your own machine
+
+{{< notes >}}
+Moved here from the voxels session, where it sat among the volume rendering
+slides and had nothing to do with volume rendering.
+
+You do not need a server to try any of this. A few lines of Python serve a
+directory over HTTP with the CORS headers a browser viewer insists on, which
+is enough for Neuroglancer or the NGFF validator to read a dataset straight
+off your laptop.
+{{< /notes >}}
+
+1. Open a terminal and activate the [workshop environment](https://github.com/ida-mdc/workshop-visualization/tree/main/visualization_software)
+2. Download [`server.py`](https://github.com/ida-mdc/workshop-visualization/tree/main/example_data/server.py) somewhere convenient
+3. Change into the directory holding your data: `cd workshop`
+4. Run it: `python server.py`
+5. In the **Neuroglancer demo page**, give it the local URL, e.g.
+   `zarr://http://localhost:8000/my-dataset.ome.zarr`
+
+---
+
+## Hosting the data
+### Checking what you are serving
+
+{{< notes >}}
+Once the data is reachable over HTTP, the same URL can go to a validator. Most
+"the viewer shows nothing" problems are metadata problems, and this says so in
+one page rather than after twenty minutes of guessing.
+{{< /notes >}}
+
+1. Open [the OME-NGFF validator](https://ome.github.io/ome-ngff-validator/)
+2. Either open one of their example URLs, or
+3. append your own data URL to it:
+   `https://ome.github.io/ome-ngff-validator/?source=http://0.0.0.0:8080/my-dataset.ome.zarr`

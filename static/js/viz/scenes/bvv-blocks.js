@@ -1,24 +1,31 @@
 // How BigVolumeViewer renders a volume larger than the GPU can hold.
 //
-// The architecture, in one picture. BVV inherits BigDataViewer's resolution
-// pyramid and its cache, and adds a GPU tier: one large 3D texture cut into
-// small uniform blocks - 32 voxels on a side, padded by one voxel so that
-// trilinear interpolation cannot bleed between neighbours. Each texture block
-// holds one block of the volume at one level of the pyramid.
+// No octree. BVV inherits BigDataViewer's resolution pyramid and its CPU
+// cache, and adds a GPU tier: one large 3D texture cut into small uniform
+// blocks - 32 voxels on a side, padded by one voxel so that trilinear
+// interpolation cannot bleed between neighbours. Each texture block holds one
+// block of the volume at one level of the pyramid. Blocks are evicted
+// least-recently-used.
 //
-// To render a view, BVV picks a base resolution level so that screen
-// resolution is matched for the nearest visible voxel, then builds a small 3D
-// lookup texture saying, for every block of the volume, where in the cache
-// texture its data currently sits. The ray marcher reads the lookup, then the
-// cache. Blocks that have not arrived yet fall back to a coarser level that
-// has, which is why a BVV view sharpens progressively instead of blocking.
+// What it does per frame, from bvv-core's VolumeBlocks:
 //
-// So three things decide what you see, and all three are exposed in the
-// viewer's own settings: where the camera is, how much GPU memory the cache is
-// allowed, and the block size. This scene makes the first two draggable.
+//   1. Pick a BASE LEVEL so that screen resolution is matched for the nearest
+//      visible voxel.
+//   2. assignBestLevels: give every required block its own best level, from
+//      the distance of the block's centre to the viewer. Near blocks want
+//      fine data, far blocks want coarse.
+//   3. makeLut: for each block, look for its best level in the GPU cache. If
+//      it is not there, walk TOWARDS COARSER levels until something resident
+//      turns up, and put that in the lookup texture instead.
+//   4. Anything substituted, or still incomplete, makes makeLut return false,
+//      and the frame is repainted until every block is there at the level it
+//      asked for.
 //
-// The observer is the glyph in the scene rather than your own camera, so you
-// can orbit round and inspect how the detail is distributed.
+// So the blur-then-sharpen is not a scheduled coarse-to-fine pass over the
+// whole volume. Every block asks for the level its distance calls for; what
+// changes over time is how many of them have got it. That is what the second
+// slider shows - drag it and blocks climb to their own target and stop, near
+// ones last because they are asking for the most data.
 
 import { defineScene, THREE, ramp } from '../runtime.js';
 import { makeEye } from '../eye.js';
@@ -26,7 +33,7 @@ import { makeEye } from '../eye.js';
 const GRID = 6;             // blocks per axis
 const SPAN = 2.4;           // world size of the whole volume
 
-// One colour per resolution level, coarse to fine.
+// One color per resolution level, coarse to fine.
 const LEVELS = ['#d7e3ee', '#9dc0da', '#4a85b4', '#0d4a7a'];
 const SUBDIV = [1, 2, 3, 4];   // samples per axis drawn, per level
 
@@ -72,37 +79,48 @@ defineScene('bvv-blocks', ({ scene, ui, view }) => {
   scene.add(resident);
 
   let angle = -0.7;
-  // How many blocks the cache holds. Fixed rather than a slider: the slide is
-  // about which blocks get loaded and at what level, and a second control
-  // only invited the room to tune a number that is not the point.
-  const cacheBlocks = 70;
-  let showEmpty = true;
+  // How far the repainting has got, 0 to 1. At 0 every block is drawn from the
+  // coarsest data; at 1 every block has the level its distance asked for.
+  let arrived = 1;
 
-  const empties = new THREE.Group();
-  scene.add(empties);
+  const report = ui.readout('At the level they asked for');
+
+  /**
+   * The level this block's distance calls for, coarsest 0 to finest 3.
+   *
+   * BVV picks per block by projected voxel size, which halves every time the
+   * distance doubles - so the level steps with the logarithm of the distance.
+   * Spread over the range of distances actually in the frame, because the
+   * observer here stands off the volume rather than inside it, and at that
+   * standoff a true doubling only ever reaches two of the four levels.
+   */
+  function bestLevel(d, near, far) {
+    const t = (Math.log(d) - Math.log(near)) / (Math.log(far) - Math.log(near) || 1);
+    const step = Math.min(LEVELS.length - 1, Math.floor(t * LEVELS.length));
+    return LEVELS.length - 1 - step;
+  }
 
   function rebuild() {
-    for (const g of [resident, empties]) {
-      g.traverse((c) => { if (c !== g) { c.geometry?.dispose(); c.material?.dispose(); } });
-      g.clear();
-    }
-
-    // Rank blocks by distance to the camera glyph. The nearest get the finest
-    // level the cache can afford; the rest degrade, then drop out entirely.
-    const ranked = blocks
-      .map((b) => ({ b, d: b.centre.distanceTo(eye.position) }))
-      .sort((a, b) => a.d - b.d);
-
-    const byLevel = [[], [], [], []];
-    const missing = [];
-
-    ranked.forEach((entry, rank) => {
-      if (rank >= cacheBlocks) { missing.push(entry.b); return; }
-      // Nearest quarter of the budget at the finest level, then coarser.
-      const share = rank / Math.max(1, cacheBlocks);
-      const level = share < 0.18 ? 3 : share < 0.42 ? 2 : share < 0.72 ? 1 : 0;
-      byLevel[level].push(entry.b);
+    resident.traverse((c) => {
+      if (c !== resident) { c.geometry?.dispose(); c.material?.dispose(); }
     });
+    resident.clear();
+
+    // Every block asks for the level its distance calls for. Until that level
+    // has arrived it is drawn from the coarsest data that has, which is what
+    // makeLut does when it walks towards coarser levels on a miss.
+    const byLevel = [[], [], [], []];
+    let settled = 0;
+    const reached = Math.floor(arrived * LEVELS.length);
+    const dist = blocks.map((b) => b.centre.distanceTo(eye.position));
+    const near = Math.min(...dist);
+    const far = Math.max(...dist);
+    for (const [n, b] of blocks.entries()) {
+      const want = bestLevel(dist[n], near, far);
+      const have = Math.min(want, reached);
+      if (have === want) settled++;
+      byLevel[have].push(b);
+    }
 
     byLevel.forEach((list, level) => {
       if (!list.length) return;
@@ -133,28 +151,16 @@ defineScene('bvv-blocks', ({ scene, ui, view }) => {
       resident.add(mesh);
     });
 
-    if (showEmpty && missing.length) {
-      // Blocks the cache could not fit. In the real viewer these are the ones
-      // a ray falls back to a coarser level for, or waits for.
-      const geo = new THREE.EdgesGeometry(
-        new THREE.BoxGeometry(step * 0.9, step * 0.9, step * 0.9));
-      const mat = new THREE.LineBasicMaterial({
-        color: '#c8ccd4', transparent: true, opacity: 0.45,
-      });
-      for (const b of missing) {
-        const l = new THREE.LineSegments(geo, mat);
-        l.position.copy(b.centre);
-        empties.add(l);
-      }
-    }
-    empties.visible = showEmpty;
+    report(`${settled} of ${blocks.length} blocks`);
   }
 
   ui.slider('Camera position', {
     min: -Math.PI, max: Math.PI, step: 0.02, value: angle, format: () => '',
   }, (v) => { angle = v; eye.place(angle, 0.5, 2.6); rebuild(); });
 
-  ui.toggle('Blocks not loaded', true, (on) => { showEmpty = on; rebuild(); });
+  ui.slider('Blocks arrived', {
+    min: 0, max: 1, step: 0.02, value: arrived, format: () => '',
+  }, (v) => { arrived = v; rebuild(); });
 
   eye.place(angle, 0.5, 2.6);
   rebuild();

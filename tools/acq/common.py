@@ -12,7 +12,7 @@ What gets written per modality, into static/data/acq/<name>/:
   volume.png      atlas of z-slices of the assembled volume (panel 3)
   order.png       for progressively revealed volumes: the step each voxel
                   first appears in (255 = never)
-  points.bin      for point datasets: quantised xyz, colour, and first step
+  points.bin      for point datasets: quantised xyz, color, and first step
 
 Images rather than raw arrays because PNG compresses losslessly and is served
 correctly by any static host without content-encoding negotiation.
@@ -137,7 +137,7 @@ class Writer:
         self.man.update(kw)
 
     def frames(self, imgs, cols=6):
-        """Panel 2: one image per step. Each (h, w) grey or (h, w, 3) colour."""
+        """Panel 2: one image per step. Each (h, w) grey or (h, w, 3) color."""
         tiles = [u8(im) for im in imgs]
         sheet = _atlas(tiles, cols)
         h, w = tiles[0].shape[:2]
@@ -228,7 +228,7 @@ class Writer:
     def points(self, xyz, rgb, step, bounds):
         """Panel 3 as points: quantised to 16 bits over the given half-extents.
 
-        Record layout, little-endian: 3 x int16 position, 3 x uint8 colour,
+        Record layout, little-endian: 3 x int16 position, 3 x uint8 color,
         1 x uint8 first step, 1 byte padding = 12 bytes.
         """
         n = len(xyz)
@@ -372,8 +372,8 @@ def _erode(solid):
     return out
 
 
-def ramp_colour(stops, t):
-    """Sample a list of hex colours at t in 0..1. Returns (..., 3) floats."""
+def ramp_color(stops, t):
+    """Sample a list of hex colors at t in 0..1. Returns (..., 3) floats."""
     cols = np.array([[int(h[i:i + 2], 16) / 255 for i in (1, 3, 5)]
                      for h in stops])
     t = np.clip(np.asarray(t, dtype=np.float32), 0, 1) * (len(cols) - 1)

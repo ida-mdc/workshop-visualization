@@ -27,19 +27,20 @@ const deck = () => new URLSearchParams(window.location.search).get('view') === '
 function setup() {
   if (deck()) return;
 
-  for (const column of document.querySelectorAll('.guesses')) {
-    const section = column.closest('section');
-    // Both columns live in the same section and want one button between
-    // them, so the first one to get here claims it.
-    if (!section || section.dataset.guesses) continue;
-    section.dataset.guesses = 'hidden';
+  for (const hidden of document.querySelectorAll('.guesses, .reveal-note')) {
+    const section = hidden.closest('section');
+    // A slide can hold two columns of answers and a note, and wants one
+    // button between all of them, so the first one here claims it.
+    if (!section || section.dataset.reveal) continue;
+    section.dataset.reveal = 'hidden';
 
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'guesses-reveal';
-    button.textContent = 'Reveal answers';
+    button.textContent = section.querySelector('.guesses')
+      ? 'Reveal answers' : 'Reveal note';
     button.addEventListener('click', () => {
-      section.dataset.guesses = 'shown';
+      section.dataset.reveal = 'shown';
       button.remove();
     });
     section.append(button);

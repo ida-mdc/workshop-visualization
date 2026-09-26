@@ -51,7 +51,7 @@ const PANELS = [
     // distribution lets the darker tissue be seen through.
     window: [0.15, 0.78],
     threshold: 0.34, width: 0.16, density: 0.45, curve: 1.4,
-    title: 'a block of it', body: '6.5 µm voxels, 1 mm across',
+    title: 'a block of the tongue', body: '6.5 µm voxels, 1 mm across',
   },
 ];
 

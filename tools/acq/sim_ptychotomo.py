@@ -35,7 +35,7 @@ came from.
 import numpy as np
 
 import specimen as sp
-from common import Writer, gauss, norm, ramp_colour
+from common import Writer, gauss, norm, ramp_color
 from sim_tomography import DET, DET_W, NY, N, RAY, _sample_xz, ramp
 
 ANGLES = 30
@@ -169,11 +169,11 @@ def run():
         decades = 5.0
         shown = np.clip((np.log10(rel + 10 ** -decades) + decades) / decades,
                         0, 1)
-        left = ramp_colour(PATTERN, shown)
+        left = ramp_color(PATTERN, shown)
         left = _fit(left, DET)
 
         proj = norm(recovered[i].T[::-1], 0.0, PHASE_MAX)
-        right = ramp_colour(PHASE_MAP, proj)
+        right = ramp_color(PHASE_MAP, proj)
 
         # One above the other rather than side by side: they are two stages
         # of the same angle, not two views of it, and reading downwards is
@@ -213,7 +213,7 @@ def run():
 
     w = Writer(
         'ptychotomo', ANGLES,
-        ['the beam and the detector', 'what this angle records',
+        ['beam and detector', 'what this angle records',
          'reconstructed'],
         'rotation',
         note='Same rotation, same reconstruction, different contrast. '

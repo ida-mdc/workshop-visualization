@@ -105,6 +105,11 @@ scientific visualizations. Our perception of color is influenced by both biologi
 {{< /notes >}}
 
 
+---
+
+## Color and colormap theory
+### Choosing a colormap
+
 {{< notes >}}
 Check out the [Matplotlib Colormap Guide](https://matplotlib.org/stable/users/explain/colors/colormaps.html), 
 containing not just contain a comprehensive list of colormaps available in Matplotlib, but also valuable knowledge about 
@@ -134,6 +139,31 @@ when to use which colormaps. Brief summary:
 - [Creating Color Harmony | Sensational Color](https://www.sensationalcolor.com/creating-color-harmony/)
 - [Color Theory on Wikipedia](https://en.wikipedia.org/wiki/Color_theory)
 {{</ citations >}}
+
+---
+
+## Color and colormap theory
+### Try it on real data
+
+{{< notes >}}
+A smooth heightfield, colored by height. Smooth data is where a colormap's
+faults show - on a specimen with hard edges you cannot tell whether an edge you
+see is in the data or in the palette.
+
+Switch to **Jet** and look at the flanks of the hills. The rings are not in the
+data. Jet changes lightness fast through cyan and yellow and slowly through
+green, so it invents boundaries where the surface is smooth and hides real
+structure where it is flat. It is still the default in a lot of software.
+
+Then switch **Seen as** to **Greyscale**. That is the print test, and it is
+also a test of whether the map has a single consistent ordering: viridis and
+the single-hue ramp survive it, jet collapses into nonsense.
+
+Finally **Deuteranope** - roughly one man in twelve. Viridis keeps almost all
+of its range. Jet loses most of its.
+{{< /notes >}}
+
+{{< scene name="colormap-choice" height="420" caption="The same heights, five colormaps. Jet's rings are in the palette, not in the data." >}}
 
 ---
 

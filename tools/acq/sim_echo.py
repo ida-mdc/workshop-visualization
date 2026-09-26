@@ -29,7 +29,7 @@ two horizons below it, because all of them put an arrival in the same trace.
 import numpy as np
 
 import specimen as sp
-from common import Writer, envelope, gauss, gauss1d, norm, ramp_colour
+from common import Writer, envelope, gauss, gauss1d, norm, ramp_color
 
 GRID = 9                  # shots across, so GRID*GRID positions in total
 APERTURE = 1.70           # how far the survey spreads either side
@@ -123,7 +123,7 @@ def run():
     # signs of the wiggle; white is zero.
     gain = 1.0 + 3.2 * (t_axis / t_axis[-1]) ** 1.6
     shown = np.clip(traces * gain[None, :] * 2.4, -1, 1)
-    gather = ramp_colour(GATHER, (shown.T * 0.5 + 0.5))     # (SAMPLES, steps, 3)
+    gather = ramp_color(GATHER, (shown.T * 0.5 + 0.5))     # (SAMPLES, steps, 3)
 
     yi = (np.arange(FRAME[1]) * SAMPLES // FRAME[1]).clip(0, SAMPLES - 1)
     xi = (np.arange(FRAME[0]) * steps // FRAME[0]).clip(0, steps - 1)
@@ -162,7 +162,7 @@ def run():
 
     w = Writer(
         'echo', steps,
-        ['the shot and the wavefront', 'the gather: shot across, time down',
+        ['shot and wavefront', 'gather: shot across, time down',
          'migrated'],
         'shot',
         note='Same pulse-and-timing as a laser scanner, and a different '

@@ -14,7 +14,7 @@
 //
 //   orthographic        no perspective, so near and far are not a size cue
 //   sizeAttenuation off so a near dot is not bigger than a far one
-//   one flat colour     no shading, no depth-cued brightness
+//   one flat color     no shading, no depth-cued brightness
 //   no ground, no box   nothing to read a position against
 //
 // What is left is structure from motion, and nothing else.

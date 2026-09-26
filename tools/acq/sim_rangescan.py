@@ -26,7 +26,7 @@ keep the whole returning waveform and get a volume.
 import numpy as np
 
 import specimen as sp
-from common import Field, Writer, gauss, norm, ramp_colour
+from common import Field, Writer, gauss, norm, ramp_color
 
 COLUMNS = 48
 ROWS = 36
@@ -36,9 +36,9 @@ ORIGIN = np.array([1.45, 0.92, 1.42])
 FAN_U = 0.98                  # mirror sweep across, in tangent units
 FAN_V = 0.76                  # and up
 FINE = (112, 92, 112)
-NEAR, FAR = 1.1, 3.6          # the window the range colours span
+NEAR, FAR = 1.1, 3.6          # the window the range colors span
 
-# Mid-dark throughout, so the same colours read on the range image's black
+# Mid-dark throughout, so the same colors read on the range image's black
 # background and against white in the point cloud.
 DEPTH = ['#d9992f', '#b4384f', '#7a3a6b', '#2f3a63']
 NO_RETURN = (0.030, 0.035, 0.050)     # the pulse never came back
@@ -77,7 +77,7 @@ def run():
 
     # --- panel 2: the range image, gaining one column per mirror step ------
     shade = norm(np.where(got2, dist2, 0.0), NEAR, FAR)
-    full = ramp_colour(DEPTH, shade)
+    full = ramp_color(DEPTH, shade)
     full[~got2] = np.array(NO_RETURN)
     frames = []
     for s in range(COLUMNS):
@@ -89,7 +89,7 @@ def run():
     # --- panel 3: unproject -------------------------------------------------
     idx = np.nonzero(got)[0]
     pts = ORIGIN[None, :] + dirs[idx] * dist[idx][:, None]
-    rgb = ramp_colour(DEPTH, norm(dist[idx], NEAR, FAR))
+    rgb = ramp_color(DEPTH, norm(dist[idx], NEAR, FAR))
     first = idx // ROWS                                  # the column it came from
 
     counts = [int((first <= s).sum()) for s in range(COLUMNS)]
@@ -97,7 +97,7 @@ def run():
 
     w = Writer(
         'rangescan', COLUMNS,
-        ['the sweep', 'the range image', 'the points'],
+        ['sweeping', 'range image', 'points'],
         'mirror sweep',
         note='What the scanner records is a range image - one distance per '
              'direction, not a picture. Turn each distance into a position '

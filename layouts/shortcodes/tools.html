@@ -1,5 +1,5 @@
 {{- /*
-  One of the tool tables, from data/tools.yaml.
+  One of the tool tables, from sitedata/tools.yaml.
 
       {{< tools kind="desktop" >}}
       {{< tools kind="browser" limit="7" >}}
@@ -31,7 +31,7 @@
 {{- end -}}
 {{- $all := where site.Data.tools "kind" $kind -}}
 {{- if not $all -}}
-  {{- errorf "tools shortcode in %s: no tools of kind %q in data/tools.yaml" .Page.File.Path $kind -}}
+  {{- errorf "tools shortcode in %s: no tools of kind %q in sitedata/tools.yaml" .Page.File.Path $kind -}}
 {{- end -}}
 {{- $rows := $all -}}
 {{- with .Get "limit" -}}
@@ -70,6 +70,6 @@
   and {{ $hidden }} more &mdash;
   {{- end }}
   the whole table is
-  <a href="{{ $source }}"><code>data/tools.yaml</code></a>,
+  <a href="{{ $source }}"><code>sitedata/tools.yaml</code></a>,
   and a pull request is the quickest way to add what we have missed.
 </p>

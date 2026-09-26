@@ -64,19 +64,19 @@ def texture(pts):
 
 
 def albedo(pts):
-    """Surface colour: the specimen's own, with the matchable grain on top.
+    """Surface color: the specimen's own, with the matchable grain on top.
 
-    Photogrammetry is the only method in this sequence that measures colour,
+    Photogrammetry is the only method in this sequence that measures color,
     so this has to be the real thing - green stem, gold centre, rose petals,
     the same tints the mesh in panel 1 carries. A single flat pink would be
     a colormap wearing a disguise.
     """
-    return np.clip(sp.colour(pts) * (0.82 + 0.18 * texture(pts))[:, None],
+    return np.clip(sp.color(pts) * (0.82 + 0.18 * texture(pts))[:, None],
                    0, 1)
 
 
 def photograph(field, eye, size):
-    """Ray trace one colour photograph of the specimen from `eye`."""
+    """Ray trace one color photograph of the specimen from `eye`."""
     w, h = size
     fwd, right, up = _basis(np.asarray(eye, dtype=np.float64))
     px = (np.arange(w) + 0.5) / w * 2 - 1
@@ -159,9 +159,9 @@ def run():
     keep = first < 255
     pts, first = pts[keep], first[keep]
 
-    # Real colour, not a colormap: every point was seen in photographs, and
+    # Real color, not a colormap: every point was seen in photographs, and
     # this is what those photographs recorded. Albedo only, with no shading
-    # baked in - a real pipeline stores surface colour per point and lets the
+    # baked in - a real pipeline stores surface color per point and lets the
     # viewer light it, and the scene does light it.
     rgb = albedo(pts)
 
@@ -169,7 +169,7 @@ def run():
 
     w = Writer(
         'photogrammetry', SHOTS,
-        ['where the photographs were taken', 'the photographs',
+        ['where the photographs were taken', 'photographs',
          'points triangulated'],
         'photographs taken',
         note='Each photograph is only a photograph. Structure from motion '
@@ -179,9 +179,9 @@ def run():
              f'{MIN_VIEWS} unobstructed views before it exists at all. '
              'Surfaces only, no interior ever, and only where there is '
              'texture to match: shiny, clear or plain gives nothing. The '
-             'colour in panel 3 is the one thing here that was measured '
-             'rather than chosen - it comes straight off the photographs, '
-             'which no other method on these slides gives you.',
+             'The color in panel 3 came off the photographs, so it is the '
+             'real color of the object - no other method on these slides '
+             'gives you that.',
     )
     w.geometry(eye=eyes)
     w.meta(minViews=MIN_VIEWS, candidates=int(len(pts)))

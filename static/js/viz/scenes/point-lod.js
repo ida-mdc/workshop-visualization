@@ -52,10 +52,10 @@ const ELEVATION = [palette.plum, palette.teal, palette.sage, palette.amber,
 defineScene('point-lod', ({ scene, ui, view }) => {
   view(0.5, 1.9, 4.2, 2.35, [0, -0.05, 0]);
 
-  const eye = makeEye({ reach: 1.7 });
+  const eye = makeEye({ reach: 0.5, spread: 0.5 });
   scene.add(eye.group);
   let angle = -0.6;
-  let eyeHeight = 0.55;
+  const eyeHeight = 0.62;   // fixed: it was a knob nobody needed
 
   const half = EXTENT / 2;
   const tileSize = EXTENT / TILES;
@@ -152,11 +152,6 @@ defineScene('point-lod', ({ scene, ui, view }) => {
     min: -Math.PI, max: Math.PI, step: 0.02, value: angle,
     format: () => '',
   }, (v) => { angle = v; eye.place(angle, eyeHeight, 2.0); apply(); });
-
-  ui.slider('Viewer height', {
-    min: 0.1, max: 2.0, step: 0.05, value: 0.55,
-    format: (v) => v.toFixed(2),
-  }, (v) => { eyeHeight = v; eye.place(angle, eyeHeight, 2.0); apply(); });
 
   ui.slider('Budget', {
     min: 0.01, max: 1, step: 0.01, value: 0.07,

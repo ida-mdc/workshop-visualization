@@ -1,15 +1,19 @@
 {{- /*
-  The point of the opening slide, spelled out - for readers only.
+  A paragraph the reader gets only after asking for it.
 
-      {{< guesses-note >}}
+      {{< reveal-note >}}
       3D is our natural habitat...
-      {{< /guesses-note >}}
+      {{< /reveal-note >}}
 
-  Goes under the illustration on the scrolling page, and appears with the
-  answers when the reader presses the button. Never in the deck: there the
-  speaker says this out loud, and a paragraph of prose under the cloud
-  would be read instead of watched.
+  Goes under the slide's content on the scrolling page, behind a button that
+  js/guesses.js adds. Never in the deck: there the speaker says this out
+  loud, and a paragraph of prose on the slide would be read instead of
+  listened to.
+
+  It waits behind a button rather than simply being there because these
+  notes all answer something the slide has just asked. Printing the answer
+  next to the question gives the game away before the reader has had a go.
 */ -}}
-<div class="guesses-note">
+<div class="reveal-note">
   {{- .Inner | markdownify }}
 </div>

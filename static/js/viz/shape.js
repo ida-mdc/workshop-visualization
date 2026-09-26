@@ -102,7 +102,7 @@ function rng(seed) {
 class Part {
   constructor(kind, scale, quaternion, position, amp, seed, tint) {
     this.kind = kind;
-    // Two colours blended along the part's own long axis. Petals darken
+    // Two colors blended along the part's own long axis. Petals darken
     // towards where they attach and pale towards the tip, which is what real
     // ones do and what keeps a bloom of one hue from reading as plastic.
     this.tint = tint || ['#e2685f', '#f3a99b'];
@@ -222,7 +222,7 @@ const TINT = {
  * Every part carries one of these arrays as its `tint`, by reference, so a
  * scene can ask which tissue a part belongs to with `part.tint === TISSUE.stem`
  * - which is exactly what a segmentation of this specimen would have labelled.
- * Pass a colour per class to geometry() and you get a label map instead of a
+ * Pass a color per class to geometry() and you get a label map instead of a
  * photograph.
  */
 export const TISSUE = TINT;
@@ -330,8 +330,8 @@ export function petalPoint(t = 0.6, index = 0) {
  * geometry as a whole would not do - that moves the parts apart from each
  * other and the petals come away from the centre.
  *
- * `tintFor(part)` overrides the vertex colours, returning the [from, to] pair
- * to blend along that part. Give it the same colour twice and the part comes
+ * `tintFor(part)` overrides the vertex colors, returning the [from, to] pair
+ * to blend along that part. Give it the same color twice and the part comes
  * out flat, which is how a segmentation looks and how the natural tints do
  * not - see TISSUE.
  */
@@ -363,7 +363,7 @@ export function geometry(segments = 64, inflate = 0, tintFor = null) {
       }
     }
 
-    // A vertex colour per part, blended along the part's long axis. Always
+    // A vertex color per part, blended along the part's long axis. Always
     // present; a material opts in with `vertexColors: true`, which is how the
     // same geometry serves both a tinted render and a flat diagram one.
     const tint = tintFor ? tintFor(part) : part.tint;
@@ -583,7 +583,7 @@ export function flowAt(x, y, z, out = new THREE.Vector3()) {
   return out;
 }
 
-/** Rough upper bound on |flowAt|, for normalising glyph length and colour. */
+/** Rough upper bound on |flowAt|, for normalising glyph length and color. */
 export const MAX_SPEED = 1.45;
 
 /**

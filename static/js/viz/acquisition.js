@@ -40,6 +40,12 @@ const PANEL_SCALE = 1.0;
 export function triptych(ctx, {
   labels = ['the instrument', 'what it records', 'the dataset'],
 
+  // What the slider steps through. Not "time": these are not all time
+  // series - the microscopy stack steps through depth, tomography through
+  // angle, photogrammetry through photographs taken - and a slider labelled
+  // "time" made the microscopy one read as a movie when what moves is the
+  // focal plane.
+  stepLabel = 'step',
   steps = 40,
   // Which step to open on. Zero is honest but often dull - the first sections
   // of a block are empty resin, the first angle of a scan reconstructs to
@@ -191,7 +197,7 @@ export function triptych(ctx, {
     update(step, state);
   }
 
-  ctx.ui.slider('time', {
+  ctx.ui.slider(stepLabel, {
     min: 0, max: steps - 1, step: 1, value: start, format: () => '',
   }, apply);
 
@@ -283,6 +289,7 @@ export async function replay(ctx, spec, {
   const handle = triptych(ctx, {
     labels: m.labels,
     steps: m.steps,
+    stepLabel: m.timeLabel,
     start: start ?? Math.floor(m.steps / 2),
     frustum,
     rule,
@@ -410,7 +417,7 @@ export function makePoints(parent, points, { size = 0.034 } = {}) {
     m.makeTranslation(
       points.pos[i * 3], points.pos[i * 3 + 1], points.pos[i * 3 + 2]);
     mesh.setMatrixAt(i, m);
-    // The stored colours are display values, so they are read as sRGB
+    // The stored colors are display values, so they are read as sRGB
     // rather than as linear - otherwise everything comes out washed out.
     c.setRGB(points.col[i * 3], points.col[i * 3 + 1], points.col[i * 3 + 2],
       THREE.SRGBColorSpace);
@@ -439,7 +446,7 @@ export function makePoints(parent, points, { size = 0.034 } = {}) {
  * For results that are a surface rather than a volume - a recovered phase, a
  * projected thickness, a migrated horizon. Drawing them as voxels would claim
  * depth information the measurement does not have, so they get a relief
- * instead: height and colour both from the value.
+ * instead: height and color both from the value.
  */
 export function makeField(parent, [w, h], {
   size = [2.2, 2.2], relief = 0.7, colors, smooth = 0, upright = false,
@@ -452,7 +459,7 @@ export function makeField(parent, [w, h], {
   // picture of a specimen.
   if (!upright) geo.rotateX(-Math.PI / 2);
   // Four components, because the empty part of the field has to disappear.
-  // A lit plane is never the colour of the page behind it, so leaving it
+  // A lit plane is never the color of the page behind it, so leaving it
   // opaque puts a grey plate under the result no matter how pale its
   // albedo is; fading it out instead leaves the specimen on the page.
   geo.setAttribute('color',
@@ -477,8 +484,8 @@ export function makeField(parent, [w, h], {
     mesh,
     update(field) {
       // Relief exaggerates single-pixel noise into spikes once it is lit, so
-      // the height is smoothed while the colour stays on the raw value. The
-      // surface reads as the field; the colour still reports it.
+      // the height is smoothed while the color stays on the raw value. The
+      // surface reads as the field; the color still reports it.
       let height = field;
       for (let pass = 0; pass < smooth; pass++) {
         const next = new Float32Array(w * h);
@@ -520,7 +527,7 @@ export function makeField(parent, [w, h], {
  *
  * Panel 1 answers "what is the instrument looking at", and the answer has to
  * be the same object every time or the eight scenes stop reading as eight
- * views of one thing. So: one material, one set of colours, opaque. Scenes
+ * views of one thing. So: one material, one set of colors, opaque. Scenes
  * that need to see inside it cut it with a clipping plane rather than fading
  * it out, because a half-transparent specimen looks like a rendering choice
  * and a cut one looks like what actually happened to it.
@@ -614,21 +621,21 @@ export function spinnable(ctx, group, { from = 0.68, hint = true } = {}) {
  *
  * Two reasons it is one look and not five.
  *
- * The first is honesty about colour. A confocal channel, an attenuation
+ * The first is honesty about color. A confocal channel, an attenuation
  * coefficient, a backscatter amplitude - each of these is one number per
- * voxel. None of them is a colour. Giving each modality its own hue implies
+ * voxel. None of them is a color. Giving each modality its own hue implies
  * the instruments measured something different in kind, when what differs is
  * only what the number means. So the scalar volumes all get the same
- * deliberately neutral ramp, and the slides can say out loud that the colour
+ * deliberately neutral ramp, and the slides can say out loud that the color
  * was chosen rather than measured.
  *
  * The second is comparison. These panels are meant to be read against each
  * other across eight slides; if the rendering style changes between them,
  * every difference looks like it might be a difference in the data.
  *
- * The exceptions are the ones where colour is not a choice: photogrammetry
+ * The exceptions are the ones where color is not a choice: photogrammetry
  * records real RGB because it is photographs, and a scanning probe separates
- * genuinely different measurements per element, so those get colours that
+ * genuinely different measurements per element, so those get colors that
  * mean something.
  */
 export const MEASURED = [
@@ -653,7 +660,7 @@ export const MEASURED_STYLE = {
  * either of those on white would inverto the one thing the slide is about.
  */
 // Weighted bright, on purpose. A ray accumulates front to back and goes
-// opaque partway through, so what you mostly see is the colour of the first
+// opaque partway through, so what you mostly see is the color of the first
 // material it met - the dim rim of the specimen, not its bright middle. A
 // ramp that is dark at the low end therefore renders a bright object as a
 // dark one. Lifting the low and middle stops puts the apparent brightness
@@ -675,7 +682,7 @@ export const EMITTED = [
 // something to suppress.
 //
 // What is left is the textbook loop: sample, look the value up in a
-// transfer function, accumulate colour and opacity, stop when the ray is
+// transfer function, accumulate color and opacity, stop when the ray is
 // opaque. Nothing else.
 export const EMITTED_STYLE = {
   stops: EMITTED, width: 0.075, density: 0.12, curve: 2.6,

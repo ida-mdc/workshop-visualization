@@ -46,8 +46,8 @@ defineScene('point-cloud', ({ scene, ui, view }) => {
     geo.setDrawRange(0, Math.min(Math.round(10 ** (v / 1000)), MAX_POINTS));
   });
 
-  // Colour is stated rather than offered. It is height here, and saying so
+  // Color is stated rather than offered. It is height here, and saying so
   // is the point - a point cloud carries attributes, and somebody chose
   // which one you are looking at.
-  ui.readout('coloured by height');
+  ui.readout('colored by height');
 });

@@ -1,0 +1,51 @@
+{
+  "fluorescence.png": {
+    "title": "DAPI-stained nuclei of HaCaT keratinocytes.png",
+    "size": [
+      1280,
+      1280
+    ],
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/DAPI-stained_nuclei_of_HaCaT_keratinocytes.png/1280px-DAPI-stained_nuclei_of_HaCaT_keratinocytes.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:DAPI-stained_nuclei_of_HaCaT_keratinocytes.png",
+    "lic": "CC BY-SA 4.0",
+    "author": "Accuratelibrarian"
+  },
+  "ct.png": {
+    "title": "CT of a normal abdomen and pelvis, axial plane 154.png",
+    "size": [
+      786,
+      346
+    ],
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/80/CT_of_a_normal_abdomen_and_pelvis%2C_axial_plane_154.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "page": "https://commons.wikimedia.org/wiki/File:CT_of_a_normal_abdomen_and_pelvis,_axial_plane_154.png",
+    "lic": "CC0",
+    "author": "Mikael Häggström, M.D. Author info - Reusing images- Conflicts of interest:  None\nMikael Häggström, M.D.Consent note: Written informed consent was obtained from the individual, including online publication.",
+    "crop": "axial panel only; the coronal locator panel beside it was cropped off"
+  },
+  "volume-em.png": {
+    "title": "Serial-Block-Face-Scanning-Electron-Microscopy ... pbio.0020329.v002.ogv",
+    "lic": "CC BY 2.5",
+    "author": "Denk W, Horstmann H",
+    "size": [
+      500,
+      500
+    ],
+    "page": "https://commons.wikimedia.org/wiki/File:Serial-Block-Face-Scanning-Electron-Microscopy-to-Reconstruct-Three-Dimensional-Tissue-Nanostructure-pbio.0020329.v002.ogv",
+    "crop": "a single frame from the block-face image stack"
+  },
+  "vitis-microct.png": {
+    "title": "MicroCT scans of sun and shade grown leaves of Cabernet Sauvignon and Blaufraenkisch grapevine (Vitis vinifera L.) cultivars",
+    "file": "CS_Sun_Plant3_1_PAGANIN.tif",
+    "size": [
+      1100,
+      439
+    ],
+    "url": "https://zenodo.org/api/records/5994663/files/CS_Sun_Plant3_1_PAGANIN.zip/content",
+    "page": "https://zenodo.org/records/5994663",
+    "doi": "10.5281/zenodo.5994663",
+    "lic": "CC BY 4.0",
+    "author": "Theroux-Rancourt G, Herrera JC, Voggeneder K, Tholen D",
+    "instrument": "TOMCAT beamline, Swiss Light Source, Paul Scherrer Institute",
+    "crop": "one slice of the reconstructed volume, cropped to the inside of the leaf so there is no surrounding air in frame, windowed to the 0.5-99.5 percentiles, 1100 wide"
+  }
+}

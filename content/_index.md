@@ -1,6 +1,6 @@
 ---
-title: "3D Data Visualization Workshop @ HIDA, November 2025"
-date: 2025-11-10
+title: "3D Data Visualization Workshop @ HIDA, September 2026"
+date: 2026-09-24
 draft: false
 type: page
 layout: workshop
@@ -23,6 +23,7 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
 - 4:15pm **Volumetric Data Rendering**
   - [Overview Slides]({{< ref "voxels.md" >}})
   - [Volume Rendering BigDataViewer / MoBie]({{< ref "volume-rendering-bdv.md" >}}) TODO review
+  - [Large 3D data]({{< ref "large-data.md" >}}) - chunking, resolution pyramids, level of detail
   <!-- TODO link the browser rendering page here once content/browser-rendering.md is committed -->
   - Notebook: [voxel_rendering_napari.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_napari.ipynb)
   - Notebook: [voxel_rendering_vtk.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_vtk.ipynb)

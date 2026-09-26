@@ -150,11 +150,15 @@ export function panelPlots(el, count, { height = 52, draw = null } = {}) {
  * is degenerate and the strip picks an arbitrary rotation on top of that. A
  * scene whose specimen needs to start at some other angle puts a rotated
  * group inside each panel and leaves this alone - see volume-modes.js.
+ *
+ * `yaw` and `pitch` are where the drag starts from, in radians. A box seen
+ * square on reads as a square; a few degrees of each turns it back into a
+ * box, and every panel gets the same few degrees so they stay comparable.
  */
-export function panelOrbit(ctx, panels) {
+export function panelOrbit(ctx, panels, { yaw: yaw0 = 0, pitch: pitch0 = 0 } = {}) {
   const drag = { on: false, x: 0, y: 0 };
-  let yaw = 0;
-  let pitch = 0;
+  let yaw = yaw0;
+  let pitch = pitch0;
 
   ctx.el.addEventListener('pointerdown', (e) => {
     drag.on = true;
@@ -406,6 +410,12 @@ const CSS = `
 .viz3d-panels .viz3d-panel-body { display: block; margin: 5px auto 0; max-width: 34ch;
   font-style: normal; text-transform: none; letter-spacing: normal;
   font-weight: 400; font-size: 12.5px; line-height: 1.45; color: #4c4e59; }
+/* The number a panel exists to report. It belongs under the panel, at a size
+   that carries: put next to the controls it is a caption nobody reads. */
+.viz3d-panels .viz3d-panel-size { display: block; margin: 2px auto 0;
+  font-size: 1.45em; font-weight: 700; letter-spacing: normal;
+  font-variant-numeric: tabular-nums; color: #0059a0; }
+.viz3d-panels .viz3d-panel-size:empty { display: none; }
 .viz3d-panels b { color: #a8a8b2; margin-right: 0.35em; }
 .viz3d-plots { display: grid; gap: 0 1rem; margin: 6px 0 0; }
 .viz3d-plots canvas { width: 100%; display: block; }

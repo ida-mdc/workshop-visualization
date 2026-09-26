@@ -177,7 +177,7 @@
   vectors: ""
   good_for: "neuroimaging and clinical volumes; easy to embed in a page"
 
-- name: "[**luxar**](https://github.com/royerlab/luxar) (Royer lab)"
+- name: "[**luxar**](https://github.com/royerlab/luxar)"
   kind: browser
   voxels: "as Gaussian splats"
   meshes: "X"

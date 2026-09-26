@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Turn example_data/t1-head.tif into a volume the slides can stream.
 
-The deck's illustrations need a real dataset to sit beside the procedural
-flower - something with noise, soft tissue boundaries and no clean background,
-which is exactly what a threshold cannot separate. The T1 head that ships in
-example_data is that dataset, but at 256x256x129 in 16 bit it is 17 MB, and
-nothing in a browser reads TIFF without a library.
+NOT what the voxels session renders any more - that is the frog, see
+tools/make-frog-volume.py. The head was replaced because it is a low
+resolution T1 with soft contrast and little inside it worth pointing at,
+where the stained frog has skin, muscle and bone as three separate bands.
+
+This stays because example_data/t1-head.tif is still the dataset the
+BigDataViewer tutorial asks people to open, and because a 17 MB 16-bit TIFF
+is not something a browser reads without a library.
 
 So: downsample, window to 8 bit, and write a flat array that fetch() can hand
 straight to a Data3DTexture. The shape is in the filename because the loader

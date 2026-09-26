@@ -76,7 +76,7 @@ def run():
 
     w = Writer(
         'microscopy', PLANES,
-        ['the slice being imaged', 'this image', 'the stack'],
+        ['slice being imaged', 'this image', 'stack'],
         'slice',
         note='The microscope only ever images the plane in focus, and the '
              'stack of those images is the dataset - no 3D measurement '

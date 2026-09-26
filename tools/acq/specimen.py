@@ -59,9 +59,9 @@ def _cross(a, b):
             a[0] * b[1] - a[1] * b[0])
 
 
-# Surface colours, ported from TINT in shape.js. Each part blends between
+# Surface colors, ported from TINT in shape.js. Each part blends between
 # the pair along its own long axis. Photogrammetry is the one simulation that
-# needs these: it is the only method here that measures colour, so its
+# needs these: it is the only method here that measures color, so its
 # photographs and its point cloud have to show the specimen's real one.
 TINT = {
     'petalOuter': ('#b4384f', '#f2a08f'),
@@ -233,12 +233,12 @@ def inside(pts):
     return out
 
 
-def colour(pts):
-    """Surface colour at each point, as sRGB in 0..1.
+def color(pts):
+    """Surface color at each point, as sRGB in 0..1.
 
-    A point takes the colour of whichever part claims it most strongly -
+    A point takes the color of whichever part claims it most strongly -
     the one it is furthest inside - blended along that part's long axis,
-    exactly as the mesh's vertex colours are in shape.js. So the stem comes
+    exactly as the mesh's vertex colors are in shape.js. So the stem comes
     out green, the receptacle gold and the petals rose, and a photograph of
     the specimen looks like the specimen.
     """
