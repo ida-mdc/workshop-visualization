@@ -61,7 +61,48 @@
   max-height: 1.9em;
 }
 
-/* Logo rows on the title and closing slides. */
+/* Logo rows on the title and closing slides.
+ *
+ * The theme lays these out as inline images, which works while every logo is
+ * a compact mark. It stops working as soon as one of them is a lockup with a
+ * wordmark next to it: UFZ is three times as wide as it is tall, against 1:1
+ * for DESY, so the four centres overflowed the column and UFZ wrapped onto a
+ * row of its own.
+ *
+ * Flex with an explicit gap rather than inline whitespace, so the spacing is
+ * a number rather than whatever the markup happens to produce, and height
+ * auto so that a row which does wrap is laid out instead of overflowing.
+ */
+.logos {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2vw;
+  height: auto;
+}
+
+/* `min-width: 0` is what keeps it one row. An <img> is a replaced element and
+ * takes its intrinsic width as its flex minimum, so without this the row
+ * cannot shrink and `nowrap` would overflow the column instead. With it the
+ * widest lockup gives up width first, which is the right one to lose.
+ *
+ * The theme sizes these with `height: 100%` against a fixed-height container.
+ * That is what `height: auto` above breaks, so each view sets its own cap
+ * below - by height, so logos of different aspect read as the same size. A
+ * wordmark is matched to its neighbours by cap height, not by area.
+ */
+.logos img {
+  width: auto;
+  min-width: 0;
+  height: auto;
+  object-fit: contain;
+}
+
+.scroll .logos img {
+  max-height: 70px;
+}
+
 .reveal .slides section .logos img {
   max-height: 7vh;
 }
