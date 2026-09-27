@@ -284,6 +284,28 @@ Blender is a powerful open-source tool for rendering meshes. It supports realist
 
 ---
 
+## Rendering meshes
+### Or from a script
+
+{{< notes >}}
+Blender is where you go when the picture matters. A script is where you go
+when there are forty of them and they have to match.
+
+That is the whole choice: PyVista renders off-screen with no window and no
+clicking, so the same camera and the same material land on every specimen in
+a batch, and the figure regenerates when the data changes.
+{{< /notes >}}
+
+- **Blender** for one picture that has to look right
+- **A script** for forty that have to look *the same* - and to regenerate when the data changes
+- PyVista renders **off-screen**: no window, no clicking, works over SSH
+
+[mesh_rendering_tutorial.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/mesh_rendering_tutorial.ipynb) - materials, scalar colouring, side-by-side panels, turntable MP4
+
+{{< qr-code identifier="nb-mesh-rendering" link="https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/mesh_rendering_tutorial.ipynb">}}
+
+---
+
 ## Large meshes
 ### Where the size comes from
 

@@ -387,19 +387,13 @@ of drawable primitives.
 ## Compact scene representations
 ### Example of a Gaussian Splat fit
 
-{{< scene name="splat-fit" height="480" hint="scroll to zoom" caption="A real fit at seven splat counts, run with luxar's own fitting and rendering. Every level is an independent fit of the same target - nothing here is hand-placed." >}}
+{{< scene name="splat-fit" height="480" hint="scroll to zoom" caption="" >}}
 
 {{< notes >}}
 The slider changes how many splats are used to represent the target. With more splats, the approximation can capture finer structure.
 
 Fitting means adjusting the splats so their rendered result matches the target as closely as possible.
 {{< /notes >}}
-
-**Try it:** drag **4 → 3,000 splats**
-
-- Few splats → coarse approximation
-- More splats → finer detail
-- **luxar fits voxel volumes or point clouds directly** - no photographs, no camera poses, just the data
 
 {{< citations >}}
 - Target: A crop of a micro-CT scan of a sunflower head. Chitwood, Quigley & Frank, [*X-ray CT Botanical Images - Set 1*](https://doi.org/10.5281/zenodo.15684909), Zenodo (2025), CC BY 4.0
@@ -418,7 +412,6 @@ Fitting means adjusting the splats so their rendered result matches the target a
 For large volumes, the practical target is a chunked, multi-resolution representation. 
 {{< /notes >}}
 
-- **Workshop notebook:** `tiff_to_ngff_and_neuroglancer.ipynb`
 - Vendor formats → [**bioformats2raw**](https://github.com/glencoesoftware/bioformats2raw)
 - NumPy → [**ngff-zarr**](https://github.com/thewtex/ngff-zarr) / [**ome-zarr-py**](https://github.com/ome/ome-zarr-py)
 - Fiji → [**MoBIE**](https://mobie.github.io)
@@ -484,7 +477,6 @@ Once a volume is stored as a chunked, multi-resolution dataset, several tools ca
 A raw LAS or LAZ file is a large point list. For large-data visualization, convert it once into a spatial, multi-resolution representation.
 {{< /notes >}}
 
-- **Workshop notebook:** `large_pointclouds_potree_ept_launcher.ipynb`
 - [**PDAL**](https://pdal.io/) → read and write about anything, and reproject it
 - [**PotreeConverter**](https://github.com/potree/PotreeConverter) / [**Entwine**](https://entwine.io/) → build the hierarchy
 - [**Potree**](https://github.com/potree/potree) → browser visualization
@@ -516,8 +508,6 @@ Meshes do not need one universal conversion step. The useful operation depends o
 {{< /block >}}
 {{< /horizontal >}}
 
-- For the concrete mesh workflow → continue with the **Meshes** tutorial
-
 ---
 
 ## Tools
@@ -527,7 +517,7 @@ Meshes do not need one universal conversion step. The useful operation depends o
 Sometimes the goal is not to preserve the original representation for analysis, but to make a compact scene that is easy to move and view. luxar is the example used in this tutorial: it takes voxel volumes or point clouds and fits a Gaussian-splat representation.
 {{< /notes >}}
 
-- **Workshop notebook:** `luxar_gaussian_splats.ipynb`
+- **Workshop notebook:** [luxar_gaussian_splats.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/luxar_gaussian_splats.ipynb) - install, compile, fit, serve
 
 {{< figure src="img/luxar-sunflower.png" style="max-height: 30vh; width: auto" caption="The micro-CT volume and its fitted Gaussian-splat representation." >}}
 
