@@ -61,22 +61,26 @@ two each.
 | :--- | :--- | :--- |
 | `requirements_volumetric.txt` | Volumetric Data Rendering | `voxel_rendering_vtk`, `voxel_rendering_pygfx` |
 | `requirements_ngff.txt` | Large 3D data | `tiff_to_ngff_and_neuroglancer` |
+| `requirements_luxar.txt` | Large 3D data, Gaussian splats | `luxar_gaussian_splats` |
 | `requirements_mesh.txt` | Meshes | `voxel_to_mesh`, `mesh_rendering_tutorial` |
 | `requirements_pointclouds.txt` | Point Clouds | `point_clouds_tutorial` |
 | `requirements_vector_field.txt` | Vector Fields | `vector_field_visualization` |
-| `requirements_luxar.txt` | Large 3D data, Gaussian splats | `luxar_gaussian_splats` |
 
 They all work the same way, and each file carries its own three lines at the
 top. For the meshes session:
 
 ```bash
-uv venv .venv_mesh --python 3.12
+uv venv .venv_mesh --python 3.12 --seed
 uv pip install --python .venv_mesh -r visualization_software/requirements_mesh.txt
 uv run --python .venv_mesh jupyter lab
 ```
 
 A separate environment per session, so installing one cannot disturb another.
 Delete the `.venv_*` folders whenever you want the space back.
+
+`--seed` puts pip in the environment. uv does not by default, and without it
+any `%pip install` inside a notebook fails with "No module named pip" - which
+the luxar notebook does on purpose, in step 2.
 
 Versions are pinned. If a fresh install fails, tell us rather than working
 around it - a pinned file that no longer resolves is a bug we want to hear

@@ -1,6 +1,6 @@
 # Everything tiff_to_ngff_and_neuroglancer.ipynb imports.
 #
-#     uv venv .venv_ngff --python 3.12
+#     uv venv .venv_ngff --python 3.12 --seed
 #     uv pip install --python .venv_ngff -r visualization_software/requirements_ngff.txt
 #     uv run --python .venv_ngff jupyter lab
 

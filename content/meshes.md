@@ -236,7 +236,7 @@ watertight mesh, not both.
 **Running it**
 
 ```bash
-uv venv .venv_mesh --python 3.12
+uv venv .venv_mesh --python 3.12 --seed
 uv pip install --python .venv_mesh \
   -r visualization_software/requirements_mesh.txt
 uv run --python .venv_mesh jupyter lab

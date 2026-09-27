@@ -1,10 +1,14 @@
 # Everything luxar_gaussian_splats.ipynb imports.
 #
-#     uv venv .venv_luxar --python 3.12
+#     uv venv .venv_luxar --python 3.12 --seed
 #     uv pip install --python .venv_luxar -r visualization_software/requirements_luxar.txt
 #     uv run --python .venv_luxar jupyter lab
 #
 # This one needs an NVIDIA GPU, and it is the only session that does.
+#
+# `--seed` is not optional here. A uv venv has no pip in it, and step 2 of the
+# notebook installs the CUDA toolchain with %pip - without the seed that fails
+# with "No module named pip".
 
 # The fitter. `gsplats` is what does the fitting, `io` reads and writes the
 # zarr scenes.
