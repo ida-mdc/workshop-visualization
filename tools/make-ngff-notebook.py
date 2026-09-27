@@ -175,23 +175,44 @@ Now look at what that made, because the format is not hiding anything.
 """)
 
 code("""
+import zarr
+
 attrs = json.loads((STORE / ".zattrs").read_text())
-meta = attrs["multiscales"][0]
+MULTISCALES = attrs["multiscales"][0]
 
-print(f"OME-NGFF version {meta['version']}")
-print(f"axes: {[(a['name'], a.get('unit')) for a in meta['axes']]}\\n")
+group = zarr.open_group(STORE, mode="r")
+print(group.tree())
+""")
 
-print(f"{'dataset':<24}{'shape':<20}{'chunk':<16}{'files':>7}{'size':>10}{'voxel um':>10}")
-for dataset in meta["datasets"]:
-    path = STORE / dataset["path"]
-    zarray = json.loads((path / ".zarray").read_text())
-    files = [f for f in path.rglob("*") if f.is_file() and not f.name.startswith(".")]
-    scale = dataset["coordinateTransformations"][0]["scale"][0]
-    print(f"{dataset['path']:<24}{str(zarray['shape']):<20}"
-          f"{str(zarray['chunks']):<16}{len(files):>7}{mb(directory_size(path)):>10}"
-          f"{scale:>10.0f}")
+md("""
+`tree()` is the whole hierarchy in one call. The pyramid is four groups, each
+holding one array, and each array a quarter the size of the one above.
 
-print(f"\\ncompressor: {zarray['compressor']}")
+For a single level, `info_complete()` opens the store and counts. It is the
+slower of the two - `info` alone does not touch the chunks - and worth it for
+the last two lines.
+""")
+
+code("""
+print(group[MULTISCALES["datasets"][0]["path"]].info_complete())
+""")
+
+md("""
+**Chunks Initialized** is the file count: 60 chunks of 64³ covering a
+195×256×256 volume. **Storage ratio** is what zstd got for free on 8-bit CT.
+
+One thing neither call knows is how big a voxel is. That lives in the OME-NGFF
+metadata rather than in zarr, which is the point of the NGFF layer - zarr
+stores the array, NGFF says what the array *means*.
+""")
+
+code("""
+print(f"OME-NGFF version {MULTISCALES['version']}")
+print(f"axes: {[(a['name'], a.get('unit')) for a in MULTISCALES['axes']]}\\n")
+
+for dataset in MULTISCALES["datasets"]:
+    scale = dataset["coordinateTransformations"][0]["scale"]
+    print(f"  {dataset['path']:<22} {scale[0]:>6.0f} um per voxel")
 """)
 
 md("""
@@ -264,7 +285,7 @@ with urllib.request.urlopen(f"{base}/.zattrs", timeout=10) as response:
 print(f"serving {OUT} on port {PORT}")
 print(f"Access-Control-Allow-Origin: {cors}")
 
-chunk = f"{base}/{meta['datasets'][0]['path']}/0/0/0"
+chunk = f"{base}/{MULTISCALES['datasets'][0]['path']}/0/0/0"
 with urllib.request.urlopen(chunk, timeout=10) as response:
     print(f"one chunk: {len(response.read())} bytes from {chunk}")
 """)
