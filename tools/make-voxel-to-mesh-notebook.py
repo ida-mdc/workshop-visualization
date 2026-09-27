@@ -367,19 +367,25 @@ md("""
 A 0/1 mask has nothing between 0 and 1. The threshold at 0.5 is crossed exactly
 at a voxel face every time, so the surface lands on voxel faces.
 
-That is the staircase, and no choice of extraction algorithm removes it. Three
-ways to get a value that varies smoothly instead:
+That is the staircase, and no extraction algorithm removes it. Two ways to get
+a value that varies smoothly instead:
 
 - **Blur the mask** - one line, and what this notebook does
-- **Contour the grey values directly** - free, already smooth, and it brings the
-  noise along
-- **Signed distance field** - inside distance transform minus outside. The zero
-  level sits on the voxel boundary, so smoothing *that* moves the surface
-  without moving the volume
+- **Use the grey values** - the scan already varies smoothly across an edge.
+  That is partial volume, and it is real sub-voxel information rather than
+  something a filter invented
 
 Blurring is not free, and on this specimen it is expensive. A Gaussian pulls a
 thin structure's peak below 0.5 before it does much to a thick one, so the legs
 and antennae erode while the gaster barely changes.
+
+**A signed distance field does nothing here, and it is worth knowing why.**
+Marching cubes interpolates along grid edges only, and an edge that crosses the
+surface runs from a voxel one step inside to one step outside - so the field
+reads +1 and -1 whatever the distance transform computed further away, and the
+crossing lands at the midpoint. That is the same vertex the binary mask gave.
+Smoothing the field first does change it, and erodes thin structures faster
+than blurring the mask does.
 """)
 
 code("""
@@ -410,21 +416,27 @@ code("""
 binary = extract(padded_mask)
 blurred = extract(ndimage.gaussian_filter(padded_mask.astype(np.float32), SIGMA))
 
-inside = ndimage.distance_transform_edt(padded_mask, sampling=VOXEL_MM)
-outside = ndimage.distance_transform_edt(~padded_mask, sampling=VOXEL_MM)
-sdf = extract(ndimage.gaussian_filter(inside - outside, SIGMA), level=0.0)
+# The grey values, but only where the mask said there is specimen - otherwise
+# contouring the scan brings back the tube and every speck step 3 removed.
+# The mask chooses *what*, the grey values decide *where*.
+near = ndimage.binary_dilation(padded_mask, iterations=2)
+grey = extract(np.where(near, np.pad(vol, 1, constant_values=0), 0.0),
+               level=float(LEVEL))
 
 for name, surf_v in [("binary mask", binary), ("blurred", blurred),
-                     ("distance field", sdf)]:
+                     ("grey values", grey)]:
     print(f"{name:<15} {surf_v.n_cells:>9,} triangles   "
           f"enclosed volume {surf_v.volume:7.3f} mm3")
 
-compare([binary, blurred, sdf], ["binary mask", "blurred mask", "distance field"])
+compare([binary, blurred, grey], ["binary mask", "blurred mask", "grey values"])
 """)
 
 md("""
-The binary mask is closest to the voxel count, because a staircase encloses
-exactly the voxels that made it. Smooth is not the same as accurate.
+The grey values give a smooth surface at almost exactly the mask's volume. The
+blur gives a smooth surface a sixth smaller.
+
+That is the whole argument for keeping the intensities around. Smooth is not
+the same as accurate, and a filter cannot add information the mask threw away.
 """)
 
 # ------------------------------------------------------------------- step 6

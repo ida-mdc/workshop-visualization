@@ -106,21 +106,71 @@ apart. Surface nets took about 66% longer for that.
 ### What you run it on matters more than which one
 
 {{< notes >}}
-The staircase people blame marching cubes for usually comes from the input.
-Run it straight on a binary mask and every crossing sits at a voxel face, so
-the surface is a staircase whichever method placed the vertices.
+The staircase people blame marching cubes for comes from the input. Run it
+straight on a binary mask and every crossing sits at a voxel face, so the
+surface is a staircase whichever method placed the vertices.
 
-Blurring the mask first smooths it and inflates it: thin structures fill in
-and volumes grow. Building a signed distance field instead - the inside
-distance transform minus the outside one - puts the zero level exactly at the
-voxel boundary, and smoothing that field moves the surface without moving the
-volume.
+Switch between the three and watch the volume readout rather than the surface.
+Blurring does not only smooth the mask, it moves it: a Gaussian pulls a thin
+branch under the threshold before it does much to the trunk, so fine structures
+erode while the core is untouched. Here it costs 39%; on the ant in the
+notebook, sigma 2.5 costs three quarters of the volume.
+
+The coverage map is the one to spend time on, because it is what a classifier
+hands you and people throw it away. Each voxel says what fraction of it is
+inside, which is sub-voxel information a mask never had - so the surface comes
+out smooth with nothing applied to it, and it does not shrink.
+
+If someone asks about signed distance fields, the answer is that on a mask
+they do nothing. Marching cubes only interpolates along grid edges, and a
+crossing edge always runs from one voxel in to one voxel out, so the field
+reads plus-one and minus-one and the vertex lands at the midpoint - the same
+vertex the binary mask gave. Smoothing the field first does change it, and
+makes it worse, for the same reason blurring the mask does.
+
+The point to land: smooth and accurate are different things. Get the sub-voxel
+information from upstream, not from a filter.
 {{< /notes >}}
 
-- **Binary mask in** → a staircase, whichever method you picked
-- **Blurred mask in** → smooth, and thin structures have filled in
-- **Signed distance field in** → the zero level sits on the voxel boundary, and you can smooth *that*
-- Anisotropic voxels: give the distance transform the **voxel size**, or the surface is wrong along the coarse axis
+- **Binary mask in** → a lattice, whichever method you picked - every boundary voxel rounded in or out
+- **Blurred mask in** → smooth, and **much smaller** - thin structures erode first
+- **Coverage or probability map in** → smooth *and* the right size, with **nothing applied**
+- A **signed distance field** built from a mask changes nothing - the crossing still lands mid-edge
+- Anisotropic voxels: give any distance or blur step the **voxel size**, or the surface is wrong along the coarse axis
+
+{{< scene name="iso-input" height="430" caption="The same specimen and the same grid, extracted from three different fields. Watch the enclosed volume, not the surface." >}}
+
+---
+
+## Converting voxel datasets into meshes
+### The one-voxel border
+
+{{< notes >}}
+Extraction puts a surface where the threshold is crossed. Where the specimen
+runs off the edge of the volume nothing crosses, so the surface stops and the
+mesh has a hole in it.
+
+Drag the field of view in. The specimen does not change - only how much of it
+was scanned - and the open-edge count goes from zero to a few hundred. Then
+turn padding on and it goes back to zero.
+
+That number is the demo. "Looks closed" is not a check; an edge belonging to
+one triangle instead of two is. An open mesh has no inside, so its volume is
+undefined, boolean operations fail, and slicing it in Blender means looking
+through the hole.
+
+Say the second half out loud, because it is the part people take away wrong:
+padding closes the surface, it does not recover the specimen. The cap is flat
+and it sits where your field of view ended. If you needed the rest of the
+animal, the answer is a bigger scan.
+{{< /notes >}}
+
+- A specimen touching the edge of the volume extracts as an **open surface**
+- **One voxel of background on every face** is the whole fix - `np.pad(mask, 1)`
+- Check it with a number: **edges belonging to one triangle** instead of two
+- Padding **closes** the surface. It does not **recover** the specimen
+
+{{< scene name="iso-padding" height="430" caption="The field of view, not the specimen, decides whether the mesh is closed." >}}
 
 ---
 
@@ -150,19 +200,58 @@ behave the same way under marching cubes.
 ---
 
 ## Converting voxel datasets into meshes
-### Conversion scripts
+### The whole conversion, in nine steps
+
 {{< notes >}}
-While several tools include converting volumetric datasets into meshes, VTK has worked particularly well in our 
-experience. Check out the tutorial below for more details. This includes Python code snippets, but also the 
-possibility to run conversion through a graphical user interface or command line using an Album solution.
+The notebook runs on a leafcutter ant from Antscan, and it is built so that
+every claim it makes is a number it prints rather than a picture you squint
+at.
+
+Four of the nine steps are the ones that are missing when a mesh comes out
+wrong, and we have just done three of them on the slides: pad, blur, decimate.
+The fourth is the voxel size, which is why meshes turn up in Blender at a
+two-hundredth of life size.
+
+Point at step 8 if you point at anything. Quadric decimation hits any triangle
+budget you ask for and tears the legs doing it; the topology-preserving one
+stays closed and then refuses to go further. You get the budget or the
+watertight mesh, not both.
 {{< /notes >}}
 
-1. Install and activate environment ([guide](https://github.com/ida-mdc/workshop-visualization/tree/main/visualization_software))
-2. Download Notebook [voxel_rendering_napari.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_napari.ipynb) into workshop directory 
-3. Type `jupyter lab` and press `Enter`
-4. Open Notebook from list of files on the left side
-5. Run Cells in the Notebooks one by one by pressing `Shift` and `Enter`
+{{< horizontal >}}
 
+{{< block >}}
+1. **Load** the volume - *and its voxel size*
+2. **Threshold** - no value is the right one
+3. **Clean** - drop small components, not all but the largest
+4. **Pad** with one voxel of background
+5. **Blur** the mask into a field
+6. **Extract** - `contour(method="flying_edges")`
+7. **Smooth** - Taubin, not Laplacian
+8. **Decimate** - and count open edges after
+9. **Export** - STL, PLY or glTF
+{{< /block >}}
+
+{{< block >}}
+**Running it**
+
+```bash
+uv venv .venv --python 3.11
+uv pip install --python .venv \
+  -r tools/requirements_mesh.txt
+uv run --python .venv jupyter lab
+```
+
+[voxel_to_mesh.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/voxel_to_mesh.ipynb)
+
+{{< qr-code identifier="nb-voxel-to-mesh-meshes" link="https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/voxel_to_mesh.ipynb">}}
+{{< /block >}}
+
+{{< /horizontal >}}
+
+{{< citations >}}
+- Ant: [Antscan](https://biomedisa.info/antscan/specimen/1031) specimen 1031, *Acromyrmex balzani*, CC BY 4.0 · Katzke *et al.* (2026), [*High-throughput phenomics of global ant biodiversity*](https://doi.org/10.1038/s41592-026-03005-0), Nat Methods 23, 663–672
+{{< /citations >}}
 
 ---
 
