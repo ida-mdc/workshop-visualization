@@ -44,11 +44,27 @@ const PLANE_MB = 2.097;         // one 1024² plane, uint16
 const TOTAL_MB = 2147;
 const COARSE = 2;               // pyramid level used when zoomed out
 
-// On white. The fine level is the theme blue; the coarse copies are the same
-// hue lightened, so a read that came from the pyramid reads as paler.
-const FINE = '#1f6fb0';
-const COARSE_COL = '#a6cbe4';
-const EDGE = '#3c4250';
+// On white. Grayscale rather than two blues: at the coarse level's actual
+// render size the lightened blue this used to be read as flat grey anyway
+// (the lighting desaturated it), so a "coarse copy" read looked identical to
+// "not read at all". Dark vs mid-grey keeps that same reading but makes it
+// true instead of accidental.
+//
+// The wireframe (unread storage) has to sit clearly *between* white and the
+// solid fills, not disappear next to either - it is the thing that shows how
+// much of the whole was skipped. Too faint and a fetched cell reads as
+// floating in empty space instead of "the one part of this structure that
+// was actually read".
+//
+// Not palette.dark for the fill any more. These boxes are axis-aligned, so
+// every visible face is flat-lit, and at 1.6% albedo the deck's near-black
+// gave the top face about as much light as the sides - four black
+// silhouettes with no form at all. A dark slate still reads as "the full
+// resolution" next to the coarse grey, and has enough albedo left for the
+// overhead light below to separate the top face from the sides.
+const FINE = '#4b4c5b';
+const COARSE_COL = '#6b6c78';
+const EDGE = '#53545f';
 
 // The three boxes of the pyramid panel, bottom to top: side, chunks per axis,
 // and the gap above the box below it.
@@ -73,13 +89,13 @@ const FOCUS = (-SPAN / 2 + cursor) / 2;
 
 const LAYOUTS = [
   { key: 'one', title: 'one array',
-    body: 'A single file. Any request reads all of it.' },
+    body: 'A single array file.' },
   { key: 'planes', title: 'plane per file',
-    body: 'A TIFF stack. Cheap for an xy slice, terrible for an xz one.' },
+    body: 'A stack of planes.' },
   { key: 'chunks', title: 'chunked',
-    body: 'Fetch only the chunks a request touches.' },
+    body: 'Divided in all spatial dimensions.' },
   { key: 'pyramid', title: 'chunked + pyramid',
-    body: 'Same, plus half- and quarter-size copies for when you are zoomed out.' },
+    body: 'Same, plus downscaled copies for when you are zoomed out.' },
 ];
 
 // Everything here is a question about drawing a picture, never about reading
@@ -160,7 +176,7 @@ function size(mb) {
 function wireBox(side, centreY) {
   const box = new THREE.LineSegments(
     new THREE.EdgesGeometry(new THREE.BoxGeometry(side, side, side)),
-    new THREE.LineBasicMaterial({ color: EDGE, transparent: true, opacity: 0.45 }),
+    new THREE.LineBasicMaterial({ color: EDGE, transparent: true, opacity: 0.75 }),
   );
   box.position.y = centreY;
   return box;
@@ -180,6 +196,14 @@ defineScene('chunk-fetch', (ctx) => {
   controls.enabled = false;
   for (let i = 1; i <= LAYOUTS.length; i++) camera.layers.enable(i);
   ctx.el.style.background = '#ffffff';
+
+  // An overhead light on top of the shared studio rig, almost straight down,
+  // so an upward-facing face gets nearly all of it and a side face almost
+  // none. The whole scene is flat boxes seen from a fixed angle; without a
+  // strong up/side split they read as flat shapes rather than volumes.
+  const overhead = new THREE.DirectionalLight(0xffffff, 4.0);
+  overhead.position.set(0.9, 9, 2.2);
+  scene.add(overhead);
 
   const strip = panelStrip(ctx.el,
     LAYOUTS.map((l) => ({ title: l.title, body: l.body })), { numbered: false });

@@ -78,32 +78,6 @@ Blender's **modifiers** are non-destructive tools that allow you to perform comp
 
 ---
 
-## Two kinds of cut
-### A view, or an edit
-
-{{< notes >}}
-Before the Blender steps, the distinction that decides which of them you need.
-
-A **clipping plane** is a rendering trick. The renderer discards fragments on
-one side of a plane and the mesh is never touched - move the plane and the cut
-moves with it, and the file on disk is unchanged. Instant, free, and it cannot
-be exported: nobody else can open your clipping plane.
-
-A **boolean cut** changes the geometry. The result is a new mesh you can save,
-measure, hand to a printer or send to a collaborator. It also throws the
-removed triangles away for good, so keep the original.
-
-Now look at the cut face in either mode. It is open - you see straight through
-to the inside of the far wall, because a surface mesh has no interior to
-expose. Blender's boolean modifier can close it, but only if the cutter is a
-closed solid: cut with a plane and you get exactly the hole you see here. That
-is why the next slides build a cube.
-{{< /notes >}}
-
-{{< scene name="cut-modes" height="420" caption="Same cut, two mechanisms. One is a view setting; the other rewrites the mesh - and both leave the cut face open." >}}
-
----
-
 ## Add shape which will be removed from the dataset
 
 {{< notes >}}

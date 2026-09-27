@@ -16,14 +16,15 @@ cover: img/bg.jpg
 {{< block >}}
 Hi, we are the Helmholtz Imaging Support Unit at MDC.
 
-### Helmholtz Imaging is here for you with Support Units at 3 centers, working in close collaboration with the Helmholtz Imaging Research Units.
+### Helmholtz Imaging is here for you with Support and Research Units at 4 centers, working in close collaboration with the Helmholtz Imaging Research Units.
 {{< logos >}}img/logos/desy.png
 img/logos/dkfz.png
-img/logos/mdc.png{{< /logos >}}
+img/logos/mdc.png
+img/logos/ufz.png{{< /logos >}}
 
 {{< /block >}}
 
-{{< figure src="img/hi-support-staff.jpg" caption="Members of all Helmholtz Imaging Support Units." >}}
+{{< figure src="img/hi-staff.jpg" caption="Members of all Helmholtz Imaging Units." >}}
 
 {{< /horizontal >}}
 
@@ -41,55 +42,9 @@ Germany.
 
 ---
 
-## Workshop Structure
-### Monday
-
-- 12pm Installation time
-- 1pm Lunch
-- 2pm **Introduction, general remarks**
-- 2:30pm **3D Data Types**
-- 3:30pm **Quality Control**
-- 4:30pm **Volumetric Data Rendering**
-
----
-
-## Workshop Structure
-### Tuesday
-
-- 10am **Meshes**
-- 11:00am **Colors**
-- 11:30am **Getting To Know Your Data** with [Jochen Müller](https://jochen-mueller.net/) (Stiftung Planetarium Berlin)
-- 1pm Lunch
-- 2pm **Point Clouds** - 30min
-- 2:30pm **Vector Fields** - 30min
-- 3pm Open Working Time
-
----
-
-## Workshop Structure
-### Wednesday
-
-- 10am **VR Showcase** with Christoph Karg (MDC)
-- 11am Open Working Time
-- 1pm Lunch
-- 2pm Open Working Time
-
----
-
-## Workshop Structure
-### Thursday
-
-- 10am Open Working Time
-- 1pm Lunch
-- 2:30pm **Presentation & Feedback**
-- 5pm [Black Holes](https://www.planetarium.berlin/en/events/black-holes) @ Zeiss Großplanetarium
-
----
-
 ## Data & Open Working Time
 
-- We start with small example datasets
-- We will discuss Big Data handling
+- We provide example datasets and tool suggestions
 - Open Working Time is for YOUR data and projects - we are here to help!
 - Form groups to learn from each other and be most effective
 
@@ -113,22 +68,30 @@ more visualization techniques!
 {{< /notes >}}
 
 {{< horizontal >}}
-{{< block >}}
-## Thank you!
+
+{{< block style="flex: 0 0 33%" >}}
+
 ### Don't hesitate to get in touch:
 
 **support@helmholtz-imaging.de**
 
-**https://connect.helmholtz-imaging.de**
+**https://helmholtz-imaging.de**
 
-{{<space>}}{{</space>}}
-
-{{< logos >}}img/logos/desy.png
-img/logos/dkfz.png
-img/logos/mdc.png{{< /logos >}}
+[**Open Office Hour**](https://helmholtz-imaging.de/news-news/news/our-open-office-hour-is-back/)
+every 2nd Tuesday of the month, 13:00, virtual. Drop in, no registration.
 
 {{< /block >}}
 
-{{< figure src="img/hi-staff.jpg" caption="Helmholtz Imaging Units at DESY, DKFZ, and MDC." >}}
+{{< block style="flex: 0 0 62%" >}}
+
+### Helmholtz Imaging Conference 2026
+
+**Leipzig, 10–12 November**, inside Imaging Week, 9–12 November
+
+{{< figure src="img/Imaging-Week-2026_SvD_1200x627px.png" style="max-height: 34vh; width: auto" link="https://events.hifis.net/event/2690/" >}}
+
+Registration and call for contributions: [**events.hifis.net/event/2690**](https://events.hifis.net/event/2690/)
+
+{{< /block >}}
 
 {{< /horizontal >}}

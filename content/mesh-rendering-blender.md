@@ -10,44 +10,6 @@ cover: img/noise-rendering.png
 background: transparent
 ---
 
-## Before you start
-### Perspective, orthographic - or fisheye
-
-{{< notes >}}
-Worth settling before anything else, because it is the one camera setting that
-changes what the render *means* rather than how it looks.
-
-Three identical specimens, evenly spaced away from the camera.
-
-In perspective the far one is smaller and the floor lines converge. It looks
-natural, because it is how eyes and cameras work - and that is exactly why it
-is the wrong projection for any figure someone is meant to measure off.
-
-In orthographic all three are the same size on screen, because they are the
-same size. Parallel lines stay parallel. It looks slightly wrong and it is
-correct.
-
-Blender has a third option under the camera's **Lens > Type**: **Panoramic**.
-With Cycles as the render engine that opens up **Fisheye Equidistant**,
-**Fisheye Equisolid** and **Equirectangular**. These are not stylistic - they
-exist because some screens are not flat. A planetarium dome wants fisheye
-equidistant at a 180 degree field of view; a VR headset or a 360 viewer wants
-equirectangular. Render a dome show with an ordinary perspective camera and it
-will be visibly wrong the moment it is projected.
-
-Rule of thumb: orthographic for anything quantitative, perspective for anything
-whose job is to look like a photograph, panoramic only when you know what
-surface it is going to be shown on.
-{{< /notes >}}
-
-{{< scene name="projection-choice" height="400" caption="Three identical specimens. Only one of these projections lets you compare their sizes." >}}
-
-- **Orthographic** for anything measurable - parallel stays parallel
-- **Perspective** when it should look like a photograph
-- **Panoramic** in Cycles: fisheye for a dome, equirectangular for VR and 360
-
----
-
 ## Create a New Blender Scene
 
 {{< notes >}}

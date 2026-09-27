@@ -1,149 +1,242 @@
-// Level of detail: how a viewer shows a cloud it cannot possibly load.
+// Level of detail: which depth of the octree a viewer actually draws, where.
 //
-// A scanned surface, cut into tiles. Every tile holds the same points in a
-// fixed shuffled order, so drawing the first n of a tile is a valid sample of
-// that tile at any n - which is the whole trick behind EPT, COPC and Potree.
+// The data is a real one: a tributary canyon system in Grand Canyon National
+// Park, from USGS airborne lidar - 154,000 points out of a public,
+// 22-billion-point dataset, already shipped as an Entwine octree because that
+// is how USGS serves it. tools/make-canyon-points.py fetches and crops it,
+// tools/make-canyon-octree.py builds the octree this scene walks. Vertical
+// relief is exaggerated 3x, or the real canyon reads as almost flat from this
+// angle - said here once rather than left for someone to wonder about.
+//
+// What an octree node holds, and why it matters here: one point per cell of a
+// lattice laid over the node's box, and only points no ancestor already took.
+// So a node is a sample of its own region at its own resolution, and drawing
+// a node together with its ancestors gives that region at full density. A
+// viewer can therefore stop descending anywhere and still have a complete
+// picture - coarser, not holey - and it never re-fetches a point it has.
 //
 // The observer is the red glyph in the scene, not you. Detail is spent
-// relative to it, so you can orbit right round the arrangement and watch where
-// the points went. If level of detail followed your own camera instead, every
-// attempt to look at the effect would move it.
+// relative to it, so you can orbit right round the arrangement and watch
+// where the depth went. If level of detail followed your own camera instead,
+// every attempt to look at the effect would move it.
 //
-// The comparison is the point. Both modes draw the same number of points; they
-// differ only in where they spend them.
+// The two modes both draw the same number of points and differ only in which
+// nodes they spend them on:
 //
-//   Uniform     the same fraction from every tile. Fair, and wrong: most of
-//               the budget goes on tiles that are far away and small on screen.
-//   By distance  near tiles get most of it, far tiles get a few. The near
-//               ground looks solid and the horizon stays sketchy - which is
-//               exactly what you can see anyway.
+//   By distance   Potree's own loop. Start at the root, repeatedly draw
+//                 whichever pending node looks biggest from the glyph
+//                 (its half-size over its distance) and queue that node's
+//                 children. The budget runs out while far nodes are still
+//                 shallow, so the cut through the tree is deep near the
+//                 glyph and shallow at the horizon.
+//   Same depth    Fill the tree level by level instead. Every region gets
+//                 the same resolution, the far ones get detail nobody can
+//                 see, and the near ground is the coarser for it.
 //
-// The tile outlines are the octree, drawn. This is also why the format matters
-// more than the viewer: a plain .las has to be read end to end before anything
-// appears, while a tiled one streams the tiles you are looking at.
+// The boxes are the nodes actually being drawn, colored by their depth - so
+// the cut through the tree is the thing you are looking at, not an inference.
 
 import { defineScene, THREE, palette, ramp } from '../runtime.js';
 import { makeEye } from '../eye.js';
 
-const TILES = 5;            // per axis, across the ground
-const PER_TILE = 9000;      // points held in each tile
-const EXTENT = 3.0;
+const DATA = '../../../data/canyon-octree.bin';
+const RECORD = 40;               // bytes per node record, see the prep script
+const MAX_DEPTH = 5;             // deepest level the prep script produced
 
-/** A rolling landscape - stands in for any scanned surface. */
-function height(x, z) {
-  return 0.34 * Math.sin(x * 1.1 + 0.4) * Math.cos(z * 0.9)
-    + 0.18 * Math.sin(x * 2.3 - z * 1.7)
-    + 0.07 * Math.sin(x * 5.1) * Math.sin(z * 4.3);
-}
-
-function rng(seed) {
-  let s = seed | 0;
-  return () => {
-    s = (s + 0x6d2b79f5) | 0;
-    let t = Math.imul(s ^ (s >>> 15), 1 | s);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
+// One color per octree depth, coarse to fine. Read as a legend on the boxes.
+const DEPTH_COLORS = [
+  palette.plum, palette.iceDeep, palette.teal, palette.sage,
+  palette.amber, palette.rose,
+];
 const ELEVATION = [palette.plum, palette.teal, palette.sage, palette.amber,
   palette.roseLight];
 
+/** tools/make-canyon-octree.py's file: a node table, then the positions. */
+async function loadOctree() {
+  const buf = await fetch(new URL(DATA, import.meta.url)).then((r) => r.arrayBuffer());
+  const head = new Uint32Array(buf, 0, 2);
+  const [nodeCount, pointCount] = head;
+  const nodes = [];
+  for (let i = 0; i < nodeCount; i++) {
+    const o = 8 + i * RECORD;
+    const f = new Float32Array(buf, o, 4);
+    const u = new Uint32Array(buf, o + 16, 3);
+    const parent = new Int32Array(buf, o + 28, 1)[0];
+    const kids = new Uint32Array(buf, o + 32, 2);
+    nodes.push({
+      centre: new THREE.Vector3(f[0], f[1], f[2]),
+      half: f[3],
+      depth: u[0],
+      first: u[1],
+      count: u[2],
+      parent,
+      childStart: kids[0],
+      childCount: kids[1],
+    });
+  }
+  const positions = new Float32Array(buf, 8 + nodeCount * RECORD, pointCount * 3);
+  return { nodes, positions, pointCount };
+}
+
+/** The 12 edges of a unit cube, as pairs of corner signs. */
+const CUBE_EDGES = (() => {
+  const corners = [];
+  for (const x of [-1, 1]) for (const y of [-1, 1]) for (const z of [-1, 1]) corners.push([x, y, z]);
+  const edges = [];
+  for (let a = 0; a < 8; a++) {
+    for (let b = a + 1; b < 8; b++) {
+      const diff = corners[a].reduce((n, v, i) => n + (v !== corners[b][i] ? 1 : 0), 0);
+      if (diff === 1) edges.push([corners[a], corners[b]]);
+    }
+  }
+  return edges;
+})();
+
 defineScene('point-lod', ({ scene, ui, view }) => {
-  view(0.5, 1.9, 4.2, 2.35, [0, -0.05, 0]);
+  view(1.0, 1.15, 3.8, 1.8, [0, -0.05, 0]);
 
   const eye = makeEye({ reach: 0.5, spread: 0.5 });
   scene.add(eye.group);
   let angle = -0.6;
   const eyeHeight = 0.62;   // fixed: it was a knob nobody needed
 
-  const half = EXTENT / 2;
-  const tileSize = EXTENT / TILES;
-  const tiles = [];
+  let tree = null;
+  let budget = 0;
+  let byDistance = true;
+  let colorByDepth = true;
+  let showBoxes = true;
 
-  const outlines = new THREE.Group();
-  scene.add(outlines);
+  // One draw call for the points and one for the boxes. Both buffers are
+  // allocated for the whole cloud once and refilled in place, because the
+  // selection changes on every drag of every slider.
+  const drawPositions = new THREE.BufferGeometry();
+  const boxGeometry = new THREE.BufferGeometry();
+  let posArray = null;
+  let colArray = null;
+  let boxPos = null;
+  let boxCol = null;
 
-  for (let tx = 0; tx < TILES; tx++) {
-    for (let tz = 0; tz < TILES; tz++) {
-      const x0 = -half + tx * tileSize;
-      const z0 = -half + tz * tileSize;
-      const rand = rng(1000 + tx * 37 + tz * 101);
+  const points = new THREE.Points(drawPositions, new THREE.PointsMaterial({
+    vertexColors: true, size: 0.016,
+  }));
+  scene.add(points);
 
-      const positions = new Float32Array(PER_TILE * 3);
-      const colors = new Float32Array(PER_TILE * 3);
-      for (let i = 0; i < PER_TILE; i++) {
-        // Random within the tile: a shuffled order by construction, so any
-        // prefix is an even sample of the tile.
-        const x = x0 + rand() * tileSize;
-        const z = z0 + rand() * tileSize;
-        const y = height(x, z);
-        positions.set([x, y, z], i * 3);
-        const c = ramp(ELEVATION, (y + 0.55) / 1.1);
-        colors.set([c.r, c.g, c.b], i * 3);
+  const boxes = new THREE.LineSegments(boxGeometry, new THREE.LineBasicMaterial({
+    vertexColors: true, transparent: true, opacity: 0.75,
+  }));
+
+  // The root box is a cube three units tall over a canyon less than one unit
+  // deep, because every one of these formats starts from a cubic root - so
+  // the coarse boxes are mostly empty air, and drawn at full strength they
+  // are all you see. Fading them by depth leaves the nesting visible and
+  // lets the fine boxes near the glyph, which are the point, come forward.
+  const PAPER = new THREE.Color(palette.paper);
+  const fade = (depth) => 0.22 + 0.78 * (depth / MAX_DEPTH);
+  scene.add(boxes);
+
+  const report = ui.readout('Drawn');
+  let describe = () => {};
+
+  /** Potree's loop: always descend into whatever looks biggest from the glyph. */
+  function selectByDistance() {
+    const { nodes } = tree;
+    const pending = [0];
+    const chosen = [];
+    let spent = 0;
+    const score = (i) => nodes[i].half / Math.max(0.05, nodes[i].centre.distanceTo(eye.position));
+    while (pending.length) {
+      let best = 0;
+      for (let k = 1; k < pending.length; k++) {
+        if (score(pending[k]) > score(pending[best])) best = k;
       }
-
-      const geo = new THREE.BufferGeometry();
-      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-      const points = new THREE.Points(geo, new THREE.PointsMaterial({
-        vertexColors: true, size: 0.014,
-      }));
-      scene.add(points);
-
-      const centre = new THREE.Vector3(
-        x0 + tileSize / 2,
-        height(x0 + tileSize / 2, z0 + tileSize / 2),
-        z0 + tileSize / 2,
-      );
-      tiles.push({ points, centre });
-
-      // An octree cell is a box, so draw a box. A flat grid on the floor
-      // would look like a floor and not like the thing that gets streamed.
-      const outline = new THREE.LineSegments(
-        new THREE.EdgesGeometry(new THREE.BoxGeometry(tileSize, 1.25, tileSize)),
-        new THREE.LineBasicMaterial({
-          color: '#9aa7b4', transparent: true, opacity: 0.3,
-        }),
-      );
-      outline.position.set(centre.x, 0, centre.z);
-      outlines.add(outline);
+      const i = pending.splice(best, 1)[0];
+      if (spent + nodes[i].count > budget) break;
+      chosen.push(i);
+      spent += nodes[i].count;
+      for (let c = 0; c < nodes[i].childCount; c++) pending.push(nodes[i].childStart + c);
     }
+    return chosen;
   }
 
-  const total = tiles.length * PER_TILE;
-  let budget = Math.round(total * 0.07);
-  let byDistance = true;
-  const report = ui.readout('Drawn');
+  /** Level by level, which is what "no level of detail" actually looks like. */
+  function selectUniform() {
+    const { nodes } = tree;
+    const chosen = [];
+    let spent = 0;
+    // The node table is already breadth-first, so walking it in order fills
+    // each depth completely before starting the next.
+    for (let i = 0; i < nodes.length; i++) {
+      if (spent + nodes[i].count > budget) break;
+      chosen.push(i);
+      spent += nodes[i].count;
+    }
+    return chosen;
+  }
 
   function apply() {
-    if (!byDistance) {
-      const share = Math.floor(budget / tiles.length);
-      for (const t of tiles) t.points.geometry.setDrawRange(0, share);
-      report(`${(share * tiles.length).toLocaleString('en')} of `
-        + `${total.toLocaleString('en')}`);
-      return;
+    if (!tree) return;
+    const { nodes, positions } = tree;
+    const chosen = byDistance ? selectByDistance() : selectUniform();
+
+    let n = 0;
+    let minDepth = MAX_DEPTH;
+    let maxDepth = 0;
+    const c = new THREE.Color();
+    for (const i of chosen) {
+      const node = nodes[i];
+      minDepth = Math.min(minDepth, node.depth);
+      maxDepth = Math.max(maxDepth, node.depth);
+      const depthColor = DEPTH_COLORS[Math.min(node.depth, DEPTH_COLORS.length - 1)];
+      for (let p = 0; p < node.count; p++) {
+        const src = (node.first + p) * 3;
+        posArray[n * 3] = positions[src];
+        posArray[n * 3 + 1] = positions[src + 1];
+        posArray[n * 3 + 2] = positions[src + 2];
+        if (colorByDepth) {
+          c.set(depthColor);
+        } else {
+          // Elevation is already centred on its own mean by the prep script;
+          // the fixed window keeps the ramp stable as the selection changes.
+          c.copy(ramp(ELEVATION,
+            THREE.MathUtils.clamp((positions[src + 1] + 0.4) / 0.8, 0, 1)));
+        }
+        colArray[n * 3] = c.r;
+        colArray[n * 3 + 1] = c.g;
+        colArray[n * 3 + 2] = c.b;
+        n++;
+      }
     }
-    // Weight each tile by how close it is to the glyph, then hand out the
-    // budget in proportion. A real implementation also weights by projected
-    // size and by what is inside the frustum; this is the same idea with less
-    // bookkeeping.
-    let sum = 0;
-    const weights = tiles.map((t) => {
-      const w = 1 / (0.35 + t.centre.distanceToSquared(eye.position));
-      sum += w;
-      return w;
-    });
-    let drawn = 0;
-    tiles.forEach((t, i) => {
-      const n = Math.min(PER_TILE, Math.round((weights[i] / sum) * budget));
-      t.points.geometry.setDrawRange(0, n);
-      drawn += n;
-    });
-    report(`${drawn.toLocaleString('en')} of ${total.toLocaleString('en')}`);
+    drawPositions.setDrawRange(0, n);
+    drawPositions.attributes.position.needsUpdate = true;
+    drawPositions.attributes.color.needsUpdate = true;
+
+    let e = 0;
+    for (const i of chosen) {
+      const node = nodes[i];
+      c.set(DEPTH_COLORS[Math.min(node.depth, DEPTH_COLORS.length - 1)]);
+      c.lerp(PAPER, 1 - fade(node.depth));
+      for (const [a, b] of CUBE_EDGES) {
+        for (const corner of [a, b]) {
+          boxPos[e * 3] = node.centre.x + corner[0] * node.half;
+          boxPos[e * 3 + 1] = node.centre.y + corner[1] * node.half;
+          boxPos[e * 3 + 2] = node.centre.z + corner[2] * node.half;
+          boxCol[e * 3] = c.r;
+          boxCol[e * 3 + 1] = c.g;
+          boxCol[e * 3 + 2] = c.b;
+          e++;
+        }
+      }
+    }
+    boxGeometry.setDrawRange(0, e);
+    boxGeometry.attributes.position.needsUpdate = true;
+    boxGeometry.attributes.color.needsUpdate = true;
+    boxes.visible = showBoxes;
+
+    report(`${n.toLocaleString('en')} of ${tree.pointCount.toLocaleString('en')}`
+      + ` · ${chosen.length} nodes`);
   }
 
-  ui.choice('Spend the budget', ['By distance', 'Uniformly'], (i) => {
+  ui.choice('Spend the budget', ['By distance', 'Same depth'], (i) => {
     byDistance = i === 0;
     apply();
   });
@@ -153,13 +246,33 @@ defineScene('point-lod', ({ scene, ui, view }) => {
     format: () => '',
   }, (v) => { angle = v; eye.place(angle, eyeHeight, 2.0); apply(); });
 
-  ui.slider('Budget', {
-    min: 0.01, max: 1, step: 0.01, value: 0.07,
+  const budgetSlider = ui.slider('Budget', {
+    min: 0.01, max: 1, step: 0.01, value: 0.12,
     format: (v) => `${Math.round(v * 100)}%`,
-  }, (v) => { budget = Math.round(total * v); apply(); });
+  }, (v) => { budget = Math.round((tree ? tree.pointCount : 0) * v); apply(); });
 
-  ui.toggle('Tiles', true, (on) => { outlines.visible = on; });
+  ui.choice('Color', ['Octree depth', 'Elevation'], (i) => {
+    colorByDepth = i === 0;
+    apply();
+  });
+
+  ui.toggle('Nodes', true, (on) => { showBoxes = on; boxes.visible = on && !!tree; });
+
+  describe = ui.note('');
 
   eye.place(angle, eyeHeight, 2.0);
-  apply();
+
+  loadOctree().then((loaded) => {
+    tree = loaded;
+    posArray = new Float32Array(loaded.pointCount * 3);
+    colArray = new Float32Array(loaded.pointCount * 3);
+    drawPositions.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    drawPositions.setAttribute('color', new THREE.BufferAttribute(colArray, 3));
+    // Worst case every node is drawn; 12 edges, 2 vertices each.
+    boxPos = new Float32Array(loaded.nodes.length * 24 * 3);
+    boxCol = new Float32Array(loaded.nodes.length * 24 * 3);
+    boxGeometry.setAttribute('position', new THREE.BufferAttribute(boxPos, 3));
+    boxGeometry.setAttribute('color', new THREE.BufferAttribute(boxCol, 3));
+    budgetSlider.set(0.12);
+  });
 });
