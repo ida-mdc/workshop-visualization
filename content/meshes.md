@@ -303,7 +303,7 @@ a batch, and the figure regenerates when the data changes.
 - **A script** for forty that have to look *the same* - and to regenerate when the data changes
 - PyVista renders **off-screen**: no window, no clicking, works over SSH
 
-In the notebook: materials, scalar colouring, side-by-side panels, turntable MP4
+In the notebook: materials, scalar coloring, side-by-side panels, turntable MP4
 {{< /block >}}
 
 {{< block >}}

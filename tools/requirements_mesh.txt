@@ -6,7 +6,7 @@
 # Just this session, not the whole workshop. The full environment is in
 # visualization_software/README.md; this file is here so that somebody who
 # only wants to follow the meshes notebook does not have to install napari and
-# its Qt neighbours to do it.
+# its Qt neighbors to do it.
 #
 # Unpinned on purpose, the same as tools/requirements_volumetric.txt. A
 # workshop is taught once a year against whatever is current, and a pinned set

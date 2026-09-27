@@ -85,7 +85,7 @@ function coverage(occ, { step, nx, ny, nz }) {
     for (let j = 1; j < ny - 1; j++) {
       for (let i = 1; i < nx - 1; i++) {
         const here = at(i, j, k);
-        // Six-neighbourhood: a voxel with a differing face neighbour is one
+        // Six-neighborhood: a voxel with a differing face neighbor is one
         // the surface passes through.
         if (here === at(i - 1, j, k) && here === at(i + 1, j, k)
           && here === at(i, j - 1, k) && here === at(i, j + 1, k)

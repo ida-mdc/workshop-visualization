@@ -81,7 +81,7 @@ and the reconstruction a cloud needs before it is worth measuring.
 
 The order matters and it is the thing to say. Radius outlier removal before
 normal estimation, because one stray point bends the plane fit for every
-neighbour it has; normals before reconstruction, because Poisson has nothing
+neighbor it has; normals before reconstruction, because Poisson has nothing
 to work with without them.
 
 It runs on a synthetic noisy sphere so nobody is blocked on having data. Point
@@ -93,7 +93,7 @@ it at `example_data/spiral_tube_pointcloud.ply` to use ours.
 {{< block >}}
 1. **Drop** NaNs and duplicates
 2. **Voxel downsample** - one point per cell
-3. **Radius outlier removal** - drop points with too few neighbours
+3. **Radius outlier removal** - drop points with too few neighbors
 4. **Estimate normals** - PCA on each point's *k* nearest
 5. **Reconstruct** a surface, and save PLY
 {{< /block >}}
@@ -113,7 +113,7 @@ uv run --python .venv jupyter lab
 
 {{< /horizontal >}}
 
-- **Clean before you reconstruct** - one outlier bends the normals of every neighbour it has
+- **Clean before you reconstruct** - one outlier bends the normals of every neighbor it has
 - No normals → **no Poisson surface**, and nothing to light
 
 ---

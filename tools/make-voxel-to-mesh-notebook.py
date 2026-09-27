@@ -44,7 +44,7 @@ there are four steps nobody mentions until the mesh comes out wrong.
 
 | | step | why it is there |
 |---|---|---|
-| 1 | Load the volume, and its voxel size | the mesh comes out in millimetres, not voxels |
+| 1 | Load the volume, and its voxel size | the mesh comes out in millimeters, not voxels |
 | 2 | Pick a threshold | no value is the right one, and everything is downstream of it |
 | 3 | Clean the mask | a threshold also selects every speck brighter than it |
 | 4 | Pad with background | an object touching the edge extracts as an open surface |
@@ -83,7 +83,7 @@ pv.set_jupyter_backend("static")
 OUT = Path("results") / "voxel_to_mesh"
 OUT.mkdir(parents=True, exist_ok=True)
 
-COLOUR = "#bcd8ea"
+COLOR = "#bcd8ea"
 
 
 def show(mesh, **kwargs):
@@ -94,7 +94,7 @@ def show(mesh, **kwargs):
     \"\"\"
     pl = pv.Plotter(off_screen=True, window_size=(1300, 620))
     pl.set_background("white")
-    pl.add_mesh(mesh, color=COLOUR, smooth_shading=True, **kwargs)
+    pl.add_mesh(mesh, color=COLOR, smooth_shading=True, **kwargs)
     pl.camera_position = "zx"
     pl.reset_camera()
     pl.camera.elevation = 18
@@ -114,7 +114,7 @@ def compare(meshes, titles, width=420, zoom=1.35):
     pl.set_background("white")
     for i, (mesh, title) in enumerate(zip(meshes, titles)):
         pl.subplot(0, i)
-        pl.add_mesh(mesh, color=COLOUR, smooth_shading=True)
+        pl.add_mesh(mesh, color=COLOR, smooth_shading=True)
         pl.add_text(title, font_size=10, color="black")
     pl.link_views()
     pl.camera_position = "yz"
@@ -212,7 +212,7 @@ code("""
 counts, edges = np.histogram(vol[vol > 0], bins=96, range=(1, 255))
 
 fig, ax = plt.subplots(figsize=(8, 2.6))
-ax.fill_between(edges[:-1], counts, step="post", color=COLOUR)
+ax.fill_between(edges[:-1], counts, step="post", color=COLOR)
 ax.set_yscale("log")
 ax.set_xlabel("intensity (background excluded)")
 ax.set_ylabel("voxels")
@@ -371,7 +371,7 @@ That is the staircase, and no extraction algorithm removes it. Two ways to get
 a value that varies smoothly instead:
 
 - **Blur the mask** - one line, and what this notebook does
-- **Use the grey values** - the scan already varies smoothly across an edge.
+- **Use the gray values** - the scan already varies smoothly across an edge.
   That is partial volume, and it is real sub-voxel information rather than
   something a filter invented
 
@@ -416,23 +416,23 @@ code("""
 binary = extract(padded_mask)
 blurred = extract(ndimage.gaussian_filter(padded_mask.astype(np.float32), SIGMA))
 
-# The grey values, but only where the mask said there is specimen - otherwise
+# The gray values, but only where the mask said there is specimen - otherwise
 # contouring the scan brings back the tube and every speck step 3 removed.
-# The mask chooses *what*, the grey values decide *where*.
+# The mask chooses *what*, the gray values decide *where*.
 near = ndimage.binary_dilation(padded_mask, iterations=2)
-grey = extract(np.where(near, np.pad(vol, 1, constant_values=0), 0.0),
+gray = extract(np.where(near, np.pad(vol, 1, constant_values=0), 0.0),
                level=float(LEVEL))
 
 for name, surf_v in [("binary mask", binary), ("blurred", blurred),
-                     ("grey values", grey)]:
+                     ("gray values", gray)]:
     print(f"{name:<15} {surf_v.n_cells:>9,} triangles   "
           f"enclosed volume {surf_v.volume:7.3f} mm3")
 
-compare([binary, blurred, grey], ["binary mask", "blurred mask", "grey values"])
+compare([binary, blurred, gray], ["binary mask", "blurred mask", "gray values"])
 """)
 
 md("""
-The grey values give a smooth surface at almost exactly the mask's volume. The
+The gray values give a smooth surface at almost exactly the mask's volume. The
 blur gives a smooth surface a sixth smaller.
 
 That is the whole argument for keeping the intensities around. Smooth is not
@@ -447,7 +447,7 @@ md("""
 `contour` with `method="flying_edges"` is marching cubes in four parallel passes
 over the grid. Same surface, faster, and what VTK runs by default now.
 
-`spacing` on the grid is what puts the result in millimetres.
+`spacing` on the grid is what puts the result in millimeters.
 """)
 
 code("""
@@ -469,7 +469,7 @@ This is a different operation from blurring the volume. It moves vertices along
 the surface rather than changing where the surface is.
 
 **Use Taubin, not Laplacian.** Laplacian smoothing pulls every vertex towards
-its neighbours' average, which shrinks a closed mesh a little more on every
+its neighbors' average, which shrinks a closed mesh a little more on every
 iteration.
 
 Taubin alternates a shrinking pass with an expanding one. The numbers below are
@@ -567,8 +567,8 @@ md("""
 | format | carries | use it for |
 |---|---|---|
 | **STL** | triangles, nothing else | printing, and tools that read nothing else |
-| **PLY** | triangles, colour, normals, per-vertex fields | keeping a measurement on the surface |
-| **glTF** | triangles, colour, materials, a scene | the browser, and `<model-viewer>` |
+| **PLY** | triangles, color, normals, per-vertex fields | keeping a measurement on the surface |
+| **glTF** | triangles, color, materials, a scene | the browser, and `<model-viewer>` |
 
 STL stores three full coordinates per triangle and shares nothing, so it is
 roughly double the size of the same mesh in PLY. It is still what most tools
@@ -589,7 +589,7 @@ final.save(OUT / "acromyrmex.stl")
 final.save(OUT / "acromyrmex.ply")
 
 pl = pv.Plotter(off_screen=True)
-pl.add_mesh(final, color=COLOUR)
+pl.add_mesh(final, color=COLOR)
 pl.export_gltf(OUT / "acromyrmex.gltf")
 pl.close()
 

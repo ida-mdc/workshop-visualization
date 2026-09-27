@@ -27,7 +27,7 @@ const PAD = 2;           // voxels of background added on every face
  * A closed surface has none. Keyed on the vertex pair rather than on position,
  * which is what we want here: `extract` already shares a vertex between the
  * cells that meet at it, so two triangles that quote the same pair really are
- * neighbours.
+ * neighbors.
  */
 function openEdges(geometry) {
   const index = geometry.getIndex();
@@ -60,7 +60,7 @@ defineScene('iso-padding', ({ scene, ui, view }) => {
   }));
   scene.add(surface);
 
-  // The inside of the surface, in a colour it never has when it is closed.
+  // The inside of the surface, in a color it never has when it is closed.
   //
   // Without this the scene does not work at all. The holes are flat cuts in
   // the plane of the box, seen from outside, so a single-sided surface just
