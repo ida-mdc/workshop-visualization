@@ -1,14 +1,11 @@
 # Everything the volume rendering notebooks import.
 #
+# napari is not in here. The voxels session uses it as an application,
+# launched with `uvx --from "napari[all]" napari`, not from Python.
+#
 #     uv venv .venv_volumetric --python 3.12
 #     uv pip install --python .venv_volumetric -r tools/requirements_volumetric.txt
 #     uv run --python .venv_volumetric jupyter lab
-
-# voxel_rendering_napari.ipynb
-napari[all]==0.9.1
-dask==2026.8.0
-tifffile==2026.9.20
-imageio==2.37.4
 
 # voxel_rendering_vtk.ipynb - the transfer function built by hand
 vtk==9.7.0
@@ -16,6 +13,14 @@ vtk==9.7.0
 # voxel_rendering_pygfx.ipynb - the same volume on the GPU through wgpu
 pygfx==0.17.0
 wgpu==0.32.0
+
+# reading the example volume
+tifffile==2026.9.20
+
+# the spin animation, which both of them write. imageio shells out to
+# ffmpeg for an MP4, and imageio-ffmpeg is what ships that binary
+imageio==2.37.4
+imageio-ffmpeg==0.6.0
 
 # shared
 numpy==2.5.3

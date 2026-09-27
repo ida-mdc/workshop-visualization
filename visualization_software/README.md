@@ -115,7 +115,7 @@ what one of them needs:
 
 | file | notebooks |
 | :--- | :--- |
-| `tools/requirements_volumetric.txt` | `voxel_rendering_napari`, `voxel_rendering_vtk`, `voxel_rendering_pygfx` |
+| `tools/requirements_volumetric.txt` | `voxel_rendering_vtk`, `voxel_rendering_pygfx` |
 | `tools/requirements_ngff.txt` | `tiff_to_ngff_and_neuroglancer` |
 | `tools/requirements_mesh.txt` | `voxel_to_mesh`, `mesh_rendering_tutorial` |
 | `tools/requirements_pointclouds.txt` | `point_clouds_tutorial` |
