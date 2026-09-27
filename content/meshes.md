@@ -296,13 +296,23 @@ clicking, so the same camera and the same material land on every specimen in
 a batch, and the figure regenerates when the data changes.
 {{< /notes >}}
 
+{{< horizontal >}}
+
+{{< block >}}
 - **Blender** for one picture that has to look right
 - **A script** for forty that have to look *the same* - and to regenerate when the data changes
 - PyVista renders **off-screen**: no window, no clicking, works over SSH
 
-[mesh_rendering_tutorial.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/mesh_rendering_tutorial.ipynb) - materials, scalar colouring, side-by-side panels, turntable MP4
+In the notebook: materials, scalar colouring, side-by-side panels, turntable MP4
+{{< /block >}}
+
+{{< block >}}
+[mesh_rendering_tutorial.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/mesh_rendering_tutorial.ipynb)
 
 {{< qr-code identifier="nb-mesh-rendering" link="https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/mesh_rendering_tutorial.ipynb">}}
+{{< /block >}}
+
+{{< /horizontal >}}
 
 ---
 
