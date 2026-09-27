@@ -14,17 +14,17 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
 - 12pm Installation time
 - 1pm Lunch
 - 2pm **Introduction, general remarks, overview of 3D Data rendering**
-  - [Introduction slides]({{< ref "introduction.md" >}}) TODO review
+  - [Introduction slides]({{< ref "introduction.md" >}})
   - [3D Data Visualization - an overview]({{< ref "overview.md" >}})
   - [Example data](https://github.com/ida-mdc/workshop-visualization/tree/main/example_data)
-- 2:45pm **Quality Control**
-  - [Slides](https://ida-mdc.gitlab.io/workshops/prevalidation/overview/) TODO change link
+- 2:45pm **Image Quality Control**
 - 3:45pm Coffee
 - 4:15pm **Volumetric Data Rendering**
   - [Overview Slides]({{< ref "voxels.md" >}})
     - Notebook: [voxel_rendering_napari.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_napari.ipynb)
     - Notebook: [voxel_rendering_vtk.ipynb](https://github.com/ida-mdc/workshop-visualization/tree/main/notebooks/voxel_rendering_vtk.ipynb)
   - [Large 3D data]({{< ref "large-data.md" >}})
+    - Notebook: [tiff_to_ngff_and_neuroglancer.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/tiff_to_ngff_and_neuroglancer.ipynb) - TIFF to OME-Zarr, and into Neuroglancer
     - Notebook: [luxar_gaussian_splats.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/luxar_gaussian_splats.ipynb) - needs a CUDA GPU
 
 ## Tuesday
