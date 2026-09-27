@@ -1,29 +1,21 @@
 # Everything tiff_to_ngff_and_neuroglancer.ipynb imports.
 #
-#     uv venv .venv_ngff --python 3.11
+#     uv venv .venv_ngff --python 3.12
 #     uv pip install --python .venv_ngff -r tools/requirements_ngff.txt
 #     uv run --python .venv_ngff jupyter lab
-#
-# Just this session, not the whole workshop. The full environment is in
-# visualization_software/README.md.
-#
-# Unpinned on purpose, the same as the others in this directory. A workshop is
-# taught once a year against whatever is current, and a pinned set goes stale
-# between editions in a way that is harder to debug in a room than an API
-# change is.
 
 # Writes the multiscale pyramid, and validates it. The [validate] extra
 # bundles the OME-NGFF JSON schemas, so step 4 needs no network.
-ngff-zarr[validate]
+ngff-zarr[validate]==0.47.0
 
 # The chunked array store underneath OME-Zarr. ngff-zarr pulls it in; named
 # here because the notebook prints .zarray and .zattrs directly.
-zarr
+zarr==3.4.0
 
 # reading the example volume
-tifffile
-imagecodecs
+tifffile==2026.9.20
+imagecodecs==2026.8.16
 
 # shared
-numpy
-jupyterlab
+numpy==2.5.3
+jupyterlab==4.6.4

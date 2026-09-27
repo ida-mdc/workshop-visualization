@@ -74,7 +74,7 @@ mkdir -p workshop-project && cd workshop-project
 Now, create the virtual environment inside this directory.
 
 ```bash
-uv venv .venv --python 3.11
+uv venv .venv --python 3.12
 ```
 
 Finally, activate the environment using the command specific to your operating system/shell:
@@ -119,13 +119,12 @@ what one of them needs:
 | `tools/requirements_ngff.txt` | `tiff_to_ngff_and_neuroglancer` |
 | `tools/requirements_mesh.txt` | `voxel_to_mesh`, `mesh_rendering_tutorial` |
 | `tools/requirements_pointclouds.txt` | `point_clouds_tutorial` |
-| `tools/requirements_vector_field.txt` | `vector_field_visualization` |
 
 Each one carries its own `uv venv` line at the top. They use a separate
 environment per session, so installing one does not disturb another:
 
 ```bash
-uv venv .venv_mesh --python 3.11
+uv venv .venv_mesh --python 3.12
 uv pip install --python .venv_mesh -r tools/requirements_mesh.txt
 uv run --python .venv_mesh jupyter lab
 ```

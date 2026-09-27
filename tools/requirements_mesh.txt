@@ -1,35 +1,25 @@
 # Everything voxel_to_mesh.ipynb and mesh_rendering_tutorial.ipynb import.
 #
-#     uv venv .venv_mesh --python 3.11
+#     uv venv .venv_mesh --python 3.12
 #     uv pip install --python .venv_mesh -r tools/requirements_mesh.txt
 #     uv run --python .venv_mesh jupyter lab
-#
-# Just this session, not the whole workshop. The full environment is in
-# visualization_software/README.md; this file is here so that somebody who
-# only wants to follow the meshes notebook does not have to install napari and
-# its Qt neighbors to do it.
-#
-# Unpinned on purpose, the same as tools/requirements_volumetric.txt. A
-# workshop is taught once a year against whatever is current, and a pinned set
-# goes stale between editions in a way that is harder to debug in a room than
-# an API change is.
 
 # extraction, decimation, and the off-screen renders
-pyvista[all]
+pyvista[all]==0.49.0
 
 # despeckling, padding, the Gaussian and the distance transform
-scipy
+scipy==1.18.1
 
 # reading the example volume
-tifffile
-imagecodecs
+tifffile==2026.9.20
+imagecodecs==2026.8.16
 
 # the turntable MP4s in mesh_rendering_tutorial.ipynb - pyvista's
 # open_movie() writes through imageio, which shells out to ffmpeg
-imageio
-imageio-ffmpeg
+imageio==2.37.4
+imageio-ffmpeg==0.6.0
 
 # shared
-numpy
-matplotlib
-jupyterlab
+numpy==2.5.3
+matplotlib==3.11.2
+jupyterlab==4.6.4

@@ -1,27 +1,20 @@
 # Everything point_clouds_tutorial.ipynb imports.
 #
-#     uv venv .venv_pointclouds --python 3.11
+#     uv venv .venv_pointclouds --python 3.12
 #     uv pip install --python .venv_pointclouds -r tools/requirements_pointclouds.txt
 #     uv run --python .venv_pointclouds jupyter lab
-#
-# Just this session, not the whole workshop. The full environment is in
-# visualization_software/README.md.
-#
-# Unpinned on purpose, the same as the other two. A workshop is taught once a
-# year against whatever is current, and a pinned set goes stale between
-# editions in a way that is harder to debug in a room than an API change is.
 
 # the cloud itself, the filters, and the off-screen renders
-pyvista[all]
+pyvista[all]==0.49.0
 
 # cKDTree, for the radius outlier removal and the kNN the normals are fitted to
-scipy
+scipy==1.18.1
 
 # the camera-orbit MP4 - pyvista's open_movie() writes through imageio,
 # which shells out to ffmpeg
-imageio
-imageio-ffmpeg
+imageio==2.37.4
+imageio-ffmpeg==0.6.0
 
 # shared
-numpy
-jupyterlab
+numpy==2.5.3
+jupyterlab==4.6.4
