@@ -518,13 +518,3 @@ Sometimes the goal is not to preserve the original representation for analysis, 
 - Sunflower: Chitwood, Quigley & Frank, [*X-ray CT Botanical Images - Set 1*](https://doi.org/10.5281/zenodo.15684909), Zenodo (2025), CC BY 4.0
 {{< /citations >}}
 
----
-
-## Where to go next
-
-Continue with the tutorial for the representation you want to inspect or create:
-
-{{< horizontal >}}
-{{< tutorial-link link="meshes.md" >}}
-{{< tutorial-link link="point-clouds.md" >}}
-{{< /horizontal >}}

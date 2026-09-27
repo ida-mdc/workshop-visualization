@@ -556,17 +556,3 @@ Browser based 3D visualization is rapidly growing. Here are a few options.
   is arriving and is considerably faster.
 - You can run expensive rendering jobs headless (without a graphical user interface) on the cluster, for example with Blender.
 
----
-
-## How to proceed
-
-
-{{< horizontal >}}
-{{< tutorial-link link="voxels.md" >}}
-{{< tutorial-link link="meshes.md" >}}
-{{< /horizontal >}}
-
-{{< horizontal >}}
-{{< tutorial-link link="point-clouds.md" >}}
-{{< tutorial-link link="colors.md" >}}
-{{< /horizontal >}}

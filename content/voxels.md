@@ -207,18 +207,3 @@ separate.
 - Tribolium at low laser power, [CARE example data](https://doi.org/10.1038/s41592-018-0216-7), Weigert et al. · denoised with [UniFMIR](https://bioimage.io/#/?id=decisive-panda) (fine-tuned on this dataset, CC BY 4.0) · segmented with [Cellpose 3](https://doi.org/10.1038/s41592-025-02595-5)
 {{< /citations >}}
 
----
-
-## Challenges
-### When it does not fit in memory
-
-{{< notes >}}
-Light-sheet and volume EM produce hundreds of gigabytes, well beyond graphics
-memory.
-
-The answer is a different data layout and viewers that load on demand.
-{{< /notes >}}
-
-{{< horizontal >}}
-{{< tutorial-link link="large-data" >}}
-{{< /horizontal >}}
