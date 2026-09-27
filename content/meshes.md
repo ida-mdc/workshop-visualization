@@ -236,10 +236,10 @@ watertight mesh, not both.
 **Running it**
 
 ```bash
-uv venv .venv --python 3.11
-uv pip install --python .venv \
+uv venv .venv_mesh --python 3.11
+uv pip install --python .venv_mesh \
   -r tools/requirements_mesh.txt
-uv run --python .venv jupyter lab
+uv run --python .venv_mesh jupyter lab
 ```
 
 [voxel_to_mesh.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/voxel_to_mesh.ipynb)

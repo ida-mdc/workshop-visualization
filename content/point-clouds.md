@@ -100,10 +100,10 @@ it at `example_data/spiral_tube_pointcloud.ply` to use ours.
 
 {{< block >}}
 ```bash
-uv venv .venv --python 3.11
-uv pip install --python .venv \
-  "pyvista[all]" scipy jupyterlab
-uv run --python .venv jupyter lab
+uv venv .venv_pointclouds --python 3.11
+uv pip install --python .venv_pointclouds \
+  -r tools/requirements_pointclouds.txt
+uv run --python .venv_pointclouds jupyter lab
 ```
 
 [point_clouds_tutorial.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/point_clouds_tutorial.ipynb)

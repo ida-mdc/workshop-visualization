@@ -44,7 +44,7 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
   - Notebook: [point_clouds_tutorial.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/point_clouds_tutorial.ipynb) - clean, estimate normals, reconstruct
 - 2:30pm **Vector Fields**
   - [Slides](https://docs.google.com/presentation/d/1-1JZgfX_mI7O-hc0a87jiUeIkjSDVrHvkAye3upBfI8/edit?usp=sharing)
-  - Notebook: [vector_field_visualization.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/vector_field_visualization.ipynb) - the figures behind those slides ([requirements](https://github.com/ida-mdc/workshop-visualization/blob/main/visualization_software/requirements_vector_field.txt))
+  - Notebook: [vector_field_visualization.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/vector_field_visualization.ipynb) - the figures behind those slides ([requirements](https://github.com/ida-mdc/workshop-visualization/blob/main/tools/requirements_vector_field.txt))
 - 3pm Open Working Time
 
 

@@ -1,0 +1,23 @@
+# Everything vector_field_visualization.ipynb imports.
+#
+#     uv venv .venv_vector_field --python 3.11
+#     uv pip install --python .venv_vector_field -r tools/requirements_vector_field.txt
+#     uv run --python .venv_vector_field jupyter lab
+#
+# Just this session, not the whole workshop. The full environment is in
+# visualization_software/README.md.
+#
+# Pinned, unlike the other three in this directory. The notebook renders
+# through trame, where the client-side backend and the widget stack have to
+# agree with each other; leaving those floating is how it stops rendering
+# without an error message.
+
+pyvista[all]>=0.44
+numpy>=1.24
+matplotlib>=3.7
+jupyter>=1.0
+jupyterlab>=4.0
+ipywidgets>=8.0
+trame>=3.0
+trame-vtk>=2.6
+trame-vuetify>=2.3

@@ -107,6 +107,31 @@ With the environment activated, install the required packages using `uv`:
 uv pip install "napari[all]" pixel-patrol vtk jupyterlab "pyvista[all]"
 ```
 
+### Step 2.4: Per-session environments (optional)
+
+The line above installs everything for the whole workshop. Each notebook
+session also has its own list under `tools/`, if you would rather install only
+what one of them needs:
+
+| file | notebooks |
+| :--- | :--- |
+| `tools/requirements_volumetric.txt` | `voxel_rendering_napari`, `voxel_rendering_vtk`, `voxel_rendering_pygfx` |
+| `tools/requirements_mesh.txt` | `voxel_to_mesh`, `mesh_rendering_tutorial` |
+| `tools/requirements_pointclouds.txt` | `point_clouds_tutorial` |
+| `tools/requirements_vector_field.txt` | `vector_field_visualization` |
+
+Each one carries its own `uv venv` line at the top. They use a separate
+environment per session, so installing one does not disturb another:
+
+```bash
+uv venv .venv_mesh --python 3.11
+uv pip install --python .venv_mesh -r tools/requirements_mesh.txt
+uv run --python .venv_mesh jupyter lab
+```
+
+`luxar_gaussian_splats.ipynb` is not in that table - it installs its own CUDA
+toolchain from inside the notebook, and it needs an NVIDIA GPU.
+
 ### 3. Verify Installations
 
 To verify that everything is installed correctly, please run the following commands in your terminal:

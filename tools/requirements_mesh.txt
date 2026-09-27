@@ -1,7 +1,8 @@
-# Everything voxel_to_mesh.ipynb imports.
+# Everything voxel_to_mesh.ipynb and mesh_rendering_tutorial.ipynb import.
 #
-#     uv venv --python 3.11
-#     uv pip install -r tools/requirements_mesh.txt
+#     uv venv .venv_mesh --python 3.11
+#     uv pip install --python .venv_mesh -r tools/requirements_mesh.txt
+#     uv run --python .venv_mesh jupyter lab
 #
 # Just this session, not the whole workshop. The full environment is in
 # visualization_software/README.md; this file is here so that somebody who
@@ -22,6 +23,11 @@ scipy
 # reading the example volume
 tifffile
 imagecodecs
+
+# the turntable MP4s in mesh_rendering_tutorial.ipynb - pyvista's
+# open_movie() writes through imageio, which shells out to ffmpeg
+imageio
+imageio-ffmpeg
 
 # shared
 numpy

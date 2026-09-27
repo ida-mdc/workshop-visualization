@@ -1,7 +1,8 @@
 # Everything the volume rendering notebooks import.
 #
-#     uv venv --python 3.11
-#     uv pip install -r tools/requirements_volumetric.txt
+#     uv venv .venv_volumetric --python 3.11
+#     uv pip install --python .venv_volumetric -r tools/requirements_volumetric.txt
+#     uv run --python .venv_volumetric jupyter lab
 #
 # Just this session, not the whole workshop. The full environment is in
 # visualization_software/README.md; this file is here so that somebody who
