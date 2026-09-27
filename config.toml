@@ -8,6 +8,13 @@ theme = "hugo-theme-helmholtz-imaging-workshop"
 # the tool tables silently never reached the repository. Renaming the
 # directory is less fragile than teaching the ignore file about two of them.
 dataDir = "sitedata"
+# Pages the current edition does not teach are marked `draft: true`, so they
+# are not built. A {{< ref >}} pointing at one is then a broken reference,
+# which Hugo treats as a fatal error by default - and one cross-reference into
+# a parked page should not stop the site building. Warn and carry on; the link
+# comes back the moment the page is un-drafted.
+refLinksErrorLevel = "warning"
+
 [markup.goldmark.renderer]
 unsafe= true
 canonifyURLs= true

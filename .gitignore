@@ -11,3 +11,15 @@ notebooks/results/
 **/.ipynb_checkpoints/
 __pycache__/
 site/
+
+# Notebook outputs belong in notebooks/results/, ignored above. These catch
+# anything a notebook drops beside itself instead - which is how 8 MB of PNGs
+# and MP4s once got committed.
+/notebooks/*.png
+/notebooks/*.jpg
+/notebooks/*.mp4
+/notebooks/*.gif
+/notebooks/*.ply
+/notebooks/*.stl
+/notebooks/*.gltf
+/notebooks/*.zarr/

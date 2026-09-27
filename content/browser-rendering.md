@@ -1,7 +1,7 @@
 ---
 title: "Rendering in the browser"
 date: 2024-09-25
-draft: false
+draft: true
 layout: workshop
 type: page
 author: Deborah Schmidt

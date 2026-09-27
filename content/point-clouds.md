@@ -1,7 +1,7 @@
 ---
 title: "Pointcloud Showcase"
 date: 2025-09-17
-draft: false
+draft: true
 type: page
 layout: workshop
 author: Deborah Schmidt
