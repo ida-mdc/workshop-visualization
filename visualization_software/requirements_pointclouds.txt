@@ -1,7 +1,7 @@
 # Everything point_clouds_tutorial.ipynb imports.
 #
 #     uv venv .venv_pointclouds --python 3.12
-#     uv pip install --python .venv_pointclouds -r tools/requirements_pointclouds.txt
+#     uv pip install --python .venv_pointclouds -r visualization_software/requirements_pointclouds.txt
 #     uv run --python .venv_pointclouds jupyter lab
 
 # the cloud itself, the filters, and the off-screen renders

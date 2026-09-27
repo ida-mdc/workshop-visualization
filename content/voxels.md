@@ -143,7 +143,7 @@ curve has to be built by hand.
 
 ```bash
 uv venv .venv_volumetric --python 3.12
-uv pip install --python .venv_volumetric -r tools/requirements_volumetric.txt
+uv pip install --python .venv_volumetric -r visualization_software/requirements_volumetric.txt
 uv run --python .venv_volumetric jupyter lab
 ```
 

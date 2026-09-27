@@ -1,167 +1,105 @@
 # 🛠️ Workshop Pre-Installation Guide
 
-To ensure a smooth and productive workshop, please complete all the installations listed below **before** the start date.  
+Two things to install before you arrive: **Blender** and **uv**. Everything
+else is set up during the session that needs it, from the files in this folder.
 
-This workshop uses:
-* standalone visualization tools 
-* and Python packages managed by the fast package manager, `uv`.
-
-## 1. Standalone Application Installation
-
-Please follow the instructions on their respective websites.
-
-| Software | Purpose                                                                      | Installation Link                                                                                 |
-| :--- |:-----------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------|
-| **Blender** | 3D Modeling and Rendering                                                    | [https://www.blender.org/download/](https://www.blender.org/download/)                            |
-| **Meshlab** | 3D Mesh Processing                                                           | [http://www.meshlab.net/#download](http://www.meshlab.net/#download)                              |
-| **ParaView** | 3D Visualization                                                            | [https://www.paraview.org/download/](https://www.paraview.org/download/)                          |
-| **Fiji (ImageJ)** | Image Analysis   <br/>(please install the MoBIE plugin - instructions below) | [https://imagej.net/software/fiji/downloads](https://imagej.net/software/fiji/downloads)          |
-
-### Install the MoBIE plugin in Fiji
-
-After you have installed the core Fiji application:
-1.  Open Fiji, navigate to **Help > Update...**
-2.  In the **ImageJ Updater** window, click **Manage update sites**.
-3.  Scroll down, check the box next to the **MoBIE** update site, and click **Close**.
-4.  Click **Apply changes** and restart Fiji when prompted.
+**Pro tip:** if you have never used the Terminal (Linux/Mac) or PowerShell
+(Windows) and get stuck, paste the steps into ChatGPT/Gemini and ask for help.
 
 ---
 
-## 2. Python Environment Setup (using `uv`)
+## 1. Blender
 
-**Pro tip: If you never used the Terminal (Linux/Mac) or PowerShell (Windows), and experiencing difficulties following, paste the steps to ChatGPT/Gemini and ask for help.**
+The newest release, from [blender.org/download](https://www.blender.org/download/).
 
-We will use the package manager `uv` to create a dedicated, isolated environment for our workshop.
+We use it on Tuesday for mesh rendering and mesh cutting, and for the
+Microscopy Nodes demo.
 
-### Step 2.1: Install `uv`
+---
 
-The best way to install uv is using the standalone installer for your operating system.   
-Choose one command below to install the uv tool globally on your system.
+## 2. uv
 
-🐧 macOS / Linux  
-Run this command in your Bash/Zsh terminal:
+`uv` is a fast Python package manager. We use it to build a small, throwaway
+environment per session, so nothing lands in your system Python.
+
+🐧 **macOS / Linux** - in your Bash/Zsh terminal:
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-🪟 Windows
-
-Run this command in your PowerShell or Command Prompt terminal. 
+🪟 **Windows** - in PowerShell or Command Prompt:
 
 ```powershell
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-OR (in any OS)
+**Any OS**, if you would rather install it from Python (needs `pip`):
 
-If you prefer a Python-only installation (requires `pip`):
 ```bash
-# Installs pipx globally, then uses pipx to install uv.
 pip install --user pipx
 pipx install uv
 ```
 
-### Step 2.2: Create and Activate the Workshop Environment
-
-First, create a new directory for your workshop files and navigate into it.  
-e.g.
+Check it worked:
 
 ```bash
-mkdir -p workshop-project && cd workshop-project
+uv --version
 ```
 
-Now, create the virtual environment inside this directory.
+That is everything you need to do beforehand.
 
-```bash
-uv venv .venv --python 3.12
-```
+---
 
-Finally, activate the environment using the command specific to your operating system/shell:
+## During the workshop
 
-🐧 macOS / Linux (Bash/Zsh)
+Each notebook session has its own requirements file in this folder. There is
+nothing to install in advance - we do it together, and it takes a minute or
+two each.
 
-```bash
-### macOS/Linux (Bash/Zsh): ###
-source .venv/bin/activate
-```
+| file | session | notebooks |
+| :--- | :--- | :--- |
+| `requirements_volumetric.txt` | Volumetric Data Rendering | `voxel_rendering_vtk`, `voxel_rendering_pygfx` |
+| `requirements_ngff.txt` | Large 3D data | `tiff_to_ngff_and_neuroglancer` |
+| `requirements_mesh.txt` | Meshes | `voxel_to_mesh`, `mesh_rendering_tutorial` |
+| `requirements_pointclouds.txt` | Point Clouds | `point_clouds_tutorial` |
+| `requirements_vector_field.txt` | Vector Fields | `vector_field_visualization` |
 
-🪟 Windows
-
-```bash
-
-##### Windows (Command Prompt): ######
-.venv\Scripts\activate
-```
-OR
-```bash
-##### Windows (PowerShell): #####
-.venv\Scripts\Activate.ps1
-```
-
-### Step 2.3: Install Required Python Packages
-
-With the environment activated, install the required packages using `uv`:
-
-```bash
-uv pip install "napari[all]" pixel-patrol vtk jupyterlab "pyvista[all]"
-```
-
-### Step 2.4: Per-session environments (optional)
-
-The line above installs everything for the whole workshop. Each notebook
-session also has its own list under `tools/`, if you would rather install only
-what one of them needs:
-
-| file | notebooks |
-| :--- | :--- |
-| `tools/requirements_volumetric.txt` | `voxel_rendering_vtk`, `voxel_rendering_pygfx` |
-| `tools/requirements_ngff.txt` | `tiff_to_ngff_and_neuroglancer` |
-| `tools/requirements_mesh.txt` | `voxel_to_mesh`, `mesh_rendering_tutorial` |
-| `tools/requirements_pointclouds.txt` | `point_clouds_tutorial` |
-
-Each one carries its own `uv venv` line at the top. They use a separate
-environment per session, so installing one does not disturb another:
+They all work the same way, and each file carries its own three lines at the
+top. For the meshes session:
 
 ```bash
 uv venv .venv_mesh --python 3.12
-uv pip install --python .venv_mesh -r tools/requirements_mesh.txt
+uv pip install --python .venv_mesh -r visualization_software/requirements_mesh.txt
 uv run --python .venv_mesh jupyter lab
 ```
 
-`luxar_gaussian_splats.ipynb` is not in that table - it installs its own CUDA
-toolchain from inside the notebook, and it needs an NVIDIA GPU.
+A separate environment per session, so installing one cannot disturb another.
+Delete the `.venv_*` folders whenever you want the space back.
 
-### 3. Verify Installations
+Versions are pinned. If a fresh install fails, tell us rather than working
+around it - a pinned file that no longer resolves is a bug we want to hear
+about.
 
-To verify that everything is installed correctly, please run the following commands in your terminal:
+`luxar_gaussian_splats.ipynb` has no requirements file. It installs its own
+CUDA toolchain from inside the notebook, and it needs an NVIDIA GPU.
 
-```bash
-uv run python -c "import napari, vtk, pixel_patrol; print('OK: Python packages are installed')"
-```
+### Nothing to install
 
-If you see `OK` printed without any errors, your installations are successful!
+- **napari** - run it on demand with `uvx --from "napari[all]" napari`
+- **Neuroglancer**, the **Potree launcher**, **`<model-viewer>`** - web pages
 
-You can also try launching the applications to ensure they open correctly:
+### Named on the slides, but not something we all install
 
-```bash
-uv run napari    # starts the viewer
-```
+Worth knowing about for afterwards: [MeshLab](https://www.meshlab.net/),
+[ParaView](https://www.paraview.org/download/),
+[CloudCompare](https://www.cloudcompare.org/),
+[Fiji](https://imagej.net/software/fiji/downloads) with the
+[MoBIE](https://mobie.github.io) update site, and
+[3D Slicer](https://www.slicer.org).
 
-Lastly , check the Pixel Patrol commands:
+---
 
-```bash
-uv run pixel-patrol --help # shows Pixel Patrol commands  
-```
-
-### 4. Deactivation of the Environment
-
-When you are done working in the workshop environment, you can deactivate it by simply running:
-
-```bash
-deactivate
-```
-
-If you encounter any issues during installation, please reach out to the workshop organizers for assistance. We look forward to seeing you at the workshop!
+If you run into trouble, reach out before the workshop rather than on the day:
 
 ella.bahry (at) mdc-berlin (dot) de

@@ -102,7 +102,7 @@ it at `example_data/spiral_tube_pointcloud.ply` to use ours.
 ```bash
 uv venv .venv_pointclouds --python 3.12
 uv pip install --python .venv_pointclouds \
-  -r tools/requirements_pointclouds.txt
+  -r visualization_software/requirements_pointclouds.txt
 uv run --python .venv_pointclouds jupyter lab
 ```
 
