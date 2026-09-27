@@ -1,0 +1,32 @@
+# Everything luxar_gaussian_splats.ipynb imports.
+#
+#     uv venv .venv_luxar --python 3.12
+#     uv pip install --python .venv_luxar -r visualization_software/requirements_luxar.txt
+#     uv run --python .venv_luxar jupyter lab
+#
+# This one needs an NVIDIA GPU, and it is the only session that does.
+
+# The fitter. `gsplats` is what does the fitting, `io` reads and writes the
+# zarr scenes.
+luxar[gsplats,io]==2026.9.22
+
+# luxar pulls torch in, but the notebook imports it directly to read
+# torch.version.cuda - the CUDA toolchain it installs in step 2 has to match
+# that minor version exactly, so pinning torch is what makes step 2 repeatable.
+torch==2.14.0
+
+# nvcc needs it to build the CUDA kernels in step 2
+ninja==1.13.2
+
+# reading and writing the volume
+tifffile==2026.9.20
+imagecodecs==2026.8.16
+
+# shared
+numpy==2.5.3
+jupyterlab==4.6.4
+
+# Not here, on purpose: nvidia-cuda-nvcc, nvidia-cuda-cccl, nvidia-nvvm and
+# nvidia-cuda-crt. They have to match the CUDA minor version of whichever
+# torch build you ended up with, so the notebook checks torch.version.cuda
+# first and installs them itself.

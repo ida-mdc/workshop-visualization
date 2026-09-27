@@ -25,7 +25,7 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
     - Notebook: [voxel_rendering_pygfx.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/voxel_rendering_pygfx.ipynb) - the same volume on the GPU through wgpu ([requirements](https://github.com/ida-mdc/workshop-visualization/blob/main/visualization_software/requirements_volumetric.txt))
   - [Large 3D data]({{< ref "large-data.md" >}})
     - Notebook: [tiff_to_ngff_and_neuroglancer.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/tiff_to_ngff_and_neuroglancer.ipynb) - TIFF to OME-Zarr, and into Neuroglancer ([requirements](https://github.com/ida-mdc/workshop-visualization/blob/main/visualization_software/requirements_ngff.txt))
-    - Notebook: [luxar_gaussian_splats.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/luxar_gaussian_splats.ipynb) - needs a CUDA GPU, and installs its own toolchain
+    - Notebook: [luxar_gaussian_splats.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/luxar_gaussian_splats.ipynb) - needs an NVIDIA GPU ([requirements](https://github.com/ida-mdc/workshop-visualization/blob/main/visualization_software/requirements_luxar.txt))
 
 ## Tuesday
 - 10am **Meshes** - 60min follow-along

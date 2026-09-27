@@ -64,6 +64,7 @@ two each.
 | `requirements_mesh.txt` | Meshes | `voxel_to_mesh`, `mesh_rendering_tutorial` |
 | `requirements_pointclouds.txt` | Point Clouds | `point_clouds_tutorial` |
 | `requirements_vector_field.txt` | Vector Fields | `vector_field_visualization` |
+| `requirements_luxar.txt` | Large 3D data, Gaussian splats | `luxar_gaussian_splats` |
 
 They all work the same way, and each file carries its own three lines at the
 top. For the meshes session:
@@ -81,25 +82,6 @@ Versions are pinned. If a fresh install fails, tell us rather than working
 around it - a pinned file that no longer resolves is a bug we want to hear
 about.
 
-`luxar_gaussian_splats.ipynb` has no requirements file. It installs its own
-CUDA toolchain from inside the notebook, and it needs an NVIDIA GPU.
-
-### Nothing to install
-
-- **napari** - run it on demand with `uvx --from "napari[all]" napari`
-- **Neuroglancer**, the **Potree launcher**, **`<model-viewer>`** - web pages
-
-### Named on the slides, but not something we all install
-
-Worth knowing about for afterwards: [MeshLab](https://www.meshlab.net/),
-[ParaView](https://www.paraview.org/download/),
-[CloudCompare](https://www.cloudcompare.org/),
-[Fiji](https://imagej.net/software/fiji/downloads) with the
-[MoBIE](https://mobie.github.io) update site, and
-[3D Slicer](https://www.slicer.org).
-
----
-
-If you run into trouble, reach out before the workshop rather than on the day:
-
-ella.bahry (at) mdc-berlin (dot) de
+`requirements_luxar.txt` is the one session that needs an **NVIDIA GPU**. Its
+notebook also installs a CUDA toolchain itself, in step 2, because which
+version it needs depends on the torch that came with it.
