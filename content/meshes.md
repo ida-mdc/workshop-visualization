@@ -139,7 +139,6 @@ information from upstream, not from a filter.
 - Anisotropic voxels: give any distance or blur step the **voxel size**, or the surface is wrong along the coarse axis
 
 {{< scene name="iso-input" height="430" caption="The same specimen and the same grid, extracted from three different fields. Watch the enclosed volume, not the surface." >}}
-TODO disable smooth shading
 
 ---
 
@@ -172,7 +171,6 @@ animal, the answer is a bigger scan.
 - Padding **closes** the surface. It does not **recover** the specimen
 
 {{< scene name="iso-padding" height="430" caption="The field of view, not the specimen, decides whether the mesh is closed." >}}
-TODO disable smooth shading
 
 ---
 

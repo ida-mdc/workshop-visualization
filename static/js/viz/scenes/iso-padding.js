@@ -54,9 +54,12 @@ defineScene('iso-padding', ({ scene, ui, view }) => {
   let crop = 0.60;         // share of the specimen's own bounds kept
   let padded = false;
 
+  // Flat shading: the voxel grid is the subject here, and smooth shading is
+  // the thing that hides it. It also makes the flat cap that padding adds
+  // read as flat, which is half the point of the slide.
   const surface = new THREE.Mesh(undefined, new THREE.MeshPhysicalMaterial({
     color: palette.roseLight, roughness: 0.4, metalness: 0.02,
-    clearcoat: 0.5, side: THREE.FrontSide, flatShading: false,
+    clearcoat: 0.5, side: THREE.FrontSide, flatShading: true,
   }));
   scene.add(surface);
 
@@ -69,7 +72,7 @@ defineScene('iso-padding', ({ scene, ui, view }) => {
   // the padding toggle makes it vanish.
   const interior = new THREE.Mesh(undefined, new THREE.MeshStandardMaterial({
     color: palette.roseDeep, roughness: 0.85, metalness: 0,
-    side: THREE.BackSide, flatShading: false,
+    side: THREE.BackSide, flatShading: true,
   }));
   scene.add(interior);
 

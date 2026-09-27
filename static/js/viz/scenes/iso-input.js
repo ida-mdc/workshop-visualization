@@ -184,10 +184,15 @@ defineScene('iso-input', ({ scene, ui, view }) => {
   let mode = 0;                 // 0 mask, 1 blurred, 2 coverage
   let sigma = 1.0;
 
+  // Flat shading, because the slide is an argument about where the vertices
+  // are. Smooth shading interpolates the normals across each triangle, which
+  // is exactly the trick that hides a lattice - the binary mask would come
+  // out looking as smooth as the coverage map and the scene would prove
+  // nothing. Same reason the decimation scenes use it.
   const surface = new THREE.Mesh(undefined, new THREE.MeshPhysicalMaterial({
     color: palette.ice, roughness: 0.22, metalness: 0.02,
     clearcoat: 0.8, clearcoatRoughness: 0.2,
-    side: THREE.DoubleSide, flatShading: false,
+    side: THREE.DoubleSide, flatShading: true,
   }));
   scene.add(surface);
 
