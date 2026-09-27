@@ -29,9 +29,9 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
 
 ## Tuesday
 - 10am **Meshes** - 60min follow-along
-  - [Overview Slides]({{< ref "meshes.md" >}})
-  - Notebook: [voxel_to_mesh.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/voxel_to_mesh.ipynb) - the conversion, in nine steps
-  - Notebook: [mesh_rendering_tutorial.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/mesh_rendering_tutorial.ipynb) - rendering meshes from a script
+  - Overview Slides
+  - Notebook: voxel_to_mesh.ipynb - the conversion, in nine steps
+  - Notebook: mesh_rendering_tutorial.ipynb - rendering meshes from a script
   - [Basic mesh rendering in Blender]({{< ref "mesh-rendering-blender.md" >}})
   - [Mesh cutting in Blender]({{< ref "mesh-cutting-blender.md" >}})
 - 11:00am Blender & Microscopy Nodes demo
@@ -40,8 +40,8 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
 - 2pm **Colors**
   - [Choosing Colors]({{< ref "colors.md" >}})
 - 2:15pm **Point Clouds Demo**
-  - [Slides]({{< ref "point-clouds.md" >}})
-  - Notebook: [point_clouds_tutorial.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/point_clouds_tutorial.ipynb) - clean, estimate normals, reconstruct
+  - Slides
+  - Notebook: point_clouds_tutorial.ipynb - clean, estimate normals, reconstruct
 - 2:30pm **Vector Fields**
   - [Slides](https://docs.google.com/presentation/d/1-1JZgfX_mI7O-hc0a87jiUeIkjSDVrHvkAye3upBfI8/edit?usp=sharing)
   - Notebook: [vector_field_visualization.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/vector_field_visualization.ipynb) - the figures behind those slides ([requirements](https://github.com/ida-mdc/workshop-visualization/blob/main/tools/requirements_vector_field.txt))
