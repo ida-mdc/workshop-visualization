@@ -368,9 +368,11 @@ flowchart LR
 ## Rendering Pipeline
 ### Terms which are helpful to know
 
+{{< notes >}}
 The rendering pipeline is in one way or the other implemented in all 3D visualization tools. Only selected parts are exposed to the user.
 For example, opening a volume in napari runs the same pipeline; the software has just chosen the camera, the lights
 and the materials for you. In Blender, in contrast, you can adjust pretty much all aspects along the rendering pipeline.
+{{< /notes >}}
 
 Some terms come up repeatedly in the context of 3D rendering:
 

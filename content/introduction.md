@@ -16,7 +16,7 @@ cover: img/bg.jpg
 {{< block >}}
 Hi, we are the Helmholtz Imaging Support Unit at MDC.
 
-### Helmholtz Imaging is here for you with Support and Research Units at 4 centers, working in close collaboration with the Helmholtz Imaging Research Units.
+### Helmholtz Imaging is here for you with Support and Research Units at 4 centers.
 {{< logos >}}img/logos/desy.png
 img/logos/dkfz.png
 img/logos/mdc.png
