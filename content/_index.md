@@ -17,7 +17,9 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
   - [Introduction slides]({{< ref "introduction.md" >}})
   - [3D Data Visualization - an overview]({{< ref "overview.md" >}})
   - [Example data](https://github.com/ida-mdc/workshop-visualization/tree/main/example_data)
-- 2:45pm **Image Quality Control**
+- 2:45pm **Image Quality Control** (Pixel Patrol)
+  - [Slides](https://docs.google.com/presentation/d/16te1fNpizrwmZps-Lpcv2q25O5YpiYZJffkWYn8Q8DY/edit?usp=sharing)
+  - [Talk video](https://www.youtube.com/watch?v=GDJV21VTYFo&list=PLWW-2aBVzdts)
 - 3:45pm Coffee
 - 4:15pm **Volumetric Data Rendering**
   - [Overview Slides]({{< ref "voxels.md" >}})
