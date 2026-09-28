@@ -59,7 +59,7 @@ two each.
 
 | file | session | notebooks |
 | :--- | :--- | :--- |
-| `requirements_volumetric.txt` | Volumetric Data Rendering | `voxel_rendering_vtk`, `voxel_rendering_pygfx` |
+| `requirements_volumetric.txt` | Volumetric Data Rendering | `voxel_rendering_napari`, `voxel_rendering_vtk`, `voxel_rendering_pygfx` |
 | `requirements_ngff.txt` | Large 3D data | `tiff_to_ngff_and_neuroglancer` |
 | `requirements_luxar.txt` | Large 3D data, Gaussian splats | `luxar_gaussian_splats` |
 | `requirements_mesh.txt` | Meshes | `voxel_to_mesh`, `mesh_rendering_tutorial` |

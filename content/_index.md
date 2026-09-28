@@ -23,6 +23,7 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
 - 3:45pm Coffee
 - 4:15pm **Volumetric Data Rendering**
   - [Overview Slides]({{< ref "voxels.md" >}})
+    - Notebook: [voxel_rendering_napari.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/voxel_rendering_napari.ipynb) - the same viewer, driven from Python ([requirements](https://github.com/ida-mdc/workshop-visualization/blob/main/visualization_software/requirements_volumetric.txt))
     - Notebook: [voxel_rendering_vtk.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/voxel_rendering_vtk.ipynb) - transfer functions by hand ([requirements](https://github.com/ida-mdc/workshop-visualization/blob/main/visualization_software/requirements_volumetric.txt))
     - Notebook: [voxel_rendering_pygfx.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/voxel_rendering_pygfx.ipynb) - the same volume on the GPU through wgpu ([requirements](https://github.com/ida-mdc/workshop-visualization/blob/main/visualization_software/requirements_volumetric.txt))
   - [Large 3D data]({{< ref "large-data.md" >}})

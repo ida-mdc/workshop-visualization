@@ -1,11 +1,12 @@
 # Everything the volume rendering notebooks import.
 #
-# napari is not in here. The voxels session uses it as an application,
-# launched with `uvx --from "napari[all]" napari`, not from Python.
-#
 #     uv venv .venv_volumetric --python 3.12 --seed
 #     uv pip install --python .venv_volumetric -r visualization_software/requirements_volumetric.txt
 #     uv run --python .venv_volumetric jupyter lab
+
+# voxel_rendering_napari.ipynb - the same viewer, driven from Python
+napari[all]==0.9.1
+dask==2026.8.0
 
 # voxel_rendering_vtk.ipynb - the transfer function built by hand
 vtk==9.7.0

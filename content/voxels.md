@@ -147,6 +147,7 @@ uv pip install --python .venv_volumetric -r visualization_software/requirements_
 uv run --python .venv_volumetric jupyter lab
 ```
 
+- [voxel_rendering_napari.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/voxel_rendering_napari.ipynb) - the same viewer, driven from Python
 - [voxel_rendering_vtk.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/voxel_rendering_vtk.ipynb) - transfer functions by hand
 - [voxel_rendering_pygfx.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/voxel_rendering_pygfx.ipynb) - the same volume on the GPU through wgpu
 
