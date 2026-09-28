@@ -27,7 +27,7 @@ env:
   # published; ./preview.sh always builds the current edition so you can work
   # on it. Flip to 'true' when it should go live, and link it from
   # landing/index.html.
-  PUBLISH_CURRENT: 'false'
+  PUBLISH_CURRENT: 'true'
 
 jobs:
   build-deploy:
