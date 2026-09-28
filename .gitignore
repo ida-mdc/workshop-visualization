@@ -23,3 +23,6 @@ site/
 /notebooks/*.stl
 /notebooks/*.gltf
 /notebooks/*.zarr/
+
+# Downloaded model weights, fetched on demand by the figure scripts.
+/tools/.cache/
