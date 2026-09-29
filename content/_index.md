@@ -38,7 +38,8 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
   - [Basic mesh rendering in Blender]({{< ref "mesh-rendering-blender.md" >}})
   - [Mesh cutting in Blender]({{< ref "mesh-cutting-blender.md" >}})
   - [Ways to make things transparent in Blender]({{< ref "mesh-transparency-blender.md" >}})
-- 11:00am Blender & Microscopy Nodes demo
+- 11:00am **Blender & Microscopy Nodes demo**
+  - [Slides]({{< ref "microscopy-nodes.md" >}})
 - 12:00am **Getting To Know Your Data** with [Jochen Müller](https://jochen-mueller.net/) (Stiftung Planetarium Berlin)
 - 1pm Lunch
 - 2pm **Colors**
