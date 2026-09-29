@@ -31,20 +31,22 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
     - Notebook: [luxar_gaussian_splats.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/luxar_gaussian_splats.ipynb) - needs an NVIDIA GPU ([requirements](https://github.com/ida-mdc/workshop-visualization/blob/main/visualization_software/requirements_luxar.txt))
 
 ## Tuesday
-- 10am **Meshes** - 60min follow-along
-  - Overview Slides
+- 10am **Meshes**
+  - [Meshes and converting voxels to meshes]({{< ref "meshes.md" >}})
   - Notebook: voxel_to_mesh.ipynb - the conversion, in nine steps
   - Notebook: mesh_rendering_tutorial.ipynb - rendering meshes from a script
   - [Basic mesh rendering in Blender]({{< ref "mesh-rendering-blender.md" >}})
   - [Mesh cutting in Blender]({{< ref "mesh-cutting-blender.md" >}})
+  - [Ways to make things transparent in Blender]({{< ref "mesh-transparency-blender.md" >}})
 - 11:00am Blender & Microscopy Nodes demo
 - 12:00am **Getting To Know Your Data** with [Jochen Müller](https://jochen-mueller.net/) (Stiftung Planetarium Berlin)
 - 1pm Lunch
 - 2pm **Colors**
   - [Choosing Colors]({{< ref "colors.md" >}})
 - 2:15pm **Point Clouds Demo**
-  - Slides
-  - Notebook: point_clouds_tutorial.ipynb - clean, estimate normals, reconstruct
+  - [Slides]({{< ref "point-clouds.md" >}})
+  - Notebook: point_clouds_tutorial.ipynb - visualize by color, by property, and by normal
+  - [Point clouds in Blender]({{< ref "point-cloud-blender.md" >}})
 - 2:30pm **Vector Fields**
   - [Slides](https://docs.google.com/presentation/d/1-1JZgfX_mI7O-hc0a87jiUeIkjSDVrHvkAye3upBfI8/edit?usp=sharing)
   - Notebook: [vector_field_visualization.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/vector_field_visualization.ipynb) - the figures behind those slides ([requirements](https://github.com/ida-mdc/workshop-visualization/blob/main/visualization_software/requirements_vector_field.txt))

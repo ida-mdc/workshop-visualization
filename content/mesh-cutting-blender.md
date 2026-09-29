@@ -138,6 +138,19 @@ At this point, you can adjust the lighting and camera positions to highlight the
 
 {{< figure src="img/cutting-volumes-result.png" width="1800px" class="center">}}
 
+---
+
+## Another way to see inside
+
+{{< notes >}}
+Cutting removes geometry - permanent (or at least deliberate) and destructive
+by design. The other family of techniques leaves the mesh whole and changes
+how its material handles light instead: fading it out, or making it
+genuinely transparent like glass.
+{{< /notes >}}
+
+{{< tutorial-link link="mesh-transparency-blender" >}}
+
 {{< notes >}}
 Have fun experimenting and discovering new ways to visualize your scientific datasets!
 {{< /notes >}}

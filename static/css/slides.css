@@ -666,3 +666,64 @@ hidden {
   text-align: left;
   color: #b9bec7;
 }
+
+/* One image filling essentially the whole slide, its caption doing the job
+ * a settings screenshot used to - for a deck that is only renderings, one
+ * per slide, no prose alongside. The figure shortcode's own `style` param
+ * only reaches the <img> it wraps, not the <figure> around it, so the
+ * <figure> needs its own rules to fill this box rather than shrink-wrapping
+ * its image at native size, and to leave room below the image for the
+ * caption rather than the image claiming all of it.
+ */
+.hero-overlay {
+  position: relative;
+  height: 78vh;
+  margin: 0 0 8px;
+}
+.hero-overlay > figure {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.hero-overlay > figure img {
+  /* The figure shortcode always sets an inline max-width/height on the img
+   * itself, and .reveal .slides section img (above) caps every image in a
+   * section at max-height: 34vh - both beat this rule by specificity or by
+   * being inline, so every constraint they set has to be overridden here.
+   * height is deliberately not forced to 100% - flex sizes it so the
+   * figcaption below still gets room. */
+  width: 100% !important;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-width: 100% !important;
+  max-height: none !important;
+  object-fit: contain;
+}
+.hero-overlay > figure figcaption {
+  flex: 0 0 auto;
+  text-align: center;
+  padding-top: 10px;
+  font-size: 0.55em;
+  color: #40414c;
+}
+.hero-overlay-inset {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  width: 26%;
+  max-width: 320px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #fff;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, .45);
+}
+.hero-overlay-inset figure {
+  margin: 0;
+}
+.hero-overlay-inset img {
+  width: 100%;
+  height: auto;
+  display: block;
+}

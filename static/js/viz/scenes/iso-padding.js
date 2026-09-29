@@ -49,9 +49,9 @@ function openEdges(geometry) {
 }
 
 defineScene('iso-padding', ({ scene, ui, view }) => {
-  view(2.0, 1.9, 2.6, 1.28);
+  view(2.0, 1.9, 2.6, 0.85);
 
-  let crop = 0.60;         // share of the specimen's own bounds kept
+  let crop = 0.85;         // share of the specimen's own bounds kept
   let padded = false;
 
   // Flat shading: the voxel grid is the subject here, and smooth shading is

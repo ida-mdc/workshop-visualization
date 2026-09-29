@@ -9,8 +9,8 @@
 //
 //   mask        what a threshold or a hand annotation gives you
 //   blurred     the usual fix, and it moves the surface: a Gaussian pulls a
-//               thin branch under the threshold before it does much to the
-//               trunk, so fine structures erode and the volume falls
+//               stamen under the threshold before it does much to the stem
+//               or receptacle, so fine structures erode and the volume falls
 //   coverage    the fraction of each voxel that is inside - what a probability
 //               map from a classifier is, and what partial volume gives you at
 //               a real edge. Sub-voxel by construction, so it is smooth AND
@@ -30,14 +30,14 @@
 // different things, and the blurred surface is only the first one.
 
 import { defineScene, THREE, palette } from '../runtime.js';
-import * as snowflake from '../snowflake.js';
+import * as shape from '../shape.js';
 import { extract } from '../isosurface.js';
 
-// The plates are 0.055 thick, so anything under about 70 samples across puts
-// them below two voxels and the dual method rounds them away on its own -
-// which would show up in the readout as if the input had done it.
+// The stamens are about 0.05 across, so anything under about 70 samples
+// across puts them below two voxels and the dual method rounds them away on
+// its own - which would show up in the readout as if the input had done it.
 const RES = 80;
-const BOUNDS = snowflake.BOUNDS;
+const BOUNDS = shape.BOUNDS;
 const SUB = 3;       // subsamples per axis when measuring coverage
 
 // ------------------------------------------------------------------- the grid
@@ -62,7 +62,7 @@ function occupancy({ step, nx, ny, nz }) {
       const y = -BOUNDS.y + j * step;
       for (let i = 0; i < nx; i++) {
         const x = -BOUNDS.x + i * step;
-        field[(k * ny + j) * nx + i] = snowflake.isInside(x, y, z) ? 1 : 0;
+        field[(k * ny + j) * nx + i] = shape.isInside(x, y, z) ? 1 : 0;
       }
     }
   }
@@ -98,7 +98,7 @@ function coverage(occ, { step, nx, ny, nz }) {
         for (let c = 0; c < SUB; c++) {
           for (let b = 0; b < SUB; b++) {
             for (let a = 0; a < SUB; a++) {
-              if (snowflake.isInside(x0 + a * step / SUB,
+              if (shape.isInside(x0 + a * step / SUB,
                 y0 + b * step / SUB,
                 z0 + c * step / SUB)) inside++;
             }
@@ -175,7 +175,7 @@ function enclosedVolume(geometry) {
 // ---------------------------------------------------------------- the scene
 
 defineScene('iso-input', ({ scene, ui, view }) => {
-  view(1.5, 2.6, 2.1, 1.16);
+  view(1.5, 2.6, 2.1, 0.8);
 
   const dims = gridFor(RES);
   const occ = occupancy(dims);
