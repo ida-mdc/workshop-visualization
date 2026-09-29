@@ -1,0 +1,34 @@
+{{- /*
+  A standalone interactive 3D scene exported from PyVista/vtk.js, for showing
+  an interaction the notebook renders live but a screenshot cannot.
+
+      {{< pyvista src="pyvista/van-allen-belts.html" caption="..." >}}
+
+  `src` is a path under static/, produced with
+  `plotter.export_html(...)` (or the newer `plotter.trame.export_html(...)`)
+  rather than `plotter.show()` - see notebooks/vector_field_visualization.ipynb.
+  The export is a self-contained page with its own vtk.js renderer, so unlike
+  {{< scene >}} (a hand-written three.js illustration drawn on the deck's
+  shared canvas) it is just embedded in an <iframe>; no scene file under
+  static/js/viz/scenes/ is involved. Optional:
+
+      height    CSS height, default 50vh - same ceiling logic as {{< video >}}
+      caption   figcaption under the frame, markdown
+*/ -}}
+{{- $src := .Get "src" -}}
+{{- if not $src -}}
+  {{- errorf "pyvista shortcode in %s: missing src" .Page.File.Path -}}
+{{- end -}}
+{{- if not (fileExists (printf "static/%s" $src)) -}}
+  {{- errorf "pyvista shortcode in %s: no such file, static/%s does not exist" .Page.File.Path $src -}}
+{{- end -}}
+<figure class="viz-pyvista">
+  <iframe
+    src="{{ $src | relURL }}"
+    loading="lazy"
+    style="width: 100%; max-width: 100%; height: {{ .Get "height" | default "50vh" }}; border: 0;">
+  </iframe>
+  {{- with .Get "caption" }}
+  <figcaption>{{ . | markdownify }}</figcaption>
+  {{- end }}
+</figure>

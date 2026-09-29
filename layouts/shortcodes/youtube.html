@@ -1,0 +1,28 @@
+{{- /*
+  An embedded YouTube video, for a clip that lives on someone else's channel
+  rather than under static/ (for a local clip, use {{< video >}} instead).
+
+      {{< youtube id="R5-s6O8qyvE" caption="..." >}}
+
+  `id` is the part after `v=` in the video's URL. Optional:
+
+      height    CSS height, default 50vh - same ceiling logic as {{< video >}}
+      caption   figcaption under the player, markdown
+*/ -}}
+{{- $id := .Get "id" -}}
+{{- if not $id -}}
+  {{- errorf "youtube shortcode in %s: missing id" .Page.File.Path -}}
+{{- end -}}
+<figure class="viz-youtube">
+  <iframe
+    src="https://www.youtube-nocookie.com/embed/{{ $id }}"
+    style="width: 100%; max-width: 100%; height: {{ .Get "height" | default "50vh" }}; border: 0;"
+    title="YouTube video player"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+  </iframe>
+  {{- with .Get "caption" }}
+  <figcaption>{{ . | markdownify }}</figcaption>
+  {{- end }}
+</figure>

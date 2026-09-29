@@ -49,7 +49,7 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
   - Notebook: point_clouds_tutorial.ipynb - visualize by color, by property, and by normal
   - [Point clouds in Blender]({{< ref "point-cloud-blender.md" >}})
 - 2:30pm **Vector Fields**
-  - [Slides](https://docs.google.com/presentation/d/1-1JZgfX_mI7O-hc0a87jiUeIkjSDVrHvkAye3upBfI8/edit?usp=sharing)
+  - Slides: [Google](https://docs.google.com/presentation/d/1-1JZgfX_mI7O-hc0a87jiUeIkjSDVrHvkAye3upBfI8/edit?usp=sharing) or [Here]({{< ref "vector-field-visualization.md" >}})
   - Notebook: [vector_field_visualization.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/vector_field_visualization.ipynb) - the figures behind those slides ([requirements](https://github.com/ida-mdc/workshop-visualization/blob/main/visualization_software/requirements_vector_field.txt))
 - 3pm Open Working Time
 

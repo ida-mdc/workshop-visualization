@@ -44,9 +44,16 @@ raw = f"https://raw.githubusercontent.com/{repo}/{ref}/static/"
 pattern = re.compile(
     r'[^\s"\'()<>=]*?/' + re.escape(path) + r'/(img/[^\s"\'()<>&]+)')
 
+# Self-contained embeds (e.g. a PyVista/vtk.js export) can be tens of MB in a
+# single line of inlined scene data, and never reference static/img - skip
+# them rather than let the regex scan below take forever on that one line.
+MAX_SCAN_SIZE = 1_000_000
+
 rewritten = 0
 for f in root.rglob("*"):
     if f.suffix not in (".html", ".xml") or not f.is_file():
+        continue
+    if f.stat().st_size > MAX_SCAN_SIZE:
         continue
     text = f.read_text(errors="ignore")
     new, n = pattern.subn(
