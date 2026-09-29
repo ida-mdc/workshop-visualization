@@ -33,8 +33,8 @@ With the Helmholtz Imaging Support Unit @ MDC Berlin
 ## Tuesday
 - 10am **Meshes**
   - [Meshes and converting voxels to meshes]({{< ref "meshes.md" >}})
-  - Notebook: voxel_to_mesh.ipynb - the conversion, in nine steps
-  - Notebook: mesh_rendering_tutorial.ipynb - rendering meshes from a script
+  - Notebook: [voxel_to_mesh.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/voxel_to_mesh.ipynb) - the conversion
+  - Notebook: [mesh_rendering_tutorial.ipynb](https://github.com/ida-mdc/workshop-visualization/blob/main/notebooks/mesh_rendering_tutorial.ipynb) - rendering meshes from a script
   - [Basic mesh rendering in Blender]({{< ref "mesh-rendering-blender.md" >}})
   - [Mesh cutting in Blender]({{< ref "mesh-cutting-blender.md" >}})
   - [Ways to make things transparent in Blender]({{< ref "mesh-transparency-blender.md" >}})
