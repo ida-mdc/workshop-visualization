@@ -1,6 +1,6 @@
 ---
 title: "VR Showcase"
-date: 2026-09-25
+date: 2026-10-01
 draft: false
 type: page
 layout: workshop
