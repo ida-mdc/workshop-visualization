@@ -26,6 +26,12 @@ cover: img/bg.jpg
 - typical: Render frames on computer (better GPU), stream (compressed) frames/video to VR headset
 - streaming: cable or Wifi, but both require high bandwidth
 - Windows support okay, Linux support worse
+- **Labeling:**
+  - works well/is quicker/is more consistent across labelers
+
+{{<citations>}}
+- [Kaltenecker et al. (2024): *Virtual reality-empowered deep-learning analysis of brain cells*](https://doi.org/10.1038/s41592-024-02245-2)
+{{</citations>}}
 
 ---
 
