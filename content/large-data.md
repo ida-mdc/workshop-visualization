@@ -95,11 +95,12 @@ A regular grid of chunks is a natural fit for a dense volume: every location con
 This is where a spatial hierarchy becomes useful: subdivide space only where data are present or where more detail is needed. An octree is one common way to do this in 3D.
 {{< /notes >}}
 
-{{< figure src="img/dense-vs-sparse.svg" style="max-height: 30vh; width: auto" caption="" >}}
-
 {{< horizontal >}}
 {{< block >}}
 **Dense volume**
+
+{{< figure src="img/dense-volume.svg" style="height: 28vh; max-height: none; width: auto" caption="" >}}
+
 - Data fill the grid
 - Regular **chunks** work well
 - Same structure at every location
@@ -107,6 +108,9 @@ This is where a spatial hierarchy becomes useful: subdivide space only where dat
 
 {{< block >}}
 **Sparse geometry**
+
+{{< figure src="img/sparse-geometry.svg" style="height: 28vh; max-height: none; width: auto" caption="" >}}
+
 - Data occupy only part of space
 - A fine grid would contain many **empty cells**
 - Use **spatial subdivision** instead
@@ -129,7 +133,7 @@ The interactive example uses the Armadillo scan to make the idea visible: almost
 {{< horizontal >}}
 
 {{< block >}}
-{{< figure src="img/octree-depiction.svg" style="max-height: 24vh; width: auto" caption="One cell, subdivided into eight children, each subdivided again into eight grandchildren of its own." >}}
+{{< figure src="img/octree-depiction.svg" style="max-height: 28vh; width: auto" caption="One cell, subdivided into eight children, each subdivided again into eight grandchildren of its own." >}}
 
 - Empty regions stay **coarse**
 - Data-rich regions become **fine**

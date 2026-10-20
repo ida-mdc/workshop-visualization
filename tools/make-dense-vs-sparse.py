@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""The side-by-side figure on the "from dense volumes to sparse 3D data" slide.
+"""The two panels on the "from dense volumes to sparse 3D data" slide, one
+per column and untitled - the column headings are the titles.
 
 Two panels, same size square, same style as static/icons/stream/: flat
 shapes, the deck's palette, no strokes finer than 0.8 so they hold up
@@ -12,9 +13,10 @@ scene actually subdivides one: small cells hugging the curve, large ones
 everywhere else. This is the one general idea the Armadillo octree demo,
 two slides later, makes concrete on a real scan.
 
-    tools/make-dense-vs-sparse.py [out-file]
+    tools/make-dense-vs-sparse.py [out-dir]
 
-Default out-file is static/img/dense-vs-sparse.svg. Re-running overwrites.
+Writes dense-volume.svg and sparse-geometry.svg into static/img/ by default.
+Re-running overwrites.
 """
 import sys
 from pathlib import Path
@@ -28,9 +30,9 @@ TEAL = "#1f7a8c"
 
 PANEL = 200
 GAP = 40
-PAD = 12
-W = PANEL * 2 + GAP + PAD * 2
-H = PANEL + 56
+PAD = 1
+W = PANEL + PAD * 2
+H = PANEL + PAD * 2
 
 HEAD = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
         'font-family="ui-sans-serif, system-ui, sans-serif">\n')
@@ -52,8 +54,7 @@ def dense_value(r, c, n):
 def dense_panel(x0, y0):
     n = 6
     cell = PANEL / n
-    p = [f'<text x="{x0 + PANEL / 2}" y="{y0 - 14}" text-anchor="middle" '
-         f'font-size="15" font-weight="600" fill="{DARK}">Dense volume</text>']
+    p = []
     for r in range(n):
         for c in range(n):
             v = dense_value(r, c, n)
@@ -83,8 +84,7 @@ def touches_curve(cx, cy, half):
 
 def sparse_panel(x0, y0):
     import math
-    p = [f'<text x="{x0 + PANEL / 2}" y="{y0 - 14}" text-anchor="middle" '
-         f'font-size="15" font-weight="600" fill="{DARK}">Sparse geometry</text>']
+    p = []
     leaves = []
 
     def recurse(cx, cy, half, depth):
@@ -124,15 +124,13 @@ def sparse_panel(x0, y0):
     return "".join(p)
 
 
-def main(out: Path):
-    x0 = PAD
-    x1 = PAD + PANEL + GAP
-    y0 = 40
-    svg = HEAD + dense_panel(x0, y0) + sparse_panel(x1, y0) + TAIL
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(svg)
-    print(f"wrote {out}")
+def main(out_dir: Path):
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for name, panel in (("dense-volume", dense_panel), ("sparse-geometry", sparse_panel)):
+        out = out_dir / f"{name}.svg"
+        out.write_text(HEAD + panel(PAD, PAD) + TAIL)
+        print(f"wrote {out}")
 
 
 if __name__ == "__main__":
-    main(Path(sys.argv[1]) if len(sys.argv) > 1 else Path("static/img/dense-vs-sparse.svg"))
+    main(Path(sys.argv[1]) if len(sys.argv) > 1 else Path("static/img"))
