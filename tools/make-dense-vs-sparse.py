@@ -32,7 +32,7 @@ PAD = 12
 W = PANEL * 2 + GAP + PAD * 2
 H = PANEL + 56
 
-HEAD = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
+HEAD = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
         'font-family="ui-sans-serif, system-ui, sans-serif">\n')
 TAIL = "</svg>\n"
 

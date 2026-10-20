@@ -95,6 +95,8 @@ A regular grid of chunks is a natural fit for a dense volume: every location con
 This is where a spatial hierarchy becomes useful: subdivide space only where data are present or where more detail is needed. An octree is one common way to do this in 3D.
 {{< /notes >}}
 
+{{< figure src="img/dense-vs-sparse.svg" style="max-height: 30vh; width: auto" caption="" >}}
+
 {{< horizontal >}}
 {{< block >}}
 **Dense volume**
@@ -110,8 +112,6 @@ This is where a spatial hierarchy becomes useful: subdivide space only where dat
 - Use **spatial subdivision** instead
 {{< /block >}}
 {{< /horizontal >}}
-
-{{< figure src="img/dense-vs-sparse.svg" style="max-height: 34vh; width: auto" caption="" >}}
 
 ---
 

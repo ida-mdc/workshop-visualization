@@ -36,11 +36,19 @@ function loadTex(url) {
 
 async function loadData() {
   const [json, tex] = await Promise.all([
-    fetch(new URL(DATA, import.meta.url)).then((r) => r.json()),
+    fetch(new URL(DATA, import.meta.url)).then((r) => {
+      if (!r.ok) throw new Error(`${DATA}: ${r.status}`);
+      return r.json();
+    }),
     loadTex(new URL(TARGET_IMG, import.meta.url)),
   ]);
   return { json, tex };
 }
+
+// One retry: a slide deck opened straight after a rebuild, or on a flaky
+// connection, can lose the first request, and without the data the scene
+// is two unlaid-out black squares.
+const loadDataRetrying = () => loadData().catch(() => new Promise((r) => setTimeout(r, 800)).then(loadData));
 
 defineScene('splat-fit', ({ scene, ui, view, controls, projection, frustum }) => {
   controls.enableRotate = false; // flat images: zoom in, do not "turn" them
@@ -134,7 +142,11 @@ defineScene('splat-fit', ({ scene, ui, view, controls, projection, frustum }) =>
     });
   }
 
-  loadData().then(({ json, tex }) => {
+  // Lay the panels out at the known aspect straight away, so the labels and
+  // frames are in place even while the images are still loading.
+  layout(0.874);
+
+  loadDataRetrying().then(({ json, tex }) => {
     json.levels.forEach((lvl, i) => { levels[i] = lvl; });
     layout(json.aspect);
     targetMesh.material.map = tex;
