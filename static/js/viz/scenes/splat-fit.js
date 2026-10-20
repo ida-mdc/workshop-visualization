@@ -22,10 +22,13 @@
 import { defineScene, THREE, makeLabel } from '../runtime.js';
 
 const DATA = '../../../data/splat-fit.json';
-const TARGET_IMG = '../../../img/splat-fit-target.png';
-const IMG_BASE = '../../../img/';
+// Where the images live is the page's call, not ours: online they are served
+// from raw.githubusercontent.com, not from beside the scripts. The scene
+// shortcode puts the right base on the placeholder as data-img-base.
+const FALLBACK_IMG_BASE = new URL('../../../img/', import.meta.url).href;
 
 const loader = new THREE.TextureLoader();
+loader.setCrossOrigin('anonymous'); // raw.githubusercontent.com allows it; WebGL needs it
 function loadTex(url) {
   return loader.loadAsync(url).then((tex) => {
     tex.colorSpace = THREE.SRGBColorSpace;
@@ -34,13 +37,13 @@ function loadTex(url) {
   });
 }
 
-async function loadData() {
+async function loadData(imgBase) {
   const [json, tex] = await Promise.all([
     fetch(new URL(DATA, import.meta.url)).then((r) => {
       if (!r.ok) throw new Error(`${DATA}: ${r.status}`);
       return r.json();
     }),
-    loadTex(new URL(TARGET_IMG, import.meta.url)),
+    loadTex(imgBase + 'splat-fit-target.png'),
   ]);
   return { json, tex };
 }
@@ -48,9 +51,11 @@ async function loadData() {
 // One retry: a slide deck opened straight after a rebuild, or on a flaky
 // connection, can lose the first request, and without the data the scene
 // is two unlaid-out black squares.
-const loadDataRetrying = () => loadData().catch(() => new Promise((r) => setTimeout(r, 800)).then(loadData));
+const loadDataRetrying = (imgBase) =>
+  loadData(imgBase).catch(() => new Promise((r) => setTimeout(r, 800)).then(() => loadData(imgBase)));
 
-defineScene('splat-fit', ({ scene, ui, view, controls, projection, frustum }) => {
+defineScene('splat-fit', ({ scene, ui, view, controls, projection, frustum, el }) => {
+  const IMG_BASE = el.dataset.imgBase || FALLBACK_IMG_BASE;
   controls.enableRotate = false; // flat images: zoom in, do not "turn" them
 
   // Orthographic, and framed by width and height separately.
@@ -132,7 +137,7 @@ defineScene('splat-fit', ({ scene, ui, view, controls, projection, frustum }) =>
     const level = levels[v];
     if (!level) return;
     const mine = ++requestId;
-    if (!texCache[v]) texCache[v] = loadTex(new URL(IMG_BASE + level.image, import.meta.url));
+    if (!texCache[v]) texCache[v] = loadTex(IMG_BASE + level.image);
     texCache[v].then((tex) => {
       if (mine !== requestId) return; // a later drag already moved past this one
       fitMesh.material.map = tex;
@@ -146,7 +151,7 @@ defineScene('splat-fit', ({ scene, ui, view, controls, projection, frustum }) =>
   // frames are in place even while the images are still loading.
   layout(0.874);
 
-  loadDataRetrying().then(({ json, tex }) => {
+  loadDataRetrying(IMG_BASE).then(({ json, tex }) => {
     json.levels.forEach((lvl, i) => { levels[i] = lvl; });
     layout(json.aspect);
     targetMesh.material.map = tex;

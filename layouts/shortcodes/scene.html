@@ -30,14 +30,22 @@
   {{- errorf "scene shortcode in %s: no such scene, static/%s does not exist" .Page.File.Path $src -}}
 {{- end -}}
 {{- /*
+  data-img-base is where a scene should load static/img files from at run
+  time. The deployed build deletes those files and serves them from
+  raw.githubusercontent.com (see tools/pin-images.py), and that script only
+  rewrites URLs it finds in the HTML - not ones a scene builds in JavaScript.
+  So the scene is told the right base instead of guessing a relative path.
+
   All on one line, deliberately. Inside a horizontal row the shortcode's
   output goes through markdownify, and an absent `hint` used to leave a line
   of pure whitespace in the middle of the tag - which closes the HTML block,
   so the indented line after it became an indented code block and the slide
   showed the style attribute as literal text.
 */ -}}
+{{- $imgBase := "img/" | absLangURL -}}
+{{- with site.Params.imageBase }}{{ $imgBase = printf "%simg/" . }}{{ end -}}
 <figure class="viz3d-figure{{ if eq (.Get "fill") "true" }} viz3d-fill{{ end }}">
-  <div class="viz3d" data-scene="{{ $name }}"{{ with .Get "hint" }} data-hint="{{ . }}"{{ end }} style="--viz3d-height: {{ .Get "height" | default "400" }}px"></div>
+  <div class="viz3d" data-scene="{{ $name }}" data-img-base="{{ $imgBase }}"{{ with .Get "hint" }} data-hint="{{ . }}"{{ end }} style="--viz3d-height: {{ .Get "height" | default "400" }}px"></div>
   {{- with .Get "caption" }}
   <figcaption>{{ . | markdownify }}</figcaption>
   {{- end }}
